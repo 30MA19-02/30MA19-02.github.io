@@ -1,0 +1,27 @@
+% "well-known" notations
+\newcommand{\real}{\mathbb{R}}
+\newcommand{\nat}{\mathbb{N}}
+\DeclareMathOperator{\sign}{sgn}
+\DeclareMathOperator{\abs}{abs}
+
+% Notation used without definition
+\newcommand{\defeq}{\vcentcolon=} % To declare equation as define so there's no need to prove
+
+% notation which may required some prelimitaries or definition
+\DeclareMathOperator{\ortho}{O}
+\DeclareMathOperator{\genlin}{GL}
+\DeclareMathOperator{\euclid}{Euc}
+\newcommand{\range}[2]{\set{#1..#2}}
+
+% placeholder commands - Use to find it easier with Ctrl+F
+\newcommand{\skipped}{The proof is left as an exercise to the other author.}  % pending proof - JUST DO IT ALREADY
+\newcommand{\citenone}{*Not Cited*}  % pending citation - JUST DO IT ALREADY
+\newcommand{\proto}[1]{#1...}  % pending operation
+\newcommand{\proofof}[1]{Proof of \cref{#1}} % Proof name
+
+% defined notations
+\newcommand{\points}[1]{\mathbb{P}_{#1}}
+\newcommand{\transformations}[1]{\mathbb{T}_{#1}}
+\newcommand{\group}[1]{\mathbb{G}_{#1}}
+\newcommand{\subgroup}[1]{\mathbb{H}_{#1}}
+\newcommand{\manifold}[1]{\mathbb{M}_{#1}}

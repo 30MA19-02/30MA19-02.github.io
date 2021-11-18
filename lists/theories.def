@@ -1,0 +1,61 @@
+\declaretheorem[
+    name=Definition,
+    style=definition,
+    refname={definition,definitions},
+    Refname={Definition,Definitions},
+]{definition}
+\declaretheorem[
+    name=Example,
+    parent=definition,
+    style=definition,
+    refname={example,examples},
+    Refname={Example,Examples},
+]{example}  % Use to clearify the definition
+\declaretheorem[
+    name=Theorem,
+    style=plain,
+    refname={theorem,theorems},
+    Refname={Theorem,Theorems},
+]{theorem}
+\declaretheorem[
+    name=Lemma,
+    style=plain,
+    refname={lemma,lemmas},
+    Refname={Lemma,Lemmas},
+]{lemma}
+\declaretheorem[
+    name=Corollary,
+    style=plain,
+    refname={corollary,corollaries},
+    Refname={Corollary,Corollaries},
+]{corollary}
+\declaretheorem[
+    name=Conjecture,
+    style=plain,
+    refname={conjecture,conjectures},
+    Refname={Conjecture,Conjectures},
+]{conjecture}
+
+
+\newcounter{Counter}
+\theoremstyle{plain}
+\newtheorem{MetricTensor}[Counter]{Lemma}
+
+\newtheorem{GaussMap}{Lemma}[Counter]
+\newtheorem{SecondFundamental}[GaussMap]{Lemma}
+\newtheorem{PrincipalCurvature}[GaussMap]{Lemma}
+
+\newtheorem{ChristoffelSymbol}{Lemma}[Counter]
+\newtheorem{RiemannCurvatureTensor}[ChristoffelSymbol]{Lemma}
+
+\newtheorem{SectionalCurvature}[Counter]{Lemma}
+\theoremstyle{remark}
+\newtheorem{CurvatureParameter}{Remark}[Counter]
+
+\theoremstyle{definition}
+\newtheorem{ModelGroupElement}{Definition}[Counter]
+\newtheorem{ModelMetric}[ModelGroupElement]{Definition}
+
+\theoremstyle{plain}
+\newtheorem{ModelGroupAssertion}{Assertion}[Counter]
+\newtheorem{ModelCurvatureAssertion}[ModelGroupAssertion]{Assertion}
