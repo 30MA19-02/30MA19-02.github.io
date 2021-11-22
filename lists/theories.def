@@ -38,19 +38,6 @@
 
 
 \newcounter{Counter}
-\theoremstyle{plain}
-\newtheorem{MetricTensor}[Counter]{Lemma}
-
-\newtheorem{GaussMap}{Lemma}[Counter]
-\newtheorem{SecondFundamental}[GaussMap]{Lemma}
-\newtheorem{PrincipalCurvature}[GaussMap]{Lemma}
-
-\newtheorem{ChristoffelSymbol}{Lemma}[Counter]
-\newtheorem{RiemannCurvatureTensor}[ChristoffelSymbol]{Lemma}
-
-\newtheorem{SectionalCurvature}[Counter]{Lemma}
-\theoremstyle{remark}
-\newtheorem{CurvatureParameter}{Remark}[Counter]
 
 \theoremstyle{definition}
 \newtheorem{ModelGroupElement}{Definition}[Counter]
