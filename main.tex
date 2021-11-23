@@ -90,6 +90,12 @@ Authors then refer to the statement using {\textbackslash}label\{\} and {\textba
 \begin{example}\label{KleinGeometryExample}
     KleinGeometryExamples (I)
 \end{example}
+\begin{example}\label{ShapeOperator}
+    $$S\left(v\right)=\pm\nabla_v n$$
+\end{example}
+\begin{example}\label{PrincipalCurvature}
+    Eigenvalue of second fundamental form (or shape operator)
+\end{example}
 
 \section{Objective}
 \paragraph{Objective}\label{Objective}
@@ -582,7 +588,7 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     on position parameter space with such inner product $g$ that
     the map $\cdot\mapsto\frac{1}{k}\cdot\times\tensor{e}{^1}\in Q\to P$ is an isometric embedding to $\left(n+1\right)$-Euclidean manifold.
 \end{definition}
-\begin{lemma}\label{MetricTensor}
+\begin{lemma}\label{Model:MetricTensor}
     The metric tensor of $N$ is
     \begin{align*}
         \tensor{g}{_i_j} & =
@@ -606,13 +612,57 @@ This method may be easier to generalize to
 Model II where each direction can have partially independent curvature
 (or even Model III where extrinsic curvature become a thing).
 But it may be challenging to define Gauss map properly.
-\begin{lemma}\label{GaussMap}
-
+\begin{lemma}\label{Model:TangentVector}
+    Given a position parameter $\tensor{\theta}{}$,
+    the tangent vector in position vector space can be calculated as follows
+    \begin{equation*}
+        \nu\left(\tensor{\theta}{}\right)
+        \begin{bmatrix}
+            \tensor{p}{^1}k       \\
+            \tensor{p}{^i}\abs{k} \\
+        \end{bmatrix}
+        \text{.}
+    \end{equation*}
 \end{lemma}
-\begin{lemma}\label{SecondFundamental}
+\begin{proof}
+    \skipped
 
+    Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
+
+    We get
+    \begin{equation*}
+        \begin{bmatrix}
+            \tensor{p}{^1}k       \\
+            \tensor{p}{^i}\abs{k} \\
+        \end{bmatrix}=
+        \begin{cases}
+            \begin{bmatrix}
+                k\tensor{p}{^1}  \\
+                +k\tensor{p}{^i} \\
+            \end{bmatrix} & k>0 \\
+            \begin{bmatrix}
+                1 \\
+                0 \\
+            \end{bmatrix} & k=0 \\
+            \begin{bmatrix}
+                k\tensor{p}{^1}  \\
+                -k\tensor{p}{^i} \\
+            \end{bmatrix} & k<0
+        \end{cases}
+    \end{equation*}
+    which is smooth (try with modified generalize sine function)
+\end{proof}
+\begin{lemma}\label{Model:SecondFundamental}
 \end{lemma}
-\begin{lemma}\label{PrincipalCurvature}
+\begin{proof}
+    \skipped
+
+    \begin{align*}
+        \text{II}\left(v,w\right)
+        &= -\inner{\nabla_v \nu}{w} \nu
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{Model:PrincipalCurvature}
 
 \end{lemma}
 \subsubsection{Curvature (Method II)}
@@ -621,14 +671,14 @@ This method may be easier to be done
 But it raises problems when trying to generalize e.g. dealing with extrinsic curvature
 (which may be introduced in Model III
 if not to mess with other basis geometries).
-\begin{lemma}\label{ChristoffelSymbol}
+\begin{lemma}\label{Model:ChristoffelSymbol}
 
 \end{lemma}
-\begin{lemma}\label{RiemannCurvatureTensor}
+\begin{lemma}\label{Model:RiemannCurvatureTensor}
 
 \end{lemma}
 \subsubsection{Curvature (Conclusion)}
-\begin{lemma}\label{SectionalCurvature}
+\begin{lemma}\label{Model:SectionalCurvature}
 
 \end{lemma}
 \proto{Trace back on why $k$ is used all along instead of $\kappa$}
