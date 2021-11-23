@@ -15,7 +15,7 @@
 \usepackage{tensor}
 \usepackage{braket}
 \usepackage{hyperref}
-\usepackage[capitalise, sort&compress, noabbrev]{cleveref}
+\usepackage[capitalise, sort&compress, noabbrev, nameinlink]{cleveref}
 \iffalse % memory exceeded, include precompiled .pdf instead.
 \iffalse % standalone subpreambles invoke errors, manually import instead.
 \usepackage[subpreambles=true]{standalone}
@@ -598,7 +598,7 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
         \end{cases}
     \end{align*}
 \end{lemma}
-\begin{proof}[\proofof{MetricTensor}]
+\begin{proof}[\proofof{Model:MetricTensor}]
     \skipped
 
     Use \cref{CoordinateChart} to map from $Q$ to $\tensor{\theta}{}$.
@@ -612,11 +612,12 @@ This method may be easier to generalize to
 Model II where each direction can have partially independent curvature
 (or even Model III where extrinsic curvature become a thing).
 But it may be challenging to define Gauss map properly.
-\begin{lemma}\label{Model:TangentVector}
+\begin{lemma}\label{Model:NormalVector}
     Given a position parameter $\tensor{\theta}{}$,
     the tangent vector in position vector space can be calculated as follows
     \begin{equation*}
         \nu\left(\tensor{\theta}{}\right)
+	=
         \begin{bmatrix}
             \tensor{p}{^1}k       \\
             \tensor{p}{^i}\abs{k} \\
@@ -624,7 +625,7 @@ But it may be challenging to define Gauss map properly.
         \text{.}
     \end{equation*}
 \end{lemma}
-\begin{proof}
+\begin{proof}[\proofof{Model:NormalVector}]
     \skipped
 
     Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
@@ -652,19 +653,94 @@ But it may be challenging to define Gauss map properly.
     \end{equation*}
     which is smooth (try with modified generalize sine function)
 \end{proof}
-\begin{lemma}\label{Model:SecondFundamental}
+\begin{lemma}\label{Model:ShapeOperator}
+    \begin{equation*}
+        S_{P}\left(v\right)
+        = \tensor{v}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}
+    \end{equation*}
 \end{lemma}
-\begin{proof}
+\begin{proof}[\proofof{Model:ShapeOperator}]
     \skipped
 
     \begin{align*}
-        \text{II}\left(v,w\right)
-        &= -\inner{\nabla_v \nu}{w} \nu
+        S_{P}\left(v\right)
+        &= \nabla_v \nu\left(\tensor{P}{}\right) \\
+        \nabla_v f &= v \cdot \frac{\partial f}{\partial x}\\
+        \frac{\partial\nu\left(\tensor{P}{}\right)}{\partial\tensor{\theta}{^i}}
+        &= \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}\\
+        S_{\tensor{P}{}}\left(v\right)
+        &= \tensor{v}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}
     \end{align*}
+    false (need to map the derivative to tangent vector space at $\tensor{\theta}{}$)
+\end{proof}
+\begin{lemma}\label{Model:SecondFundamental}
+    \begin{equation*}
+        \text{II}_{\tensor{P}{}}\left(v,w\right) = \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}
+    \end{equation*}
+\end{lemma}
+\begin{proof}[\proofof{Model:SecondFundamental}]
+    \skipped
+
+    \begin{align*}
+        \text{II}_{\tensor{P}{}}\left(v,w\right)
+        &= S_{\tensor{P}{}\left(v\right)} \cdot w \\
+        &= v \cdot w \cdot \frac{\partial f}{\partial x} \\
+        &= \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}
+    \end{align*}
+    false (effected)
 \end{proof}
 \begin{lemma}\label{Model:PrincipalCurvature}
 
 \end{lemma}
+\begin{proof}[\proofof{Model:PrincipalCurvature}]
+    \skipped
+
+    Eigenvector and Eigenvalue can be solved from the following matrix
+    \begin{align*}
+        \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1}       \\
+            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
+            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k}\\
+            0 \\
+        \end{bmatrix}
+    \end{align*}
+    which is an upper triangular matrix.
+
+    Eigenvalue is then the diagonal element
+    \begin{align*}
+        -\sign{k}\tan_k\left(\tensor{\theta}{^1}\right)\tensor{p}{^1} \\
+        -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^i}\sign{k} \\
+        -\cot_k\left(\tensor{\theta}{^n}\right)
+    \end{align*}
+    false (effected)
+
+    product of any 2 should be the value $\kappa$.
+\end{proof}
 \subsubsection{Curvature (Method II)}
 This method may be easier to be done
 (despite the fact that it never finished).
