@@ -617,25 +617,7 @@ But it may be challenging to define Gauss map properly.
     the tangent vector in position vector space can be calculated as follows
     \begin{equation*}
         \nu\left(\tensor{\theta}{}\right)
-	=
-        \begin{bmatrix}
-            \tensor{p}{^1}k       \\
-            \tensor{p}{^i}\abs{k} \\
-        \end{bmatrix}
-        \text{.}
-    \end{equation*}
-\end{lemma}
-\begin{proof}[\proofof{Model:NormalVector}]
-    \skipped
-
-    Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
-
-    We get
-    \begin{equation*}
-        \begin{bmatrix}
-            \tensor{p}{^1}k       \\
-            \tensor{p}{^i}\abs{k} \\
-        \end{bmatrix}=
+        =
         \begin{cases}
             \begin{bmatrix}
                 k\tensor{p}{^1}  \\
@@ -645,22 +627,28 @@ But it may be challenging to define Gauss map properly.
                 1 \\
                 0 \\
             \end{bmatrix} & k=0 \\
+            \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
             \begin{bmatrix}
                 k\tensor{p}{^1}  \\
                 -k\tensor{p}{^i} \\
             \end{bmatrix} & k<0
         \end{cases}
+        \text{.}
     \end{equation*}
-    which is smooth (try with modified generalize sine function)
+\end{lemma}
+\begin{proof}[\proofof{Model:NormalVector}]
+    \skipped
+
+    Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
 \end{proof}
 \begin{lemma}\label{Model:ShapeOperator}
     \begin{equation*}
         S_{P}\left(v\right)
         = \tensor{v}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                        \\
         \end{bmatrix}
     \end{equation*}
 \end{lemma}
@@ -669,21 +657,21 @@ But it may be challenging to define Gauss map properly.
 
     \begin{align*}
         S_{P}\left(v\right)
-        &= \nabla_v \nu\left(\tensor{P}{}\right) \\
-        \nabla_v f &= v \cdot \frac{\partial f}{\partial x}\\
+                   & = \nabla_v \nu\left(\tensor{P}{}\right)     \\
+        \nabla_v f & = v \cdot \frac{\partial f}{\partial x}     \\
         \frac{\partial\nu\left(\tensor{P}{}\right)}{\partial\tensor{\theta}{^i}}
-        &= \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
-        \end{bmatrix}\\
+                   & = \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                             \\
+        \end{bmatrix}                \\
         S_{\tensor{P}{}}\left(v\right)
-        &= \tensor{v}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
+                   & = \tensor{v}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                        \\
         \end{bmatrix}
     \end{align*}
     false (need to map the derivative to tangent vector space at $\tensor{\theta}{}$)
@@ -691,10 +679,10 @@ But it may be challenging to define Gauss map properly.
 \begin{lemma}\label{Model:SecondFundamental}
     \begin{equation*}
         \text{II}_{\tensor{P}{}}\left(v,w\right) = \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                        \\
         \end{bmatrix}
     \end{equation*}
 \end{lemma}
@@ -703,13 +691,13 @@ But it may be challenging to define Gauss map properly.
 
     \begin{align*}
         \text{II}_{\tensor{P}{}}\left(v,w\right)
-        &= S_{\tensor{P}{}\left(v\right)} \cdot w \\
-        &= v \cdot w \cdot \frac{\partial f}{\partial x} \\
-        &= \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
+         & = S_{\tensor{P}{}\left(v\right)} \cdot w                  \\
+         & = v \cdot w \cdot \frac{\partial f}{\partial x}           \\
+         & = \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
+            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                        \\
         \end{bmatrix}
     \end{align*}
     false (effected)
@@ -723,10 +711,10 @@ But it may be challenging to define Gauss map properly.
     Eigenvector and Eigenvalue can be solved from the following matrix
     \begin{align*}
         \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1}       \\
-            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
-            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k}\\
-            0 \\
+            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1} \\
+            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}         \\
+            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k} \\
+            0                                                             \\
         \end{bmatrix}
     \end{align*}
     which is an upper triangular matrix.
