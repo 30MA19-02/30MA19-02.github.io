@@ -1,5 +1,6 @@
-% !TeX root = main.tex
-% !TEX TS-program = pdflatex
+%!TEX root = main.tex
+%!TEX program = pdflatex
+%!TEX spellcheck
 \documentclass[stu, babel, american, biblatex, a4paper, draftall]{apa7}
 % APA related headers
 % https://apastyle.apa.org/style-grammar-guidelines
@@ -588,13 +589,44 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     on position parameter space with such inner product $g$ that
     the map $\cdot\mapsto\frac{1}{k}\cdot\times\tensor{e}{^1}\in Q\to P$ is an isometric embedding to $\left(n+1\right)$-Euclidean manifold.
 \end{definition}
+\begin{lemma}\label{Model:Basis}
+    Position parameter $\tensor{\theta}{^i}$ is associated to the following vector in position vector space.
+    \begin{equation*}
+        \tensor{\theta}{_i} =
+        \begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^{i+1}}          \\
+            0                                           \\
+        \end{bmatrix}
+    \end{equation*}
+\end{lemma}
+\begin{proof}[\proofof{Model:Basis}]
+    \skipped
+
+    Use \cref{PositionVectorValue} to map from $\tensor{\theta}{}$ to $P$.
+    \begin{align*}
+        {\tensor{\theta}{_i}}
+         & =
+        \frac{\partial\tensor{p}{}}{\partial\tensor{\theta}{^i}} \\
+         & =
+        \begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^{i+1}}          \\
+            0                                           \\
+        \end{bmatrix}
+    \end{align*}
+\end{proof}
 \begin{lemma}\label{Model:MetricTensor}
     The metric tensor of $N$ is
     \begin{align*}
         \tensor{g}{_i_j} & =
         \begin{cases}
-            \prod_{a>i}{\cos_k^2{\tensor{\theta}{^a}}} & \text{if $i=j$}  \\
-            0                                          & \text{otherwise} \\
+            \left(
+            1 - \sign{k}
+            - \cos_k^2\left(\tensor{\theta}{^a}\right)
+            - \sin_k^2\left(\tensor{\theta}{^b}\right)
+        \right)\prod_{a>i}{\cos_k^2{\tensor{\theta}{^a}}} & \text{if $i=j$,}  \\
+            0                                          & \text{otherwise.} \\
         \end{cases}
     \end{align*}
 \end{lemma}
@@ -604,6 +636,105 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     Use \cref{CoordinateChart} to map from $Q$ to $\tensor{\theta}{}$.
     Then use \cref{PositionVectorValue} to map from $\tensor{\theta}{}$ to $P$.
     Then use \cref{Embedding} to find the inner product as multilinear function, result in the metric tensor.
+    
+    \begin{align*}
+        \tensor{g}{_a_b}\left[\tensor{\theta}{}\right]
+        & = \sum_{l,m=1}^{n+1}{
+            \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^i}}}
+            \tensor{g}{_l_m}\left[\tensor{p}{}\right]
+            \frac{\partial{\tensor{p}{^m}}}{\partial{\tensor{\theta}{^j}}}
+        } \\
+        & = \sum_{l=1}^{n+1}{
+            \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^i}}}
+            \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^j}}}
+        } \\
+        & = \tensor{\theta}{_i}\cdot\tensor{\theta}{_j} \\
+        \tensor{g}{_a_b}
+        & = \begin{cases}
+            \tensor{g}{_b_a} & \text{if $a>b$} \\
+            \dots & \text{if $a<b$} \\
+            \dots & \text{if $a=b$}
+        \end{cases}
+    \end{align*}
+    If $a<b$,
+    \begin{align*}
+        \tensor{g}{_a_b}
+        &=\begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}          \\
+            0                                           \\
+        \end{bmatrix}\cdot\begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^b}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^b}\right)\tensor{p}{^{b+1}}          \\
+            0                                           \\
+        \end{bmatrix} \\
+        &=
+        \sum{k^2\tan_k\left(\tensor{\theta}{^a}\right)\tan_k\left(\tensor{\theta}{^b}\right){\tensor{p}{^j}}^2}
+        -\sign{k}k^2\cot_k\left(\tensor{\theta}{^a}\right)\tan_k\left(\tensor{\theta}{^b}\right){\tensor{p}{^{a+1}}}^2 \\
+        &=
+        \tan_k\left(\tensor{\theta}{^b}\right)
+        \tan_k\left(\tensor{\theta}{^a}\right)
+        \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        + \sum{
+            \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
+        }
+        -\sign{k}
+        \right)\\
+        &=
+        \tan_k\left(\tensor{\theta}{^b}\right)
+        \tan_k\left(\tensor{\theta}{^a}\right)
+        \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        + \sign{k}\left(
+            1-\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        \right)
+        - \sign{k}
+        \right)\\
+        &= 0
+    \end{align*}
+    If $a=b$,
+    \begin{align*}
+        \tensor{g}{_a_b}
+        &=\begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}          \\
+            0                                           \\
+        \end{bmatrix}\cdot\begin{bmatrix}
+            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
+            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}          \\
+            0                                           \\
+        \end{bmatrix} \\
+        &=
+        \sum{\left(k\tensor{p}{^j}\tan_k\tensor{\theta}{^a}\right)^2}
+        -\sign{k}\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2 \\
+        &=
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        + \sum{
+            \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
+        }
+        -\sign{k}\cot_k^2\left(\tensor{\theta}{^a}\right)
+        \right)\\
+        &=
+        \sin_k^2\left(\tensor{\theta}{^1}\right)
+        \prod_{a<j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
+        \sign{k}
+        \left(
+            1 - \sign{k} - \sin_k^{-2}\left(\tensor{\theta}{^a}\right)
+        \right) \\
+        &=
+        \left(
+            1 - \sign{k}
+            - \cos_k^2\left(\tensor{\theta}{^a}\right)
+            - \sin_k^2\left(\tensor{\theta}{^b}\right)
+        \right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+    \end{align*}
 \end{proof}
 \subsection{Curvature}
 \proto{Proof of validity of the metric $d$}
@@ -640,6 +771,43 @@ But it may be challenging to define Gauss map properly.
     \skipped
 
     Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
+
+    Nope, use exterior product and hedge operator instead.
+    We'll then got
+    \begin{align*}
+        \tensor{\nu}{}
+        &= \star\bigwedge{\tensor{\theta}{_i}} & \text{(need to be normalized)}\\
+        &= \left\vert
+        \begin{matrix}
+        \tensor{p}{_1} & \tensor{p}{_2} & \tensor{p}{_3} & \dots \\
+        \tensor{\theta}{_1^1} & \tensor{\theta}{_1^2} & \tensor{\theta}{_1^3} & \dots \\
+        \tensor{\theta}{_2^1} & \tensor{\theta}{_2^2} & \tensor{\theta}{_2^3} & \dots \\
+        \dots & \dots & \dots & \dots \\
+        \end{matrix}
+        \right\vert \\
+        &= \left\vert
+        \begin{matrix}
+        \tensor{p}{_1} & \tensor{p}{_2} & \tensor{p}{_3} & \dots \\
+        -\abs{k}\tan_k{\tensor{\theta}{^1}}\tensor{p}{^1} & k\cot_k{\tensor{\theta}{^1}}\tensor{p}{^2} & 0 & \dots \\
+        -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^1} & -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^2} & k\cot_k{\tensor{\theta}{^2}}\tensor{p}{^3} & \dots \\
+        \dots & \dots & \dots & \dots \\
+        \end{matrix}
+        \right\vert \\
+        \tensor{\nu}{^i}
+        & = \left(-1\right)^{i+1}
+        \left\vert
+        \begin{matrix}
+        -\abs{k}\tan_k{\tensor{\theta}{^1}}\tensor{p}{^1} & k\cot_k{\tensor{\theta}{^1}}\tensor{p}{^2} & 0 & \dots \\
+        -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^1} & -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^2} & k\cot_k{\tensor{\theta}{^2}}\tensor{p}{^3} & \dots \\
+        \dots & \dots & \dots & \dots \\
+        \end{matrix}
+        \right\vert & \text{(removed $\tensor{p}{^i}$ terms)} \\
+        \tensor{\nu}{^1}
+        & = k^n \prod{\cot_k{\tensor{\theta}{^i}}\tensor{p}{^{i+1}}} \\
+        \tensor{\nu}{^2}
+        & = k^n \sign{k} \tan_k{\tensor{\theta}{^1}}\tensor{p}{^2}\prod{\cot_k{\tensor{\theta}{^i}}\tensor{p}{^{i+1}}} \\
+        \dots &= \dots
+    \end{align*}
 \end{proof}
 \begin{lemma}\label{Model:ShapeOperator}
     \begin{equation*}
