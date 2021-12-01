@@ -1,3 +1,5 @@
+%!TEX root = main.tex
+
 \declaretheorem[
     name=Definition,
     style=definition,

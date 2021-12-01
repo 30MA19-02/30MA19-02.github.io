@@ -1,3 +1,5 @@
+%!TEX root = main.tex
+
 % "well-known" notations
 \newcommand{\real}{\mathbb{R}}
 \newcommand{\nat}{\mathbb{N}}
