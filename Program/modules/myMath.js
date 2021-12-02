@@ -31,5 +31,5 @@ function mobiusSetup(angle, inversion) {
 function mobius2(i, j) {
   let z = math.complex(i, j);
   let w = math.divide(math.add(math.multiply(z, a), b), math.add(math.multiply(z, c), d));
-  return [int(math.re(w)) + Ox, wy = int(math.im(w)) + Oy];
+  return [int(math.re(w)), int(math.im(w))];
 }
