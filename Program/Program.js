@@ -110,8 +110,6 @@ function draw() {
   
   dilatation = dilatation_slider.value() / 100;
   
-  
-  
   if(isSliderChange()) {
     [a,b,c,d] = mobiusSetup(rotation_slider.value(), inversion_slider.value());
     slider_stop = true;
@@ -128,6 +126,7 @@ function draw() {
       slider_stop = false;
     }, 100);
   }
+  dilatation_old = dilatation_slider.value();
   image(img2, Ox, Oy , img2.width * dilatation, img2.height * dilatation);
  }
 
