@@ -1,7 +1,10 @@
 class MySlider {
-  constructor(min, max, value, x, y) {
-    this.slider = createSlider(min, max, value).position(x + 60, y).style('width', '120px');
-    this.textBox = createInput('').position(x,y).size(50).value(this.slider.value());
+  constructor(min, max, value, x, y, label='') {
+
+    
+    this.label = createP(label).position(x, height + y - 15);
+    this.slider = createSlider(min, max, value).position(x + 75, height + y).style('width', '120px');
+    this.textBox = createInput('').position(x + 210, height + y).size(50).value(this.slider.value());
   }
   value() {
     return this.slider.value();

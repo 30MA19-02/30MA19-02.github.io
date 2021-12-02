@@ -87,16 +87,13 @@ function backgroundSetup() {
 }
 
 function slider() {
-  txt = createP('Dilatation').position(10, 0);
-  dilatation_slider = new MySlider(10.0,1000.0,75.0,80,16);
+  dilatation_slider = new MySlider(10.0,1000.0,75.0,10,16, 'Dilatation');
   dilatation_old = dilatation_slider.value();
   
-  txt = createP('Rotation').position(10, 20);
-  rotation_slider = new MySlider(0.0,360.0,0.0,80,36);
+  rotation_slider = new MySlider(0.0,360.0,0.0,10,36, 'Rotation');
   rotation_old = rotation_slider.value();
   
-  txt = createP('Inversion').position(10, 40);
-  inversion_slider = new MySlider(0.0,360.0,1.0,80,56);
+  inversion_slider = new MySlider(0.0,360.0,1.0,10,56, 'Inversion');
   inversion_old = inversion_slider.value();
   console.log(inversion_slider.value());
 }
