@@ -24,7 +24,6 @@ function draw() {
   rotateZ(PI/2);
   stroke(255);
   strokeWeight(10);
-  orbitControl();
   debugMode(AXES, size, 0, 0, 0);
   pointA.update();
   pointB.update();
@@ -60,4 +59,5 @@ function draw() {
     pointD.project()._data[1][0], 
     pointD.project()._data[2][0]
   );
+  orbitControl();
 }
