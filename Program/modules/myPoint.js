@@ -8,7 +8,7 @@ function cosine(theta, kappa = 1) {
 }
 
 class Point {
-  constructor(x, y) {
+  constructor(x, y, theta = 0) {
     this.mat = math.multiply(
       math.matrix([
         [1, 0, 0],
@@ -21,7 +21,14 @@ class Point {
           [0, 1, 0],
           [sine(x, kappa), 0, cosine(x, kappa)],
         ]),
-        math.identity(3)
+        math.multiply(
+          math.matrix([
+            [cosine(theta, kappa), -sine(theta, kappa), 0],
+            [sine(theta, kappa), cosine(theta, kappa), 0],
+            [0, 0, 1],
+          ]),
+          math.identity(3)
+        )
       )
     );
   }
@@ -39,17 +46,29 @@ class Point {
 }
 
 class MyPoint {
-  constructor(lat, lon) {
-    this.slider = [lat, lon];
-    this.mat = new Point(this.slider[0].value(), this.slider[1].value());
+  constructor(lat, lon, dir) {
+    this.slider = [lat, lon, dir];
+    this.mat = new Point(
+      this.slider[0].value(),
+      this.slider[1].value(),
+      this.slider[2].value()
+    );
   }
   update() {
     this.slider.forEach((slider) => slider.update());
     if (this.slider.some((slider) => slider.changed)) {
-      this.mat = new Point(this.slider[0].value(), this.slider[1].value());
+      this.mat = new Point(
+        this.slider[0].value(),
+        this.slider[1].value(),
+        this.slider[2].value()
+      );
     }
   }
   project() {
     return this.mat.project();
+  }
+  operate(other) {
+    // other: Point
+    return this.mat.operate(other);
   }
 }
