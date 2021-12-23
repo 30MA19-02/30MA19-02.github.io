@@ -1,4 +1,4 @@
-let kappa = 1;
+let kappa = -1;
 
 function sine(theta, kappa = 1) {
   return kappa > 0 ? math.sin(theta * kappa) : math.sinh(theta * kappa);
