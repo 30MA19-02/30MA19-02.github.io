@@ -41,12 +41,12 @@ class MyPoint {
           lat,
           lon
       ];
-      this.mat = new Point(this.slider[0].value(), this.slider[1].value())
+      this.mat = new Point(this.slider[0].value() * PI, this.slider[1].value() * PI)
     }
     update(){
         this.slider.forEach((slider)=>slider.update());
         if(this.slider.some((slider)=>slider.changed)){
-            this.mat = new Point(this.slider[0].value(), this.slider[1].value());
+            this.mat = new Point(this.slider[0].value() * PI, this.slider[1].value() * PI);
         }
     }
     project(){
