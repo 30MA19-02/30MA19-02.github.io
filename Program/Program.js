@@ -1,7 +1,6 @@
 var MAX_VALUE = Number.MAX_VALUE;
 
 let height_face, width_face;
-let sphere_height;
 let size_slider;
 
 let pointA, pointB;
@@ -28,14 +27,14 @@ function setup() {
   size_slider = new MySlider(1, 300, 50, 0, 800 + 10, 84, "Size");
 
   createP('Sphere').position(800 + 10, 100);
-  sphere_height = new MySlider(0, 10, 1, 0, 800 + 10, 135, "Height");
   height_face = new MySlider(2, 32, 32, 1, 800 + 10, 157, "Height Face");
   width_face = new MySlider(3, 24, 24, 1, 800 + 10, 179, "Width Face");
 
   createP('Rotation').position(800 + 10, 190);
   pointB = new MyPoint(
-    new MySlider(-1, 1, 0, 0, 800 + 10, 225, "BLatitude"),
-    new MySlider(-1, 1, 0, 0, 800 + 10, 247, "BLongitude"),
+    new MySlider(-.25, .25, 0, 0, 800 + 10, 225, "BLatitude"),
+    new MySlider(-.5, .5, 0, 0, 800 + 10, 247, "BLongitude"),
+    new MySlider(-.5, .5, 0, 0, 800 + 10, 269, "BDirection"),
   );
   img_height = height_face.value() + 1, img_width = width_face.value();
   img1 = new Array();
@@ -75,7 +74,6 @@ function draw() {
   x_angle.update();
   y_angle.update();
   size_slider.update();
-  sphere_height.update();
 
   img_height = height_face.value() + 1, img_width = width_face.value();
   if (width_face.changed || height_face.changed) {
@@ -89,7 +87,7 @@ function draw() {
   texture(img0);
   for (let i = 0; i < img_height; i++) {
     for (let j = 0; j < img_width; j++) {
-      img2[i][j] = pointB.mat.operate(img1[i][j]);
+      img2[i][j] = pointB.point.operate(img1[i][j]);
       let x = img2[i][j].project()._data[0][0],
         y = img2[i][j].project()._data[1][0],
         z = img2[i][j].project()._data[2][0];
@@ -120,7 +118,7 @@ function draw() {
 
   stroke(255, 0, 0);
   point(-1, 0, 0);
-  let h = sphere_height.value() + 1;
+  let h = +1;
   for (let i = 0; i < img_height - 1; i++) {
     beginShape(TRIANGLE_STRIP);
     for (let j = 0; j < img_width + 1; j++) {
@@ -148,4 +146,5 @@ function draw() {
     }
     endShape();
   }
+  orbitControl();
 }
