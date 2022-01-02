@@ -1,7 +1,6 @@
 var MAX_VALUE = Number.MAX_VALUE;
 
 let height_face, width_face;
-let size_slider;
 
 let pointA, pointB;
 
@@ -21,20 +20,15 @@ function setup() {
   angleMode(RADIANS);
   createCanvas(800, 600, WEBGL);
 
-  createP('Camera').position(800 + 10, 5);
-  x_angle = new MySlider(-1, 1, 0, 0, 800 + 10, 40, "X Angle");
-  y_angle = new MySlider(-1, 1, 0, 0, 800 + 10, 62, "Y Angle");
-  size_slider = new MySlider(1, 300, 50, 0, 800 + 10, 84, "Size");
+  createP('Sphere').position(800 + 10, 10);
+  height_face = new MySlider(2, 32, 32, 1, 800 + 10, 47, "Height Face");
+  width_face = new MySlider(3, 24, 24, 1, 800 + 10, 69, "Width Face");
 
-  createP('Sphere').position(800 + 10, 100);
-  height_face = new MySlider(2, 32, 32, 1, 800 + 10, 157, "Height Face");
-  width_face = new MySlider(3, 24, 24, 1, 800 + 10, 179, "Width Face");
-
-  createP('Rotation').position(800 + 10, 190);
+  createP('Rotation').position(800 + 10, 100);
   pointB = new MyPoint(
-    new MySlider(-.25, .25, 0, 0, 800 + 10, 225, "BLatitude"),
-    new MySlider(-.5, .5, 0, 0, 800 + 10, 247, "BLongitude"),
-    new MySlider(-.5, .5, 0, 0, 800 + 10, 269, "BDirection"),
+    new MySlider(-.25, .25, 0, 0, 800 + 10, 135, "BLatitude"),
+    new MySlider(-.5, .5, 0, 0, 800 + 10, 157, "BLongitude"),
+    new MySlider(-.5, .5, 0, 0, 800 + 10, 179, "BDirection"),
   );
   img_height = height_face.value() + 1, img_width = width_face.value();
   img1 = new Array();
@@ -53,27 +47,20 @@ function setup() {
 }
 
 function draw() {
-  let size = size_slider.value();
   background(0);
-  scale(size);
+  scale(100);
   noFill();
   strokeWeight(1);
   stroke(100);
   noStroke();
   rotateZ(PI / 2);
-  rotateY(y_angle.value() * PI);
-  rotateX(x_angle.value() * PI);
   stroke(255);
   strokeWeight(10);
-  //debugMode(AXES, size, 0, 0, 0);
 
   //slider update
   pointB.update();
   height_face.update();
   width_face.update();
-  x_angle.update();
-  y_angle.update();
-  size_slider.update();
 
   img_height = height_face.value() + 1, img_width = width_face.value();
   if (width_face.changed || height_face.changed) {
