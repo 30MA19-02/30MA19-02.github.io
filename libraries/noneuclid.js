@@ -2,7 +2,7 @@
 const {Point} = require('./point');
 
 module.exports = {
-    Point
+    Point: Point
 };
 },{"./point":956}],2:[function(require,module,exports){
 function _arrayLikeToArray(arr, len) {
@@ -89771,19 +89771,19 @@ class Point {
       ]),
       math.multiply(
         math.matrix([
-          [cosine(x, this.kappa), -sine(x, this.kappa), 0],
-          [sine(x, this.kappa), cosine(x, this.kappa), 0],
-          [0, 0, 1],
-        ]),
-        math.matrix([
           [cosine(y, this.kappa), 0, -sine(y, this.kappa)],
           [0, 1, 0],
           [sine(y, this.kappa), 0, cosine(y, this.kappa)],
         ]),
+        math.matrix([
+          [cosine(x, this.kappa), -sine(x, this.kappa), 0],
+          [sine(x, this.kappa), cosine(x, this.kappa), 0],
+          [0, 0, 1],
+        ]),
       ),
     );
   }
-  project() {
+  get project() {
     return math.multiply(
       math.multiply(
         this.mat,
@@ -89801,7 +89801,7 @@ class Point {
 }
 
 module.exports = {
-  Point
+  Point: Point
 };
 },{"mathjs":867}]},{},[1])(1)
 });
