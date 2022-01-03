@@ -9,8 +9,8 @@ class MyPoint {
   constructor(lat, lon, dir) {
     this.slider = [lat, lon, dir];
     this.point = new Point(
-      this.slider[0].value() * TWO_PI,
       this.slider[1].value() * TWO_PI,
+      - this.slider[0].value() * TWO_PI,
       this.slider[2].value() * TWO_PI,
     );
   }
@@ -18,8 +18,8 @@ class MyPoint {
     this.slider.forEach((slider) => slider.update());
     if (this.slider.some((slider) => slider.changed)) {
       this.point = new Point(
-        this.slider[0].value() * TWO_PI,
         this.slider[1].value() * TWO_PI,
+        - this.slider[0].value() * TWO_PI,
         this.slider[2].value() * TWO_PI,
       );
     }

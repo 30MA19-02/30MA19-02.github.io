@@ -26,8 +26,8 @@ function setup() {
 
   createP('Rotation').position(800 + 10, 100);
   pointB = new MyPoint(
-    new MySlider(-.25, .25, 0, 0, 800 + 10, 135, "BLatitude"),
-    new MySlider(-.5, .5, 0, 0, 800 + 10, 157, "BLongitude"),
+    new MySlider(-.25, .25, 0.0382014, 0, 800 + 10, 135, "BLatitude"),
+    new MySlider(-.5, .5, 0.279150464, 0, 800 + 10, 157, "BLongitude"),
     new MySlider(-.5, .5, 0, 0, 800 + 10, 179, "BDirection"),
   );
   img_height = height_face.value() + 1, img_width = width_face.value();
@@ -41,7 +41,10 @@ function setup() {
   }
   for (var i = 0; i < img_height; i++) {
     for (var j = 0; j < img_width; j++) {
-      img1[i][j] = new Point(PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)), 2 * PI * ((j + 1) / (img_width) - 0.5));
+      img1[i][j] = new Point(
+          2 * PI * ((j + 1) / (img_width) - 0.5),
+          PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)),
+        );
     }
   }
 }
@@ -66,7 +69,10 @@ function draw() {
   if (width_face.changed || height_face.changed) {
     for (var i = 0; i < img_height; i++) {
       for (var j = 0; j < img_width; j++) {
-        img1[i][j] = new Point(PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)), 2 * PI * ((j + 1) / (img_width) - 0.5));
+        img1[i][j] = new Point(
+          2 * PI * ((j + 1) / (img_width) - 0.5),
+          PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)),
+        );
       }
     }
   }
