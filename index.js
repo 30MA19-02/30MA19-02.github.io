@@ -1,5 +1,5 @@
 const {Point} = require('./point');
 
 module.exports = {
-    Point
+    Point: Point
 };
