@@ -1,6 +1,6 @@
 {
   "name": "noneuclid",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "30MA19-02",
   "main": "index.js",
   "scripts": {
