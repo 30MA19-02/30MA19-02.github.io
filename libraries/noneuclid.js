@@ -89764,6 +89764,11 @@ class Point {
   constructor(x, y, theta = 0, kappa=1) {
     this.kappa = kappa;
     this.mat = math.multiply(
+      math.matrix([
+        [1, 0, 0],
+        [0, cosine(theta, 1), -sine(theta, 1)],
+        [0, sine(theta, 1), cosine(theta, 1)],
+      ]),
       math.multiply(
         math.matrix([
           [cosine(x, this.kappa), -sine(x, this.kappa, true), 0],
@@ -89776,11 +89781,6 @@ class Point {
           [sine(y, this.kappa), 0, cosine(y, this.kappa)],
         ]),
       ),
-      math.matrix([
-        [1, 0, 0],
-        [0, cosine(theta, 1), -sine(theta, 1)],
-        [0, sine(theta, 1), cosine(theta, 1)],
-      ]),
     );
   }
   get project() {
