@@ -60,10 +60,7 @@ function draw_manifold(){
     beginShape(TRIANGLE_STRIP);
     for (let j = 0; j < img_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
-        let project = img2[i + k][j % img_width].project;
-        let x = project._data[0][0],
-            y = project._data[1][0],
-            z = project._data[2][0];
+        let [x,y,z] = img2[i + k][j % img_width];
         
         let j2 = (j == img_width)? (img0.width - 1) / img0.width: j / img_width;
 
@@ -78,10 +75,8 @@ function draw_projection(){
   let distMin = MAX_VALUE;
   for (let i = 0; i < img_height; i++) {
     for (let j = 0; j < img_width; j++) {
-      let project = img2[i][j].project;
-      let x = project._data[0][0],
-          y = project._data[1][0],
-          z = project._data[2][0];
+      let [x,y,z] = img2[i][j];
+      x *= -1;
       distMin = Math.min(distMin, dist(x, y, z, -1, 0, 0));
     }
   }
@@ -91,10 +86,8 @@ function draw_projection(){
     beginShape(TRIANGLE_STRIP);
     for (let j = 0; j < img_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
-        let project = img2[i + k][j % img_width].project;
-        let x = project._data[0][0],
-            y = project._data[1][0],
-            z = project._data[2][0];
+        let [x,y,z] = img2[i + k][j % img_width];
+        x *= -1;
         if (x == -1) {
           vertex(h, MAX_VALUE, MAX_VALUE, (i + k) / img_height, j / img_width);
         }
@@ -146,7 +139,12 @@ function draw() {
         0,
         0,
         -0.25,
-      ));
+      )).project;
+      img2[i][j] = [
+        img2[i][j]._data[0][0],
+        img2[i][j]._data[1][0],
+        img2[i][j]._data[2][0],
+      ]
     }
   }
 
