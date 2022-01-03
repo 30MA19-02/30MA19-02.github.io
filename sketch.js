@@ -46,13 +46,11 @@ function set_vertices(){
         map(j/(img_width), 0, 1, -0.5, 0.5),
         - map(i/(img_height-1), 0, 1, -0.25, 0.25),
         );
-      img1[i][j] = new Point(
+      img1[i][j] = img1[i][j].operate(new Point(
         0,
         0,
         0.25,
-      ).operate(
-        img1[i][j]
-      );
+      ));
     }
   }
 }
@@ -144,7 +142,11 @@ function draw() {
 
   for (let i = 0; i < img_height; i++) {
     for (let j = 0; j < img_width; j++) {
-      img2[i][j] = pointB.point.operate(img1[i][j]);
+      img2[i][j] = img1[i][j].operate(pointB.point).operate(new Point(
+        0,
+        0,
+        -0.25,
+      ));
     }
   }
 
