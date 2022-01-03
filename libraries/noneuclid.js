@@ -89793,9 +89793,12 @@ class Point {
     );
   }
   operate(other) {
-    console.assert(this.constructor === other.constructor && this.kappa == other.kappa, "Invalid point")
+    console.assert(this.kappa == other.kappa, "Invalid point")
     let p = new Point(0, 0);
-    p.mat = math.multiply(this.mat, other.mat);
+    p.mat = math.multiply(
+      other.mat,
+      this.mat,
+    );
     return p;
   }
 }
