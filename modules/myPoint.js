@@ -7,16 +7,6 @@ class Point extends noneuc.Point {
       dir * TWO_PI,
       kappa)
     }
-    project() {
-    console.log("H");
-    let proj = super.project();
-    let proj_ = [
-      proj._data[0][0],
-      proj._data[1][0],
-      proj._data[2][0],
-    ];
-    return proj_;
-  }
 }
 
 class MyPoint {
