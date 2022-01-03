@@ -42,8 +42,8 @@ function setup() {
   for (var i = 0; i < img_height; i++) {
     for (var j = 0; j < img_width; j++) {
       img1[i][j] = new Point(
+        PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)),
           2 * PI * ((j + 1) / (img_width) - 0.5),
-          PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)),
         );
     }
   }
@@ -70,8 +70,8 @@ function draw() {
     for (var i = 0; i < img_height; i++) {
       for (var j = 0; j < img_width; j++) {
         img1[i][j] = new Point(
-          2 * PI * ((j + 1) / (img_width) - 0.5),
           PI * ((i + 1) / (img_height - 1) - 0.5 - 1 / (img_height - 1)),
+          2 * PI * ((j + 1) / (img_width) - 0.5),
         );
       }
     }
