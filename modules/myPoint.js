@@ -1,4 +1,4 @@
-let kappa = 1;
+let kappa = 0;
 class Point extends noneuc.Point {
   constructor(lat, lon, dir = 0) {
     super(
