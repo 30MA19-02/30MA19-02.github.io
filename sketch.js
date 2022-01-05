@@ -9,8 +9,7 @@ let point_init;
 let point_fin;
 let trans;
 
-let factor_ = kappa==0? 1:1/kappa;
-let factor = Math.abs(factor_);
+let factor = kappa==0? 1 : 1/kappa;
 
 var fps = 10;
 
@@ -28,8 +27,8 @@ function setup() {
   
   createP('Rotation').position(width + 10, 100);
   trans = new MyPoint(
-    new MySlider(-.25 * factor, .25 * factor, 0.03815754722 * factor, 0, width + 10, 135, "BLatitude"),
-    new MySlider(-.50 * factor, .50 * factor, 0.27923107222 * factor, 0, width + 10, 157, "BLongitude"),
+    new MySlider(-.25 , .25 , 0.03815754722 , 0, width + 10, 135, "BLatitude"),
+    new MySlider(-.50 , .50 , 0.27923107222 , 0, width + 10, 157, "BLongitude"),
     new MySlider(-.5, .5, 0, 0, width + 10, 179, "BDirection"),
     );
     
@@ -50,8 +49,8 @@ function set_vertices(){
   for (var i = 0; i < reso_height; i++) {
     for (var j = 0; j < reso_width; j++) {
       point_init[i][j] = new Point(
-        map(j/(reso_width), 0, 1, -0.5, 0.5) * factor,
-        - map(i/(reso_height-1), 0, 1, -0.25, 0.25) * factor,
+        - map(j/(reso_width), 0, 1, -0.5, 0.5) * abs(factor),
+        map(i/(reso_height-1), 0, 1, -0.25, 0.25) * abs(factor),
         );
       point_init[i][j] = point_init[i][j].operate(new Point(
         0,
@@ -68,14 +67,6 @@ function draw_manifold(){
     for (let j = 0; j < reso_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
         let [x,y,z] = point_fin[i + k][j % reso_width];
-
-        x*=-1;
-
-        x-=1;
-
-        x*=factor_;
-        y*=factor_;
-        z*=factor_;
         
         let j2 = (j == reso_width)? (image.width - 1) / image.width: j / reso_width;
 
@@ -88,13 +79,16 @@ function draw_manifold(){
 
 function draw_projection(){
 
+  let sink = factor;
+  let source = -factor;
+
   let dist_max = point_fin.reduce(
     (prev_, curr)=>curr.reduce(
         (prev, curr) => max(
           dist(
             0,
-            curr[1]* factor_ * (2) / ((-curr[0]-1) + 2),
-            curr[2]* factor_ * (2) / ((-curr[0]-1) + 2),
+            curr[1] * (sink-source) / (curr[0]-source),
+            curr[2] * (sink-source) / (curr[0]-source),
             0, 0, 0
           ),
           prev
@@ -109,14 +103,8 @@ function draw_projection(){
     for (let j = 0; j < reso_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
         let [x,y,z] = point_fin[i + k][j % reso_width];
-        x *= -1;
-
-        x-=1;
-
-        y/=kappa;
-        z/=kappa;
         
-        if (x == -2) {
+        if (x == source) {
           // Point at infinity
           // vertex(h, MAX_VALUE, MAX_VALUE, (i + k) / reso_height, j / reso_width);
           // vertex(h, -MAX_VALUE, MAX_VALUE, (i + k) / reso_height, j / reso_width);
@@ -125,16 +113,21 @@ function draw_projection(){
         }
         else {
           let j2 = (j == reso_width)? (image.width - 1) / image.width: j / reso_width;
-          if (dist(0, y * (2) / (x + 2), z * (2) / (x + 2), 0, 0, 0) >= dist_max*0.90) {
+          if (dist(
+            0,
+            y * (sink-source) / (x-source),
+            z * (sink-source) / (x-source),
+            0, 0, 0
+          ) >= dist_max*0.90) {
             endShape();
             beginShape(TRIANGLE_STRIP);
             continue;
           }
           stroke(255, 255, 255);
           vertex(
-            0,
-            y * (2) / (x + 2),
-            z * (2) / (x + 2),
+            sink,
+            y * (sink-source) / (x-source),
+            z * (sink-source) / (x-source),
             j2,
             1 - (i + k) / (reso_height - 1)
           );
@@ -148,9 +141,9 @@ function draw_projection(){
 function draw() {
   background(0);
   scale(100);
-  rotateZ(PI / 2);
-  rotateY(PI / 2);
-  scale(-1,1,1);
+  rotateY(HALF_PI);
+  translate(factor,0,0);
+  rotateY(PI);
 
   //slider update
   trans.update();
@@ -177,10 +170,12 @@ function draw() {
   }
   strokeWeight(10);
   stroke(255, 0, 0);
-  point(0+0.01, 0, 0);
+  point(+factor+0.01, 0, 0);
+  point(+factor-0.01, 0, 0);
 
   stroke(255, 255, 0);
-  point(-2*factor_-0.01, 0, 0);
+  point(-factor+0.01, 0, 0);
+  point(-factor-0.01, 0, 0);
 
   textureMode(NORMAL);
   texture(image);

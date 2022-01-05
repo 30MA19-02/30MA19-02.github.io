@@ -89761,7 +89761,7 @@ function cosine(theta, kappa = 1) {
 }
 
 class Point {
-  constructor(x, y, theta = 0, kappa=1) {
+  constructor(x, y, theta, kappa) {
     this.kappa = kappa;
     this.mat = math.multiply(
       math.matrix([
@@ -89789,12 +89789,12 @@ class Point {
         this.mat,
         math.matrix([[1], [0], [0]]),
       ),
-      this.kappa !=0 ? 1 / this.kappa : 1
+      this.kappa != 0 ? 1 / this.kappa : 1
     );
   }
   operate(other) {
-    console.assert(this.kappa == other.kappa, "Invalid point")
-    let p = new Point(0, 0);
+    console.assert(this.kappa == other.kappa, "Invalid point: This point (" + this.kappa.toString() + ") is not in the same with the other (" + other.kappa.toString() + ").")
+    let p = new Point(0, 0, 0, this.kappa);
     p.mat = math.multiply(
       other.mat,
       this.mat,
