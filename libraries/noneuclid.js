@@ -89753,8 +89753,8 @@ module.exports.TinyEmitter = E;
 },{}],956:[function(require,module,exports){
 const math = require('mathjs');
 
-function sine(theta, kappa = 1, s=false) {
-  return kappa == 0 ? (s?0:theta) : kappa > 0 ? math.sin(theta * kappa) : (s?-math.sinh(theta * kappa):math.sinh(theta * kappa));
+function sine(theta, kappa = 1, s = false) {
+  return kappa == 0 ? (s ? 0 : theta) : kappa > 0 ? math.sin(theta * kappa) : (s ? -math.sinh(theta * kappa) : math.sinh(theta * kappa));
 }
 function cosine(theta, kappa = 1) {
   return kappa == 0 ? 1 : kappa > 0 ? math.cos(theta * kappa) : math.cosh(theta * kappa);
