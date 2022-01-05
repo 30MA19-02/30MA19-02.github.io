@@ -89771,14 +89771,14 @@ class Point {
       ]),
       math.multiply(
         math.matrix([
-          [cosine(x, this.kappa), -sine(x, this.kappa, true), 0],
-          [sine(x, this.kappa), cosine(x, this.kappa), 0],
-          [0, 0, 1],
-        ]),
-        math.matrix([
           [cosine(y, this.kappa), 0, -sine(y, this.kappa, true)],
           [0, 1, 0],
           [sine(y, this.kappa), 0, cosine(y, this.kappa)],
+        ]),
+        math.matrix([
+          [cosine(x, this.kappa), -sine(x, this.kappa, true), 0],
+          [sine(x, this.kappa), cosine(x, this.kappa), 0],
+          [0, 0, 1],
         ]),
       ),
     );
@@ -89787,7 +89787,7 @@ class Point {
     return math.multiply(
       math.multiply(
         this.mat,
-        math.matrix([[-1], [0], [0]]),
+        math.matrix([[1], [0], [0]]),
       ),
       this.kappa !=0 ? 1 / this.kappa : 1
     );
