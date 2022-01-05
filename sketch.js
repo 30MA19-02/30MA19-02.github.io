@@ -55,7 +55,7 @@ function set_vertices(){
       point_init[i][j] = point_init[i][j].operate(new Point(
         0,
         0,
-        0.25,
+        0.75,
       ));
     }
   }

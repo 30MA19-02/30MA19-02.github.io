@@ -2,8 +2,8 @@ let kappa = +1;
 class Point extends noneuc.Point {
   constructor(lat, lon, dir = 0) {
     super(
-      - lon * TWO_PI,
-      lat * TWO_PI,
+      lon * TWO_PI,
+      - lat * TWO_PI,
       - dir * TWO_PI,
       kappa
     )
