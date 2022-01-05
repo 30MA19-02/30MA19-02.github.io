@@ -4,7 +4,7 @@ class Point extends noneuc.Point {
     super(
       - lon * TWO_PI,
       lat * TWO_PI,
-      dir * TWO_PI,
+      - dir * TWO_PI,
       kappa
     )
     }
