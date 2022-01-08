@@ -8,8 +8,9 @@ let reso_height, reso_width;
 let point_init;
 let point_fin;
 let trans;
+let dist_min = 0;
 
-let factor = kappa==0? 1 : 1/kappa;
+let factor = kappa == 0 ? 1 : 1 / kappa;
 
 var fps = 10;
 
@@ -20,38 +21,39 @@ function preload() {
 function setup() {
   createCanvas(600, 600, WEBGL);
   angleMode(RADIANS);
-  
+
   createP('Sphere').position(width + 10, 10);
   reso_height_slider = new MySlider(2, 32, 32, 1, width + 10, 47, "Height Face");
   reso_width_slider = new MySlider(3, 24, 24, 1, width + 10, 69, "Width Face");
-  
+
   createP('Rotation').position(width + 10, 100);
   trans = new MyPoint(
-    new MySlider(-.25 , .25 , 0.03815754722 , 0, width + 10, 135, "BLatitude"),
-    new MySlider(-.50 , .50 , 0.27923107222 , 0, width + 10, 157, "BLongitude"),
+    new MySlider(-.25, .25, 0.03815754722, 0, width + 10, 135, "BLatitude"),
+    new MySlider(-.50, .50, 0.27923107222, 0, width + 10, 157, "BLongitude"),
     new MySlider(-.5, .5, 0, 0, width + 10, 179, "BDirection"),
-    );
-    
-    point_init = new Array();
-    point_fin = new Array();
-    for (var i = 0; i < 33; i++) {
-      point_init[i] = new Array();
-      point_fin[i] = new Array();
-    }
-    
-    set_vertices();
-    noFill();
-    frameRate(fps);
+  );
+  image_scale_slider = new MySlider(0.01, 1, 1, 0, width + 10, 230, "Image Scale");
+
+  point_init = new Array();
+  point_fin = new Array();
+  for (var i = 0; i < 33; i++) {
+    point_init[i] = new Array();
+    point_fin[i] = new Array();
+  }
+
+  set_vertices();
+  noFill();
+  frameRate(fps);
 }
 
-function set_vertices(){
+function set_vertices() {
   reso_height = reso_height_slider.value() + 1, reso_width = reso_width_slider.value();
   for (var i = 0; i < reso_height; i++) {
-    for (var j = 0; j < reso_width; j++) {
+    for (var j = 0; j < reso_width + 1; j++) {
       point_init[i][j] = new Point(
-        - map(j/(reso_width), 0, 1, -0.5, 0.5) * abs(factor),
-        map(i/(reso_height-1), 0, 1, -0.25, 0.25) * abs(factor),
-        );
+        - map(j / (reso_width), 0, 1, image_scale_slider.value() * -0.5, image_scale_slider.value() * 0.5) * abs(factor),
+        map(i / (reso_height - 1), 0, 1, image_scale_slider.value() * -0.25, image_scale_slider.value() * 0.25) * abs(factor),
+      );
       point_init[i][j] = point_init[i][j].operate(new Point(
         0,
         0,
@@ -61,49 +63,30 @@ function set_vertices(){
   }
 }
 
-function draw_manifold(){
+function draw_manifold() {
   for (let i = 0; i < reso_height - 1; i++) {
     beginShape(TRIANGLE_STRIP);
     for (let j = 0; j < reso_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
-        let [x,y,z] = point_fin[i + k][j % reso_width];
-        
-        let j2 = (j == reso_width)? (image.width - 1) / image.width: j / reso_width;
+        let [x, y, z] = point_fin[i + k][j];
+        //let j2 = (j == reso_width)? (image.width - 1) / image.width: j / reso_width;
 
-        vertex(x, y, z, j2, 1 - (i + k) / (reso_height - 1));
+        vertex(x, y, z, j / reso_width, 1 - (i + k) / (reso_height - 1));
       }
     }
     endShape();
   }
 }
 
-function draw_projection(){
-
+function draw_projection() {
   let sink = factor;
   let source = -factor;
-
-  let dist_max = point_fin.reduce(
-    (prev_, curr)=>curr.reduce(
-        (prev, curr) => max(
-          dist(
-            0,
-            curr[1] * (sink-source) / (curr[0]-source),
-            curr[2] * (sink-source) / (curr[0]-source),
-            0, 0, 0
-          ),
-          prev
-        ),
-        prev_
-    ),
-    0
-  )
-
   for (let i = 0; i < reso_height - 1; i++) {
     beginShape(TRIANGLE_STRIP);
     for (let j = 0; j < reso_width + 1; j++) {
       for (let k = 0; k < 2; k++) {
-        let [x,y,z] = point_fin[i + k][j % reso_width];
-        
+        let [x, y, z] = point_fin[i + k][j];
+
         if (x == source) {
           // Point at infinity
           // vertex(h, MAX_VALUE, MAX_VALUE, (i + k) / reso_height, j / reso_width);
@@ -112,13 +95,14 @@ function draw_projection(){
           // vertex(h, -MAX_VALUE, -MAX_VALUE, (i + k) / reso_height, j / reso_width);
         }
         else {
-          let j2 = (j == reso_width)? (image.width - 1) / image.width: j / reso_width;
+          let j2 = (j == reso_width) ? (image.width - 1) / image.width : j / reso_width;
+          //Fix Overlapping
           if (dist(
-            0,
-            y * (sink-source) / (x-source),
-            z * (sink-source) / (x-source),
-            0, 0, 0
-          ) >= dist_max*0.90) {
+            x, y, z,
+            - factor, 0, 0
+          ) <= dist_min * 1.10)
+          //
+          {
             endShape();
             beginShape(TRIANGLE_STRIP);
             continue;
@@ -126,8 +110,8 @@ function draw_projection(){
           stroke(255, 255, 255);
           vertex(
             sink,
-            y * (sink-source) / (x-source),
-            z * (sink-source) / (x-source),
+            y * (sink - source) / (x - source),
+            z * (sink - source) / (x - source),
             j2,
             1 - (i + k) / (reso_height - 1)
           );
@@ -142,18 +126,20 @@ function draw() {
   background(0);
   scale(100);
   rotateY(HALF_PI);
-  translate(factor,0,0);
+  translate(factor, 0, 0);
   rotateY(PI);
 
   //slider update
   trans.update();
   reso_height_slider.update();
   reso_width_slider.update();
+  image_scale_slider.update();
 
-  if (reso_width_slider.changed || reso_height_slider.changed) set_vertices();
+  if (reso_width_slider.changed || reso_height_slider.changed || image_scale_slider.changed) set_vertices();
 
+  if (kappa == +1) dist_min = MAX_VALUE;
   for (let i = 0; i < reso_height; i++) {
-    for (let j = 0; j < reso_width; j++) {
+    for (let j = 0; j < reso_width + 1; j++) {
       point_fin[i][j] = point_init[i][j].operate(
         trans.point
       ).operate(new Point(
@@ -166,16 +152,23 @@ function draw() {
         point_fin[i][j]._data[1][0],
         point_fin[i][j]._data[2][0],
       ]
+      let [x, y, z] = point_fin[i][j];
+      dist_min = min(
+        dist_min, dist(
+          x, y, z,
+          - factor, 0, 0
+        )
+      )
     }
   }
   strokeWeight(10);
   stroke(255, 0, 0);
-  point(+factor+0.01, 0, 0);
-  point(+factor-0.01, 0, 0);
+  point(+factor + 0.01, 0, 0);
+  point(+factor - 0.01, 0, 0);
 
   stroke(255, 255, 0);
-  point(-factor+0.01, 0, 0);
-  point(-factor-0.01, 0, 0);
+  point(-factor + 0.01, 0, 0);
+  point(-factor - 0.01, 0, 0);
 
   textureMode(NORMAL);
   texture(image);
@@ -183,6 +176,6 @@ function draw() {
   draw_manifold();
 
   draw_projection();
-  
+
   orbitControl();
 }

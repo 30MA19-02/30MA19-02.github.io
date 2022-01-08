@@ -7,7 +7,7 @@ class Point extends noneuc.Point {
       - dir * TWO_PI,
       kappa
     )
-    }
+  }
 }
 
 class MyPoint {
