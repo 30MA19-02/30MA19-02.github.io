@@ -1,6 +1,6 @@
 let kappa = +1;
 class Point extends noneuc.Point {
-  constructor(lat, lon, dir = 0) {
+  constructor(lat, lon, dir, kappa) {
     super(
       lon * TWO_PI,
       - lat * TWO_PI,
@@ -11,12 +11,13 @@ class Point extends noneuc.Point {
 }
 
 class MyPoint {
-  constructor(lat, lon, dir) {
-    this.slider = [lat, lon, dir];
+  constructor(lat, lon, dir, kappa) {
+    this.slider = [lat, lon, dir, kappa];
     this.point = new Point(
       this.slider[0].value(),
       this.slider[1].value(),
       this.slider[2].value(),
+      this.slider[3].value(),
     );
   }
   update() {
@@ -26,6 +27,7 @@ class MyPoint {
         this.slider[0].value(),
         this.slider[1].value(),
         this.slider[2].value(),
+        this.slider[3].value(),
       );
     }
   }
