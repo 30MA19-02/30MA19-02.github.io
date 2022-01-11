@@ -1,4 +1,5 @@
 let kappa = +1;
+let near_zero = 0.0064;
 class Point extends noneuc.Point {
   constructor(lat, lon, dir, kappa) {
     super(
@@ -17,7 +18,7 @@ class MyPoint {
       this.slider[0].value(),
       this.slider[1].value(),
       this.slider[2].value(),
-      this.slider[3].value(),
+      this.slider[3].value() != 0 ? this.slider[3].value() : near_zero,
     );
   }
   update() {
@@ -27,7 +28,7 @@ class MyPoint {
         this.slider[0].value(),
         this.slider[1].value(),
         this.slider[2].value(),
-        this.slider[3].value(),
+        this.slider[3].value() != 0 ? this.slider[3].value() : near_zero,
       );
     }
   }
