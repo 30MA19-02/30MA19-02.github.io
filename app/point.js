@@ -1,6 +1,7 @@
-define(function(require) {
+define(
+    ['noneuclid'], 
+    function(noneuclid) {
     'use strict';
-    var noneuclid = require('noneuclid');
 
     const near_zero = 0.0064;
 
@@ -47,4 +48,5 @@ define(function(require) {
         Point: Point,
         MyPoint: MyPoint
     };
-});
+}
+);
