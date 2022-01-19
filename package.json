@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/30MA19-02/Program.git"
+    "url": "git+https://github.com/30MA19-02/noneuclidjs.git"
   },
   "author": "30MA19-02",
   "license": "MITNFA",
   "bugs": {
-    "url": "https://github.com/30MA19-02/Program/issues"
+    "url": "https://github.com/30MA19-02/noneuclidjs/issues"
   },
-  "homepage": "https://github.com/30MA19-02/Program#readme",
+  "homepage": "https://30ma19-02.github.io/noneuclidjs/",
   "dependencies": {
     "mathjs": "^10.1.0"
   },
