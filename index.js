@@ -1,4 +1,4 @@
-const {Point} = require('./point');
+const {Point} = require('./modules/point');
 
 module.exports = {
     Point: Point
