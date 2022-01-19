@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/30MA19-02/Program#readme",
   "dependencies": {
-    "mathjs": "^10.0.2"
+    "mathjs": "^10.1.0"
   },
   "devDependencies": {
     "browserify": "^17.0.0"
