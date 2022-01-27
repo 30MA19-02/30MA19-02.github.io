@@ -1,6 +1,6 @@
+% !TeX root = main.tex
 %!TeX spellcheck = en_US
 %!TeX encoding = utf8
-%!TeX root = main.tex
 %!TeX program = pdflatex
 
 % https://apastyle.apa.org/style-grammar-guidelines
@@ -362,8 +362,6 @@ such that
 \end{conjecture}
 
 \section{Model Foundation}
-\proto{Construction of the set $M$ and operator $\otimes_M$}
-
 \subsection{Trigonometry}
 \begin{definition}\label{M:Trigonometry}
     \textit{Generalized trigonometric functions} $f_k:\R\to\R$ and $f_k^\ast:\R\to\R$ are defined as
@@ -377,22 +375,10 @@ such that
         \begin{cases}
             g\left(k\theta\right) & \text{if $k\geq0$,} \\
             h\left(-k\theta\right) & \text{otherwise,}   \\
-        \end{cases} \\
-        & =
-        \begin{cases}
-            g\left(k\theta\right) & \text{if $k\geq0$,} \\
-            \pm h\left(k\theta\right) & \text{otherwise,}   \\
         \end{cases}
     \end{align*}
     where $g$ (resp. $h$) are the associated trigonometric (resp. hyperbolic) function.
 \end{definition}
-\begin{corollary}[Absolute value of generalized trigonometric functions]\label{M:Trigonometry:Absolute}
-    \begin{equation*}
-        \abs{f_k\left(\theta\right)}
-        =
-        \abs{f_k^\ast\left(\theta\right)}
-    \end{equation*}
-\end{corollary}
 \begin{example}[Generalized sine functions]\label{M:Trigonometry:Sine}
     \begin{align*}
         \sin_k{\theta} & \defeq
@@ -450,11 +436,9 @@ such that
     (see \cref{TrigonometryTangentPlotted})
 \end{example}
 \begin{theorem}[Pythagorean's identity equivalence]\label{M:Trigonometry:Pythagorean}
-    \begin{align*}
-        \cos_k^2{\theta} & +\sign{k}\sin_k^2{\theta} & = 1                \\
-        1                & +\sign{k}\tan_k^2{\theta} & = \sec_k^2{\theta} \\
-        \cot_k^2{\theta} & +\sign{k}                 & = \csc_k^2{\theta}
-    \end{align*}
+    \begin{equation*}
+        \cos_k^2{\theta} +\sign{k}\sin_k^2{\theta} = 1
+    \end{equation*}
 \end{theorem}
 \begin{proof}[\proofof{M:Trigonometry:Pythagorean}]
     Proof by exhaustion.
@@ -527,7 +511,9 @@ Obvious
             \cos_k{\theta+\phi}  & -\sin_k^\ast{\theta+\phi} \\
             \sin_k{\theta+\phi} & \cos_k{\theta+\phi} \\
         \end{bmatrix} & \text{(\cref{M:Trigonometry:Sum})} \\
-        &= R_k\left(\theta+\phi\right) & \text{(\cref{M:Rotation})} & \qedhere
+        &= R_k\left(\theta+\phi\right) & \text{(\cref{M:Rotation})} \\
+        R_k\left(\theta\right)R_k\left(\phi\right)
+        &= R_k\left(\theta+\phi\right) & \qedhere
     \end{align*}
 \end{proof}
 \begin{corollary}[Inverse of generalized rotation matrix]\label{M:Rotation:Inverse}
@@ -539,8 +525,22 @@ Obvious
     \begin{align*}
         R_k\left(\theta\right)R_k\left(-\theta\right)
         &= R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})} \\
+        &= I_2 & \text{(\cref{M:Rotation:Identity})} \\
+        R_k\left(-\theta\right)R_k\left(\theta\right)
+        &= R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})} \\
         &= I_2 & \text{(\cref{M:Rotation:Identity})}
     \end{align*}
+    \begin{equation*}
+        R_k\left(\theta\right)R_k\left(-\theta\right)
+        = R_k\left(-\theta\right)R_k\left(\theta\right)
+        = I_2
+    \end{equation*}
+    \begin{equation*}
+        {R_k\left(\theta\right)}^{-1}
+        =
+        R_k\left(-\theta\right)
+        \qedhere
+    \end{equation*}
 \end{proof}
 \begin{definition}\label{M:Position}
     \textit{Position matrix} is defined recursively as
@@ -741,217 +741,216 @@ Obvious
 \begin{proof}[\proofof{M:Point:Set:Identity}]
 	It can be implied from \cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
 \end{proof}
-\subsection{Group structure}
-Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperation{\elements}$, proof of the matrices to be $\subgroup{M}$ will later be discussed)...
-\begin{lemma}\label{M:Orientation:Group}
-    Orientation matrix with multiplication
-    is isomorphic to orthogonal group.
-\end{lemma}
-\begin{proof}[\proofof{M:Orientation:Group}]
-    Let
-    \begin{APAitemize}
-        \item the group of $Q\left(n\right)$ with multiplication is $\left(Q\left(n\right),\cdot\right)$,
-        \item the group of $X\left(+1,n\right)$ with multiplication is $\left(X\left(+1,n\right),\cdot\right)$,
-        \item the group of $P\left(+1,n\right)$ with multiplication is $\left(P\left(+1,n\right),\cdot\right)$.
-    \end{APAitemize}
+% \subsection{Group structure}
+% Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperation{\elements}$, proof of the matrices to be $\subgroup{M}$ will later be discussed)...
+% \begin{lemma}\label{M:Orientation:Group}
+%     Orientation matrix with multiplication
+%     is isomorphic to orthogonal group.
+% \end{lemma}
+% \begin{proof}[\proofof{M:Orientation:Group}]
+%     Let
+%     \begin{APAitemize}
+%         \item the group of $Q\left(n\right)$ with multiplication is $\left(Q\left(n\right),\cdot\right)$,
+%         \item the group of $X\left(+1,n\right)$ with multiplication is $\left(X\left(+1,n\right),\cdot\right)$,
+%         \item the group of $P\left(+1,n\right)$ with multiplication is $\left(P\left(+1,n\right),\cdot\right)$.
+%     \end{APAitemize}
 
-    Consider the mapping
-    \begin{align*}
-        f      & : X^{\pm}_{+1,n-1}\left(\phi,\dots\right) \mapsto Q^{\pm}_{n}\left(\phi,\dots\right) & \in X\left(1,n-1\right) \to Q\left(n\right) \text{,} \\
-        f^{-1} & : Q^{\pm}_{n}\left(\phi,\dots\right) \mapsto X^{\pm}_{+1,n-1}\left(\phi,\dots\right) & \in Q\left(n\right) \to X\left(1,n-1\right) \text{,}
-    \end{align*}
-    which by \cref{M:Orientation} is equivalent to
-    \begin{equation} \label{M:Point:Orientation:Isomorphism}
-        f : X \mapsto \begin{bmatrix}
-            1 & 0 \\
-            0 & X \\
-        \end{bmatrix}
-        \text{.}
-    \end{equation}
+%     Consider the mapping
+%     \begin{align*}
+%         f      & : X^{\pm}_{+1,n-1}\left(\phi,\dots\right) \mapsto Q^{\pm}_{n}\left(\phi,\dots\right) & \in X\left(1,n-1\right) \to Q\left(n\right) \text{,} \\
+%         f^{-1} & : Q^{\pm}_{n}\left(\phi,\dots\right) \mapsto X^{\pm}_{+1,n-1}\left(\phi,\dots\right) & \in Q\left(n\right) \to X\left(1,n-1\right) \text{,}
+%     \end{align*}
+%     which by \cref{M:Orientation} is equivalent to
+%     \begin{equation} \label{M:Point:Orientation:Isomorphism}
+%         f : X \mapsto \begin{bmatrix}
+%             1 & 0 \\
+%             0 & X \\
+%         \end{bmatrix}
+%         \text{.}
+%     \end{equation}
 
-    For any point matrices $X_1, X_2 \in X\left(1,n-1\right)$, it can be shown that
-    \begin{align*}
-        f\left(X_1\right)\cdot f\left(X_2\right)
-                                                 & =\begin{bmatrix}
-            1 & 0   \\
-            0 & X_1 \\
-        \end{bmatrix}\cdot\begin{bmatrix}
-            1 & 0   \\
-            0 & X_2 \\
-        \end{bmatrix}                         & \text{(\cref{M:Point:Orientation:Isomorphism})}\\
-                                                 & =\begin{bmatrix}
-            1 & 0            \\
-            0 & X_1\cdot X_2 \\
-        \end{bmatrix}                                                        & \text{(\cref{Matrix:Product:Block})}                                        \\
-        f\left(X_1\right)\cdot f\left(X_2\right) & = f\left(X_1\cdot X_2\right)\text{.}
-    \end{align*}
-    Therefore,
-    \begin{align*}
-    	\forall n\in\N, 
-    	&
-    	Q\left(n\right)\cong X\left(+1, n-1\right) \\
-    	\implies &
-    	Q\left(n\right)\cong \ortho\left(n\right) \iff X\left(+1, n-1\right)\cong \ortho\left(n\right)
-    \end{align*}
+%     For any point matrices $X_1, X_2 \in X\left(1,n-1\right)$, it can be shown that
+%     \begin{align*}
+%         f\left(X_1\right)\cdot f\left(X_2\right)
+%                                                  & =\begin{bmatrix}
+%             1 & 0   \\
+%             0 & X_1 \\
+%         \end{bmatrix}\cdot\begin{bmatrix}
+%             1 & 0   \\
+%             0 & X_2 \\
+%         \end{bmatrix}                         & \text{(\cref{M:Point:Orientation:Isomorphism})}\\
+%                                                  & =\begin{bmatrix}
+%             1 & 0            \\
+%             0 & X_1\cdot X_2 \\
+%         \end{bmatrix}                                                        & \text{(\cref{Matrix:Product:Block})}                                        \\
+%         f\left(X_1\right)\cdot f\left(X_2\right) & = f\left(X_1\cdot X_2\right)\text{.}
+%     \end{align*}
+%     Therefore,
+%     \begin{align*}
+%     	\forall n\in\N, 
+%     	&
+%     	Q\left(n\right)\cong X\left(+1, n-1\right) \\
+%     	\implies &
+%     	Q\left(n\right)\cong \ortho\left(n\right) \iff X\left(+1, n-1\right)\cong \ortho\left(n\right)
+%     \end{align*}
 
-    \begin{align*}
-        X\left(+1, n-1\right)\subset\ortho\left(n\right)
-        & \implies
-        \forall X\in X\left(+1, n-1\right), X\in\ortho\left(n\right) & \text{()} \\
-        & \implies
-        \forall X\in X\left(+1, n-1\right), X^{-1}=X^T & \text{()} \\
-        & \implies
-        \forall Q\in Q\left(n\right)
-        \exists X\in X\left(+1, n-1\right), \\
-        & Q^{-1}
-        =\begin{bmatrix}
-        1 & 0 \\
-        0 & X \\
-        \end{bmatrix}^{-1} \\
-        =\begin{bmatrix}
-        1 & 0 \\
-        0 & X^{-1} \\
-        \end{bmatrix} \\
-        =\begin{bmatrix}
-        1 & 0 \\
-        0 & X^{T} \\
-        \end{bmatrix} \\
-        =\begin{bmatrix}
-        1 & 0 \\
-        0 & X \\
-        \end{bmatrix}^{T} \\
-        & \implies
-        \forall Q\in Q\left(n\right), Q^{-1}=Q^{T} \\
-        & \implies
-        \forall Q\in Q\left(n\right), Q\in\ortho\left(n+1\right) \\
-        & \implies
-        Q\left(n\right)\subset\ortho\left(n+1\right)
-    \end{align*}
-    \begin{equation}
-        X\left(+1, n-1\right)\subset\ortho\left(n\right)
-        \implies
-        Q\left(n\right)\subset\ortho\left(n+1\right)
-    \end{equation}
+%     \begin{align*}
+%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
+%         & \implies
+%         \forall X\in X\left(+1, n-1\right), X\in\ortho\left(n\right) & \text{()} \\
+%         & \implies
+%         \forall X\in X\left(+1, n-1\right), X^{-1}=X^T & \text{()} \\
+%         & \implies
+%         \forall Q\in Q\left(n\right)
+%         \exists X\in X\left(+1, n-1\right), \\
+%         & Q^{-1}
+%         =\begin{bmatrix}
+%         1 & 0 \\
+%         0 & X \\
+%         \end{bmatrix}^{-1} \\
+%         =\begin{bmatrix}
+%         1 & 0 \\
+%         0 & X^{-1} \\
+%         \end{bmatrix} \\
+%         =\begin{bmatrix}
+%         1 & 0 \\
+%         0 & X^{T} \\
+%         \end{bmatrix} \\
+%         =\begin{bmatrix}
+%         1 & 0 \\
+%         0 & X \\
+%         \end{bmatrix}^{T} \\
+%         & \implies
+%         \forall Q\in Q\left(n\right), Q^{-1}=Q^{T} \\
+%         & \implies
+%         \forall Q\in Q\left(n\right), Q\in\ortho\left(n+1\right) \\
+%         & \implies
+%         Q\left(n\right)\subset\ortho\left(n+1\right)
+%     \end{align*}
+%     \begin{equation}
+%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
+%         \implies
+%         Q\left(n\right)\subset\ortho\left(n+1\right)
+%     \end{equation}
 
-    \begin{align*}
-        T_{i,j}^{-1}=T_{i,j}=T_{i,j}^{T}
-        & \implies T_{i,j}\in\ortho \\
-        R_1\left(\theta\right)^{-1} = R_1\left(\theta\right)^{T}
-        & \implies R_1\left(\theta\right)\in\ortho\left(2\right) \\
-        & \implies 
-        \begin{bmatrix}
-            R_1\left(\theta\right) & 0_{2\times n-1} \\
-            0_{n-1\times2} & I_{n-1} \\
-        \end{bmatrix}\in\ortho\left(n+1\right)
-    \end{align*}
-    Prove by mathematical induction on $n$,
-    \begin{align*}
-        P\left(+1,n-1\right)\subset\ortho\left(n\right)
-        & \implies
-        \forall P\in P\left(+1,n-1\right),
-        P\in\ortho\left(n\right) \\
-        & \implies
-        \forall P\in P\left(+1,n-1\right),
-        \begin{bmatrix}
-            P & 0_{n\times1} \\
-            0_{1\times n} & 1 \\
-        \end{bmatrix}\in\ortho\left(n+1\right) \\
-        & \implies
-        \begin{bmatrix}
-            P_{1,n-1} & 0_{n\times1} \\
-            0_{1\times n} & 1 \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_{1} & 0_{2\times n-1} \\
-            0_{n-1\times2} & I_{n-1} \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \in\ortho\left(n+1\right) \\
-        & \implies
-        \forall P\in P\left(+1,n\right),
-        P \in\ortho\left(n+1\right) \\
-        & \implies
-        P\left(+1,n\right)\subset\ortho\left(n+1\right)
-    \end{align*}
-    \begin{equation}
-        P\left(+1,n\right)\subset\ortho\left(n+1\right)
-    \end{equation}
+%     \begin{align*}
+%         T_{i,j}^{-1}=T_{i,j}=T_{i,j}^{T}
+%         & \implies T_{i,j}\in\ortho \\
+%         R_1\left(\theta\right)^{-1} = R_1\left(\theta\right)^{T}
+%         & \implies R_1\left(\theta\right)\in\ortho\left(2\right) \\
+%         & \implies 
+%         \begin{bmatrix}
+%             R_1\left(\theta\right) & 0_{2\times n-1} \\
+%             0_{n-1\times2} & I_{n-1} \\
+%         \end{bmatrix}\in\ortho\left(n+1\right)
+%     \end{align*}
+%     Prove by mathematical induction on $n$,
+%     \begin{align*}
+%         P\left(+1,n-1\right)\subset\ortho\left(n\right)
+%         & \implies
+%         \forall P\in P\left(+1,n-1\right),
+%         P\in\ortho\left(n\right) \\
+%         & \implies
+%         \forall P\in P\left(+1,n-1\right),
+%         \begin{bmatrix}
+%             P & 0_{n\times1} \\
+%             0_{1\times n} & 1 \\
+%         \end{bmatrix}\in\ortho\left(n+1\right) \\
+%         & \implies
+%         \begin{bmatrix}
+%             P_{1,n-1} & 0_{n\times1} \\
+%             0_{1\times n} & 1 \\
+%         \end{bmatrix}
+%         T_{2,n+1}
+%         \begin{bmatrix}
+%             R_{1} & 0_{2\times n-1} \\
+%             0_{n-1\times2} & I_{n-1} \\
+%         \end{bmatrix}
+%         T_{2,n+1}
+%         \in\ortho\left(n+1\right) \\
+%         & \implies
+%         \forall P\in P\left(+1,n\right),
+%         P \in\ortho\left(n+1\right) \\
+%         & \implies
+%         P\left(+1,n\right)\subset\ortho\left(n+1\right)
+%     \end{align*}
+%     \begin{equation}
+%         P\left(+1,n\right)\subset\ortho\left(n+1\right)
+%     \end{equation}
     
-    Prove by mathematical induction on $n$,
-    \begin{equation}
-        X\left(+1, n-1\right)\subset\ortho\left(n\right)
-    \end{equation}
-    \begin{align*}
-    	\forall{X \in X\left(1, n\right)} 
-    	&
-    	\exists{P \in P\left(1, n\right)}
-    	\exists{Q \in Q\left(n\right)},
-    	X = P\cdot Q & \text{(\cref{M:Point})} \\
-    	\implies
-    	&
-    	\exists{P \in P\left(1, n\right)}
-    	\exists{Q \in \ortho\left(n+1\right)},
-    	X = P\cdot Q & \text{()} \\
-    	\implies
-    	&
-    	\exists{P \in \ortho\left(n+1\right)}
-    	\exists{Q \in \ortho\left(n\right)},
-    	X = P\cdot Q & \text{()} \\
-    	\implies
-    	&
-    	X \in \ortho\left(n+1\right) & \text{()}
-    \end{align*}
-   	\begin{equation*}
-   		X\left(1, n\right) \subset \ortho\left(n+1\right)
-   	\end{equation*}
+%     Prove by mathematical induction on $n$,
+%     \begin{equation}
+%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
+%     \end{equation}
+%     \begin{align*}
+%     	\forall{X \in X\left(1, n\right)} 
+%     	&
+%     	\exists{P \in P\left(1, n\right)}
+%     	\exists{Q \in Q\left(n\right)},
+%     	X = P\cdot Q & \text{(\cref{M:Point})} \\
+%     	\implies
+%     	&
+%     	\exists{P \in P\left(1, n\right)}
+%     	\exists{Q \in \ortho\left(n+1\right)},
+%     	X = P\cdot Q & \text{()} \\
+%     	\implies
+%     	&
+%     	\exists{P \in \ortho\left(n+1\right)}
+%     	\exists{Q \in \ortho\left(n\right)},
+%     	X = P\cdot Q & \text{()} \\
+%     	\implies
+%     	&
+%     	X \in \ortho\left(n+1\right) & \text{()}
+%     \end{align*}
+%    	\begin{equation*}
+%    		X\left(1, n\right) \subset \ortho\left(n+1\right)
+%    	\end{equation*}
    	
-   	\begin{equation}
-        \ortho\left(1, n-1\right) \subset X\left(1, n-1\right)
-    \end{equation}
-    (To be prove)
+%    	\begin{equation}
+%         \ortho\left(1, n-1\right) \subset X\left(1, n-1\right)
+%     \end{equation}
+%     (To be prove)
    	
-   	\begin{align*}
-   		X\left(1, n-1\right) &= \ortho\left(n\right) \\
-   		X\left(1, n-1\right) &\cong \ortho\left(n\right) \\
-   		Q\left(n\right) &\cong \ortho\left(n\right)
-   	\end{align*}
-   	\begin{equation*}
-   		Q\left(n\right) \cong \ortho\left(n\right) \qedhere
-   	\end{equation*}
-\end{proof}
-\begin{lemma}\label{M:Point:Group}
-    Point matrix with multiplication
-    is isomorphic to principal group of the associated Klein geometry.
-\end{lemma}
-\begin{proof}[\proofof{M:Point:Group}]
-    \skipped
+%    	\begin{align*}
+%    		X\left(1, n-1\right) &= \ortho\left(n\right) \\
+%    		X\left(1, n-1\right) &\cong \ortho\left(n\right) \\
+%    		Q\left(n\right) &\cong \ortho\left(n\right)
+%    	\end{align*}
+%    	\begin{equation*}
+%    		Q\left(n\right) \cong \ortho\left(n\right) \qedhere
+%    	\end{equation*}
+% \end{proof}
+% \begin{lemma}\label{M:Point:Group}
+%     Point matrix with multiplication
+%     is isomorphic to principal group of the associated Klein geometry.
+% \end{lemma}
+% \begin{proof}[\proofof{M:Point:Group}]
+%     \skipped
 
-    Spherical case is proved successfully with \cref{M:Orientation:Group}.
+%     Spherical case is proved successfully with \cref{M:Orientation:Group}.
 
-    Euclidean case should use limits and first degree taylor series.
+%     Euclidean case should use limits and first degree taylor series.
 
-    Hyperbolic case use \cref{M:Orientation:Group} and closed property.
-\end{proof}
-\begin{lemma}\label{M:Position:Group}
-    Position matrix is isomorphic to quotient group of the associated Klein geometry.
-\end{lemma}
-\begin{proof}[\proofof{M:Position:Group}]
-    \skipped
+%     Hyperbolic case use \cref{M:Orientation:Group} and closed property.
+% \end{proof}
+% \begin{lemma}\label{M:Position:Group}
+%     Position matrix is isomorphic to quotient group of the associated Klein geometry.
+% \end{lemma}
+% \begin{proof}[\proofof{M:Position:Group}]
+%     \skipped
 
-    It can be seen that $P\cong X/Q \iff X \cong P \ltimes Q$,
-    point matrix is isomorphic to the principal group,
-    orientation matrix is isomorphic to the subgroup,
-    and point matrix is product of position and orientation matrix.
+%     It can be seen that $P\cong X/Q \iff X \cong P \ltimes Q$,
+%     point matrix is isomorphic to the principal group,
+%     orientation matrix is isomorphic to the subgroup,
+%     and point matrix is product of position and orientation matrix.
 
-    They may be useful for proving that is not yet to be known.
+%     They may be useful for proving that is not yet to be known.
 
-    Another way is to seek for general form of the matrix element of the group of the Klein geometry.
-\end{proof}
+%     Another way is to seek for general form of the matrix element of the group of the Klein geometry.
+% \end{proof}
 \section{Model Parametrization}
-\proto{Construction of the charts $\varphi$}
 \begin{definition}\label{M:Parameter}
-    For point matrix $\tensor{X^\pm_{k,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}$,
+    For any point matrix $\tensor{X^\pm_{k,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}$,
     $n$-dimensional vector $\tensor{\theta}{}$
     is defined as \textit{position parameter}.
 \end{definition}
@@ -969,21 +968,12 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     $\tensor{p}{}=\frac{1}{k}\tensor{X}{_1}=\frac{1}{k}\tensor{P}{_1}$.
 \end{lemma}
 \begin{proof}[\proofof{M:Vector:Position}]
-    From \cref{M:Orientation}, it is obvious that
-    \begin{equation}\label{M:Orientation:Column}
-        \tensor{O}{^i_1} =
-        \begin{cases}
-            1 & \text{if $i=1$,}  \\
-            0 & \text{otherwise.} \\
-        \end{cases}
-    \end{equation}
     \begin{align*}
         \tensor{p}{^i}
-         & = \frac{1}{k}\tensor{X}{^i_1}                         &  & \text{From \cref{M:Vector}}       \\
-         & = \frac{1}{k}\sum_j{\tensor{P}{^i_j}\tensor{O}{^j_1}} &  & \text{From \cref{Matrix:Product}} \\
-         & = \frac{1}{k}\tensor{P}{^i_1}                         &  & \text{From \cref{M:Orientation:Column}}    \\
-        \tensor{p}{}
-         & = \frac{1}{k}\tensor{X}{_1}                                                                        \\
+         & = \frac{1}{k}\tensor{X}{^i_1}                         &  & \text{\cref{M:Vector}}       \\
+         & = \frac{1}{k}\sum_j{\tensor{P}{^i_j}\tensor{O}{^j_1}} &  & \text{\cref{Matrix:Product}} \\
+         & = \frac{1}{k}\tensor{P}{^i_1}                         &  & \text{\cref{M:Orientation}}    \\
+        \tensor{p}{}                                                                     \\
          & = \frac{1}{k}\tensor{P}{_1}                           &  & \qedhere
     \end{align*}
 \end{proof}
@@ -1000,11 +990,9 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{M:Vector:Value}]
-    \skipped
-
-    Use \cref{M:Vector:Position} then $\tensor{p}{}=\frac{1}{k}\tensor{P}{}\cdot\tensor{e}{^1}$ and recursively compute the vector.
+    Simplify \cref{M:Vector:Position,M:Position}.
 \end{proof}
-\begin{lemma}\label{PositionParameterValue}
+\begin{lemma}\label{M:Parameter:Value}
     Given position vector $\tensor{p}{}$, position parameter can be calculated as the following.
     \begin{align*}
         \psi_0
@@ -1023,112 +1011,117 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     \end{align*}
     where $\cos_k\left(\arcsin_k^{\pm}\left(x\right)\right) = \pm \cos_k\left(\arcsin_k\left(x\right)\right)$.
 \end{lemma}
-\begin{proof}[\proofof{PositionParameterValue}]
+\begin{proof}[\proofof{M:Parameter:Value}]
     \skipped
 
-    Use \cref{PositionVectorValue} to compute the inverse mapping.
+    Use \cref{M:Vector:Value} to compute the inverse mapping.
 \end{proof}
-\proto{Proof of validity of $\varphi$}
 \begin{lemma}\label{CoordinateChart}
     \begin{equation*}
         \Psi=\set{\psi|
             \psi^{-1}
-            \in \left(-\frac{1}{2}\frac{\pi}{k},+\frac{1}{2}\frac{\pi}{k}\right)^n \to R
+            \in S^n \to P
             :\tensor{\theta}{}\mapsto P_{k,n}\left(\tensor{\theta}{}+\tensor{x}{}\right)
             \text{ for }
             \tensor{x}{} \in \R^n
         }
-    \end{equation*} is a coordinate chart of a $C^\infty$ differential structure on $R$
+    \end{equation*} is a coordinate chart of a $C^\infty$ differential structure on $P$
+    for \begin{equation*}
+        S=
+        \begin{cases}
+            \left(-\frac{1}{2}\frac{\pi}{k},+\frac{1}{2}\frac{\pi}{k}\right) & \text{$k>0$} \\
+            \R & \text{$k\le0$}
+        \end{cases}
+    \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{CoordinateChart}]
     It is sufficient to shows that
     \begin{APAenumerate}
         \item $R_\psi$ is an open subset of real vector space (defined),
-        \item $\bigcup_{\psi\in\Psi} D_\psi = R$ (obvious or not),
+        \item $\bigcup_{\psi\in\Psi} D_\psi = P$ (obvious),
         \item transition map is in differentability class $C^\infty$.
     \end{APAenumerate}
-    \begin{subproof}{$\bigcup_{\psi\in\Psi} D_\psi = R$}
-        \skipped
-
-        Choose $x$ as any then done.
+    \begin{subproof}{$\bigcup_{\psi\in\Psi} D_\psi = P$}
+        \begin{align*}
+            M \in P
+            & \implies \exists \theta_0, M=P_{k,n}\left(\theta_0\right) \\
+            & \implies \exists \theta_0, M=P_{k,n}\left(0 + \theta_0\right) \\
+            & \implies M\in R_{\psi^{-1}} \\
+            & \implies M\in D_{\psi} \\
+            & \implies M\in \bigcup_{\psi\in\Psi} D_\psi \\
+            P&\subset\bigcup_{\psi\in\Psi}D_\psi \\
+            M\in \bigcup_{\psi\in\Psi} D_\psi
+            & \implies \exists \psi\in\Psi, M\in D_\psi \\
+            & \implies \exists \psi\in\Psi, M\in R_{\psi^{-1}} \\
+            & \implies \exists x_0\exists\theta\in S^n, M=P_{k,n}\left(\theta+x_0\right) \\
+            & \implies \exists x_0, M=P_{k,n}\left(0+x_0\right) \\
+            & \implies \exists x_0, M=P_{k,n}\left(x_0\right) \\
+            & \implies M \in P \\
+            \bigcup_{\psi\in\Psi}D_\psi&\subset P \\
+            \bigcup_{\psi\in\Psi} D_\psi &= P
+        \end{align*}
     \end{subproof}
     \begin{subproof}{every transition map is in differentability class $C^\infty$}
         Consider $\psi_1, \psi_2 \in \Psi$ and $x_1, x_2 \in \R^n$ where
         \begin{equation*}
             \psi_i^{-1}
-            \in \left(-\frac{1}{2}\frac{\pi}{k},+\frac{1}{2}\frac{\pi}{k}\right)^n \to R
+            \in S^n \to R
             :\tensor{\theta}{}\mapsto P\left(\tensor{\theta}{}+x_i\right)
             \text{.}
         \end{equation*}
-
-        \skipped
-
-        Use $\psi$ from \cref{PositionVectorMatrix} and \cref{PositionParameterValue}
-        and $\psi^{-1}$ from \cref{PositionMatrix}.
-        The domain will eventually work itself out and leads to smooth transition mapping.
+        If $\psi_1\left(\theta_1\right)=\psi_2\left(\theta_2\right)$,
+        then \skipped
     \end{subproof}
 \end{proof}
 \subsection{Locus of position vector}
 \begin{lemma}\label{SphericalLocus}
-    For $k>0$, $P$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
+    For $k>0$, $P^\ast$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
 \end{lemma}
 \begin{proof}[\proofof{SphericalLocus}]
-    \skipped
-
-    Use \cref{TrigonometryPythagorean} and et cetera.
+    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
 \end{proof}
 \begin{lemma}\label{HyperbolicLocus}
-    For $k<0$, $P$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
+    For $k<0$, $P^\ast$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
 \end{lemma}
 \begin{proof}[\proofof{HyperbolicLocus}]
-    \skipped
-
-    Use \cref{TrigonometryPythagorean} and et cetera.
+    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
 \end{proof}
 \begin{lemma}\label{EuclideanLocus}
-    For $k\to0$, $P$ is a $n$-Euclidean manifold at infinity.
+    For $k\to0$, $P^\ast$ is a $n$-Euclidean manifold at infinity.
 \end{lemma}
 \begin{proof}[\proofof{EuclideanLocus}]
-    \skipped
-
-    Use \cref{TrigonometryPythagorean} and et cetera.
+    Using limits.
 \end{proof}
 \section{Geometric properties}
-\proto{Construction of the metric $d$}
 \subsection{Embedding}
-\begin{definition}\label{Embedding}
+\begin{definition}\label{M:Embedding}
     Let $N=\left(Q,g\right)$ be a $n$-dimension Riemannian manifold
     on position parameter space with such inner product $g$ that
-    the map $\cdot\mapsto\frac{1}{k}\cdot\times\tensor{e}{^1}\in Q\to P$ is an isometric embedding to $\left(n+1\right)$-Euclidean manifold.
+    the map $\cdot\mapsto\frac{1}{k}\cdot\tensor{e}{^1}\in P\to P^\ast$ is an isometric embedding to $\left(n+1\right)$-Euclidean manifold.
 \end{definition}
-\begin{lemma}\label{Model:Basis}
+\begin{lemma}\label{M:Tangent:Basis}
     Position parameter $\tensor{\theta}{^i}$ is associated to the following vector in position vector space.
     \begin{equation*}
-        \tensor{\theta}{_i} =
-        \begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^{i+1}}    \\
-            0                                                            \\
-        \end{bmatrix}
+        \frac{\partial}{\partial\tensor{\theta}{^i}} =
+        \begin{pmatrix}
+            -k\tan_k^\ast\tensor{\theta}{^j}\tensor{p}{^j} \\
+            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
+            0
+        \end{pmatrix} \frac{\partial}{\partial\tensor{p}{^j}}
     \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{Model:Basis}]
-    \skipped
-
-    Use \cref{PositionVectorValue} to map from $\tensor{\theta}{}$ to $P$.
+\begin{proof}[\proofof{M:Tangent:Basis}]
     \begin{align*}
-        {\tensor{\theta}{_i}}
-         & =
-        \frac{\partial\tensor{p}{}}{\partial\tensor{\theta}{^i}} \\
-         & =
-        \begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^{i+1}}    \\
-            0                                                            \\
-        \end{bmatrix}
+        \frac{\partial}{\partial\tensor{\theta}{^i}}
+        &= \frac{\partial}{\partial\tensor{p}{^j}}\frac{\partial\tensor{p}{^j}}{\partial\tensor{\theta}{^i}} \\
+        &= \begin{pmatrix}
+            -k\tan_k^\ast\theta\tensor{p}{^j} \\
+            k\frac{1}{\tan_k\theta}\tensor{p}{^{i+1}} \\
+            0
+        \end{pmatrix}\frac{\partial}{\partial\tensor{p}{^j}}
     \end{align*}
 \end{proof}
-\begin{lemma}\label{Model:MetricTensor}
+\begin{lemma}\label{M:MetricTensor}
     The metric tensor of $N$ is
     \begin{align*}
         \tensor{g}{_i_j} & =
@@ -1138,47 +1131,36 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
         \end{cases}
     \end{align*}
 \end{lemma}
-\begin{proof}[\proofof{Model:MetricTensor}]
-    \skipped
-
-    Use \cref{CoordinateChart} to map from $Q$ to $\tensor{\theta}{}$.
-    Then use \cref{PositionVectorValue} to map from $\tensor{\theta}{}$ to $P$.
-    Then use \cref{Embedding} to find the inner product as multilinear function, result in the metric tensor.
-
+\begin{proof}[\proofof{M:MetricTensor}]
     \begin{align*}
-        \tensor{g}{_a_b}\left[\tensor{\theta}{}\right]
+        \tensor{g}{_a_b}\left[\frac{\partial}{\partial\tensor{\theta}{^i}}\right]
          & = \sum_{l,m=1}^{n+1}{
-        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^i}}}
-        \tensor{g}{_l_m}\left[\tensor{p}{}\right]
-        \frac{\partial{\tensor{p}{^m}}}{\partial{\tensor{\theta}{^j}}}
+        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
+        \tensor{g}{_l_m}\left[\frac{\partial}{\partial\tensor{p}{^i}}\right]
+        \frac{\partial{\tensor{p}{^m}}}{\partial{\tensor{\theta}{^b}}}
         }                                                \\
-         & = \sum_{l=1}^{n+1}{
-        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^i}}}
-        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^j}}}
-        }                                                \\
-         & = \tensor{\theta}{_i}\cdot\tensor{\theta}{_j} \\
-        \tensor{g}{_a_b}
-         & = \begin{cases}
-            \tensor{g}{_b_a} & \text{if $a>b$} \\
-            \dots            & \text{if $a<b$} \\
-            \dots            & \text{if $a=b$}
-        \end{cases}
+        & = \sum_{l=1}^{n+1}{
+       \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
+       \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^b}}}
+       }
     \end{align*}
     If $a<b$,
     \begin{align*}
         \tensor{g}{_a_b}
          & =\begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}    \\
+            -k\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
+            k\frac{1}{\tan_k\left(\tensor{\theta}{^a}\right)}\tensor{p}{^{a+1}}    \\
             0                                                            \\
         \end{bmatrix}\cdot\begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^b}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^b}\right)\tensor{p}{^{b+1}}    \\
+            -k\tan_k^\ast\left(\tensor{\theta}{^b}\right)\tensor{p}{^j} \\
+            k\frac{1}{\tan_k\left(\tensor{\theta}{^b}\right)}\tensor{p}{^{b+1}}    \\
             0                                                            \\
         \end{bmatrix}                                                  \\
          & =
-        \sum{k^2\tan_k\left(\tensor{\theta}{^a}\right)\tan_k\left(\tensor{\theta}{^b}\right){\tensor{p}{^j}}^2}
-        -\sign{k}k^2\cot_k\left(\tensor{\theta}{^a}\right)\tan_k\left(\tensor{\theta}{^b}\right){\tensor{p}{^{a+1}}}^2 \\
+        \sum{
+            k^2\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tan_k^\ast\left(\tensor{\theta}{^b}\right){\tensor{p}{^j}}^2
+        }
+        -k^2\frac{\tan_k^\ast\left(\tensor{\theta}{^b}\right)}{\tan_k\left(\tensor{\theta}{^a}\right)}{\tensor{p}{^{a+1}}}^2 \\
          & =
         \tan_k\left(\tensor{\theta}{^b}\right)
         \tan_k\left(\tensor{\theta}{^a}\right)
@@ -1231,7 +1213,6 @@ Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperatio
     \end{align*}
 \end{proof}
 \subsection{Curvature}
-\proto{Proof of validity of the metric $d$}
 \subsubsection{Curvature (Method I)}
 This method may be easier to generalize to
 Model II where each direction can have partially independent curvature
@@ -1407,12 +1388,10 @@ if not to mess with other basis geometries).
 \begin{lemma}\label{Model:SectionalCurvature}
 
 \end{lemma}
-\proto{Trace back on why $k$ is used all along instead of $\kappa$}
 \paragraph{CurvatureParameter}
 It can be seen that $\operatorname{sec}\left(p\right) = \kappa = \sign{\left(k\right)}k^2$.
 Hence, when provided $\kappa$, $k$ can be determined and used to evaluate the model.
 \section{The Model}
-\proto{Merge all element back to the model}
 \stepcounter{Counter}
 \begin{ModelGroupElement}
     For any parameter $\kappa, n$,

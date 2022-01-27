@@ -6,7 +6,7 @@
 \newcommand{\inner}[2]{\left\langle{#1},{#2}\right\rangle}
 \newcommand{\norm}[1]{\left|\left|{#1}\right|\right|}
 \DeclareMathOperator{\sign}{sgn}
-\DeclareMathOperator{\abs}{abs}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
 \DeclareMathOperator{\contr}{contr}
 \DeclareMathOperator{\diag}{diag}
 
@@ -21,8 +21,6 @@
 
 % placeholder commands - Use to find it easier with Ctrl+F
 \newcommand{\skipped}{The proof is left as an exercise to the other author.}  % pending proof - JUST DO IT ALREADY
-\newcommand{\citenone}{*Not Cited*}  % pending citation - JUST DO IT ALREADY
-\newcommand{\proto}[1]{#1...}  % pending operation
 \newcommand{\proofof}[1]{Proof of \cref{#1}} % Proof name
 \newcommand{\toshowthat}[1]{To show that #1} % Subproof name
 \newenvironment{subproof}[1]{%
