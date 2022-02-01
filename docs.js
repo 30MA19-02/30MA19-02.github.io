@@ -1,8 +1,8 @@
 requirejs.config({
     baseUrl: ".",
     paths: {
-        "noneuclid": "../dist/noneuclid",
-        "p5": "../node_modules/p5/lib/p5"
+        "noneuclid": "lib/noneuclid",
+        "p5": "https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5"
     }
 });
 
