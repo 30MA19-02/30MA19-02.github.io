@@ -1,5 +1,2 @@
-const {Point} = require('./modules/point');
-
-module.exports = {
-    Point: Point
-};
+import * as point from './modules/point';
+export const Point = point.Point;
