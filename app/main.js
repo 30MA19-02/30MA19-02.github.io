@@ -1,215 +1,163 @@
-define(
-    ['p5', './point', './slider'], 
-    function(p5, point, slider) {
-        'use strict';
+import "./style.css";
+import textureUrl from "./assets/world_map2.jpg"
 
-        const sketch = (p) => {
-            var MAX_VALUE = Number.MAX_VALUE;
+import * as THREE from "three";
 
-            let reso_height_slider, reso_width_slider;
-            let kappa_slider;
-            let kappa;
+import * as noneuc from "noneuclid";
 
-            let image;
-            let reso_height, reso_width;
-            let point_init;
-            let point_fin;
-            let trans;
-            let dist_min = 0;
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
 
-            let model_checkbox, projection_checkbox;
+const canvas = document.getElementById("app");
 
-            var fps = 10;
+const scene = new THREE.Scene();
 
-            p.preload = function () {
-            image = p.loadImage("assets/world_map2.jpg");
-            }
-
-            p.setup = function () {
-            p.createCanvas(600, 600, p.WEBGL);
-            p.angleMode(p.RADIANS);
-
-            p.createP('Sphere').position(p.width + 10, 10);
-            reso_height_slider = new slider.MySlider(2, 32, 32, 1, p.width + 10, 47, p, "Height Face");
-            reso_width_slider = new slider.MySlider(3, 24, 24, 1, p.width + 10, 69, p, "Width Face");
-
-            kappa_slider = new slider.MySlider(-1, +1, 1, 0, p.width + 10, 230, p, "Kappa");
-
-            p.createP('Rotation').position(p.width + 10, 100);
-            trans = new point.MyPoint(
-                new slider.MySlider(-.25, .25, 0.03815754722, 0, p.width + 10, 135, p, "BLatitude"),
-                new slider.MySlider(-.50, .50, 0.27923107222, 0, p.width + 10, 157, p, "BLongitude"),
-                new slider.MySlider(-.5, .5, 0, 0, p.width + 10, 179, p, "BDirection"),
-                kappa_slider
-            );
-
-            model_checkbox = p.createCheckbox('model', true).position(p.width + 5, 270);
-            projection_checkbox = p.createCheckbox('projection', true).position(p.width + 5, 300);
-
-            point_init = new Array();
-            point_fin = new Array();
-            for (var i = 0; i < 33; i++) {
-                point_init[i] = new Array();
-                point_fin[i] = new Array();
-            }
-
-            set_vertices();
-            p.noFill();
-            p.frameRate(fps);
-            }
-
-            function image_scale() {
-            return Math.abs(factor());
-            }
-            function factor() {
-            return 1 / kappa;
-            }
-
-            function set_vertices() {
-            reso_height = reso_height_slider.value() + 1, reso_width = reso_width_slider.value();
-            kappa = kappa_slider.value() != 0 ? kappa_slider.value() : point.near_zero;
-            for (var i = 0; i < reso_height; i++) {
-                for (var j = 0; j < reso_width + 1; j++) {
-                point_init[i][j] = new point.Point(
-                    - p.map(j / (reso_width), 0, 1, image_scale() * -0.5, image_scale() * 0.5),
-                    p.map(i / (reso_height - 1), 0, 1, image_scale() * -0.25, image_scale() * 0.25),
-                    0,
-                    kappa
-                );
-                point_init[i][j] = point_init[i][j].operate(new point.Point(
-                    0,
-                    0,
-                    0.75,
-                    kappa
-                ));
-                }
-            }
-            }
-
-            function draw_manifold() {
-            for (let i = 0; i < reso_height - 1; i++) {
-                p.beginShape(p.TRIANGLE_STRIP);
-                for (let j = 0; j < reso_width + 1; j++) {
-                for (let k = 0; k < 2; k++) {
-                    let [x, y, z] = point_fin[i + k][j];
-                    p.vertex(x, y, z, j / reso_width, 1 - (i + k) / (reso_height - 1));
-                }
-                }
-                p.endShape();
-            }
-            }
-
-            function draw_projection() {
-            let sink = factor();
-            let source = -factor();
-            for (let i = 0; i < reso_height - 1; i++) {
-                p.beginShape(p.TRIANGLE_STRIP);
-                for (let j = 0; j < reso_width + 1; j++) {
-                for (let k = 0; k < 2; k++) {
-                    let [x, y, z] = point_fin[i + k][j];
-
-                    if (x == source) {
-                    // Point at infinity
-                    // vertex(h, MAX_VALUE, MAX_VALUE, (i + k) / reso_height, j / reso_width);
-                    // vertex(h, -MAX_VALUE, MAX_VALUE, (i + k) / reso_height, j / reso_width);
-                    // vertex(h, MAX_VALUE, -MAX_VALUE, (i + k) / reso_height, j / reso_width);
-                    // vertex(h, -MAX_VALUE, -MAX_VALUE, (i + k) / reso_height, j / reso_width);
-                    }
-                    else {
-                    //Fix Overlapping
-                    if (p.dist(
-                        x, y, z,
-                        source, 0, 0
-                    ) <= dist_min * 1.10)
-                    //
-                    {
-                        p.endShape();
-                        p.beginShape(p.TRIANGLE_STRIP);
-                        continue;
-                    }
-                    p.stroke(255, 255, 255);
-                    p.vertex(
-                    sink,
-                    y * (sink - source) / (x - source),
-                    z * (sink - source) / (x - source),
-                    j / reso_width,
-                    1 - (i + k) / (reso_height - 1)
-                    );
-                    }
-                }
-                }
-                p.endShape();
-            }
-            }
-
-            p.draw = function () {
-
-            kappa = kappa_slider.value() != 0 ? kappa_slider.value() : point.near_zero;
-            if (kappa > 0) dist_min = MAX_VALUE;
-            else dist_min = 0;
-
-            p.background(0);
-            p.scale(100);
-            p.rotateY(p.HALF_PI);
-            p.translate(factor(), 0, 0);
-            p.rotateY(p.PI);
-
-            //slider update
-            trans.update();
-            reso_height_slider.update();
-            reso_width_slider.update();
-
-
-
-            if (reso_width_slider.changed || reso_height_slider.changed || kappa_slider.changed) set_vertices();
-
-            for (let i = 0; i < reso_height; i++) {
-                for (let j = 0; j < reso_width + 1; j++) {
-                point_fin[i][j] = point_init[i][j].operate(
-                    trans.point
-                ).operate(new point.Point(
-                    0,
-                    0,
-                    -0.25,
-                    kappa
-                )).project;
-                point_fin[i][j] = [
-                    point_fin[i][j]._data[0][0],
-                    point_fin[i][j]._data[1][0],
-                    point_fin[i][j]._data[2][0],
-                ]
-                let [x, y, z] = point_fin[i][j];
-                dist_min = p.min(
-                    dist_min, p.dist(
-                    x, y, z,
-                    - factor(), 0, 0
-                    )
-                )
-                }
-            }
-            p.strokeWeight(10);
-            p.stroke(255, 0, 0);
-            p.point(+factor() + 0.01, 0, 0);
-            p.point(+factor() - 0.01, 0, 0);
-
-            if (kappa != 0) {
-                p.stroke(255, 255, 0);
-                p.point(-factor() + 0.01, 0, 0);
-                p.point(-factor() - 0.01, 0, 0);
-            }
-
-            p.textureMode(p.NORMAL);
-            p.texture(image);
-
-            if (model_checkbox.checked()) draw_manifold();
-
-            if (projection_checkbox.checked()) draw_projection();
-
-            p.orbitControl();
-            }
-
-        }
-
-        new p5(sketch);
-    }
+const camera = new THREE.PerspectiveCamera(
+  75,
+  canvas.offsetWidth / canvas.offsetHeight,
+  0.1,
+  1000
 );
+
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+});
+
+const controls = new OrbitControls(camera, renderer.domElement);
+
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
+camera.position.setZ(30);
+
+renderer.render(scene, camera);
+
+const height_slider = document.createElement("input");
+height_slider.type = "range";
+height_slider.max = 32;
+height_slider.min = 2;
+height_slider.step = 1;
+height_slider.value = 32;
+
+const width_slider = document.createElement("input");
+width_slider.type = "range";
+width_slider.max = 24;
+width_slider.min = 3;
+width_slider.step = 1;
+width_slider.value = 24;
+
+const lat_slider = document.createElement("input");
+lat_slider.type = "range";
+lat_slider.max = +0.25;
+lat_slider.min = -0.25;
+lat_slider.step = 1e-18;
+lat_slider.value = 0.03815754722;
+
+const lon_slider = document.createElement("input");
+lon_slider.type = "range";
+lon_slider.max = +0.5;
+lon_slider.min = -0.5;
+lon_slider.step = 1e-18;
+lon_slider.value = 0.27923107222;
+
+const the_slider = document.createElement("input");
+the_slider.type = "range";
+the_slider.max = +0.5;
+the_slider.min = -0.5;
+the_slider.step = 1e-18;
+the_slider.value = 0;
+
+const kappa_slider = document.createElement("input");
+kappa_slider.type = "range";
+kappa_slider.max = +1;
+kappa_slider.min = -1;
+kappa_slider.step = 1e-18;
+kappa_slider.value = 1;
+
+document.body.appendChild(height_slider);
+document.body.appendChild(width_slider);
+document.body.appendChild(lat_slider);
+document.body.appendChild(lon_slider);
+document.body.appendChild(the_slider);
+document.body.appendChild(kappa_slider);
+
+const texture = new THREE.TextureLoader().load(textureUrl);
+const textured_material = new THREE.MeshBasicMaterial({
+  map: texture,
+  // wireframe: true,
+  // side: THREE.BackSide,
+});
+const material = new THREE.MeshBasicMaterial({
+  color: 0xff6347,
+});
+let kappa, factor, operator;
+
+function render() {
+  const manifold_geometry = new ParametricGeometry(
+    function (u, v, target) {
+      let x = -Math.abs(factor) * 2 * Math.PI * (0.5 - u);
+      let y = -Math.abs(factor) * Math.PI * (v - 0.5);
+      let p = new noneuc.Point(x, y, 0, kappa);
+      p = p.operate(new noneuc.Point(0, 0, Math.PI / 2, kappa));
+      p = p.operate(operator);
+      let pr = p.project;
+      target.set(pr.get([0, 0]), pr.get([1, 0]), - pr.get([2, 0]));
+      target = target.multiplyScalar(10);
+    },
+    parseInt(width_slider.value),
+    parseInt(height_slider.value)
+  );
+  const projection_geometry = new ParametricGeometry(
+    function (u, v, target) {
+      let x = -Math.abs(factor) * 2 * Math.PI * (0.5 - u);
+      let y = -Math.abs(factor) * Math.PI * (v - 0.5);
+      let p = new noneuc.Point(x, y, 0, kappa);
+      p = p.operate(new noneuc.Point(0, 0, Math.PI / 2, kappa));
+      p = p.operate(operator);
+      let pr = p.project;
+      target.set(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
+      let scale = (factor + factor) / (target.x + factor);
+      target.set(factor, target.y * scale, - target.z * scale);
+      target = target.multiplyScalar(10);
+    },
+    parseInt(width_slider.value),
+    parseInt(height_slider.value)
+  );
+  const manifold = new THREE.Mesh(manifold_geometry, textured_material);
+  const projection = new THREE.Mesh(projection_geometry, textured_material);
+  const dot_source = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
+  dot_source.position.set(-10 * factor, 0, 0);
+  const dot_sink = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
+  dot_sink.position.set(+10 * factor, 0, 0);
+
+  scene.add(manifold);
+  scene.add(projection);
+  scene.add(dot_source);
+  scene.add(dot_sink);
+
+  renderer.render(scene, camera);
+
+  scene.remove(manifold);
+  scene.remove(projection);
+  scene.remove(dot_source);
+  scene.remove(dot_sink);
+
+  manifold_geometry.dispose();
+  projection_geometry.dispose();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+
+  kappa = parseFloat(kappa_slider.value);
+  factor = kappa == 0 ? 1 : 1 / kappa;
+  operator = new noneuc.Point(
+    -parseFloat(lat_slider.value) * Math.abs(factor) * 2 * Math.PI,
+    -parseFloat(lon_slider.value) * Math.abs(factor) * 2 * Math.PI,
+    -parseFloat(the_slider.value) * 2 * Math.PI,
+    kappa
+  );
+
+  render();
+}
+
+animate();
