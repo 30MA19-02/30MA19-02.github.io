@@ -10,7 +10,7 @@
     "man/*"
   ],
   "scripts": {
-    "build": "(npm ci || npm install) && browserify index.js -s noneuc -o dist/noneuclid.js"
+    "build": "browserify index.js -s noneuc -o dist/noneuclid.js"
   },
   "repository": {
     "type": "git",
