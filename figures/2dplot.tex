@@ -9,9 +9,6 @@
         declare function={
                 cosine(\x)= (\x>=0) * cos(deg(\x)) + (\x<0) * cosh(\x);
             },
-        declare function={
-                tangent(\x)= (\x>=0) * tan(deg(\x)) + (\x<0) * tanh(\x);
-            },
     ]
     \begin{axis}[
             xlabel = $k$,
@@ -39,10 +36,6 @@
             color=blue,
             thick
         ]{cosine(x)}node[above]{$\cos_k{1}$};
-        \addplot[
-            color=green,
-            thick
-        ]{tangent(x)};
     \end{axis}
 \end{tikzpicture}
 \end{document}

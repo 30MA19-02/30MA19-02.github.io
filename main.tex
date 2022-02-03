@@ -395,6 +395,10 @@ such that
         \begin{cases}
             \sin\left(k\theta\right)  & \text{if $k\geq0$,} \\
             -\sinh\left(k\theta\right) & \text{otherwise.}   \\
+        \end{cases} \\
+        & = \begin{cases}
+            \sin\left(\abs{k}\theta\right)  & \text{if $k\geq0$,} \\
+            \sinh\left(\abs{k}\theta\right) & \text{otherwise.}   \\
         \end{cases}
     \end{align*}
     (see \cref{TrigonometrySinePlotted})
@@ -409,31 +413,15 @@ such that
         \cos_k^\ast{\theta} & \defeq
         \begin{cases}
             \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
+            \cosh\left(-k\theta\right) & \text{otherwise.}   \\
+        \end{cases} \\
+        & = \begin{cases}
+            \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
             \cosh\left(k\theta\right) & \text{otherwise.}   \\
         \end{cases} \\
         & = \cos_k{\theta}
     \end{align*}
     (see \cref{TrigonometryCosinePlotted})
-\end{example}
-\begin{example}[Generalized tangent functions]\label{M:Trigonometry:Tangent}
-    \begin{align*}
-        \tan_k{\theta} & \defeq
-        \begin{cases}
-            \tan\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            \tanh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        \tan_k^\ast{\theta} & \defeq
-        \begin{cases}
-            \tan\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            \tanh\left(-k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        & =
-        \begin{cases}
-            \tan\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            -\tanh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases}
-    \end{align*}
-    (see \cref{TrigonometryTangentPlotted})
 \end{example}
 \begin{theorem}[Pythagorean's identity equivalence]\label{M:Trigonometry:Pythagorean}
     \begin{equation*}
@@ -452,10 +440,20 @@ such that
         \cos_k\left(\theta+\phi\right)
         &= \cos_k{\theta}\cos_k{\phi}-\sign{k}\sin_k{\theta}\sin_k{\phi} \\
         &= \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi} \\
-        &= \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi} \\
+        &= \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}
     \end{align*}
 \end{proposition}
 \begin{proof}[\proofof{M:Trigonometry:Sum}]
+    Proof by exhaustion.
+\end{proof}
+\begin{proposition}[Derivative of generalized trigonometric functions]\label{M:Trigonometry:Derivative}
+    \begin{align*}
+        {\sin_k}^\prime{\theta} &= k\cos_k{\theta} \\
+        {\sin_k^\ast}^\prime{\theta} &= \abs{k}\cos_k{\theta} \\
+        {\cos_k}^\prime{\theta} &= -k\sin_k^\ast{\theta}
+    \end{align*}
+\end{proposition}
+\begin{proof}[\proofof{M:Trigonometry:Derivative}]
     Proof by exhaustion.
 \end{proof}
 \subsection{Matrices}
@@ -1016,7 +1014,7 @@ Obvious
 
     Use \cref{M:Vector:Value} to compute the inverse mapping.
 \end{proof}
-\begin{lemma}\label{CoordinateChart}
+\begin{lemma}\label{M:CoordinateChart}
     \begin{equation*}
         \Psi=\set{\psi|
             \psi^{-1}
@@ -1034,7 +1032,7 @@ Obvious
         \end{cases}
     \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{CoordinateChart}]
+\begin{proof}[\proofof{M:CoordinateChart}]
     It is sufficient to shows that
     \begin{APAenumerate}
         \item $R_\psi$ is an open subset of real vector space (defined),
@@ -1069,29 +1067,63 @@ Obvious
             :\tensor{\theta}{}\mapsto P\left(\tensor{\theta}{}+x_i\right)
             \text{.}
         \end{equation*}
-        If $\psi_1\left(\theta_1\right)=\psi_2\left(\theta_2\right)$,
-        then \skipped
+        If $\psi_1^{-1}\left(\theta_1\right)=\psi_2^{-1}\left(\theta_2\right)$,
+        let $\phi_i = \theta_i+x_i$.
+        \begin{align*}
+            \frac{1}{k}
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                \\
+                \sin_k{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_1}}{^j}}} \\
+                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                      \\
+            \end{pmatrix}
+            &=
+            \frac{1}{k}
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                \\
+                \sin_k{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_2}}{^j}}} \\
+                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                      \\
+            \end{pmatrix} & \text{\cref{M:Vector:Value}}\\
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                \\
+                \sin_k{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_1}}{^j}}} \\
+                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                      \\
+            \end{pmatrix}
+            &=
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                \\
+                \sin_k{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_2}}{^j}}} \\
+                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                      \\
+            \end{pmatrix}
+        \end{align*}
+
+        If $k\ge 0$, by mathematical induction, $\phi_1 = m\frac{\pi}{k}\pm\phi_2$.
+
+        Otherwise, by mathematical induction, $\phi_1 = \phi_2$.
+
+        Hence, the transition map $\tau_{1,2} = \psi_2 \circ \psi_1^{-1}$
+        is in the form of $\theta \mapsto c\pm\theta$
+        and is in differentability class $C^\infty$.
     \end{subproof}
 \end{proof}
-\subsection{Locus of position vector}
-\begin{lemma}\label{SphericalLocus}
-    For $k>0$, $P^\ast$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
-\end{lemma}
-\begin{proof}[\proofof{SphericalLocus}]
-    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
-\end{proof}
-\begin{lemma}\label{HyperbolicLocus}
-    For $k<0$, $P^\ast$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
-\end{lemma}
-\begin{proof}[\proofof{HyperbolicLocus}]
-    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
-\end{proof}
-\begin{lemma}\label{EuclideanLocus}
-    For $k\to0$, $P^\ast$ is a $n$-Euclidean manifold at infinity.
-\end{lemma}
-\begin{proof}[\proofof{EuclideanLocus}]
-    Using limits.
-\end{proof}
+% \subsection{Locus of position vector}
+% \begin{lemma}\label{SphericalLocus}
+%     For $k>0$, $P^\ast$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
+% \end{lemma}
+% \begin{proof}[\proofof{SphericalLocus}]
+%     Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
+% \end{proof}
+% \begin{lemma}\label{HyperbolicLocus}
+%     For $k<0$, $P^\ast$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
+% \end{lemma}
+% \begin{proof}[\proofof{HyperbolicLocus}]
+%     Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
+% \end{proof}
+% \begin{lemma}\label{EuclideanLocus}
+%     For $k\to0$, $P^\ast$ is a $n$-Euclidean manifold at infinity.
+% \end{lemma}
+% \begin{proof}[\proofof{EuclideanLocus}]
+%     Using limits.
+% \end{proof}
 \section{Geometric properties}
 \subsection{Embedding}
 \begin{definition}\label{M:Embedding}
@@ -1245,10 +1277,10 @@ But it may be challenging to define Gauss map properly.
 \begin{proof}[\proofof{Model:NormalVector}]
     \skipped
 
-    Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
+    % Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
 
-    Nope, use exterior product and hedge operator instead.
-    We'll then got
+    % Nope, use exterior product and hedge operator instead.
+    % We'll then got
     \begin{align*}
         \tensor{\nu}{}
                     & = \star\bigwedge{\tensor{\theta}{_i}}                                                                        & \text{(need to be normalized)} \\
@@ -1431,17 +1463,12 @@ This model is based on curvature and mostly just 3 basis geometries and extrinsi
 \end{figure}
 \begin{figure}
     \centering
+    \insertstandalone{figures}{sine_}
+    \caption{Generalized sine function variant}\label{TrigonometrySineVarPlotted}
+\end{figure}
+\begin{figure}
+    \centering
     \insertstandalone{figures}{cosine}
     \caption{Generalized cosine function}\label{TrigonometryCosinePlotted}
-\end{figure}
-\begin{figure}
-    \centering
-    \insertstandalone{figures}{tangent}
-    \caption{Generalized tangent function}\label{TrigonometryTangentPlotted}
-\end{figure}
-\begin{figure}
-    \centering
-    \insertstandalone{figures}{pointmapping}
-    \caption{Matrices-Vectors-Parameters Mapping Diagram}\label{PointMappingDiagram}
 \end{figure}
 \end{document}
