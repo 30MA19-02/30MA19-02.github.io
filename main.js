@@ -107,9 +107,9 @@ const textured_material = new THREE.MeshBasicMaterial({
   // side: THREE.BackSide,
 });
 const material = new THREE.MeshBasicMaterial({
-  color: 0xff6347,
+  color: 0xFFFF00,
 });
-let kappa, factor, factor_, operator;
+let kappa, factor, operator;
 
 function render() {
   const manifold_geometry = new ParametricGeometry(
