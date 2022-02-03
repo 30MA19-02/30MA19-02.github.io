@@ -6,10 +6,11 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
-    "vite": "^2.7.2",
+  "dependencies": {
     "three": "^0.137.5",
-    "mathjs": "^10.1.1",
     "noneuclid": "30MA19-02/noneuclidjs"
+  },
+  "devDependencies": {
+    "vite": "^2.7.2"
   }
 }
