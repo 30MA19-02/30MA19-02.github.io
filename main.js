@@ -97,41 +97,65 @@ const controls = new OrbitControls(camera, renderer.domElement);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 camera.position.setZ(30);
-
 renderer.render(scene, camera);
 
 const texture = new THREE.TextureLoader().load(textureUrl);
 const textured_material = new THREE.MeshBasicMaterial({
   map: texture,
   // wireframe: true,
-  // side: THREE.BackSide,
+  side: THREE.BackSide,
 });
 const material = new THREE.MeshBasicMaterial({
-  color: 0xFFFF00,
+  color: 0xffff00,
 });
-let kappa, factor, operator;
+
+let kappa, factor, width, height, operator;
+let manifold, projection, source, sink;
+
+let points = [];
+
 
 function render() {
-  const manifold_geometry = new ParametricGeometry(
-    function (u, v, target) {
+  scene.rotateY(-Math.PI / 2);
+  scene.translateX(-10 * factor);
+  renderer.render(scene, camera);
+  scene.translateX(+10 * factor);
+  scene.rotateY(+Math.PI / 2);
+}
+
+function setpoints() {
+  points = new Array(width+1).fill(0).map((_,i)=>{
+    let u = i/width;
+    return new Array(height+1).fill(0).map((_,j)=>{
+      let v = j/height;
       let x = Math.abs(factor) * (0.5 - u);
-      let y = Math.abs(factor) * 0.5 * (v - 0.5);
+      let y = - Math.abs(factor) * 0.5 * (v - 0.5);
       let p = new Point(x, y, 0, kappa);
       p = p.operate(new Point(0, 0, 0.25, kappa));
+      return p;
+    })
+  })
+}
+
+function update() {
+  scene.remove(manifold, projection, source, sink);
+  const manifold_geometry = new ParametricGeometry(
+    function (u, v, target) {
+      let i = parseInt((u*width).toString());
+      let j = parseInt((v*height).toString());
+      let p = points[i][j];
       p = p.operate(operator);
       let pr = p.project;
       target.set(pr.get([0, 0]), pr.get([1, 0]), -pr.get([2, 0]));
       target = target.multiplyScalar(10);
     },
-    parseInt(width_slider.value),
-    parseInt(height_slider.value)
+    width, height
   );
   const projection_geometry = new ParametricGeometry(
     function (u, v, target) {
-      let x = Math.abs(factor) * (0.5 - u);
-      let y = Math.abs(factor) * 0.5 * (v - 0.5);
-      let p = new Point(x, y, 0, kappa);
-      p = p.operate(new Point(0, 0, 0.25, kappa));
+      let i = parseInt((u*width).toString());
+      let j = parseInt((v*height).toString());
+      let p = points[i][j];
       p = p.operate(operator);
       let pr = p.project;
       target.set(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
@@ -139,31 +163,21 @@ function render() {
       target.set(factor, target.y * scale, -target.z * scale);
       target = target.multiplyScalar(10);
     },
-    parseInt(width_slider.value),
-    parseInt(height_slider.value)
+    width, height
   );
-  const manifold = new THREE.Mesh(manifold_geometry, textured_material);
-  const projection = new THREE.Mesh(projection_geometry, textured_material);
-  const dot_source = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
-  dot_source.position.set(-10 * factor, 0, 0);
-  const dot_sink = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
-  dot_sink.position.set(+10 * factor, 0, 0);
-
+  manifold = new THREE.Mesh(manifold_geometry, textured_material);
+  projection = new THREE.Mesh(projection_geometry, textured_material);
   scene.add(manifold);
   scene.add(projection);
-  if (kappa != 0) scene.add(dot_source);
-  scene.add(dot_sink);
 
-  scene.rotateY(-Math.PI / 2);
-  scene.translateX(-10 * factor);
-  renderer.render(scene, camera);
-  scene.translateX(+10 * factor);
-  scene.rotateY(+Math.PI / 2);
+  source = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
+  source.position.set(-10 * factor, 0, 0);
+  if (kappa != 0) scene.add(source);
+  sink = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
+  sink.position.set(+10 * factor, 0, 0);
+  scene.add(sink);
 
-  scene.remove(manifold);
-  scene.remove(projection);
-  scene.remove(dot_source);
-  scene.remove(dot_sink);
+  render();
 
   manifold_geometry.dispose();
   projection_geometry.dispose();
@@ -172,16 +186,32 @@ function render() {
 function animate() {
   requestAnimationFrame(animate);
 
-  kappa = parseFloat(kappa_slider.value);
-  factor = kappa == 0 ? 1 : 1 / kappa;
-  operator = new Point(
-    parseFloat(lat_slider.value), // * Math.abs(factor),
-    parseFloat(lon_slider.value), // * Math.abs(factor),
-    parseFloat(the_slider.value),
-    kappa
-  );
-
-  render();
+  let update_ = false;
+  kappa_slider.refresh();
+  lat_slider.refresh(); lon_slider.refresh(); the_slider.refresh();
+  width_slider.refresh(); height_slider.refresh();
+  if (width_slider.changed || height_slider.changed) {
+    width = parseInt(width_slider.value);
+    height = parseInt(height_slider.value);
+    update_ = true;
+  }
+  if (kappa_slider.changed) {
+    kappa = parseFloat(kappa_slider.value);
+    factor = kappa == 0 ? 1 : 1 / kappa;
+    update_ = true;
+  }
+  if (update_) setpoints();
+  if (kappa_slider.changed || lat_slider.changed || lon_slider.changed || the_slider.changed) {
+    operator = new Point(
+      parseFloat(lat_slider.value), // * Math.abs(factor),
+      parseFloat(lon_slider.value), // * Math.abs(factor),
+      parseFloat(the_slider.value),
+      kappa
+    );
+    update_ = true;
+  }
+  if (update_) update();
+  else render();
 }
 
 animate();
