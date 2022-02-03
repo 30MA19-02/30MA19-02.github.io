@@ -31,6 +31,9 @@ jobs:
           fetch-depth: 0
           ref: automated
       
+      - name: log
+        run: ls
+      
       - name: update branch
         if: github.ref == 'refs/heads/master'
         uses: leanprover-contrib/update-versions-action@master
