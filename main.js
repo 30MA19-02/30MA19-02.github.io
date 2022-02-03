@@ -103,7 +103,7 @@ const texture = new THREE.TextureLoader().load(textureUrl);
 const textured_material = new THREE.MeshBasicMaterial({
   map: texture,
   // wireframe: true,
-  side: THREE.BackSide,
+  // side: THREE.BackSide,
 });
 const material = new THREE.MeshBasicMaterial({
   color: 0xffff00,
