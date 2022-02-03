@@ -1,5 +1,6 @@
 import "./style.css";
-import textureUrl from "./assets/world_map2.jpg"
+// import textureUrl from "./assets/world_map2.jpg";
+import textureUrl from "./assets/uv_grid_opengl.jpg";
 
 import * as THREE from "three";
 
@@ -71,7 +72,7 @@ kappa_slider.type = "range";
 kappa_slider.max = +1;
 kappa_slider.min = -1;
 kappa_slider.step = 1e-18;
-kappa_slider.value = 1;
+kappa_slider.value = 0;
 
 document.body.appendChild(height_slider);
 document.body.appendChild(width_slider);
@@ -89,7 +90,7 @@ const textured_material = new THREE.MeshBasicMaterial({
 const material = new THREE.MeshBasicMaterial({
   color: 0xff6347,
 });
-let kappa, factor, operator;
+let kappa, factor, factor_, operator;
 
 function render() {
   const manifold_geometry = new ParametricGeometry(
@@ -100,7 +101,7 @@ function render() {
       p = p.operate(new noneuc.Point(0, 0, Math.PI / 2, kappa));
       p = p.operate(operator);
       let pr = p.project;
-      target.set(pr.get([0, 0]), pr.get([1, 0]), - pr.get([2, 0]));
+      target.set(pr.get([0, 0]), pr.get([1, 0]), -pr.get([2, 0]));
       target = target.multiplyScalar(10);
     },
     parseInt(width_slider.value),
@@ -116,7 +117,7 @@ function render() {
       let pr = p.project;
       target.set(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
       let scale = (factor + factor) / (target.x + factor);
-      target.set(factor, target.y * scale, - target.z * scale);
+      target.set(factor, target.y * scale, -target.z * scale);
       target = target.multiplyScalar(10);
     },
     parseInt(width_slider.value),
@@ -131,10 +132,14 @@ function render() {
 
   scene.add(manifold);
   scene.add(projection);
-  scene.add(dot_source);
+  if (kappa != 0) scene.add(dot_source);
   scene.add(dot_sink);
 
+  scene.rotateY(-Math.PI/2);
+  scene.translateX(-10 * factor);
   renderer.render(scene, camera);
+  scene.translateX(+10 * factor);
+  scene.rotateY(+Math.PI/2);
 
   scene.remove(manifold);
   scene.remove(projection);
