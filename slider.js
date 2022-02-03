@@ -11,11 +11,13 @@ export class PairedSlider{
         this.div.appendChild(this.number);
         let pairedSlider = this;
         this.slider.onchange = function(){
-           pairedSlider.value =pairedSlider.slider.value;
+           pairedSlider.value = pairedSlider.slider.value;
         }
         this.number.onchange = function(){
            pairedSlider.value = pairedSlider.number.value;
         }
+        this.changed = true;
+        this.value_ = this.value;
     }
     get value(){
         return this.slider.value;
@@ -54,5 +56,9 @@ export class PairedSlider{
     }
     getAttribute(qualifiedName){
         this.slider.getAttribute(qualifiedName);
+    }
+    refresh() {
+        this.changed = (this.value != this.value_);
+        this.value_ = this.value;
     }
 }
