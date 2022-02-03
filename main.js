@@ -4,10 +4,10 @@ import textureUrl from "./assets/uv_grid_opengl.jpg";
 
 import * as THREE from "three";
 
-import * as noneuc from "noneuclid";
-
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
+
+import { Point } from "./point";
 import { PairedSlider } from "./slider";
 
 const div = document.body.querySelector("#app");
@@ -114,10 +114,10 @@ let kappa, factor, factor_, operator;
 function render() {
   const manifold_geometry = new ParametricGeometry(
     function (u, v, target) {
-      let x = -Math.abs(factor) * 2 * Math.PI * (0.5 - u);
-      let y = -Math.abs(factor) * Math.PI * (v - 0.5);
-      let p = new noneuc.Point(x, y, 0, kappa);
-      p = p.operate(new noneuc.Point(0, 0, Math.PI / 2, kappa));
+      let x = Math.abs(factor) * (0.5 - u);
+      let y = Math.abs(factor) * 0.5 * (v - 0.5);
+      let p = new Point(x, y, 0, kappa);
+      p = p.operate(new Point(0, 0, 0.25, kappa));
       p = p.operate(operator);
       let pr = p.project;
       target.set(pr.get([0, 0]), pr.get([1, 0]), -pr.get([2, 0]));
@@ -128,10 +128,10 @@ function render() {
   );
   const projection_geometry = new ParametricGeometry(
     function (u, v, target) {
-      let x = -Math.abs(factor) * 2 * Math.PI * (0.5 - u);
-      let y = -Math.abs(factor) * Math.PI * (v - 0.5);
-      let p = new noneuc.Point(x, y, 0, kappa);
-      p = p.operate(new noneuc.Point(0, 0, Math.PI / 2, kappa));
+      let x = Math.abs(factor) * (0.5 - u);
+      let y = Math.abs(factor) * 0.5 * (v - 0.5);
+      let p = new Point(x, y, 0, kappa);
+      p = p.operate(new Point(0, 0, 0.25, kappa));
       p = p.operate(operator);
       let pr = p.project;
       target.set(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
@@ -154,11 +154,11 @@ function render() {
   if (kappa != 0) scene.add(dot_source);
   scene.add(dot_sink);
 
-  scene.rotateY(-Math.PI/2);
+  scene.rotateY(-Math.PI / 2);
   scene.translateX(-10 * factor);
   renderer.render(scene, camera);
   scene.translateX(+10 * factor);
-  scene.rotateY(+Math.PI/2);
+  scene.rotateY(+Math.PI / 2);
 
   scene.remove(manifold);
   scene.remove(projection);
@@ -174,10 +174,10 @@ function animate() {
 
   kappa = parseFloat(kappa_slider.value);
   factor = kappa == 0 ? 1 : 1 / kappa;
-  operator = new noneuc.Point(
-    -parseFloat(lat_slider.value) * Math.abs(factor) * 2 * Math.PI,
-    -parseFloat(lon_slider.value) * Math.abs(factor) * 2 * Math.PI,
-    -parseFloat(the_slider.value) * 2 * Math.PI,
+  operator = new Point(
+    parseFloat(lat_slider.value), // * Math.abs(factor),
+    parseFloat(lon_slider.value), // * Math.abs(factor),
+    parseFloat(the_slider.value),
     kappa
   );
 
