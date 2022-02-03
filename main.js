@@ -60,7 +60,7 @@ kappa_slider.value = 1;
 {
   const param = document.createElement("form");
   const segment_label = document.createElement("label");
-  segment_label.textContent = "Mesh segments";
+  segment_label.textContent = "Segments";
   param.appendChild(segment_label);
   param.appendChild(height_slider.div);
   param.appendChild(width_slider.div);
