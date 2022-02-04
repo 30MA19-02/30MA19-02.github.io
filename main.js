@@ -1,6 +1,6 @@
 import "./style.css";
-// import textureUrl from "./assets/world_map2.jpg";
-import textureUrl from "./assets/uv_grid_opengl.jpg";
+import textureUrl from "./assets/world_map2.jpg";
+// import textureUrl from "./assets/uv_grid_opengl.jpg";
 
 import * as THREE from "three";
 
@@ -9,6 +9,7 @@ import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeom
 
 import { Point } from "./point";
 import { PairedSlider } from "./slider";
+import { pi } from "mathjs";
 
 const div = document.body.querySelector("#app");
 
@@ -84,7 +85,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   75,
   canvas.offsetWidth / canvas.offsetHeight,
-  0.1,
+  0.01,
   1000
 );
 
@@ -93,94 +94,104 @@ const renderer = new THREE.WebGLRenderer({
 });
 
 const controls = new OrbitControls(camera, renderer.domElement);
-
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
-camera.position.setZ(30);
-renderer.render(scene, camera);
+camera.position.setZ(3);
 
 const texture = new THREE.TextureLoader().load(textureUrl);
 const textured_material = new THREE.MeshBasicMaterial({
   map: texture,
   // wireframe: true,
-  side: THREE.BackSide,
+  side: THREE.DoubleSide,
 });
 const material = new THREE.MeshBasicMaterial({
   color: 0xffff00,
 });
 
 let kappa, factor, width, height, operator;
-let manifold, projection, source, sink;
+let manifold, plane, dot;
+dot = new THREE.Mesh(new THREE.SphereGeometry(0.01), material);
 
 let points = [];
 
-
 function render() {
-  scene.rotateY(-Math.PI / 2);
-  scene.translateX(-10 * factor);
+  scene.rotateY(-pi / 2);
+  // scene.rotateX(-pi / 2);
+  scene.translateX(-dot.position.x);
+  scene.translateY(-dot.position.y);
+  scene.translateZ(-dot.position.z);
   renderer.render(scene, camera);
-  scene.translateX(+10 * factor);
-  scene.rotateY(+Math.PI / 2);
+  scene.translateX(+dot.position.x);
+  scene.translateY(+dot.position.y);
+  scene.translateZ(+dot.position.z);
+  // scene.rotateX(+pi / 2);
+  scene.rotateY(+pi / 2);
 }
 
 function setpoints() {
-  points = new Array(width+1).fill(0).map((_,i)=>{
-    let u = i/width;
-    return new Array(height+1).fill(0).map((_,j)=>{
-      let v = j/height;
-      let x = Math.abs(factor) * (0.5 - u);
-      let y = - Math.abs(factor) * 0.5 * (v - 0.5);
+  points = new Array(width + 1).fill(0).map((_, i) => {
+    let u = i / width;
+    return new Array(height + 1).fill(0).map((_, j) => {
+      let v = j / height;
+      let x = - Math.abs(factor) * (0.5 - u);
+      let y = Math.abs(factor) * 0.5 * (0.5 - v);
       let p = new Point(x, y, 0, kappa);
-      p = p.operate(new Point(0, 0, 0.25, kappa));
+      p = p.operate(new Point(0,0,0.25,kappa));
       return p;
-    })
-  })
+    });
+  });
 }
 
 function update() {
-  scene.remove(manifold, projection, source, sink);
+  scene.remove(manifold, plane, dot);
+  dot.position.set(+factor, 0, 0);
+  scene.add(dot);
+  let dmax = -1;
   const manifold_geometry = new ParametricGeometry(
     function (u, v, target) {
-      let i = parseInt((u*width).toString());
-      let j = parseInt((v*height).toString());
+      let i = parseInt((u * width).toString());
+      let j = parseInt((v * height).toString());
       let p = points[i][j];
       p = p.operate(operator);
-      let pr = p.project;
-      target.set(pr.get([0, 0]), pr.get([1, 0]), -pr.get([2, 0]));
-      target = target.multiplyScalar(10);
+      let pr = p.manifold;
+      target.set(pr.x, pr.y, pr.z);
+      if (p.projection.length() > dmax) {
+        dmax = p.projection.length();
+      }
     },
-    width, height
+    width,
+    height
   );
-  const projection_geometry = new ParametricGeometry(
+  const plane_geometry = new ParametricGeometry(
     function (u, v, target) {
-      let i = parseInt((u*width).toString());
-      let j = parseInt((v*height).toString());
+      let i = parseInt((u * width).toString());
+      let j = parseInt((v * height).toString());
       let p = points[i][j];
       p = p.operate(operator);
-      let pr = p.project;
-      target.set(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
-      let scale = (factor + factor) / (target.x + factor);
-      target.set(factor, target.y * scale, -target.z * scale);
-      target = target.multiplyScalar(10);
+      let pr = p.manifold;
+      target.set(pr.x, pr.y, pr.z);
+      if (p.projection.length() >= dmax) {
+        target.setScalar(Infinity);
+        return;
+      }
+      target.set(factor, p.projection.x, p.projection.y);
+      // For poincare disk model
+      // target.set(0, p.projection.x, p.projection.y);
+      // For poincare half plane model
+      // target.set(-p.projection.y, p.projection.x, factor);
     },
-    width, height
+    width,
+    height
   );
   manifold = new THREE.Mesh(manifold_geometry, textured_material);
-  projection = new THREE.Mesh(projection_geometry, textured_material);
+  plane = new THREE.Mesh(plane_geometry, textured_material);
   scene.add(manifold);
-  scene.add(projection);
-
-  source = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
-  source.position.set(-10 * factor, 0, 0);
-  if (kappa != 0) scene.add(source);
-  sink = new THREE.Mesh(new THREE.SphereGeometry(0.25), material);
-  sink.position.set(+10 * factor, 0, 0);
-  scene.add(sink);
+  scene.add(plane);
 
   render();
 
   manifold_geometry.dispose();
-  projection_geometry.dispose();
+  plane_geometry.dispose();
 }
 
 function animate() {
@@ -188,8 +199,11 @@ function animate() {
 
   let update_ = false;
   kappa_slider.refresh();
-  lat_slider.refresh(); lon_slider.refresh(); the_slider.refresh();
-  width_slider.refresh(); height_slider.refresh();
+  lat_slider.refresh();
+  lon_slider.refresh();
+  the_slider.refresh();
+  width_slider.refresh();
+  height_slider.refresh();
   if (width_slider.changed || height_slider.changed) {
     width = parseInt(width_slider.value);
     height = parseInt(height_slider.value);
@@ -201,13 +215,18 @@ function animate() {
     update_ = true;
   }
   if (update_) setpoints();
-  if (kappa_slider.changed || lat_slider.changed || lon_slider.changed || the_slider.changed) {
+  if (
+    kappa_slider.changed ||
+    lat_slider.changed ||
+    lon_slider.changed ||
+    the_slider.changed
+  ) {
     operator = new Point(
-      parseFloat(lat_slider.value), // * Math.abs(factor),
-      parseFloat(lon_slider.value), // * Math.abs(factor),
-      parseFloat(the_slider.value),
+      - parseFloat(lat_slider.value), // * Math.abs(factor),
+      - parseFloat(lon_slider.value), // * Math.abs(factor),
+      0,
       kappa
-    );
+    ).operate(new Point(0, 0, - parseFloat(the_slider.value), kappa));
     update_ = true;
   }
   if (update_) update();
