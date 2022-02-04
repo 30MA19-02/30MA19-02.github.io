@@ -1,6 +1,6 @@
 {
   "name": "@30ma19-02/noneuclid",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "30MA19-02",
   "main": "index.js",
   "files": [
@@ -23,7 +23,8 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs/",
   "dependencies": {
-    "mathjs": "^10.1.1"
+    "mathjs": "^10.1.1",
+    "noneuclid": "github:30MA19-02/noneuclidjs"
   },
   "devDependencies": {
     "browserify": "^17.0.0"
