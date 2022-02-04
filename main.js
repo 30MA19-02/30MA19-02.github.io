@@ -146,7 +146,7 @@ function update() {
   scene.remove(manifold, plane, dot);
   dot.position.set(+factor, 0, 0);
   scene.add(dot);
-  let dmax = -1;
+  // let dmax = -1;
   const manifold_geometry = new ParametricGeometry(
     function (u, v, target) {
       let i = parseInt((u * width).toString());
@@ -155,9 +155,9 @@ function update() {
       p = p.operate(operator);
       let pr = p.manifold;
       target.set(pr.x, pr.y, pr.z);
-      if (p.projection.length() > dmax) {
-        dmax = p.projection.length();
-      }
+      // if (p.projection.length() > dmax) {
+      //   dmax = p.projection.length();
+      // }
     },
     width,
     height
@@ -170,10 +170,10 @@ function update() {
       p = p.operate(operator);
       let pr = p.manifold;
       target.set(pr.x, pr.y, pr.z);
-      if (p.projection.length() >= dmax) {
-        target.setScalar(Infinity);
-        return;
-      }
+      // if (p.projection.length() >= dmax) {
+      //   target.setScalar(Infinity);
+      //   return;
+      // }
       target.set(factor, p.projection.x, p.projection.y);
       // For poincare disk model
       // target.set(0, p.projection.x, p.projection.y);

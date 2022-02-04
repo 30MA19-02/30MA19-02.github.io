@@ -1,4 +1,4 @@
-import { matrix, pi } from "mathjs";
+import { abs, i, matrix, pi } from "mathjs";
 import * as noneuc from "noneuclid";
 import { Vector2, Vector3 } from "three";
 import * as projection from "./projection";
@@ -20,10 +20,38 @@ export class Point extends noneuc.Point {
     return projection.hemi(this);
   }
   get projection() {
-    // For stereographic / Gans projection
-    // if(this.kappa > 0 && this.manifold.x < 0){
-    //   return new Vector2().setScalar(1/0);
+    {
+      let proj = projection.equirectangular(
+        this.operate(new Point(0,0,-0.25,this.kappa))
+      ).rotateAround(new Vector2(), - 0.5*pi);
+      // Remove border
+      return proj;
+    }
+    // {
+    //   let proj = projection.orthographic(this);
+    //   // let proj = projection.klein(this);
+    //   // Remove overlapping
+    //   if(this.kappa > 0 && this.manifold.x < 0){
+    //     return new Vector2().setScalar(1/0);
+    //   }
+    //   return proj;
     // }
-    return projection.poincare(this);
+    // {
+    //   let proj = projection.gnomonic(this);
+    //   // let proj = projection.gans(this);
+    //   // Autoremove overlapping
+    //   return proj;
+    // }
+    // {
+    //   let proj = projection.stereographic(this);
+    //   // let proj = projection.poincare(this).multiplyScalar(2);
+    //   // Remove infinite
+    //   return proj;
+    // }
+    // {
+    //   let proj = projection.halfplane(this);
+    //   // Autoreplce Euclidean
+    //   return proj;
+    // }
   }
 }
