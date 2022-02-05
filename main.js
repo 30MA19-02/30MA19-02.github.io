@@ -9,7 +9,8 @@ import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeom
 
 import { Point } from "./point";
 import { PairedSlider } from "./slider";
-import { pi } from "mathjs";
+import { mod, pi } from "mathjs";
+import { Checkbox } from "./checkbox";
 
 const div = document.body.querySelector("#app");
 
@@ -58,6 +59,15 @@ kappa_slider.max = +1;
 kappa_slider.min = -1;
 kappa_slider.step = 0;
 kappa_slider.value = 1;
+
+const manifold_visibility = new Checkbox();
+manifold_visibility.text = "model visibility";
+manifold_visibility.value = true;
+
+const plane_visibility = new Checkbox();
+plane_visibility.text = "plane_visibility";
+plane_visibility.value = true;
+
 {
   const param = document.createElement("form");
   const segment_label = document.createElement("label");
@@ -75,7 +85,11 @@ kappa_slider.value = 1;
   kappa_label.textContent = "Kappa";
   param.appendChild(kappa_label);
   param.appendChild(kappa_slider.div);
-
+  const visible_label = document.createElement("label");
+  visible_label.textContent = "Visibility";
+  param.appendChild(visible_label);
+  param.appendChild(manifold_visibility.div);
+  param.appendChild(plane_visibility.div);
   div.appendChild(canvas);
   div.appendChild(param);
 }
@@ -185,8 +199,8 @@ function update() {
   );
   manifold = new THREE.Mesh(manifold_geometry, textured_material);
   plane = new THREE.Mesh(plane_geometry, textured_material);
-  scene.add(manifold);
-  scene.add(plane);
+  if (manifold_visibility.value) scene.add(manifold);
+  if (plane_visibility.value) scene.add(plane);
 
   render();
 
@@ -196,7 +210,6 @@ function update() {
 
 function animate() {
   requestAnimationFrame(animate);
-
   let update_ = false;
   kappa_slider.refresh();
   lat_slider.refresh();
@@ -204,6 +217,8 @@ function animate() {
   the_slider.refresh();
   width_slider.refresh();
   height_slider.refresh();
+  manifold_visibility.refresh();
+  plane_visibility.refresh();
   if (width_slider.changed || height_slider.changed) {
     width = parseInt(width_slider.value);
     height = parseInt(height_slider.value);
@@ -227,6 +242,9 @@ function animate() {
       0,
       kappa
     ).operate(new Point(0, 0, - parseFloat(the_slider.value), kappa));
+    update_ = true;
+  }
+  if (manifold_visibility.changed || plane_visibility.changed) {
     update_ = true;
   }
   if (update_) update();
