@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "noneuclid": "github:30MA19-02/noneuclidjs",
+    "mathjs": "^10.1.1",
     "three": "^0.137.5"
   },
   "devDependencies": {
