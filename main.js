@@ -61,11 +61,11 @@ kappa_slider.step = 0;
 kappa_slider.value = 1;
 
 const manifold_visibility = new Checkbox();
-manifold_visibility.text = "model visibility";
+manifold_visibility.text = "manifold visibility";
 manifold_visibility.value = true;
 
 const plane_visibility = new Checkbox();
-plane_visibility.text = "plane_visibility";
+plane_visibility.text = "plane visibility";
 plane_visibility.value = true;
 
 {
