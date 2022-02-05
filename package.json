@@ -7,7 +7,8 @@
     "modules/*.js"
   ],
   "scripts": {
-    "build": "browserify index.js -s noneuc -o dist/noneuclid.js"
+    "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
+    "update": "npm update & (cd docs && npm update)"
   },
   "repository": {
     "type": "git",
