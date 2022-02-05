@@ -6,9 +6,6 @@
   "files": [
     "modules/*.js"
   ],
-  "man": [
-    "man/*"
-  ],
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js"
   },
@@ -23,8 +20,7 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs/",
   "dependencies": {
-    "mathjs": "^10.1.1",
-    "noneuclid": "github:30MA19-02/noneuclidjs"
+    "mathjs": "^10.1.1"
   },
   "devDependencies": {
     "browserify": "^17.0.0"
