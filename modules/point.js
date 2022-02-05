@@ -1,4 +1,6 @@
 import {
+  abs,
+  equal,
   sin,
   sinh,
   asin,
@@ -54,6 +56,13 @@ function cosine(theta, kappa = 1) {
  * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
  */
 function arcsine(x, kappa = 1, s = false) {
+  if(kappa > 0 && abs(x)>1){
+    if(equal(x, 1)) x = 1;
+    else if(equal(x, -1)) x = -1;
+    else throw new RangeError("The argument must be between -1 and 1.");
+  }else if(kappa == 0 && s){
+    if(!equal(x, 0)) throw new RangeError("The argument must be 0.");
+  }
   return kappa == 0
     ? s
       ? 0
@@ -73,6 +82,13 @@ function arcsine(x, kappa = 1, s = false) {
  * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
  */
 function arccosine(x, kappa = 1) {
+  if(kappa > 0 && abs(x)>1){
+    if(equal(x, 1)) x = 1;
+    else if(equal(x, -1)) x = -1;
+    else throw new RangeError("The argument must be between -1 and 1.");
+  }else if(kappa == 0){
+    if(!equal(x, 1)) throw new RangeError("The argument must be 1.");
+  }
   return kappa == 0 ? 0 : kappa > 0 ? acos(x) / kappa : acosh(x) / kappa;
 }
 
@@ -149,19 +165,6 @@ function point(kappa, theta, ...phi) {
   return multiply(positional(kappa, ...theta), orientational(...phi));
 }
 
-class DimensionError extends Error {
-  constructor(message='Points in space with different dimension cannot be operated by one another.', ...param){
-    super(message, ...param);
-    this.name = 'DimensionError';
-  }
-}
-class CurvatureError extends Error {
-  constructor(message='Points in space with different curvature cannot be operated by one another.', ...param){
-    super(message, ...param);
-    this.name = 'CurvatureError';
-  }
-}
-
 /**
  * @exports
  * @class Point representation with local axis orientation.
@@ -235,8 +238,7 @@ export class Point {
    * @returns {Point} result of the operation
    * @throws TypeError - Point must only be operated with another point.
    * @throws ReferenceError - Point must be initiated before the operation.
-   * @throws DimensionError - Point must only be operated with point from the space with the same dimensionality.
-   * @throws DimensionError - Point must only be operated with point from the space with the same curvature.
+   * @throws RangeError - Point must only be operated with point from the space with the same dimensionality and curvature.
    */
   operate(other) {
     if(!other.prototype instanceof Point){
@@ -246,10 +248,10 @@ export class Point {
       throw new ReferenceError("The point is not initiated yet.")
     }
     if(!this.dim == other.dim){
-      throw new DimensionError();
+      throw new RangeError("Points in space with different dimension cannot be operated by one another.");
     }
     if(!this.kappa == other.kappa){
-      throw new CurvatureError();
+      throw new RangeError("Points in space with different curvature cannot be operated by one another.");
     }
     let p = new this.constructor(this.kappa);
     p.mat = multiply(other.mat, this.mat);
