@@ -7,7 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "noneuclid": "30MA19-02/noneuclidjs",
+    "noneuclid": "github:30MA19-02/noneuclidjs",
     "three": "^0.137.5"
   },
   "devDependencies": {
