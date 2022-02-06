@@ -1,6 +1,6 @@
 {
   "name": "noneuclid",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "30MA19-02",
   "main": "index.js",
   "files": [
@@ -31,5 +31,8 @@
     "babel-jest": "^27.5.0",
     "browserify": "^17.0.0",
     "jest": "^27.5.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }
