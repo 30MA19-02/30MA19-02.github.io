@@ -7,9 +7,10 @@ export class PairedSlider{
         this.number.type = "number";
         this.number.name = "number";
         this.div = document.createElement("div");
+        this.label = document.createElement("label");
+        this.div.appendChild(this.label);
         this.div.appendChild(this.slider);
         this.div.appendChild(this.number);
-        let pairedSlider = this;
         this.slider.onchange = (() => {
            this.value = this.slider.value;
         }).bind(this);
@@ -18,6 +19,12 @@ export class PairedSlider{
          }).bind(this);
         this.changed = true;
         this.value_ = this.value;
+    }
+    get labelText() {
+        return this.label.textContent;
+    }
+    set labelText(text) {
+        this.label.textContent = text;
     }
     get value(){
         return this.slider.value;

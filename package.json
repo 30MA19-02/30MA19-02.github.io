@@ -6,6 +6,16 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/30MA19-02/noneuclidjs-docs.git"
+  },
+  "author": "30MA19-02",
+  "license": "MITNFA",
+  "bugs": {
+    "url": "https://github.com/30MA19-02/noneuclidjs-docs/issues"
+  },
+  "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "dependencies": {
     "noneuclid": "github:30MA19-02/noneuclidjs",
     "mathjs": "^10.1.1",
