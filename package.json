@@ -4,7 +4,7 @@
   "description": "30MA19-02",
   "main": "index.js",
   "files": [
-    "modules/*.js"
+    "src/*"
   ],
   "scripts": {
     "build": "browserify index.js -s noneuc -o dist/noneuclid.js",
