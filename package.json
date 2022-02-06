@@ -31,5 +31,8 @@
     "babel-jest": "^27.5.0",
     "browserify": "^17.0.0",
     "jest": "^27.5.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }
