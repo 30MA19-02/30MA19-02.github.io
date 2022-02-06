@@ -9,7 +9,7 @@ import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeom
 
 import { Point } from "./point";
 import { PairedSlider } from "./slider";
-import { mod, pi } from "mathjs";
+import { pi } from "mathjs";
 import { Checkbox } from "./checkbox";
 
 const div = document.body.querySelector("#app");
@@ -19,53 +19,53 @@ canvas.width = 500;
 canvas.height = 500;
 
 const height_slider = new PairedSlider();
-height_slider.div.id = "height";
+height_slider.labelText = "height";
 height_slider.max = 32;
 height_slider.min = 2;
 height_slider.step = 1;
 height_slider.value = 32;
 
 const width_slider = new PairedSlider();
-width_slider.div.id = "width";
+width_slider.labelText = "width";
 width_slider.max = 24;
 width_slider.min = 3;
 width_slider.step = 1;
 width_slider.value = 24;
 
 const lat_slider = new PairedSlider();
-lat_slider.div.id = "latitude";
+lat_slider.labelText = "latitude";
 lat_slider.max = +0.25;
 lat_slider.min = -0.25;
 lat_slider.step = 0;
 lat_slider.value = 0.03815754722;
 
 const lon_slider = new PairedSlider();
-lon_slider.div.id = "lontitude";
+lon_slider.labelText = "lontitude";
 lon_slider.max = +0.5;
 lon_slider.min = -0.5;
 lon_slider.step = 0;
 lon_slider.value = 0.27923107222;
 
 const the_slider = new PairedSlider();
-the_slider.div.id = "direction";
+the_slider.labelText = "direction";
 the_slider.max = +0.5;
 the_slider.min = -0.5;
 the_slider.step = 0;
 the_slider.value = 0;
 
 const kappa_slider = new PairedSlider();
-kappa_slider.div.id = "kappa";
+kappa_slider.labelText = "kappa";
 kappa_slider.max = +1;
 kappa_slider.min = -1;
 kappa_slider.step = 0;
 kappa_slider.value = 1;
 
 const manifold_visibility = new Checkbox();
-manifold_visibility.text = "manifold visibility";
+manifold_visibility.labelText = "manifold visibility";
 manifold_visibility.value = true;
 
 const plane_visibility = new Checkbox();
-plane_visibility.text = "plane visibility";
+plane_visibility.labelText = "plane visibility";
 plane_visibility.value = true;
 
 {
@@ -82,7 +82,7 @@ plane_visibility.value = true;
   param.appendChild(lon_slider.div);
   param.appendChild(the_slider.div);
   const kappa_label = document.createElement("label");
-  kappa_label.textContent = "Kappa";
+  kappa_label.textContent = "Curvature";
   param.appendChild(kappa_label);
   param.appendChild(kappa_slider.div);
   const visible_label = document.createElement("label");

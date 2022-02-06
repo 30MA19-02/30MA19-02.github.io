@@ -4,22 +4,20 @@ export class Checkbox{
         this.checkbox.type = "checkbox";
         this.checkbox.name = "checkbox";
         this.div = document.createElement("div");
+        this.label = document.createElement("label");
+        this.div.appendChild(this.label);
         this.div.appendChild(this.checkbox);
-        let checkbox = this;
-        this.checkbox.onchange = function(){
-            checkbox.value = checkbox.checkbox.checked;
-        }
+        this.checkbox.onchange = (() => {
+            this.changed = true;
+        }).bind(this);
         this.changed = true;
         this.value_ = this.value;
     }
-    get text() {
-        return this.text_;
+    get labelText() {
+        return this.label.textContent;
     }
-    set text(text) {
-        this.text_ = text;
-        this.div.id = text;
-        this.txt = document.createTextNode(text);
-        this.div.prepend(this.txt);
+    set labelText(text) {
+        this.label.textContent = text;
     }
     get value() {
         return this.checkbox.checked;
