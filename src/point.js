@@ -53,7 +53,7 @@ function cosine(theta, kappa = 1) {
  * @param {number} kappa curvature parameter
  * @param {bool} s indicate if the function is the starred function or not
  * @returns {number} value of the function
- * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
+ * @throws As an inverse function, the argument must in the specific range of the function.
  */
 function arcsine(x, kappa = 1, s = false) {
   if(kappa > 0 && abs(x)>1){
@@ -79,7 +79,7 @@ function arcsine(x, kappa = 1, s = false) {
  * @param {number} x function argument
  * @param {number} kappa curvature parameter
  * @returns {number} value of the function
- * @throws RangeError - As an inverse function, the argument must in the specific range of the function.
+ * @throws As an inverse function, the argument must in the specific range of the function.
  */
 function arccosine(x, kappa = 1) {
   if(kappa > 0 && abs(x)>1){
@@ -181,13 +181,22 @@ export class Point {
     /**
      * @public Curvature parameter for the space the point is in
      */
+    if(arguments.length < 1){
+      throw new Error('Curvature parameter expected.');
+    }
+    if(typeof kappa !== 'number'){
+      throw new TypeError('Curvature parameter must be a number.');
+    }
+    if(!Number.isFinite(kappa)){
+      throw new TypeError('Curvature parameter must be a finite number.');
+    }
     this.kappa = kappa;
     /**
      * @private Matrix representation of the point
      */
     this.mat = undefined;
-    if (phi.length != 0) this.mat = point(kappa, theta, ...phi, []);
-    else if (!(theta === undefined)) this.mat = positional(kappa, ...theta);
+    if (arguments.length > 2) this.mat = point(kappa, theta, ...phi, []);
+    else if (arguments.length > 1) this.mat = positional(kappa, ...theta);
   }
   /**
    * @author HanchaiN
@@ -236,16 +245,16 @@ export class Point {
    * @author HanchaiN
    * @param {Point} other the other point representing the operation
    * @returns {Point} result of the operation
-   * @throws TypeError - Point must only be operated with another point.
-   * @throws ReferenceError - Point must be initiated before the operation.
-   * @throws RangeError - Point must only be operated with point from the space with the same dimensionality and curvature.
+   * @throws Point must only be operated with another point.
+   * @throws Point must be initiated before the operation.
+   * @throws Point must only be operated with point from the space with the same dimensionality and curvature.
    */
   operate(other) {
     if(!other.prototype instanceof Point){
       throw new TypeError("Operand is not a point.");
     }
     if(this.mat === undefined || other.mat === undefined){
-      throw new ReferenceError("The point is not initiated yet.")
+      throw new Error("The point is not initiated yet.")
     }
     if(!this.dim == other.dim){
       throw new RangeError("Points in space with different dimension cannot be operated by one another.");
