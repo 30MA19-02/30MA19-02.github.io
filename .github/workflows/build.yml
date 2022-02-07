@@ -27,7 +27,7 @@ jobs:
         with:
           ref: main
           submodules: recursive
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v2.5.1
         with:
           node-version: 16
 
