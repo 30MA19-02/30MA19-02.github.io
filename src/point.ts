@@ -4,7 +4,7 @@ import { Vector2, Vector3 } from "three";
 import * as projection from "./projection";
 
 export class Point extends noneuc.Point {
-  constructor(lat, lon, dir, kappa) {
+  constructor(lat: number, lon: number, dir: number, kappa: number) {
     if(lon == undefined){
       super(lat);
       return;
