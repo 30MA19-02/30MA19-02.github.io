@@ -1,0 +1,3 @@
+[submodule "noneuclidjs"]
+	path = module
+	url = https://github.com/30MA19-02/noneuclidjs.git
