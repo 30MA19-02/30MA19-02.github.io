@@ -1,4 +1,4 @@
-import React from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import textureUrl from "./image/world_map2.jpg";
 
@@ -9,209 +9,176 @@ import { Point } from "./point";
 import { pi } from "mathjs";
 // import Input from "./Input";
 
-interface Properties {
-  width: number;
-  height: number;
-  lat: number;
-  lon: number;
-  dir: number;
-  kappa: number;
-  vis_man: boolean;
-  vis_proj: boolean;
-}
-interface States {
-  points?: Point[][];
-  operator?: Point;
-}
+const Docs: FC = (prop) => {
+  const mountPoint = useRef<HTMLDivElement>(null);
+  const scene = useRef<THREE.Scene | null>(null);
+  const camera = useRef<THREE.Camera | null>(null);
+  const renderer = useRef<THREE.Renderer | null>(null);
+  const material = useRef<THREE.Material | null>(null);
+  const dot = useRef<THREE.Mesh | null>(null);
+  const manifold = useRef<THREE.Mesh | null>(null);
+  const plane = useRef<THREE.Mesh | null>(null);
+  const frameID = useRef<number | null>(null);
 
-export default class Scene extends React.Component<Properties, States> {
-  static defaultProps: Properties = {
-    width: 32,
-    height: 24,
-    lat: 0.03815754722,
-    lon: 0.27923107222,
-    dir: 0,
-    kappa: 1,
-    vis_man: true,
-    vis_proj: true,
-  };
-  public readonly state: States = {};
-  scene: THREE.Scene | undefined;
-  camera: THREE.PerspectiveCamera | undefined;
-  material: THREE.MeshBasicMaterial | undefined;
-  renderer: THREE.WebGLRenderer | undefined;
-  dot: THREE.Mesh | undefined;
-  manifold: THREE.Mesh | undefined;
-  plane: THREE.Mesh | undefined;
-  mount: HTMLDivElement | null | undefined;
-  frameId: number | undefined;
+  const [segment, setSegment] = useState([24, 32]);
+  const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
+  const [dir, setDir] = useState(0);
+  const [kappa, setKappa] = useState(1);
+  const [vis, setVis] = useState([true, true]);
 
-  constructor(props: Properties) {
-    super(props);
+  const calcPoints = useCallback(() => {
+    let factor = kappa === 0 ? 1 : 1 / kappa;
+    let [width, height] = segment;
+    return new Array(width + 1).fill(0).map((_: any, i: number) => {
+      let u = i / width;
+      return new Array(height + 1).fill(0).map((_: any, j: number) => {
+        let v = j / height;
+        let x = -Math.abs(factor) * (0.5 - u);
+        let y = Math.abs(factor) * 0.5 * (0.5 - v);
+        let p = new Point(x, y, 0, kappa);
+        p = p.operate(new Point(0, 0, 0.25, kappa));
+        return p;
+      });
+    });
+  }, [segment, kappa]); // Calculate points
+  const calcOperator = useCallback(() => {
+    return new Point(-pos[0], -pos[1], 0, kappa).operate(
+      new Point(0, 0, -dir, kappa)
+    );
+  }, [pos, dir, kappa]); // Calculate operator
 
-    this.start = this.start.bind(this);
-    this.stop = this.stop.bind(this);
-    this.animate = this.animate.bind(this);
-    this.generatePoint = this.generatePoint.bind(this);
-    this.generateMesh = this.generateMesh.bind(this);
-    this.generateOperator = this.generateOperator.bind(this);
+  const [points, setPoints] = useState<Point[][]>(calcPoints);
+  const [operator, setOperator] = useState<Point>(calcOperator);
 
-    this.generatePoint();
-    this.generateOperator();
-  }
+  const initPoints = useCallback(() => {
+    setPoints(calcPoints());
+  }, [calcPoints]); // Update points
+  const initOperator = useCallback(() => {
+    setOperator(calcOperator());
+  }, [calcOperator]); // Update operator
 
-  componentDidMount() {
-    const width = this.mount!.clientWidth;
-    const height = this.mount!.clientHeight;
+  const manifoldParametric = useCallback(
+    (u: number, v: number, target: THREE.Vector3) => {
+      let [width, height] = segment;
+      let i = parseInt((u * width).toString());
+      let j = parseInt((v * height).toString());
+      let p = points![i][j];
+      p = p.operate(operator!);
+      let pr = p.manifold;
+      target.set(pr.x, pr.y, pr.z);
+    },
+    [segment, points, operator]
+  ); // segment is unnecessary here
+  const planeParametric = useCallback(
+    (u: number, v: number, target: THREE.Vector3) => {
+      let [width, height] = segment;
+      let factor = kappa === 0 ? 1 : 1 / kappa;
+      let i = parseInt((u * width).toString());
+      let j = parseInt((v * height).toString());
+      let p = points![i][j];
+      p = p.operate(operator!);
+      let pr = p.manifold;
+      target.set(pr.x, pr.y, pr.z);
+      target.set(factor, p.projection.x, p.projection.y);
+      // For poincare disk model
+      // target.set(0, p.projection.x, p.projection.y);
+      // For poincare half plane model
+      // target.set(-p.projection.y, p.projection.x, factor);
+    },
+    [segment, kappa, points, operator]
+  ); // segment, kappa is unnecessary here
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    const controls = new OrbitControls(camera, renderer.domElement);
-    renderer.setClearColor("#000000");
-    renderer.setSize(width, height);
-    camera.position.setZ(3);
+  useEffect(() => {
+    const width = mountPoint.current!.clientWidth;
+    const height = mountPoint.current!.clientHeight;
+
+    const scene_ = new THREE.Scene();
+    const camera_ = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer_ = new THREE.WebGLRenderer({ antialias: true });
+    const controls = new OrbitControls(camera_, renderer_.domElement);
+    renderer_.setClearColor("#000000");
+    renderer_.setSize(width, height);
+    camera_.position.setZ(3);
 
     const texture = new THREE.TextureLoader().load(textureUrl);
-    const textured_material = new THREE.MeshBasicMaterial({
+    const material_ = new THREE.MeshBasicMaterial({
       map: texture,
       // wireframe: true,
       side: THREE.DoubleSide,
     });
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xffff00,
-    });
 
-    const dot = new THREE.Mesh(new THREE.SphereGeometry(0.01), material);
+    const dot_ = new THREE.Mesh(
+      new THREE.SphereGeometry(0.01),
+      new THREE.MeshBasicMaterial({
+        color: 0xffff00,
+      })
+    );
 
-    this.scene = scene;
-    this.camera = camera;
-    this.renderer = renderer;
-    this.material = textured_material;
-    this.dot = dot;
+    scene.current = scene_;
+    camera.current = camera_;
+    renderer.current = renderer_;
+    material.current = material_;
+    dot.current = dot_;
 
-    this.mount!.appendChild(this.renderer.domElement);
-    this.start();
-  }
+    mountPoint.current!.appendChild(renderer.current.domElement);
 
-  componentWillUnmount() {
-    this.stop();
-    this.mount!.removeChild(this.renderer!.domElement);
-  }
+    let renderScene = () => {
+      scene.current!.rotateY(-pi / 2);
+      scene.current!.translateX(-dot.current!.position.x);
+      scene.current!.translateY(-dot.current!.position.y);
+      scene.current!.translateZ(-dot.current!.position.z);
+      renderer.current!.render(scene.current!, camera.current!);
+      scene.current!.translateX(+dot.current!.position.x);
+      scene.current!.translateY(+dot.current!.position.y);
+      scene.current!.translateZ(+dot.current!.position.z);
+      scene.current!.rotateY(+pi / 2);
+    };
 
-  start() {
-    if (!this.frameId) {
-      this.frameId = requestAnimationFrame(this.animate);
-    }
+    let animate = () => {
+      renderScene();
+      frameID.current = window.requestAnimationFrame(animate);
+    };
 
-    this.generateMesh();
-  }
+    let start = () => {
+      if (!frameID.current) {
+        frameID.current = requestAnimationFrame(animate);
+      }
+    };
+    let stop = () => {
+      cancelAnimationFrame(frameID.current!);
+    };
 
-  stop() {
-    cancelAnimationFrame(this.frameId!);
-  }
-
-  animate() {
-    this.renderScene();
-    this.frameId = window.requestAnimationFrame(this.animate);
-  }
-
-  generatePoint() {
-    let factor = this.props.kappa === 0 ? 1 : 1 / this.props.kappa;
-    this.setState({
-      points: new Array(this.props.width + 1).fill(0).map(((_: any, i: number) => {
-        let u = i / this.props.width;
-        return new Array(this.props.height + 1).fill(0).map(((_: any, j: number) => {
-          let v = j / this.props.height;
-          let x = -Math.abs(factor) * (0.5 - u);
-          let y = Math.abs(factor) * 0.5 * (0.5 - v);
-          let p = new Point(x, y, 0, this.props.kappa);
-          p = p.operate(new Point(0, 0, 0.25, this.props.kappa));
-          return p;
-        }));
-      }))
-    });
-  }
-
-  generateOperator() {
-    this.setState({operator: new Point(
-        -this.props.lat,
-        -this.props.lon,
-        0,
-        this.props.kappa
-      ).operate(new Point(0, 0, -this.props.dir, this.props.kappa))
-    });
-  }
-
-  generateMesh() {
-    this.scene!.clear();
-    let factor = this.props.kappa === 0 ? 1 : 1 / this.props.kappa;
-    this.dot!.position.set(+factor, 0, 0);
-    this.scene!.add(this.dot!);
+    start();
+    return () => {
+      stop();
+      mountPoint.current!.removeChild(renderer.current!.domElement);
+    };
+  }, []); // Initial call
+  useEffect(initPoints, [initPoints]);
+  useEffect(initOperator, [initOperator]);
+  useEffect(() => {
+    let factor = kappa === 0 ? 1 : 1 / kappa;
+    let [width, height] = segment;
+    dot.current!.position.set(+factor, 0, 0);
+    scene.current!.add(dot.current!);
     const manifold_geometry = new ParametricGeometry(
-      ((u: number, v: number, target: THREE.Vector3) => {
-        let i = parseInt((u * this.props.width).toString());
-        let j = parseInt((v * this.props.height).toString());
-        let p = this.state.points![i][j];
-        p = p.operate(this.state.operator!);
-        let pr = p.manifold;
-        target.set(pr.x, pr.y, pr.z);
-        // if (p.projection.length() > dmax) {
-        //   dmax = p.projection.length();
-        // }
-      }),
-      this.props.width,
-      this.props.height
+      manifoldParametric,
+      width,
+      height
     );
     const plane_geometry = new ParametricGeometry(
-      ((u: number, v: number, target: THREE.Vector3) => {
-        let i = parseInt((u * this.props.width).toString());
-        let j = parseInt((v * this.props.height).toString());
-        let p = this.state.points![i][j];
-        p = p.operate(this.state.operator!);
-        let pr = p.manifold;
-        target.set(pr.x, pr.y, pr.z);
-        // if (p.projection.length() >= dmax) {
-        //   target.setScalar(Infinity);
-        //   return;
-        // }
-        target.set(factor, p.projection.x, p.projection.y);
-        // For poincare disk model
-        // target.set(0, p.projection.x, p.projection.y);
-        // For poincare half plane model
-        // target.set(-p.projection.y, p.projection.x, factor);
-      }),
-      this.props.width,
-      this.props.height
+      planeParametric,
+      width,
+      height
     );
-    this.manifold = new THREE.Mesh(manifold_geometry, this.material);
-    this.plane = new THREE.Mesh(plane_geometry, this.material);
-    if (this.props.vis_man) this.scene!.add(this.manifold);
-    if (this.props.vis_proj) this.scene!.add(this.plane);
+    manifold.current = new THREE.Mesh(manifold_geometry, material.current!);
+    plane.current = new THREE.Mesh(plane_geometry, material.current!);
+    if (vis[0]) scene.current!.add(manifold.current);
+    if (vis[1]) scene.current!.add(plane.current);
     manifold_geometry.dispose();
     plane_geometry.dispose();
-  }
+  }, [segment, kappa, vis, manifoldParametric, planeParametric]); // segment, kappa is unnecessary here
 
-  renderScene() {
-    this.scene!.rotateY(-pi / 2);
-    this.scene!.translateX(-this.dot!.position.x);
-    this.scene!.translateY(-this.dot!.position.y);
-    this.scene!.translateZ(-this.dot!.position.z);
-    this.renderer!.render(this.scene!, this.camera!);
-    this.scene!.translateX(+this.dot!.position.x);
-    this.scene!.translateY(+this.dot!.position.y);
-    this.scene!.translateZ(+this.dot!.position.z);
-    this.scene!.rotateY(+pi / 2);
-  }
-
-  render() {
-    return (
-      <div
-        style={{ width: "400px", height: "400px" }}
-        ref={(mount) => {
-          this.mount = mount;
-        }}
-      />
-    );
-  }
-}
+  return <div style={{ width: "400px", height: "400px" }} ref={mountPoint} />;
+};
+export default Docs;
