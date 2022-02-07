@@ -1,6 +1,7 @@
 {
   "name": "noneuclid-docs",
   "version": "0.0.0",
+  "private": true,
   "author": "30MA19-02",
   "license": "MITNFA",
   "bugs": {
@@ -8,28 +9,52 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/node": "^16.11.22",
+    "@types/react": "^17.0.39",
+    "@types/react-dom": "^17.0.11",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "5.0.0",
+    "typescript": "^4.5.5",
+    "web-vitals": "^2.1.4",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.0",
     "@mui/styled-engine-sc": "^5.3.0",
     "@types/three": "^0.137.0",
     "hoist-non-react-statics": "^3.3.2",
-    "noneuclid": "file:module",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "styled-components": "^5.3.3",
+    "noneuclid": "file:module",
     "three": "^0.137.5"
   },
   "devDependencies": {
-    "@types/react": "^17.0.33",
-    "@types/react-dom": "^17.0.10",
-    "@vitejs/plugin-react": "^1.0.7",
-    "typescript": "^4.4.4",
-    "vite": "^2.7.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

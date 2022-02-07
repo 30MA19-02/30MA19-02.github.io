@@ -1,5 +1,5 @@
 import { Vector3, Vector2 } from "three";
-import { abs, pi } from "mathjs";
+import { pi } from "mathjs";
 import { Point } from "./point";
 
 function azimuthal(vector: Vector3, source: number) {
@@ -48,41 +48,41 @@ export function equirectangular(point: Point) {
   return new Vector2(...point.theta);
 }
 export function orthographic(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
   return orthographic_(point.manifold.divideScalar(factor)).multiplyScalar(
     factor
   );
 }
 export function gnomonic(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
   return gnomonic_(point.manifold.divideScalar(factor)).multiplyScalar(factor);
 }
 export function stereographic(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
   return stereographic_(point.manifold.divideScalar(factor)).multiplyScalar(factor);
 }
 export function hemi(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
-  if(point.kappa == 0) return point.manifold;
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
+  if(point.kappa === 0) return point.manifold;
   return hemi_(point.manifold.divideScalar(factor)).multiplyScalar(factor);
 }
 export function gans(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
-  return gans_(point.manifold.divideScalar(factor), point.kappa==0).multiplyScalar(factor);
-  return gnomonic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
+  return gans_(point.manifold.divideScalar(factor), point.kappa===0).multiplyScalar(factor);
+  // return gnomonic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
 }
 export function klein(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
-  return klein_(point.manifold.divideScalar(factor), point.kappa==0).multiplyScalar(factor);
-  return orthographic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
+  return klein_(point.manifold.divideScalar(factor), point.kappa===0).multiplyScalar(factor);
+  // return orthographic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
 }
 export function poincare(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
-  return poincare_(point.manifold.divideScalar(factor), point.kappa==0).multiplyScalar(factor);
-  return stereographic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
+  return poincare_(point.manifold.divideScalar(factor), point.kappa===0).multiplyScalar(factor);
+  // return stereographic_(hemi(point).divideScalar(factor)).multiplyScalar(factor);
 }
 export function halfplane(point: Point) {
-  let factor = point.kappa == 0 ? 1 : 1 / point.kappa;
-  if(point.kappa == 0) return new Vector2().setScalar(1/0);
+  let factor = point.kappa === 0 ? 1 : 1 / point.kappa;
+  if(point.kappa === 0) return new Vector2().setScalar(1/0);
   return halfplane_(point.manifold.divideScalar(factor)).multiplyScalar(factor);
 }

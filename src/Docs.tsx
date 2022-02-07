@@ -1,13 +1,13 @@
 import React from "react";
 
-import textureUrl from "../public/image/world_map2.jpg";
+import textureUrl from "./image/world_map2.jpg";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
 import { Point } from "./point";
 import { pi } from "mathjs";
-import Input from "./Input";
+// import Input from "./Input";
 
 interface Properties {
   width: number;
@@ -117,8 +117,9 @@ export default class Scene extends React.Component<Properties, States> {
   }
 
   generatePoint() {
-    let factor = this.props.kappa == 0 ? 1 : 1 / this.props.kappa;
-    this.state.points = new Array(this.props.width + 1).fill(0).map(((_: any, i: number) => {
+    let factor = this.props.kappa === 0 ? 1 : 1 / this.props.kappa;
+    this.setState({
+      points: new Array(this.props.width + 1).fill(0).map(((_: any, i: number) => {
         let u = i / this.props.width;
         return new Array(this.props.height + 1).fill(0).map(((_: any, j: number) => {
           let v = j / this.props.height;
@@ -127,23 +128,24 @@ export default class Scene extends React.Component<Properties, States> {
           let p = new Point(x, y, 0, this.props.kappa);
           p = p.operate(new Point(0, 0, 0.25, this.props.kappa));
           return p;
-        }).bind(this));
-      }).bind(this));
+        }));
+      }))
+    });
   }
 
   generateOperator() {
-    let factor = this.props.kappa == 0 ? 1 : 1 / this.props.kappa;
-    this.state.operator = new Point(
+    this.setState({operator: new Point(
         -this.props.lat,
         -this.props.lon,
         0,
         this.props.kappa
-      ).operate(new Point(0, 0, -this.props.dir, this.props.kappa));
+      ).operate(new Point(0, 0, -this.props.dir, this.props.kappa))
+    });
   }
 
   generateMesh() {
     this.scene!.clear();
-    let factor = this.props.kappa == 0 ? 1 : 1 / this.props.kappa;
+    let factor = this.props.kappa === 0 ? 1 : 1 / this.props.kappa;
     this.dot!.position.set(+factor, 0, 0);
     this.scene!.add(this.dot!);
     const manifold_geometry = new ParametricGeometry(
@@ -157,7 +159,7 @@ export default class Scene extends React.Component<Properties, States> {
         // if (p.projection.length() > dmax) {
         //   dmax = p.projection.length();
         // }
-      }).bind(this),
+      }),
       this.props.width,
       this.props.height
     );
@@ -178,7 +180,7 @@ export default class Scene extends React.Component<Properties, States> {
         // target.set(0, p.projection.x, p.projection.y);
         // For poincare half plane model
         // target.set(-p.projection.y, p.projection.x, factor);
-      }).bind(this),
+      }),
       this.props.width,
       this.props.height
     );
