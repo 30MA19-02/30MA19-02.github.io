@@ -17,8 +17,8 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "dependencies": {
-    "noneuclid": "github:30MA19-02/noneuclidjs",
     "mathjs": "^10.1.1",
+    "noneuclid": "file:module",
     "three": "^0.137.5"
   },
   "devDependencies": {
