@@ -9,8 +9,17 @@ import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeom
 
 import { Point } from "./point";
 import { PairedSlider } from "./slider";
-import { pi } from "mathjs";
+import { e, im, pi } from "mathjs";
 import { Checkbox } from "./checkbox";
+
+function setAttributes(el, attrs) {
+  for (var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
+}
+
+let texture;
+let textured_material;
 
 const div = document.body.querySelector("#app");
 
@@ -68,30 +77,87 @@ const plane_visibility = new Checkbox();
 plane_visibility.labelText = "plane visibility";
 plane_visibility.value = true;
 
+const imageSelector = document.createElement("input");
+setAttributes(imageSelector, { "type": "file", "name": "file", "accept": "image/*" });
+imageSelector.addEventListener("change", previewImage);
+
+//const imagePreview = document.createElement("img"); //uncomment imagePreview if you want to add it
+
+let texture_changed = false;
+
+function changeTexture(image) {
+  texture_changed = true;
+  texture = new THREE.TextureLoader().load(image);
+  textured_material = new THREE.MeshBasicMaterial({
+    map: texture,
+    // wireframe: true,
+    side: THREE.DoubleSide,
+  });
+}
+
+function previewImage() {
+  var file = imageSelector.files;
+  if (file.length > 0) {
+    var fileReader = new FileReader();
+
+    fileReader.onload = function (event) {
+      changeTexture(event.target.result);
+      //imagePreview.setAttribute("src", event.target.result);
+    };
+    fileReader.readAsDataURL(file[0]);
+  }
+}
+
 {
   const param = document.createElement("form");
-  const segment_label = document.createElement("label");
-  segment_label.textContent = "Segments";
+
+  param.appendChild(document.createElement("br"));
+  const segment_label = document.createElement("div");
+  segment_label.appendChild(document.createElement("label")).textContent = "Segments";
   param.appendChild(segment_label);
+
   param.appendChild(height_slider.div);
   param.appendChild(width_slider.div);
-  const pos_label = document.createElement("label");
-  pos_label.textContent = "Position";
+
+
+  param.appendChild(document.createElement("br"));
+  const pos_label = document.createElement("div");
+  pos_label.appendChild(document.createElement("label")).textContent = "Position";
   param.appendChild(pos_label);
+
   param.appendChild(lat_slider.div);
   param.appendChild(lon_slider.div);
   param.appendChild(the_slider.div);
-  const kappa_label = document.createElement("label");
-  kappa_label.textContent = "Curvature";
+
+
+  param.appendChild(document.createElement("br"));
+  const kappa_label = document.createElement("div");
+  kappa_label.appendChild(document.createElement("label")).textContent = "Curvature";
   param.appendChild(kappa_label);
   param.appendChild(kappa_slider.div);
-  const visible_label = document.createElement("label");
-  visible_label.textContent = "Visibility";
+
+
+  param.appendChild(document.createElement("br"));
+  const visible_label = document.createElement("div");
+  visible_label.appendChild(document.createElement("label")).textContent = "Visibility";
   param.appendChild(visible_label);
+
   param.appendChild(manifold_visibility.div);
   param.appendChild(plane_visibility.div);
+
+
+  param.appendChild(document.createElement("br"));
+  const texture_selection = document.createElement("div");
+  texture_selection.appendChild(document.createElement("label")).textContent = "Texture selection";
+  param.appendChild(texture_selection);
+
+  param.appendChild(imageSelector);
+  //param.appendChild(imagePreview);
+
+
   div.appendChild(canvas);
   div.appendChild(param);
+
 }
 
 const scene = new THREE.Scene();
@@ -112,12 +178,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 camera.position.setZ(3);
 
-const texture = new THREE.TextureLoader().load(textureUrl);
-const textured_material = new THREE.MeshBasicMaterial({
-  map: texture,
-  // wireframe: true,
-  side: THREE.DoubleSide,
-});
+changeTexture(textureUrl);
 const material = new THREE.MeshBasicMaterial({
   color: 0xffff00,
 });
@@ -150,7 +211,7 @@ function setpoints() {
       let x = - Math.abs(factor) * (0.5 - u);
       let y = Math.abs(factor) * 0.5 * (0.5 - v);
       let p = new Point(x, y, 0, kappa);
-      p = p.operate(new Point(0,0,0.25,kappa));
+      p = p.operate(new Point(0, 0, 0.25, kappa));
       return p;
     });
   });
@@ -242,6 +303,10 @@ function animate() {
       0,
       kappa
     ).operate(new Point(0, 0, - parseFloat(the_slider.value), kappa));
+    update_ = true;
+  }
+  if (texture_changed) {
+    texture_changed = false;
     update_ = true;
   }
   if (manifold_visibility.changed || plane_visibility.changed) {
