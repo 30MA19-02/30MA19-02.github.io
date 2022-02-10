@@ -1,7 +1,7 @@
 import { pi } from "mathjs";
 import * as noneuc from "noneuclid";
 import { Vector2, Vector3 } from "three";
-import * as projection from "./projection";
+import * as projection from "src/projection";
 
 export class Point extends noneuc.Point {
   constructor(lat: number, lon: number, dir: number, kappa: number) {

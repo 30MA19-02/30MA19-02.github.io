@@ -1,34 +1,35 @@
-import * as React from "react";
+import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from "react";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 
-interface attribute {
-  parent: string;
-  child: string[];
+interface property extends InputHTMLAttributes<HTMLInputElement> {
+  checked?: boolean;
+  child: InputHTMLAttributes<HTMLInputElement>[];
 }
-
-export default function IndeterminateCheckbox(prop: attribute) {
-  const [checked, setChecked] = React.useState(
-    new Array(prop.child.length).fill(true)
+const IndeterminateCheckbox:FC<property> = (prop) => {
+  const [checked, setChecked] = useState(
+    prop.child.map(_=>_.checked? _.checked:false)
   );
 
-  const handleChangeParent = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeParent: ChangeEventHandler<HTMLInputElement> = (event) => {
     setChecked(checked.map((_) => event.target.checked));
+    if(prop.onChange){prop.onChange(event)};
   };
 
-  const handleChangeChild =
-    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeChild: ((index: number) => ChangeEventHandler<HTMLInputElement>) =
+    (index) => (event) => {
       setChecked(
-        checked.map((_, ind) => (ind == index ? event.target.checked : _))
+        checked.map((_, ind) => (ind === index ? event.target.checked : _))
       );
+      if(prop.child[index].onChange){prop.child[index].onChange!(event)};
     };
 
   const children = (
     <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
-      {prop.child.map((name, ind) => (
+      {prop.child.map((prop_, ind) => (
         <FormControlLabel
-          label={name}
+          label={prop_.name? prop_.name: ""}
           key={ind}
           control={
             <Checkbox
@@ -44,7 +45,7 @@ export default function IndeterminateCheckbox(prop: attribute) {
   return (
     <div>
       <FormControlLabel
-        label={prop.parent}
+        label={prop.name? prop.name: ""}
         control={
           <Checkbox
             checked={checked.every((_) => _)}
@@ -59,6 +60,18 @@ export default function IndeterminateCheckbox(prop: attribute) {
 }
 
 IndeterminateCheckbox.defaultProps = {
-  parent: "Parent",
-  child: ["Child 1", "Child 2"],
+  name: "Parent",
+  child: [
+    {
+      name: "Child 1",
+      checked: true,
+    },
+    {
+      name: "Child 2",
+      checked: false,
+    },
+  ],
 };
+
+
+export default IndeterminateCheckbox;

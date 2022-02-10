@@ -1,13 +1,13 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 
-import textureUrl from "./image/world_map2.jpg";
+import textureUrl from "src/public/image/world_map2.jpg";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
-import { Point } from "./point";
+import { Point } from "src/point";
 import { pi } from "mathjs";
-// import Input from "./Input";
+import Input from "src/Input";
 
 const Docs: FC = (prop) => {
   const mountPoint = useRef<HTMLDivElement>(null);
@@ -120,7 +120,7 @@ const Docs: FC = (prop) => {
     material.current = material_;
     dot.current = dot_;
 
-    mountPoint.current!.appendChild(renderer.current.domElement);
+    mountPoint.current!.prepend(renderer.current.domElement);
 
     let renderScene = () => {
       scene.current!.rotateY(-pi / 2);
@@ -133,7 +133,6 @@ const Docs: FC = (prop) => {
       scene.current!.translateZ(+dot.current!.position.z);
       scene.current!.rotateY(+pi / 2);
     };
-
     let animate = () => {
       renderScene();
       frameID.current = window.requestAnimationFrame(animate);
@@ -179,6 +178,20 @@ const Docs: FC = (prop) => {
     plane_geometry.dispose();
   }, [segment, kappa, vis, manifoldParametric, planeParametric]); // segment, kappa is unnecessary here
 
-  return <div style={{ width: "400px", height: "400px" }} ref={mountPoint} />;
+  return (
+  <div style={{ width: "400px", height: "400px" }} ref={mountPoint}>
+    <Input
+      onChangeWidth={(event)=>setSegment([parseInt(event.target.value), segment[1]])}
+      onChangeHeight={(event)=>setSegment([segment[0], parseInt(event.target.value)])}
+      onChangeLat={(event)=>setPos([parseInt(event.target.value), pos[1]])}
+      onChangeLon={(event)=>setPos([pos[0], parseInt(event.target.value)])}
+      onChangeDir={(event)=>setDir(parseFloat(event.target.value))}
+      onChangeKappa={(event)=>setKappa(parseFloat(event.target.value))}
+      onChangeVis={(event)=>setVis([event.target.checked, event.target.checked])}
+      onChangeVisMan={(event)=>setVis([event.target.checked, vis[1]])}
+      onChangeVisPro={(event)=>setVis([vis[0], event.target.checked])}
+    />
+  </div>
+  );
 };
 export default Docs;

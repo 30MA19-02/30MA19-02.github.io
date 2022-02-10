@@ -7,7 +7,7 @@
   "bugs": {
     "url": "https://github.com/30MA19-02/noneuclidjs-docs/issues"
   },
-  "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
+  "homepage": ".",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

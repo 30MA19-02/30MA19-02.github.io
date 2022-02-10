@@ -1,6 +1,6 @@
 import { Vector3, Vector2 } from "three";
 import { pi } from "mathjs";
-import { Point } from "./point";
+import { Point } from "src/point";
 
 function azimuthal(vector: Vector3, source: number) {
   if(source > vector.x) return new Vector2().setScalar(1/0);
