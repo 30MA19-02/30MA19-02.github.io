@@ -81,55 +81,55 @@ To merge the file, it is needed to either pay the subscription or download and r
 \begin{equation}\label{Tensor:Sum}
     \tensor{\left(A+B\right)}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
     =
     \tensor{A}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
     +
     \tensor{B}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
 \end{equation}
 \begin{equation}\label{Tensor:Product:Scalar}
     \tensor{\left(\alpha A\right)}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
     =
     \alpha
     \tensor{A}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
 \end{equation}
 \begin{equation}\label{Tensor:Product:Tensor}
     \tensor{\left(A\otimes B\right)}{
         ^{i_1}^{\dots}^{i_l}^{i_{l+1}}^{\dots}^{i_{l+n}}
-        _{j_1}_{\dots}_{j_k}_{j_{k+1}}_{\dots}_{j_{k+m}}
+            _{j_1}_{\dots}_{j_k}_{j_{k+1}}_{\dots}_{j_{k+m}}
     }
     =
     \tensor{A}{
         ^{i_1}^{\dots}^{i_l}
-        _{j_1}_{\dots}_{j_k}
+            _{j_1}_{\dots}_{j_k}
     }
     \tensor{B}{
         ^{i_{l+1}}^{\dots}^{i_{l+n}}
-        _{j_{k+1}}_{\dots}_{j_{k+m}}
+            _{j_{k+1}}_{\dots}_{j_{k+m}}
     }
 \end{equation}
 \begin{equation}\label{Tensor:Contraction}
     \tensor{\left(\contr{\tensor{T}{}}\right)}{
         ^{i_1}^{\dots}^{i_n}
-        _{j_1}_{\dots}_{j_m}
+            _{j_1}_{\dots}_{j_m}
     }
     =
     \sum_a{\tensor{T}{
-        ^{i_1}^{\dots}^{i_n}^a
-        _a_{j_1}_{\dots}_{j_m}
+    ^{i_1}^{\dots}^{i_n}^a
+    _a_{j_1}_{\dots}_{j_m}
     }}
 \end{equation}
 \begin{equation}\label{Matrix:Product}
@@ -158,12 +158,22 @@ To merge the file, it is needed to either pay the subscription or download and r
 \begin{equation}\label{Matrix:Identity:Block}
     I_{a+b}=
     \begin{bmatrix}
-    I_a & 0_{a\times b} \\
-    0_{b\times a} & I_b \\
+        I_a           & 0_{a\times b} \\
+        0_{b\times a} & I_b           \\
     \end{bmatrix}
 \end{equation}
 \begin{equation}\label{Matrix:Permutation:Square}
     T_{a,b} T_{a,b}= I
+\end{equation}
+
+\subsection{Differential}
+\begin{equation}
+    J_xF = \left(\left.\frac{\partial F_i}{\partial x_j}\right|_x\right)_{i,j}
+\end{equation}
+\begin{equation}
+    \left.Df\right|_x
+    : T_x\R^k\to T_{f(x)}\R^n
+    = \left(x,v\right) \mapsto \left(f(x),J_xf(v)\right)
 \end{equation}
 
 \subsection{Group}
@@ -175,23 +185,23 @@ To merge the file, it is needed to either pay the subscription or download and r
     the multiplication map $m:G\times G\to G$
     and the inversion map $i:G\to G$, given by
     \begin{equation*}
-    m\left(g,h\right)=gh\text{,}
-    \quad\quad
-    i\left(g\right)=g^{-1}
+        m\left(g,h\right)=gh\text{,}
+        \quad\quad
+        i\left(g\right)=g^{-1}
     \end{equation*}
     are both smooth.
 \end{definition}
 
 \begin{proposition}[Lie group {\autocite[][Chapter~7]{lee_2013}}]\label{Group:Lie:Assertion}
-If $G$ is a smooth manifold with a group structure such that the map $G\times G\to G$ given by $\left(g,h\right)\mapsto gh^{-1}$ is smooth, then $G$ is a Lie group.
+    If $G$ is a smooth manifold with a group structure such that the map $G\times G\to G$ given by $\left(g,h\right)\mapsto gh^{-1}$ is smooth, then $G$ is a Lie group.
 \end{proposition}
 
 \begin{definition}[Semidirect product]\label{Group:SemidirectProduct}
     Suppose $H$ and $N$ are groups,
     and $\theta:H\times N\to N$ is a smooth left action of $H$ on $N$.
-    It is said to be an \textit{action by automorphisms} 
+    It is said to be an \textit{action by automorphisms}
     if for each $h\in H$, the map $\theta_h:N\to N$ is a group automorphism of $N$ (i.e., an isomorphism from $N$ to itself).
-    Given such action, we define a new group $N\rtimes_\theta H$, 
+    Given such action, we define a new group $N\rtimes_\theta H$,
     called a \textit{semidirect product} of $H$ and $N$, as follows.
     $N\rtimes_\theta H$ is just the Cartesian product $N\times H$;
     but the group multiplication is defined by
@@ -228,19 +238,19 @@ If $G$ is a smooth manifold with a group structure such that the map $G\times G\
     if all $\varphi_j\circ\varphi_i^{-1}$ are (left-hand side),
     then one speaks of (right-hand side) as follows:
     \begin{center}
-    \begin{tabular}{ r c l }
-    continuous & $\leftrightarrow$ & topological manifold \\
-    differentiable & $\leftrightarrow$ & differentiable manifold \\
-    $C^1$-differentiable & $\leftrightarrow$ & $C^1$-manifold \\
-    $C^r$-differentiable & $\leftrightarrow$ & $C^r$-manifold \\
-    $C^\infty$-differentiable & $\leftrightarrow$ & $C^\infty$-manifold \\
-    real analytic & $\leftrightarrow$ & real analytic manifold \\
-    complex analytic & $\leftrightarrow$ & complex analytic manifold of dimension $\frac{k}{2}$ \\
-    affine & $\leftrightarrow$ & affine manifold \\
-    projective & $\leftrightarrow$ & projective manifold \\
-    conformal & $\leftrightarrow$ & manifold with a conformal structure \\
-    orienatation-preserving & $\leftrightarrow$ & orientable manifold \\
-    \end{tabular}
+        \begin{tabular}{ r c l }
+            continuous                & $\leftrightarrow$ & topological manifold                                 \\
+            differentiable            & $\leftrightarrow$ & differentiable manifold                              \\
+            $C^1$-differentiable      & $\leftrightarrow$ & $C^1$-manifold                                       \\
+            $C^r$-differentiable      & $\leftrightarrow$ & $C^r$-manifold                                       \\
+            $C^\infty$-differentiable & $\leftrightarrow$ & $C^\infty$-manifold                                  \\
+            real analytic             & $\leftrightarrow$ & real analytic manifold                               \\
+            complex analytic          & $\leftrightarrow$ & complex analytic manifold of dimension $\frac{k}{2}$ \\
+            affine                    & $\leftrightarrow$ & affine manifold                                      \\
+            projective                & $\leftrightarrow$ & projective manifold                                  \\
+            conformal                 & $\leftrightarrow$ & manifold with a conformal structure                  \\
+            orienatation-preserving   & $\leftrightarrow$ & orientable manifold                                  \\
+        \end{tabular}
     \end{center}
 \end{definition}
 
@@ -265,12 +275,12 @@ If $G$ is a smooth manifold with a group structure such that the map $G\times G\
     Briefly: \textit{tangent vectors are derivations acting on scalar functions.}
 \end{definition}
 
-\begin{definition}[Tangent space {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:TangentSpace}
+\begin{corollary}[Tangent space {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:TangentSpace}
     The \textit{tangent space} $T_pM$ of $M$ at $p$
     is defined in all cases as
     the set of all tangent vectors at the point $p$.
     By definition $T_pM$ and $T_qM$ are disjoint if $p\ne q$.
-\end{definition}
+\end{corollary}
 
 \begin{definition}[Derivative {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:Derivative}
     Let $F:M\to N$ be a differentiable map,
@@ -305,7 +315,7 @@ If $G$ is a smooth manifold with a group structure such that the map $G\times G\
     One also refers to the Riemannian metric as the \textit{metric tensor}.
     In local coordinates the metric tensor is given by the matrix ($\tensor{g}{_i_j}$) of functions.
     In Ricci calculus this is simply written as $\tensor{g}{_i_j}$.
-    {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
+        {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
 \end{remark}
 
 \begin{remark}\label{Manifold:InnerProduct}
@@ -317,10 +327,121 @@ If $G$ is a smooth manifold with a group structure such that the map $G\times G\
     The length or norm of vector $X$ is given by $\norm{X}\defeq\sqrt{g\left(X,X\right)}$,
     and the angle $\beta$ between two tangent vectors $X$ and $Y$
     can be defined by the validity of the equation $\cos\beta\cdot\norm{X}\cdot\norm{Y}=g\left(X,Y\right)$.
-    {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
+        {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
 \end{remark}
 
 \subsection{Curvature}
+\begin{definition}[Christoffel symbols {\autocite[][Chapter~4A]{kuhnelwolfgang_2006}}]\label{Manifold:ChristoffelSymbol}
+    
+    \begin{APAenumerate}
+        \item The quantities $\partial_k\tensor{\Gamma}{_i_j}$ defined by the expressions
+              \begin{equation*}
+                \partial_k\tensor{\Gamma}{_i_j}
+                \defeq
+                \inner{\nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}}{\frac{\partial f}{\partial\tensor{u}{^k}}}
+              \end{equation*}
+              are called the \textit{Christoffel symbols of the first kind}.
+        \item The quantities $\tensor{\Gamma}{^k_i_j}$ defined by the expressions
+        \begin{equation*}
+          \nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}
+          =
+          \sum_k{\tensor{\Gamma}{^k_i_j}\frac{\partial f}{\partial\tensor{u}{^k}}}
+        \end{equation*}
+        are called the \textit{Christoffel symbols of the second kind}.
+        \item By definition one has $\partial_k\tensor{\Gamma}{_i_j}=\partial_k\tensor{\Gamma}{_j_i}$, $\tensor{\Gamma}{^k_i_j}=\tensor{\Gamma}{^k_j_i}$
+        as well as $\partial_k\tensor{\Gamma}{_i_j}=\sum_{m}\tensor{\Gamma}{^m_i_j}\tensor{g}{_m_k}$.
+    \end{APAenumerate}
+\end{definition}
+\begin{definition}[Gauss map {\autocite[][Chapter~3B]{kuhnelwolfgang_2006}}]\label{Curvature:Gauss}
+    For a surface element $f:U\to\R^{3}$, the \textit{Gauss map}
+    \begin{equation*}
+        \nu:U\to S^2
+    \end{equation*}
+    is defined by the formula
+    \begin{equation*}
+        \nu(u_1, u_2)
+        \defeq
+        \frac
+        {\frac{\partial f}{\partial u_1}\times\frac{\partial f}{\partial u_2}}
+        {\norm{\frac{\partial f}{\partial u_1}\times\frac{\partial f}{\partial u_2}}}
+        \text{.}
+    \end{equation*}
+\end{definition}
+\begin{definition}[Weingarten map, shape operator {\autocite[][Chapter~3B]{kuhnelwolfgang_2006}}]\label{Curvature:ShapeOperator}
+    Let $f:U\to\R^{3}$ be a surface element with Gauss map $\nu:U\to S^2\subset\R^3$.
+    \begin{APAenumerate}
+        \item For every $u\in U$ the image plane of the bilinear map
+        \begin{equation*}
+            \left.D\nu\right|_u:T_uU\to T_{\nu(u)}\R^3
+        \end{equation*}
+        is parallel to the tangent plane $T_uf$.
+        By canonically identifying $T_{\nu(u)}\R^3\cong\R^3\cong T_{f(u)}\R^3$
+        we may therefore view $D\nu$ at every point as the map
+        \begin{equation*}
+            \left.D\nu\right|_u:T_uU\to T_uf \text{.}
+        \end{equation*}
+        Moreover, by restricting to the image,
+        we may view the map $\left.Df\right|)u$ as a linear isomorphism
+        \begin{equation*}
+            \left.Df\right|_u:T_uU\to T_uf \text{.}
+        \end{equation*}
+        In this sense
+        the inverse mapping $\left(\left.Df\right|_u\right)^{-1}$ is well-defined
+        and is also an isomorphism
+        \item The map $L\defeq -D\nu\circ\left(Df\right)^{-1}$ defined pointwise by
+        \begin{equation*}
+            L_u
+            \defeq -\left(\left.D\nu\right|_u\right)\circ\left(\left.Df\right|_u\right)^{-1}
+            : T_uf\to T_uf
+        \end{equation*}
+        is called the \textit{Weingarten map} or the \textit{shape operator} of $f$.
+        Obviously, for every parameter $u$ this is a linear endomorphism of the tangent plane at the corresponding point $f(u)$.
+        \item $L$ is independent of the parameterization $f$ (up to the choice of the sign of the unit normal vector $\nu$),
+        and it is self-adjoint with respect to the first fundamental form $I$.
+    \end{APAenumerate}
+\end{definition}
+\begin{definition}[Hypersurface element {\autocite[][Chapter~3F]{kuhnelwolfgang_2006}}]\label{Manifold:Hypersurface}
+    $f:U\to\R^{n+1}$ is called a \textit{regular hypersurface element},
+    if $U\subset\R^n$ is open and $f$ is a ($C^2-$) immersion.
+    The parameter $u=\left(u_1,\dots,u_n\right)$ is associated with the point $f(u)$
+    with $n+1$ coordinates $f(u)=\left(f_1(u),\dots,f_{n+1}(u)\right)$.
+    The \textit{tangent hyperplane} $T_uf$ is the is defined to be the image of $T_uU$ under the map $\left.Df\right|_u$.
+    Similarly, one defines
+    \begin{APAitemize}
+        \item the \textit{Gauss map} $\nu:U\to S^n$ by the unit normal vector $\nu(u)$,
+        which is perpendicular to $T_uf$
+        (
+            but note: in $\R^{n+1}$ for $n\ge3$ there is no bilinear vector product of tangent vectors;
+            still one can formally define $\nu$ as an $n$-linear vector product
+        ),
+        \item the \textit{Weingarten map} $L=-D\nu\circ\left(Df\right)^{-1}$,
+        \item the \text{first, second, and third fundamental forms}
+        \begin{align*}
+            I &= \left(\tensor{g}{_i_j}\right)_{i,j=1,\dots,n} &= \left(\inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}}\right)\text{,} \\
+            II &= \left(\tensor{h}{_i_j}\right)_{i,j=1,\dots,n} &= \left(\inner{\frac{\partial^2 f}{\partial u_i\partial u_j}}{\nu}\right)\text{,} \\
+            III &= \left(\tensor{e}{_i_j}\right)_{i,j=1,\dots,n} &= \left(\inner{\frac{\partial \nu}{\partial u_i}}{\frac{\partial \nu}{\partial u_j}}\right)\text{.} \\
+        \end{align*}
+    \end{APAitemize}
+\end{definition}
+\begin{definition}[Curvature tensor {\autocite[][Chapter~4C]{kuhnelwolfgang_2006}}]\label{Manifold:CurvatureTensor}
+    \begin{equation*}
+        R\left(X,Y\right)Z
+        \defeq
+        \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{\lie{X}{Y}}Z
+    \end{equation*}
+    is a tensor field, which is called the \textit{curvature tensor} of the surface.
+\end{definition}
+\begin{remark}[Curvature tensor {\autocite[][Chapter~4C]{kuhnelwolfgang_2006}}]\label{Manifold:CurvatureTensor:ChristoffelSymbol}
+    The left-hand side of the Gauss equation is called the \textit{curvature tensor}
+    and is in general expressed in the form
+    \begin{equation*}
+        \tensor{R}{^s_i_k_j}
+        \defeq
+        \frac{\partial}{\partial\tensor{u}{^k}}\tensor{\Gamma}{^s_i_j}
+        - \frac{\partial}{\partial\tensor{u}{^j}}\tensor{\Gamma}{^s_i_k}
+        + \sum_{r}\left(\tensor{\Gamma}{^r_i_j}\tensor{\Gamma}{^s_r_k}-\tensor{\Gamma}{^r_i_k}\tensor{\Gamma}{^s_r_j}\right) \text{.}
+    \end{equation*}
+\end{remark}
 
 \begin{example}\label{ShapeOperator}
     $$S\left(v\right)=\pm\nabla_v n$$
@@ -343,7 +464,7 @@ one can construct
 (to be determined)
 such that
 \begin{APAitemize}
-    \item group action is distance preserved. 
+    \item group action is distance preserved.
     \item model is continuous with respect to $\kappa$ (and smooth with respect to each basis).
     \item for all two-dimensional linear subspaces of the manifold, the sectional curvature is $\kappa$.
 \end{APAitemize}
@@ -366,14 +487,14 @@ such that
 \begin{definition}\label{M:Trigonometry}
     \textit{Generalized trigonometric functions} $f_k:\R\to\R$ and $f_k^\ast:\R\to\R$ are defined as
     \begin{align*}
-        f_k\left(\theta\right) & \defeq
+        f_k\left(\theta\right)      & \defeq
         \begin{cases}
             g\left(k\theta\right) & \text{if $k\geq0$,} \\
             h\left(k\theta\right) & \text{otherwise,}   \\
         \end{cases} \\
         f_k^\ast\left(\theta\right) & \defeq
         \begin{cases}
-            g\left(k\theta\right) & \text{if $k\geq0$,} \\
+            g\left(k\theta\right)  & \text{if $k\geq0$,} \\
             h\left(-k\theta\right) & \text{otherwise,}   \\
         \end{cases}
     \end{align*}
@@ -381,45 +502,45 @@ such that
 \end{definition}
 \begin{example}[Generalized sine functions]\label{M:Trigonometry:Sine}
     \begin{align*}
-        \sin_k{\theta} & \defeq
+        \sin_k{\theta}      & \defeq
         \begin{cases}
             \sin\left(k\theta\right)  & \text{if $k\geq0$,} \\
             \sinh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
+        \end{cases}                               \\
         \sin_k^\ast{\theta} & \defeq
         \begin{cases}
-            \sin\left(k\theta\right)  & \text{if $k\geq0$,} \\
+            \sin\left(k\theta\right)   & \text{if $k\geq0$,} \\
             \sinh\left(-k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        & =
+        \end{cases}                              \\
+                            & =
         \begin{cases}
-            \sin\left(k\theta\right)  & \text{if $k\geq0$,} \\
+            \sin\left(k\theta\right)   & \text{if $k\geq0$,} \\
             -\sinh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        & = \begin{cases}
-            \sin\left(\abs{k}\theta\right)  & \text{if $k\geq0$,} \\
-            \sinh\left(\abs{k}\theta\right) & \text{otherwise.}   \\
-        \end{cases}
+        \end{cases}                              \\
+                            & = \begin{cases}
+                                    \sin\left(\abs{k}\theta\right)  & \text{if $k\geq0$,} \\
+                                    \sinh\left(\abs{k}\theta\right) & \text{otherwise.}   \\
+                                \end{cases}
     \end{align*}
     (see \cref{TrigonometrySinePlotted})
 \end{example}
 \begin{example}[Generalized cosine functions]\label{M:Trigonometry:Cosine}
     \begin{align*}
-        \cos_k{\theta} & \defeq
+        \cos_k{\theta}      & \defeq
         \begin{cases}
             \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
             \cosh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
+        \end{cases}                         \\
         \cos_k^\ast{\theta} & \defeq
         \begin{cases}
-            \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
+            \cos\left(k\theta\right)   & \text{if $k\geq0$,} \\
             \cosh\left(-k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        & = \begin{cases}
-            \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            \cosh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases} \\
-        & = \cos_k{\theta}
+        \end{cases}                        \\
+                            & = \begin{cases}
+                                    \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
+                                    \cosh\left(k\theta\right) & \text{otherwise.}   \\
+                                \end{cases} \\
+                            & = \cos_k{\theta}
     \end{align*}
     (see \cref{TrigonometryCosinePlotted})
 \end{example}
@@ -434,13 +555,13 @@ such that
 \begin{proposition}[Generalized trigonometric functions of sum of arguments]\label{M:Trigonometry:Sum}
     \begin{align*}
         \sin_k\left(\theta+\phi\right)
-        &= \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi} \\
+         & = \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}           \\
         \sin_k^\ast\left(\theta+\phi\right)
-        &= \sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi} \\
+         & = \sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi} \\
         \cos_k\left(\theta+\phi\right)
-        &= \cos_k{\theta}\cos_k{\phi}-\sign{k}\sin_k{\theta}\sin_k{\phi} \\
-        &= \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi} \\
-        &= \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}
+         & = \cos_k{\theta}\cos_k{\phi}-\sign{k}\sin_k{\theta}\sin_k{\phi}   \\
+         & = \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi}      \\
+         & = \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}
     \end{align*}
 \end{proposition}
 \begin{proof}[\proofof{M:Trigonometry:Sum}]
@@ -448,9 +569,9 @@ such that
 \end{proof}
 \begin{proposition}[Derivative of generalized trigonometric functions]\label{M:Trigonometry:Derivative}
     \begin{align*}
-        {\sin_k}^\prime{\theta} &= k\cos_k{\theta} \\
-        {\sin_k^\ast}^\prime{\theta} &= \abs{k}\cos_k{\theta} \\
-        {\cos_k}^\prime{\theta} &= -k\sin_k^\ast{\theta}
+        {\sin_k}^\prime{\theta}      & = k\cos_k{\theta}       \\
+        {\sin_k^\ast}^\prime{\theta} & = \abs{k}\cos_k{\theta} \\
+        {\cos_k}^\prime{\theta}      & = -k\sin_k^\ast{\theta}
     \end{align*}
 \end{proposition}
 \begin{proof}[\proofof{M:Trigonometry:Derivative}]
@@ -462,71 +583,71 @@ such that
     \begin{align*}
         R_k\left(\theta\right) & \defeq
         \begin{bmatrix}
-            \cos_k{\theta}  & -\sin_k^\ast{\theta} \\
-            \sin_k{\theta} & \cos_k{\theta} \\
+            \cos_k{\theta} & -\sin_k^\ast{\theta} \\
+            \sin_k{\theta} & \cos_k{\theta}       \\
         \end{bmatrix}\text{,}
     \end{align*}
     where $\theta\in\R$.
 \end{definition}
 \begin{corollary}[Generalized rotation matrix at zero]\label{M:Rotation:Identity}
-\begin{equation*}
-    R_k\left(0\right)
-    =
-    I_2
-\end{equation*}
+    \begin{equation*}
+        R_k\left(0\right)
+        =
+        I_2
+    \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Identity}]
-Obvious
+    Obvious
 \end{proof}
 \begin{corollary}[Generalized rotation matrix of sum of arguments]\label{M:Rotation:Sum}
-\begin{equation*}
-	R_k\left(\theta\right)R_k\left(\phi\right)=R_k\left(\theta+\phi\right)
-\end{equation*}
+    \begin{equation*}
+        R_k\left(\theta\right)R_k\left(\phi\right)=R_k\left(\theta+\phi\right)
+    \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Sum}]
     \begin{align*}
         R_k\left(\theta\right)R_k\left(\phi\right)
-        &=\begin{bmatrix}
-            \cos_k{\theta}  & -\sin_k^\ast{\theta} \\
-            \sin_k{\theta} & \cos_k{\theta} \\
-        \end{bmatrix}\begin{bmatrix}
-            \cos_k{\phi}  & -\sin_k^\ast{\phi} \\
-            \sin_k{\phi} & \cos_k{\phi} \\
-        \end{bmatrix} & \text{(\cref{M:Rotation})}\\
-        &=\begin{bmatrix}
-            \cos_k{\theta}\cos_k{\phi}+\left(-\sin_k^\ast{\theta}\right)\sin_k{\phi} &
-            \cos_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\left(-\sin_k^\ast{\theta}\right)\cos_k{\phi} \\
-            \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi} &
-            \sin_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\cos_k{\theta}\cos_k{\phi} \\
-        \end{bmatrix} & \text{(\cref{Matrix:Product})}\\
-        &=\begin{bmatrix}
-            \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi} &
-            -\left(\sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi}\right) \\
-            \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi} &
-            \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi} \\
-        \end{bmatrix} & \text{(simplify)}\\
-        &=\begin{bmatrix}
-            \cos_k{\theta+\phi}  & -\sin_k^\ast{\theta+\phi} \\
-            \sin_k{\theta+\phi} & \cos_k{\theta+\phi} \\
-        \end{bmatrix} & \text{(\cref{M:Trigonometry:Sum})} \\
-        &= R_k\left(\theta+\phi\right) & \text{(\cref{M:Rotation})} \\
+         & =\begin{bmatrix}
+                \cos_k{\theta} & -\sin_k^\ast{\theta} \\
+                \sin_k{\theta} & \cos_k{\theta}       \\
+            \end{bmatrix}\begin{bmatrix}
+                             \cos_k{\phi} & -\sin_k^\ast{\phi} \\
+                             \sin_k{\phi} & \cos_k{\phi}       \\
+                         \end{bmatrix}                                                       & \text{(\cref{M:Rotation})}              \\
+         & =\begin{bmatrix}
+                \cos_k{\theta}\cos_k{\phi}+\left(-\sin_k^\ast{\theta}\right)\sin_k{\phi} &
+                \cos_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\left(-\sin_k^\ast{\theta}\right)\cos_k{\phi} \\
+                \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}                    &
+                \sin_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\cos_k{\theta}\cos_k{\phi}                    \\
+            \end{bmatrix} & \text{(\cref{Matrix:Product})}                                \\
+         & =\begin{bmatrix}
+                \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi} &
+                -\left(\sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi}\right) \\
+                \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}      &
+                \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}                    \\
+            \end{bmatrix}               & \text{(simplify)}                                              \\
+         & =\begin{bmatrix}
+                \cos_k{\theta+\phi} & -\sin_k^\ast{\theta+\phi} \\
+                \sin_k{\theta+\phi} & \cos_k{\theta+\phi}       \\
+            \end{bmatrix}                                             & \text{(\cref{M:Trigonometry:Sum})}                             \\
+         & = R_k\left(\theta+\phi\right)                                                                  & \text{(\cref{M:Rotation})} \\
         R_k\left(\theta\right)R_k\left(\phi\right)
-        &= R_k\left(\theta+\phi\right) & \qedhere
+         & = R_k\left(\theta+\phi\right)                                                                  & \qedhere
     \end{align*}
 \end{proof}
 \begin{corollary}[Inverse of generalized rotation matrix]\label{M:Rotation:Inverse}
-\begin{equation*}
-	R_k\left(\theta\right)^{-1} = R_k\left(-\theta\right)
-\end{equation*}
+    \begin{equation*}
+        R_k\left(\theta\right)^{-1} = R_k\left(-\theta\right)
+    \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Inverse}]
     \begin{align*}
         R_k\left(\theta\right)R_k\left(-\theta\right)
-        &= R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})} \\
-        &= I_2 & \text{(\cref{M:Rotation:Identity})} \\
+         & = R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})}      \\
+         & = I_2               & \text{(\cref{M:Rotation:Identity})} \\
         R_k\left(-\theta\right)R_k\left(\theta\right)
-        &= R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})} \\
-        &= I_2 & \text{(\cref{M:Rotation:Identity})}
+         & = R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})}      \\
+         & = I_2               & \text{(\cref{M:Rotation:Identity})}
     \end{align*}
     \begin{equation*}
         R_k\left(\theta\right)R_k\left(-\theta\right)
@@ -546,14 +667,14 @@ Obvious
         P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) & \defeq
         \begin{bmatrix}
             P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                                      & 1 \\
+            0_{1\times n}                                                                              & 1             \\
         \end{bmatrix}
         T_{2,n+1}
         \begin{bmatrix}
             R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                                   & {I}_{n-1} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
         \end{bmatrix}
-        T_{2,n+1} \text{,}                                                                                        \\
+        T_{2,n+1} \text{,}                                                                                    \\
         P_{k,0}                                                                          & \defeq I_1\text{,}
     \end{align*}
     where $\theta=\left\{\tensor{\theta}{^i}\right\}\in\R^n$ for $i\in\range{1}{n}$.
@@ -563,69 +684,69 @@ Obvious
 \end{definition}
 \begin{corollary}[Position matrix at zero]\label{M:Position:Set:Identity}
     \begin{equation*}
-    	P_{k,n}
-    	\left(0_{n}\right)
-    	=
-    	I_{n+1}
+        P_{k,n}
+        \left(0_{n}\right)
+        =
+        I_{n+1}
     \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Position:Set:Identity}]
     Prove by mathematical induction on $n$,
-    Let 
+    Let
     \begin{equation}\label{M:Position:Set:Identity:Proof:Induction}
         P_{k,n-1}\left(0_{n-1}\right)=I_n
     \end{equation}
-	\begin{align*}
-		P_{k, n}\left(0_{n}\right)
-		&=
-		\begin{bmatrix}
+    \begin{align*}
+        P_{k, n}\left(0_{n}\right)
+                   & =
+        \begin{bmatrix}
             P_{k,n-1}\left(0_{n-1}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                                      & 1 \\
+            0_{1\times n}                 & 1             \\
         \end{bmatrix}
         T_{2, n+1}
         \begin{bmatrix}
             R_{k}\left(0\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                                   & {I}_{n-1} \\
+            0_{{n-1}\times{2}}  & {I}_{n-1}          \\
         \end{bmatrix}
-        T_{2, n+1} & \text{(\cref{M:Position})} \\
-		&=
-		\begin{bmatrix}
-            I_{n} & 0_{n\times 1} \\
-            0_{1\times n}                                                                                      & 1 \\
+        T_{2, n+1} & \text{(\cref{M:Position})}                              \\
+                   & =
+        \begin{bmatrix}
+            I_{n}         & 0_{n\times 1} \\
+            0_{1\times n} & 1             \\
         \end{bmatrix}
         T_{2, n+1}
         \begin{bmatrix}
             R_{k}\left(0\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                                   & {I}_{n-1} \\
+            0_{{n-1}\times{2}}  & {I}_{n-1}          \\
         \end{bmatrix}
         T_{2, n+1} & \text{(\cref{M:Position:Set:Identity:Proof:Induction})} \\
-		&=
-		\begin{bmatrix}
-            I_{n} & 0_{n\times 1} \\
-            0_{1\times n}                                                                                      & 1 \\
+                   & =
+        \begin{bmatrix}
+            I_{n}         & 0_{n\times 1} \\
+            0_{1\times n} & 1             \\
         \end{bmatrix}
         T_{2, n+1}
         \begin{bmatrix}
-            I_{2} & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                                   & {I}_{n-1} \\
+            I_{2}              & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}} & {I}_{n-1}          \\
         \end{bmatrix}
-        T_{2, n+1} & \text{(\cref{M:Rotation:Identity})} \\
-		&=
-		I_{n+1}
+        T_{2, n+1} & \text{(\cref{M:Rotation:Identity})}                     \\
+                   & =
+        I_{n+1}
         T_{2, n+1}
         I_{n+1}
-        T_{2, n+1} & \text{(\cref{Matrix:Identity:Block})} \\
-		&=
+        T_{2, n+1} & \text{(\cref{Matrix:Identity:Block})}                   \\
+                   & =
         T_{2, n+1}
-        T_{2, n+1} & \text{(\cref{Matrix:Identity})} \\
-		&=
-        I_{n+1} & \text{(\cref{Matrix:Permutation:Square})}
-	\end{align*}
+        T_{2, n+1} & \text{(\cref{Matrix:Identity})}                         \\
+                   & =
+        I_{n+1}    & \text{(\cref{Matrix:Permutation:Square})}
+    \end{align*}
     \begin{equation*}
-    	P_{k,n}
-    	\left(0_{n}\right)
-    	=
-    	I_{n+1}
+        P_{k,n}
+        \left(0_{n}\right)
+        =
+        I_{n+1}
         \qedhere
     \end{equation*}
 \end{proof}
@@ -634,9 +755,9 @@ Obvious
     \begin{align*}
         Q^\pm_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) & \defeq
         \begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
+            1             & 0_{1\times n}                                                 \\
             0_{n\times 1} & X^\pm_{+1,n-1}\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) \\
-        \end{bmatrix}\text{,}                                              \\
+        \end{bmatrix}\text{,}   \\
         Q^\pm_0                                                & \defeq \pm I_1\text{,}
     \end{align*}
     where $\phi_m\in\R^m \text{for } m\in\range{1}{n-1}$.
@@ -646,54 +767,54 @@ Obvious
 \end{definition}
 \begin{corollary}[Orientation matrix at zero]\label{M:Orientation:Set:Identity}
     \begin{equation*}
-    	Q^{+}_{n}
-    	\left(0_{n-1}, 0_{n-2}, \dots\right)
-    	=
-    	I_{n+1}
+        Q^{+}_{n}
+        \left(0_{n-1}, 0_{n-2}, \dots\right)
+        =
+        I_{n+1}
     \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Orientation:Set:Identity}]
     Prove by mathematical induction on $n$,
-    Let 
+    Let
     \begin{equation}\label{M:Orientation:Set:Identity:Proof:Induction}
         Q^+_{n-1}\left(0_{n-2}, 0_{n-3}, \dots\right)=I_n
     \end{equation}
-	\begin{align*}
-		Q^+_n\left(0_{n-1}, 0_{n-2}, \dots\right)
-		&=
-		\begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
+    \begin{align*}
+        Q^+_n\left(0_{n-1}, 0_{n-2}, \dots\right)
+                                                                                                       & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                                    \\
             0_{n\times 1} & X^\pm_{+1,n-1}\left(0_{n-1},0_{n-2},\dots\right) \\
-        \end{bmatrix} & \text{(\cref{M:Orientation})} \\
-        &=
-		\begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
+        \end{bmatrix}                            & \text{(\cref{M:Orientation})}                                                               \\
+                                                                                                       & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                                                               \\
             0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right)Q^+_{n-1}\left(0_{n-2}, 0_{n-3}, \dots\right) \\
-        \end{bmatrix} & \text{(\cref{M:Point})} \\
-        &=
-		\begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
+        \end{bmatrix} & \text{(\cref{M:Point})}                                            \\
+                                                                                                       & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                      \\
             0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) I_n \\
-        \end{bmatrix} & \text{(\cref{M:Orientation:Set:Identity:Proof:Induction})} \\
-        &=
-		\begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
+        \end{bmatrix}                                          & \text{(\cref{M:Orientation:Set:Identity:Proof:Induction})}                    \\
+                                                                                                       & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                  \\
             0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) \\
-        \end{bmatrix} & \text{(\cref{Matrix:Identity})} \\
-        &=
-		\begin{bmatrix}
-            1 & 0_{1\times n}                                                             \\
-            0_{n\times 1} & I_{n} \\
-        \end{bmatrix} & \text{(\cref{M:Position:Set:Identity})} \\
-        &=
-		I_{n+1} & \text{(\cref{Matrix:Identity:Block})}
-	\end{align*}
+        \end{bmatrix}                                              & \text{(\cref{Matrix:Identity})}                                           \\
+                                                                                                       & =
+        \begin{bmatrix}
+            1             & 0_{1\times n} \\
+            0_{n\times 1} & I_{n}         \\
+        \end{bmatrix}                                                               & \text{(\cref{M:Position:Set:Identity})}                  \\
+                                                                                                       & =
+        I_{n+1}                                                                                        & \text{(\cref{Matrix:Identity:Block})}
+    \end{align*}
     \begin{equation*}
-    	Q^+_n
+        Q^+_n
         \left(0_{n-1}, 0_{n-2}, \dots\right)
-    	=
-    	I_{n+1}
-    	\qedhere
+        =
+        I_{n+1}
+        \qedhere
     \end{equation*}
 \end{proof}
 \begin{definition}\label{M:Point}
@@ -715,29 +836,29 @@ Obvious
 \end{corollary}
 \begin{proof}[\proofof{M:Point:Position}]
     \begin{align*}
-    	\forall{P \in P\left(k,n\right)}
-    	\forall{Q\in Q\left(n\right)},
-    	&
-    	P Q \in X\left(k,n\right) & \text{(\cref{M:Point})} \\
-    	\implies &
-    	P I \in X\left(k,n\right) & \text{(\cref{M:Orientation:Set:Identity})} \\
-    	\implies &
-    	P \in X\left(k,n\right) & \text{(\cref{Matrix:Identity})} 
+        \forall{P \in P\left(k,n\right)}
+        \forall{Q\in Q\left(n\right)},
+                                  &
+        P Q \in X\left(k,n\right) & \text{(\cref{M:Point})}                    \\
+        \implies                  &
+        P I \in X\left(k,n\right) & \text{(\cref{M:Orientation:Set:Identity})} \\
+        \implies                  &
+        P \in X\left(k,n\right)   & \text{(\cref{Matrix:Identity})}
     \end{align*}
     \begin{equation*}
-    	P\left(k,n\right)\subset X\left(k,n\right) \qedhere
+        P\left(k,n\right)\subset X\left(k,n\right) \qedhere
     \end{equation*}
 \end{proof}
 \begin{corollary}[Point matrix at zero]\label{M:Point:Set:Identity}
     \begin{equation*}
-    	X^{+}_{k,n}
-    	\left(0_{n}, 0_{n-1}, \dots\right)
-    	=
-    	I_{n+1}
+        X^{+}_{k,n}
+        \left(0_{n}, 0_{n-1}, \dots\right)
+        =
+        I_{n+1}
     \end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Point:Set:Identity}]
-	It can be implied from \cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
+    It can be implied from \cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
 \end{proof}
 % \subsection{Group structure}
 % Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperation{\elements}$, proof of the matrices to be $\subgroup{M}$ will later be discussed)...
@@ -875,7 +996,7 @@ Obvious
 %     \begin{equation}
 %         P\left(+1,n\right)\subset\ortho\left(n+1\right)
 %     \end{equation}
-    
+
 %     Prove by mathematical induction on $n$,
 %     \begin{equation}
 %         X\left(+1, n-1\right)\subset\ortho\left(n\right)
@@ -903,12 +1024,12 @@ Obvious
 %    	\begin{equation*}
 %    		X\left(1, n\right) \subset \ortho\left(n+1\right)
 %    	\end{equation*}
-   	
+
 %    	\begin{equation}
 %         \ortho\left(1, n-1\right) \subset X\left(1, n-1\right)
 %     \end{equation}
 %     (To be prove)
-   	
+
 %    	\begin{align*}
 %    		X\left(1, n-1\right) &= \ortho\left(n\right) \\
 %    		X\left(1, n-1\right) &\cong \ortho\left(n\right) \\
@@ -970,8 +1091,8 @@ Obvious
         \tensor{p}{^i}
          & = \frac{1}{k}\tensor{X}{^i_1}                         &  & \text{\cref{M:Vector}}       \\
          & = \frac{1}{k}\sum_j{\tensor{P}{^i_j}\tensor{O}{^j_1}} &  & \text{\cref{Matrix:Product}} \\
-         & = \frac{1}{k}\tensor{P}{^i_1}                         &  & \text{\cref{M:Orientation}}    \\
-        \tensor{p}{}                                                                     \\
+         & = \frac{1}{k}\tensor{P}{^i_1}                         &  & \text{\cref{M:Orientation}}  \\
+        \tensor{p}{}                                                                               \\
          & = \frac{1}{k}\tensor{P}{_1}                           &  & \qedhere
     \end{align*}
 \end{proof}
@@ -1000,19 +1121,40 @@ Obvious
             \arcsin_k^{\sign{\tensor{p}{^1}}}{\frac{k\tensor{p}{^2}}{\prod_{j\in\Set{2..n}}{\cos_k{\tensor{\theta}{^j}}}}} \\
             \arcsin_k{\frac{k\tensor{p}{^{i+1}}}{\prod_{j\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^j}}}}}                   \\
             \arcsin_k{k\tensor{p}{^{n+1}}}                                                                                 \\
-        \end{pmatrix}                  \\
+        \end{pmatrix} \\
          & \in
         \begin{cases}
             P \to \left(-\frac{\pi}{k}, \frac{\pi}{k}\right]\times\left[-\frac{1}{2}\frac{\pi}{k}, \frac{1}{2}\frac{\pi}{k}\right]^{n-1} & \text{if $k>0$}   \\
-            P \to \R^{n}                                                                                                              & \text{if $k\le0$} \\
+            P \to \R^{n}                                                                                                                 & \text{if $k\le0$} \\
         \end{cases}
     \end{align*}
     where $\cos_k\left(\arcsin_k^{\pm}\left(x\right)\right) = \pm \cos_k\left(\arcsin_k\left(x\right)\right)$.
 \end{lemma}
 \begin{proof}[\proofof{M:Parameter:Value}]
-    \skipped
-
-    Use \cref{M:Vector:Value} to compute the inverse mapping.
+    From \cref{M:Vector:Value},
+    \begin{align*}
+        kp                                                                                 & = \begin{pmatrix}
+                                                                                                   \prod_{j\in\Set{1..n}}{\cos_k{\tensor{\theta}{^j}}}                                \\
+                                                                                                   \sin_k{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{\theta}{^j}}} \\
+                                                                                                   \sin_k{{\tensor{\theta}{^n}}}                                                      \\
+                                                                                               \end{pmatrix}                \\
+        \sin_k{{\tensor{\theta}{^n}}}                                                      & = k\tensor{\theta}{^{n+1}}                                                                                            \\
+        \tensor{\theta}{^n}                                                                & = \arcsin_k{k\tensor{\theta}{^{n+1}}}                                                                                 \\
+        \sin_k{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{\theta}{^j}}} & = k\tensor{\theta}{^{i}}                                                                                              \\
+        \sin_k{\tensor{\theta}{^{i-1}}}                                                    & = \frac{k\tensor{\theta}{^{i}}}{\prod_{j\in\Set{i..n}}{\cos_k{\tensor{\theta}{^j}}}}                                  \\
+        \tensor{\theta}{^{i-1}}                                                            & = \arcsin_k{\frac{k\tensor{\theta}{^{i}}}{\prod_{j\in\Set{i..n}}{\cos_k{\tensor{\theta}{^j}}}}}                       \\
+        \tensor{\theta}{^i}                                                                & = \arcsin_k{\frac{k\tensor{\theta}{^{i+1}}}{\prod_{j\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^j}}}}}                   \\
+        \tensor{p}{^1}                                                                     & = \prod_{j\in\Set{1..n}}{\cos_k{\tensor{\theta}{^j}}}                                                                 \\
+        \tensor{p}{^1}                                                                     & = \cos_k{\tensor{\theta}{^1}}\prod_{j\in\Set{2..n}}{\cos_k{\tensor{\theta}{^j}}}                                      \\
+        \sign{\tensor{p}{^1}}                                                              & = \sign{\cos_k{\tensor{\theta}{^1}}}\prod_{j\in\Set{2..n}}{\sign{\cos_k{\tensor{\theta}{^j}}}}                        \\
+        \sign{\tensor{p}{^1}}                                                              & = \sign{\cos_k{\tensor{\theta}{^1}}}\prod_{j\in\Set{2..n}}{1}                                                         \\
+        \sign{\tensor{p}{^1}}                                                              & = \sign{\cos_k{\tensor{\theta}{^1}}}                                                                                  \\
+        \theta                                                                             & = \begin{pmatrix}
+                                                                                                   \arcsin_k^{\sign{\tensor{p}{^1}}}{\frac{k\tensor{p}{^2}}{\prod_{j\in\Set{2..n}}{\cos_k{\tensor{\theta}{^j}}}}} \\
+                                                                                                   \arcsin_k{\frac{k\tensor{p}{^{i+1}}}{\prod_{j\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^j}}}}}                   \\
+                                                                                                   \arcsin_k{k\tensor{p}{^{n+1}}}                                                                                 \\
+                                                                                               \end{pmatrix}
+    \end{align*}
 \end{proof}
 \begin{lemma}\label{M:CoordinateChart}
     \begin{equation*}
@@ -1027,13 +1169,13 @@ Obvious
     for \begin{equation*}
         S=
         \begin{cases}
-            \left(-\frac{1}{2}\frac{\pi}{k},+\frac{1}{2}\frac{\pi}{k}\right) & \text{$k>0$} \\
-            \R & \text{$k\le0$}
+            \left(-\frac{1}{2}\frac{\pi}{k},+\frac{1}{2}\frac{\pi}{k}\right) & \text{$k>0$}   \\
+            \R                                                               & \text{$k\le0$}
         \end{cases}
     \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{M:CoordinateChart}]
-    It is sufficient to shows that
+    From \cref{Manifold}, It is sufficient to shows that
     \begin{APAenumerate}
         \item $R_\psi$ is an open subset of real vector space (defined),
         \item $\bigcup_{\psi\in\Psi} D_\psi = P$ (obvious),
@@ -1042,21 +1184,21 @@ Obvious
     \begin{subproof}{$\bigcup_{\psi\in\Psi} D_\psi = P$}
         \begin{align*}
             M \in P
-            & \implies \exists \theta_0, M=P_{k,n}\left(\theta_0\right) \\
-            & \implies \exists \theta_0, M=P_{k,n}\left(0 + \theta_0\right) \\
-            & \implies M\in R_{\psi^{-1}} \\
-            & \implies M\in D_{\psi} \\
-            & \implies M\in \bigcup_{\psi\in\Psi} D_\psi \\
-            P&\subset\bigcup_{\psi\in\Psi}D_\psi \\
+                                         & \implies \exists \theta_0, M=P_{k,n}\left(\theta_0\right)                  \\
+                                         & \implies \exists \theta_0, M=P_{k,n}\left(0 + \theta_0\right)              \\
+                                         & \implies M\in R_{\psi^{-1}}                                                \\
+                                         & \implies M\in D_{\psi}                                                     \\
+                                         & \implies M\in \bigcup_{\psi\in\Psi} D_\psi                                 \\
+            P                            & \subset\bigcup_{\psi\in\Psi}D_\psi                                         \\
             M\in \bigcup_{\psi\in\Psi} D_\psi
-            & \implies \exists \psi\in\Psi, M\in D_\psi \\
-            & \implies \exists \psi\in\Psi, M\in R_{\psi^{-1}} \\
-            & \implies \exists x_0\exists\theta\in S^n, M=P_{k,n}\left(\theta+x_0\right) \\
-            & \implies \exists x_0, M=P_{k,n}\left(0+x_0\right) \\
-            & \implies \exists x_0, M=P_{k,n}\left(x_0\right) \\
-            & \implies M \in P \\
-            \bigcup_{\psi\in\Psi}D_\psi&\subset P \\
-            \bigcup_{\psi\in\Psi} D_\psi &= P
+                                         & \implies \exists \psi\in\Psi, M\in D_\psi                                  \\
+                                         & \implies \exists \psi\in\Psi, M\in R_{\psi^{-1}}                           \\
+                                         & \implies \exists x_0\exists\theta\in S^n, M=P_{k,n}\left(\theta+x_0\right) \\
+                                         & \implies \exists x_0, M=P_{k,n}\left(0+x_0\right)                          \\
+                                         & \implies \exists x_0, M=P_{k,n}\left(x_0\right)                            \\
+                                         & \implies M \in P                                                           \\
+            \bigcup_{\psi\in\Psi}D_\psi  & \subset P                                                                  \\
+            \bigcup_{\psi\in\Psi} D_\psi & = P
         \end{align*}
     \end{subproof}
     \begin{subproof}{every transition map is in differentability class $C^\infty$}
@@ -1072,27 +1214,27 @@ Obvious
         \begin{align*}
             \frac{1}{k}
             \begin{pmatrix}
-                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                \\
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                  \\
                 \sin_k{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_1}}{^j}}} \\
-                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                      \\
+                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                        \\
             \end{pmatrix}
-            &=
+                                                                                                                      & =
             \frac{1}{k}
             \begin{pmatrix}
-                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                \\
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                  \\
                 \sin_k{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_2}}{^j}}} \\
-                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                      \\
-            \end{pmatrix} & \text{\cref{M:Vector:Value}}\\
+                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                        \\
+            \end{pmatrix} & \text{\cref{M:Vector:Value}}        \\
             \begin{pmatrix}
-                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                \\
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_1}}{^j}}}                                  \\
                 \sin_k{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_1}}{^j}}} \\
-                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                      \\
+                \sin_k{{\tensor{{\phi_1}}{^n}}}                                                        \\
             \end{pmatrix}
-            &=
+                                                                                                                      & =
             \begin{pmatrix}
-                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                \\
+                \prod_{j\in\Set{1..n}}{\cos_k{\tensor{{\phi_2}}{^j}}}                                  \\
                 \sin_k{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_k{\tensor{{\phi_2}}{^j}}} \\
-                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                      \\
+                \sin_k{{\tensor{{\phi_2}}{^n}}}                                                        \\
             \end{pmatrix}
         \end{align*}
 
@@ -1105,25 +1247,25 @@ Obvious
         and is in differentability class $C^\infty$.
     \end{subproof}
 \end{proof}
-% \subsection{Locus of position vector}
-% \begin{lemma}\label{SphericalLocus}
-%     For $k>0$, $P^\ast$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
-% \end{lemma}
-% \begin{proof}[\proofof{SphericalLocus}]
-%     Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
-% \end{proof}
-% \begin{lemma}\label{HyperbolicLocus}
-%     For $k<0$, $P^\ast$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
-% \end{lemma}
-% \begin{proof}[\proofof{HyperbolicLocus}]
-%     Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
-% \end{proof}
-% \begin{lemma}\label{EuclideanLocus}
-%     For $k\to0$, $P^\ast$ is a $n$-Euclidean manifold at infinity.
-% \end{lemma}
-% \begin{proof}[\proofof{EuclideanLocus}]
-%     Using limits.
-% \end{proof}
+\subsection{Locus of position vector}
+\begin{lemma}\label{SphericalLocus}
+    For $k>0$, $P^\ast$ is a $\left(n+1\right)$-sphere of radius $k^{-1}$.
+\end{lemma}
+\begin{proof}[\proofof{SphericalLocus}]
+    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
+\end{proof}
+\begin{lemma}\label{HyperbolicLocus}
+    For $k<0$, $P^\ast$ is a forward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $k^{-1}$.
+\end{lemma}
+\begin{proof}[\proofof{HyperbolicLocus}]
+    Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
+\end{proof}
+\begin{lemma}\label{EuclideanLocus}
+    For $k\to0$, $P^\ast$ is a $n$-Euclidean manifold at infinity.
+\end{lemma}
+\begin{proof}[\proofof{EuclideanLocus}]
+    Using limits.
+\end{proof}
 \section{Geometric properties}
 \subsection{Embedding}
 \begin{definition}\label{M:Embedding}
@@ -1136,7 +1278,7 @@ Obvious
     \begin{equation*}
         \frac{\partial}{\partial\tensor{\theta}{^i}} =
         \begin{pmatrix}
-            -k\tan_k^\ast\tensor{\theta}{^j}\tensor{p}{^j} \\
+            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}         \\
             k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
             0
         \end{pmatrix} \frac{\partial}{\partial\tensor{p}{^j}}
@@ -1145,12 +1287,50 @@ Obvious
 \begin{proof}[\proofof{M:Tangent:Basis}]
     \begin{align*}
         \frac{\partial}{\partial\tensor{\theta}{^i}}
-        &= \frac{\partial}{\partial\tensor{p}{^j}}\frac{\partial\tensor{p}{^j}}{\partial\tensor{\theta}{^i}} \\
-        &= \begin{pmatrix}
-            -k\tan_k^\ast\theta\tensor{p}{^j} \\
-            k\frac{1}{\tan_k\theta}\tensor{p}{^{i+1}} \\
+                                                                                                        & = \frac{\partial\tensor{p}{^j}}{\partial\tensor{\theta}{^i}}\frac{\partial}{\partial\tensor{p}{^j}} \\
+                                                                                                        & = \frac{\partial}{\partial\tensor{\theta}{^i}}
+        \left[
+            \frac{1}{k}
+            \begin{pmatrix}
+                \prod_{l\in\Set{1..n}}{\cos_k{\tensor{\theta}{^l}}}                                \\
+                \sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
+                \sin_k{{\tensor{\theta}{^n}}}                                                      \\
+            \end{pmatrix}
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                  & \text{\cref{M:Vector:Value}}                                                                        \\
+                                                                                                        & =
+        \frac{1}{k}
+        \frac{\partial}{\partial\tensor{\theta}{^i}}
+        \left[
+            \begin{pmatrix}
+                \prod_{l\in\Set{1..n}}{\cos_k{\tensor{\theta}{^l}}}                                \\
+                \sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
+                \sin_k{{\tensor{\theta}{^n}}}                                                      \\
+            \end{pmatrix}
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                        \\
+                                                                                                        & =
+        \frac{1}{k}
+        \left[
+            \begin{pmatrix}
+                -k\sin_k^\ast{\tensor{\theta}{^i}}\prod_{l\in\Set{1..n}/\Set{i}}{\cos_k{\tensor{\theta}{^l}}}                                \\
+                -k\sin_k^\ast{\tensor{\theta}{^i}}\sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}/\Set{i}}{\cos_k{\tensor{\theta}{^l}}} \\
+                k\cos_k{\tensor{\theta}{^{i}}}\prod_{l\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^l}}}                                          \\
+                0                                                                                                                            \\
+            \end{pmatrix}
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                  & \text{\cref{M:Trigonometry:Derivative}}                                                             \\
+                                                                                                        & =
+        \begin{pmatrix}
+            -\tan_k^\ast{\tensor{\theta}{^i}}\prod_{l\in\Set{1..n}}{\cos_k{\tensor{\theta}{^l}}}                                \\
+            -\tan_k^\ast{\tensor{\theta}{^i}}\sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
+            \frac{1}{\tan_k{\tensor{\theta}{^{i}}}}\prod_{l\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^l}}}                        \\
+            0                                                                                                                   \\
+        \end{pmatrix}
+        \frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                               \\
+                                                                                                        & =
+        \begin{pmatrix}
+            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}         \\
+            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
             0
-        \end{pmatrix}\frac{\partial}{\partial\tensor{p}{^j}}
+        \end{pmatrix} \frac{\partial}{\partial\tensor{p}{^j}} & \text{\cref{M:Vector:Value}}                                                                                                          \\
     \end{align*}
 \end{proof}
 \begin{lemma}\label{M:MetricTensor}
@@ -1158,8 +1338,12 @@ Obvious
     \begin{align*}
         \tensor{g}{_i_j} & =
         \begin{cases}
-            \left(\dots\right)\prod_{a>i}{\cos_k^2{\tensor{\theta}{^a}}} & \text{if $i=j$,}  \\
-            0                                                            & \text{otherwise.} \\
+            \left(1-\sign{k}\right)
+            \tan_k^2\left(\tensor{\theta}{^a}\right)
+            \prod_{1\le j}{\cos_k^2\tensor{\theta}{^j}}
+            +
+            \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}} & \text{if $i=j$,}  \\
+            0                                        & \text{otherwise.} \\
         \end{cases}
     \end{align*}
 \end{lemma}
@@ -1170,30 +1354,31 @@ Obvious
         \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
         \tensor{g}{_l_m}\left[\frac{\partial}{\partial\tensor{p}{^i}}\right]
         \frac{\partial{\tensor{p}{^m}}}{\partial{\tensor{\theta}{^b}}}
-        }                                                \\
-        & = \sum_{l=1}^{n+1}{
-       \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
-       \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^b}}}
-       }
+        }                        \\
+         & = \sum_{l=1}^{n+1}{
+        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
+        \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^b}}}
+        }
     \end{align*}
+
     If $a<b$,
     \begin{align*}
         \tensor{g}{_a_b}
-         & =\begin{bmatrix}
-            -k\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
-            k\frac{1}{\tan_k\left(\tensor{\theta}{^a}\right)}\tensor{p}{^{a+1}}    \\
-            0                                                            \\
-        \end{bmatrix}\cdot\begin{bmatrix}
-            -k\tan_k^\ast\left(\tensor{\theta}{^b}\right)\tensor{p}{^j} \\
-            k\frac{1}{\tan_k\left(\tensor{\theta}{^b}\right)}\tensor{p}{^{b+1}}    \\
-            0                                                            \\
-        \end{bmatrix}                                                  \\
-         & =
+                         & =\begin{bmatrix}
+                                -k\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tensor{p}{^j}         \\
+                                k\frac{1}{\tan_k\left(\tensor{\theta}{^a}\right)}\tensor{p}{^{a+1}} \\
+                                0                                                                   \\
+                            \end{bmatrix}\cdot\begin{bmatrix}
+                                                  -k\tan_k^\ast\left(\tensor{\theta}{^b}\right)\tensor{p}{^j}         \\
+                                                  k\frac{1}{\tan_k\left(\tensor{\theta}{^b}\right)}\tensor{p}{^{b+1}} \\
+                                                  0                                                                   \\
+                                              \end{bmatrix} \\
+                         & =
         \sum{
             k^2\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tan_k^\ast\left(\tensor{\theta}{^b}\right){\tensor{p}{^j}}^2
         }
-        -k^2\frac{\tan_k^\ast\left(\tensor{\theta}{^b}\right)}{\tan_k\left(\tensor{\theta}{^a}\right)}{\tensor{p}{^{a+1}}}^2 \\
-         & =
+        -k^2\frac{\tan_k^\ast\left(\tensor{\theta}{^b}\right)}{\tan_k\left(\tensor{\theta}{^a}\right)}{\tensor{p}{^{a+1}}}^2               \\
+                         & =
         \tan_k\left(\tensor{\theta}{^b}\right)
         \tan_k\left(\tensor{\theta}{^a}\right)
         \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
@@ -1203,8 +1388,8 @@ Obvious
             \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
         }
         -\sign{k}
-        \right)                                                                                                        \\
-         & =
+        \right)                                                                                                                            \\
+                         & =
         \tan_k\left(\tensor{\theta}{^b}\right)
         \tan_k\left(\tensor{\theta}{^a}\right)
         \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
@@ -1214,24 +1399,30 @@ Obvious
         1-\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         \right)
         - \sign{k}
-        \right)                                                                                                        \\
-         & = 0
+        \right)                                                                                                                            \\
+        \tensor{g}{_a_b} & = 0 \text{.}
     \end{align*}
+
+    If $a>b$, $\tensor{g}{_a_b}=\tensor{g}{_b_a}=0$.
+
     If $a=b$,
     \begin{align*}
-        \tensor{g}{_a_b}
-         & =\begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}    \\
-            0                                                            \\
-        \end{bmatrix}\cdot\begin{bmatrix}
-            -\abs{k}\tan_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^j} \\
-            k\cot_k\left(\tensor{\theta}{^a}\right)\tensor{p}{^{a+1}}    \\
-            0                                                            \\
-        \end{bmatrix} \\
+        \tensor{g}{_a_a}
+         & =\begin{pmatrix}
+                -k\tan_k^\ast\tensor{\theta}{^a}\tensor{p}{^j}         \\
+                k\frac{1}{\tan_k\tensor{\theta}{^a}}\tensor{p}{^{a+1}} \\
+                0
+            \end{pmatrix}\cdot\begin{pmatrix}
+                                  -k\tan_k^\ast\tensor{\theta}{^a}\tensor{p}{^j}         \\
+                                  k\frac{1}{\tan_k\tensor{\theta}{^a}}\tensor{p}{^{a+1}} \\
+                                  0
+                              \end{pmatrix} \\
          & =
-        \sum{\left(k\tensor{p}{^j}\tan_k\tensor{\theta}{^a}\right)^2}
-        -\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2  \\
+        \sum_{j=1}^{a}{\left(k\tensor{p}{^j}\tan_k^\ast\tensor{\theta}{^a}\right)^2}
+        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                                       \\
+         & =
+        \sum_{j=1}^{a}{\left(k\tensor{p}{^j}\tan_k\tensor{\theta}{^a}\right)^2}
+        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                                       \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
@@ -1240,8 +1431,65 @@ Obvious
         + \sum_{1\le i<a}{
             \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
         }
-        -\cot_k^2\left(\tensor{\theta}{^a}\right)
+        +\cot_k^2\left(\tensor{\theta}{^a}\right)
+        \right)                                                                                                            \\
+         & =
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        + \sum_{1\le i<a}{
+            \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
+        }
+        +\cot_k^2\left(\tensor{\theta}{^a}\right)
+        \right)                                                                                                            \\
+         & =
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        +\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        + \sum_{1\le i<a}{
+            \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
+        }
+        +\cot_k^2\left(\tensor{\theta}{^a}\right)
+        \right)                                                                                                            \\
+         & =
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        +\sign{k}
+        +\cot_k^2\left(\tensor{\theta}{^a}
         \right)
+        \right)                                                                                                            \\
+         & =
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        +\sign{k}
+        +\csc_k^2\left(\tensor{\theta}{^a}
+        -\sign{k}
+        \right)
+        \right)                                                                                                            \\
+         & =
+        \sin_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
+        \left(
+        \left(1-\sign{k}\right)\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
+        +\csc_k^2\left(\tensor{\theta}{^a}
+        \right)
+        \right)                                                                                                            \\
+         & =
+        \left(1-\sign{k}\right)
+        \tan_k^2\left(\tensor{\theta}{^a}\right)
+        \prod_{j}{\cos_k^2\tensor{\theta}{^j}}
+        +
+        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
     \end{align*}
 \end{proof}
 \subsection{Curvature}
@@ -1250,21 +1498,21 @@ This method may be easier to generalize to
 Model II where each direction can have partially independent curvature
 (or even Model III where extrinsic curvature become a thing).
 But it may be challenging to define Gauss map properly.
-\begin{lemma}\label{Model:NormalVector}
+\begin{lemma}\label{M:Normal}
     Given a position parameter $\tensor{\theta}{}$,
     the tangent vector in position vector space can be calculated as follows
     \begin{equation*}
-        \nu\left(\tensor{\theta}{}\right)
+        \nu(p)
         =
         \begin{cases}
             \begin{bmatrix}
                 k\tensor{p}{^1}  \\
                 +k\tensor{p}{^i} \\
-            \end{bmatrix} & k>0 \\
+            \end{bmatrix} & k>0     \\
             \begin{bmatrix}
                 1 \\
                 0 \\
-            \end{bmatrix} & k=0 \\
+            \end{bmatrix}     & k=0 \\
             \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
             \begin{bmatrix}
                 k\tensor{p}{^1}  \\
@@ -1274,108 +1522,152 @@ But it may be challenging to define Gauss map properly.
         \text{.}
     \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{Model:NormalVector}]
-    \skipped
-
-    % Use \cref{SphericalLocus}, \cref{HyperbolicLocus}, \cref{HyperbolicLocus}.
-
-    % Nope, use exterior product and hedge operator instead.
-    % We'll then got
+\begin{proof}[\proofof{M:Normal}]
+    From \cref{SphericalLocus,EuclideanLocus,HyperbolicLocus},
+    \begin{equation*}
+        p \in P \iff
+        \begin{cases}
+           \sum_{i}{{\tensor{p}{^i}}^2}=k^{-2} & \text{$k>0$,} \\
+           \tensor{p}{^1} = k^{-1} \iffalse{\wedge \tensor{p}{^i} = \tensor{\theta}{^{i-1}}}\fi & \text{$k\to 0$,} \\
+             {\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}=k^{-2} \wedge \tensor{p}{^1} > 0 & \text{$k<0$.} \\
+        \end{cases}
+    \end{equation*}
+    Let
+    \begin{equation*}
+        F(p) = \begin{cases}
+           \sum_{i}{{\tensor{p}{^i}}^2}-k^{-2} & \text{$k>0$,} \\
+           \tensor{p}{^1} - k^{-1} & \text{$k\to 0$,} \\
+             {\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}-k^{-2} & \text{$k<0$.} \\
+        \end{cases}
+    \end{equation*}
     \begin{align*}
-        \tensor{\nu}{}
-                    & = \star\bigwedge{\tensor{\theta}{_i}}                                                                        & \text{(need to be normalized)} \\
-                    & = \left\vert
-        \begin{matrix}
-            \tensor{p}{_1}        & \tensor{p}{_2}        & \tensor{p}{_3}        & \dots \\
-            \tensor{\theta}{_1^1} & \tensor{\theta}{_1^2} & \tensor{\theta}{_1^3} & \dots \\
-            \tensor{\theta}{_2^1} & \tensor{\theta}{_2^2} & \tensor{\theta}{_2^3} & \dots \\
-            \dots                 & \dots                 & \dots                 & \dots \\
-        \end{matrix}
-        \right\vert                                                                                                                                                 \\
-                    & = \left\vert
-        \begin{matrix}
-            \tensor{p}{_1}                                    & \tensor{p}{_2}                                    & \tensor{p}{_3}                             & \dots \\
-            -\abs{k}\tan_k{\tensor{\theta}{^1}}\tensor{p}{^1} & k\cot_k{\tensor{\theta}{^1}}\tensor{p}{^2}        & 0                                          & \dots \\
-            -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^1} & -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^2} & k\cot_k{\tensor{\theta}{^2}}\tensor{p}{^3} & \dots \\
-            \dots                                             & \dots                                             & \dots                                      & \dots \\
-        \end{matrix}
-        \right\vert                                                                                                                                                 \\
-        \tensor{\nu}{^i}
-                    & = \left(-1\right)^{i+1}
-        \left\vert
-        \begin{matrix}
-            -\abs{k}\tan_k{\tensor{\theta}{^1}}\tensor{p}{^1} & k\cot_k{\tensor{\theta}{^1}}\tensor{p}{^2}        & 0                                          & \dots \\
-            -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^1} & -\abs{k}\tan_k{\tensor{\theta}{^2}}\tensor{p}{^2} & k\cot_k{\tensor{\theta}{^2}}\tensor{p}{^3} & \dots \\
-            \dots                                             & \dots                                             & \dots                                      & \dots \\
-        \end{matrix}
-        \right\vert & \text{(removed $\tensor{p}{^i}$ terms)}                                                                                                       \\
-        \tensor{\nu}{^1}
-                    & = k^n \prod{\cot_k{\tensor{\theta}{^i}}\tensor{p}{^{i+1}}}                                                                                    \\
-        \tensor{\nu}{^2}
-                    & = k^n \sign{k} \tan_k{\tensor{\theta}{^1}}\tensor{p}{^2}\prod{\cot_k{\tensor{\theta}{^i}}\tensor{p}{^{i+1}}}                                  \\
-        \dots       & = \dots
+        n
+        &= l \nabla F(p) \\
+        &= l \begin{cases}
+            \nabla{\sum_{i}{{\tensor{p}{^i}}^2}-k^{-2}} & \text{$k>0$,} \\
+            \nabla{\tensor{p}{^1} - k^{-1}} & \text{$k\to 0$,} \\
+            \nabla{{\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}-k^{-2}} & \text{$k<0$.} \\
+         \end{cases} \\
+         &= l \begin{cases}
+            \begin{pmatrix}
+                2\tensor{p}{^i} \\
+            \end{pmatrix} & \text{$k>0$,} \\
+            \begin{pmatrix}
+                1 \\
+                0 \\
+            \end{pmatrix} & \text{$k\to 0$,} \\
+            \begin{pmatrix}
+                -2\tensor{p}{^1} \\
+                2\tensor{p}{^i} \\
+            \end{pmatrix} & \text{$k<0$.} \\
+          \end{cases} \\
+          \hat{n}
+          &= \pm
+            \begin{cases}
+            \frac{1}{\norm{p}}
+             \begin{pmatrix}
+                 \tensor{p}{^i} \\
+             \end{pmatrix} & \text{$k>0$,} \\
+             \begin{pmatrix}
+                 1 \\
+                 0 \\
+             \end{pmatrix} & \text{$k\to 0$,} \\
+             \frac{1}{\norm{p}}
+             \begin{pmatrix}
+                 -\tensor{p}{^1} \\
+                 \tensor{p}{^i} \\
+             \end{pmatrix} & \text{$k<0$.} \\
+           \end{cases} \\
+           &= \pm
+             \begin{cases}
+             \frac{1}{k^{-1}}
+              \begin{pmatrix}
+                  \tensor{p}{^i} \\
+              \end{pmatrix} & \text{$k>0$,} \\
+              \begin{pmatrix}
+                  1 \\
+                  0 \\
+              \end{pmatrix} & \text{$k\to 0$,} \\
+              \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
+              \begin{pmatrix}
+                  -\tensor{p}{^1} \\
+                  \tensor{p}{^i} \\
+              \end{pmatrix} & \text{$k<0$.} \\
+            \end{cases} \\
+            \nu=\hat{n}
+            &\defeq
+              \begin{cases}
+               \begin{pmatrix}
+                   k\tensor{p}{^i} \\
+               \end{pmatrix} & \text{$k>0$,} \\
+               \begin{pmatrix}
+                   1 \\
+                   0 \\
+               \end{pmatrix} & \text{$k\to 0$,} \\
+               \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
+               \begin{pmatrix}
+                   \tensor{p}{^1} \\
+                   -\tensor{p}{^i} \\
+               \end{pmatrix} & \text{$k<0$.} \\
+             \end{cases} \qedhere
     \end{align*}
 \end{proof}
-\begin{lemma}\label{Model:ShapeOperator}
+\begin{lemma}\label{M:ShapeOperator}
     \begin{equation*}
-        S_{P}\left(v\right)
-        = \tensor{v}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                        \\
-        \end{bmatrix}
+        L(p) = \begin{cases}
+            -k I & \text{$k>0$,} \\
+            0 & \text{$k\to0$,} \\
+            \frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right) & \text{$k<0$.} \\
+        \end{cases}
     \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{Model:ShapeOperator}]
-    \skipped
-
+\begin{proof}[\proofof{M:ShapeOperator}]
     \begin{align*}
-        S_{P}\left(v\right)
-                   & = \nabla_v \nu\left(\tensor{P}{}\right)     \\
-        \nabla_v f & = v \cdot \frac{\partial f}{\partial x}     \\
-        \frac{\partial\nu\left(\tensor{P}{}\right)}{\partial\tensor{\theta}{^i}}
-                   & = \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                             \\
-        \end{bmatrix}                \\
-        S_{\tensor{P}{}}\left(v\right)
-                   & = \tensor{v}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                        \\
-        \end{bmatrix}
+        \frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}
+        &= \frac{\partial}{\partial\norm{p}}{\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}{\norm{p}} \\
+        &= {-\frac{1}{\norm{p}^2}}\frac{\partial}{\partial\tensor{p}{^j}}{\sqrt{\sum_i{{\tensor{p}{^i}}^2}}} \\
+        &= {-\frac{1}{\norm{p}^2}}\frac{\partial}{\partial \sum_i{{\tensor{p}{^i}}^2}}{\sqrt{\sum_i{{\tensor{p}{^i}}^2}}}\frac{\partial}{\partial\tensor{p}{^j}}{\sum_i{{\tensor{p}{^i}}^2}} \\
+        &= {-\frac{1}{\norm{p}^2}}\frac{1}{2\sqrt{\sum_i{{\tensor{p}{^i}}^2}}}{2{{\tensor{p}{^j}}}} \\
+        &= {-\frac{1}{\norm{p}^2}}\frac{1}{2\norm{p}}{2{{\tensor{p}{^j}}}} \\
+        &= -\frac{\tensor{p}{^j}}{\norm{p}^3}
     \end{align*}
-    false (need to map the derivative to tangent vector space at $\tensor{\theta}{}$)
-\end{proof}
-\begin{lemma}\label{Model:SecondFundamental}
-    \begin{equation*}
-        \text{II}_{\tensor{P}{}}\left(v,w\right) = \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                        \\
-        \end{bmatrix}
-    \end{equation*}
-\end{lemma}
-\begin{proof}[\proofof{Model:SecondFundamental}]
-    \skipped
-
+    From \cref{Manifold:Hypersurface},
     \begin{align*}
-        \text{II}_{\tensor{P}{}}\left(v,w\right)
-         & = S_{\tensor{P}{}\left(v\right)} \cdot w                  \\
-         & = v \cdot w \cdot \frac{\partial f}{\partial x}           \\
-         & = \tensor{v}{^i}\tensor{w}{^i} \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{v}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                        \\
-        \end{bmatrix}
+        L(p)
+        &= - (D\nu \circ \left(Df\right)^{-1})(p) \\
+        &= - (D\nu)(p) \\
+        &= - \left(\left.\frac{\partial}{\partial\tensor{p}{^j}}\tensor{\nu}{^i}\right|_p\right)_{i,j} \\
+        \left(L(p)\right)_{i,j}
+        &= \begin{cases}
+            - \frac{\partial}{\partial\tensor{p}{^j}} k\tensor{p}{^i} & \text{$k>0$,} \\
+            - \frac{\partial}{\partial\tensor{p}{^j}} 1 & \text{$k\to 0$ and $i=1$,} \\
+            - \frac{\partial}{\partial\tensor{p}{^j}} 0 & \text{$k\to 0$ and $i\ne1$,} \\
+            - \frac{\partial}{\partial\tensor{p}{^j}} \left({\frac{1}{\norm{p}}}\tensor{p}{^1}\right) & \text{$k<0$ and $i=1$,} \\
+            - \frac{\partial}{\partial\tensor{p}{^j}} \left(-{\frac{1}{\norm{p}}}\tensor{p}{^i}\right) & \text{$k<0$ and $i\ne 1$,} \\
+          \end{cases} \\
+          &= \begin{cases}
+              - k & \text{$k>0$ and $i=j$,} \\
+              0 & \text{$k>0$ and $i\ne j$,} \\
+              0 & \text{$k\to 0$,} \\
+              - \left({\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}\tensor{p}{^1} + \tensor{p}{^1}\frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}\right) & \text{$k<0$ and $i=1$,} \\
+              \left({\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}\tensor{p}{^i} + \tensor{p}{^i}\frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}\right) & \text{$k<0$ and $i\ne 1$,} \\
+            \end{cases} \\
+            &= \begin{cases}
+                - k & \text{$k>0$ and $i=j$,} \\
+                0 & \text{$k>0$ and $i\ne j$,} \\
+                0 & \text{$k\to 0$,} \\
+                -{\frac{1}{\norm{p}}} + \frac{{\tensor{p}{^1}}^2}{\norm{p}^3} & \text{$k<0$ and $i=j=1$,} \\
+                \frac{\tensor{p}{^1}\tensor{p}{^j}}{\norm{p}^3} & \text{$k<0$ and $j\ne i=1$,} \\
+                {\frac{1}{\norm{p}}} - \frac{{\tensor{p}{^i}}^2}{\norm{p}^3} & \text{$k<0$ and $i=j\ne1$,} \\
+                -\frac{\tensor{p}{^i}\tensor{p}{^j}}{\norm{p}^3} & \text{$k<0$, $i\ne j$ and $i\ne1$,} \\
+              \end{cases}
     \end{align*}
-    false (effected)
+
+    For $k>0$, $L(p)=-k I$.
+
+    For $k\to0$, $L(p)=0$.
+
+    For $k<0$, $L(p)= \frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)$.
 \end{proof}
 \begin{lemma}\label{Model:PrincipalCurvature}
 
@@ -1383,26 +1675,39 @@ But it may be challenging to define Gauss map properly.
 \begin{proof}[\proofof{Model:PrincipalCurvature}]
     \skipped
 
-    Eigenvector and Eigenvalue can be solved from the following matrix
+    For $k>0$,
     \begin{align*}
-        \begin{bmatrix}
-            -\sign{k}\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^1} \\
-            -\tan_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}         \\
-            -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^j}\sign{k} \\
-            0                                                             \\
-        \end{bmatrix}
+        0
+        &= \det{L(p)-\lambda I} \\
+        &= \det{-k I-\lambda I} \\
+        &= \det{(-k-\lambda) I} \\
+        &= (-k-\lambda)^{n+1}\det{I} \\
+        &= (-k-\lambda)^{n+1} \\
+        \lambda &\in \Set{-k,\dots,-k}
     \end{align*}
-    which is an upper triangular matrix.
 
-    Eigenvalue is then the diagonal element
+    For $k<0$,
     \begin{align*}
-        -\sign{k}\tan_k\left(\tensor{\theta}{^1}\right)\tensor{p}{^1} \\
-        -\cot_k\left(\tensor{\theta}{^i}\right)\tensor{p}{^i}\sign{k} \\
-        -\cot_k\left(\tensor{\theta}{^n}\right)
+        0
+        &= \det{L(p)-\lambda I} \\
+        &= \det{\frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)-\lambda I} \\
+        &= \det{\frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)-\left(\lambda^\prime-\frac{1}{\norm{p}}\right) I} & \text{$\lambda^\prime \defeq \lambda + \frac{1}{\norm{p}}$}\\
+        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \frac{1}{\norm{p}}I-\left(\lambda^\prime-\frac{1}{\norm{p}}\right) I}\\
+        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^\prime I}\\
+        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \frac{1}{\norm{p}^3}\lambda^{\prime\prime} I} & \text{$\lambda^{\prime\prime} \defeq \norm{p}^3\lambda^\prime$}\\
+        &= \frac{1}{\norm{p}^{3(n+1)}}\det{p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^{\prime\prime} I}\\
+        &= \det{p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^{\prime\prime} I}\\
+        &= {\lambda^{\prime\prime}}^n\left(\lambda^{\prime\prime}+\tensor{p}{^1}^2-\sum_{i\ne 1}{\tensor{p}{^i}^2}\right) \\
+        0 &= {\lambda^{\prime\prime}}^n\left(\lambda^{\prime\prime}+\frac{1}{k}\right) \\
+        \lambda^{\prime\prime} &\in \Set{-\frac{1}{k},0,\dots,0} \\
+        \lambda^\prime &\in \Set{-\frac{1}{k\norm{p}^3},0,\dots,0} \\
+        \lambda &\in \Set{-\frac{1}{k\norm{p}^3} - \frac{1}{\norm{p}},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        &= \Set{-\frac{1+\norm{p}^2}{k\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        &= \Set{-\frac{2k^2{\tensor{p}{^1}}^2}{k\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        &= \Set{-\frac{2k{\tensor{p}{^1}}^2}{\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        &= \Set{k^2\norm{p}\frac{-2{\tensor{p}{^1}}^2}{k\norm{p}^4},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        &= \Set{k^2\norm{p}\frac{-2{\tensor{p}{^1}}^2}{k\norm{p}^4},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
     \end{align*}
-    false (effected)
-
-    product of any 2 should be the value $\kappa$.
 \end{proof}
 \subsubsection{Curvature (Method II)}
 This method may be easier to be done
