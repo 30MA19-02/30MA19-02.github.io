@@ -1,7 +1,10 @@
 # Noneuclidjs
+
 [![CodeQL](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/codeql-analysis.yml)
 [![Build gh-pages](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/build.yml/badge.svg)](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/build.yml)
+
 <!-- [![pages-build-deployment](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/30MA19-02/noneuclidjs-docs/actions/workflows/pages/pages-build-deployment) -->
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

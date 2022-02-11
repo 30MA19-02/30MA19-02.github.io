@@ -9,7 +9,7 @@ import Point from "./point";
 import { pi } from "mathjs";
 
 interface property {
-    width: number;
+  width: number;
   height: number;
   lat: number;
   lon: number;
@@ -118,7 +118,7 @@ const Scene: FC<property> = (prop) => {
       new Point(0, 0, -prop.dir, prop.kappa)
     );
   }, [prop.lat, prop.lon, prop.dir, prop.kappa]); // Calculate operator
-  
+
   const [points, setPoints] = useState<Point[][]>(calcPoints);
   const [operator, setOperator] = useState<Point>(calcOperator);
 

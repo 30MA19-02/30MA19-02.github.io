@@ -1,4 +1,4 @@
-import {ChangeEventHandler, FC, InputHTMLAttributes, useState} from "react";
+import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from "react";
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
@@ -7,16 +7,18 @@ interface property extends InputHTMLAttributes<HTMLInputElement> {
   step: number;
 }
 
-const InputSlider:FC<property> = (prop) => {
+const InputSlider: FC<property> = (prop) => {
   const [value, setValue] = useState<number>(prop.value);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if(prop.onChange){prop.onChange(event)};
+    if (prop.onChange) {
+      prop.onChange(event);
+    }
     if (event.target.value !== "") {
       setValue(parseFloat(event.target.value));
       handleBlur();
     }
-  }
+  };
 
   const handleBlur = () => {
     if (value < prop.min) {
@@ -26,10 +28,10 @@ const InputSlider:FC<property> = (prop) => {
     }
   };
 
-  let {type:_, ...prop_} = prop;
+  let { type: _, ...prop_ } = prop;
   prop_.value = value;
   prop_.onChange = onChange;
-  if(prop_.step === 0) prop_.step = 1e-18;
+  if (prop_.step === 0) prop_.step = 1e-18;
 
   return (
     <div>
@@ -38,7 +40,7 @@ const InputSlider:FC<property> = (prop) => {
       <input type={"number"} {...prop_}></input>
     </div>
   );
-}
+};
 
 InputSlider.defaultProps = { name: "", value: 30, min: 0, max: 100, step: 1 };
 

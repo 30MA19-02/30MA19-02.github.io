@@ -11,14 +11,16 @@ export const Pages: FC = (prop) => {
     },
     {
       path: "basic/*",
-      element: <div>
-        <HelmetProvider>
-          <Helmet>
-            <title>Basic Example | Noneuclidjs</title>
-          </Helmet>
-        </HelmetProvider>
-      <Basic />
-      </div>,
+      element: (
+        <div>
+          <HelmetProvider>
+            <Helmet>
+              <title>Basic Example | Noneuclidjs</title>
+            </Helmet>
+          </HelmetProvider>
+          <Basic />
+        </div>
+      ),
     },
   ]);
 };

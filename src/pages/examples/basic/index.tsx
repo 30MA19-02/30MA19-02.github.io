@@ -11,27 +11,33 @@ const App: FC = (prop) => {
   const [vis, setVis] = useState([true, true]);
   return (
     <Scene
-    width={segment[0]}
+      width={segment[0]}
       height={segment[1]}
       lat={pos[0]}
       lon={pos[1]}
       dir={dir}
-      kappa= {kappa}
+      kappa={kappa}
       visman={vis[0]}
       vispro={vis[1]}
     >
       <Input
-          onChangeWidth={(event)=>setSegment([parseInt(event.target.value), segment[1]])}
-          onChangeHeight={(event)=>setSegment([segment[0], parseInt(event.target.value)])}
-          onChangeLat={(event)=>setPos([parseInt(event.target.value), pos[1]])}
-          onChangeLon={(event)=>setPos([pos[0], parseInt(event.target.value)])}
-          onChangeDir={(event)=>setDir(parseFloat(event.target.value))}
-          onChangeKappa={(event)=>setKappa(parseFloat(event.target.value))}
-          onChangeVis={(event)=>setVis([event.target.checked, event.target.checked])}
-          onChangeVisMan={(event)=>setVis([event.target.checked, vis[1]])}
-          onChangeVisPro={(event)=>setVis([vis[0], event.target.checked])}
-        />
+        onChangeWidth={(event) =>
+          setSegment([parseInt(event.target.value), segment[1]])
+        }
+        onChangeHeight={(event) =>
+          setSegment([segment[0], parseInt(event.target.value)])
+        }
+        onChangeLat={(event) => setPos([parseInt(event.target.value), pos[1]])}
+        onChangeLon={(event) => setPos([pos[0], parseInt(event.target.value)])}
+        onChangeDir={(event) => setDir(parseFloat(event.target.value))}
+        onChangeKappa={(event) => setKappa(parseFloat(event.target.value))}
+        onChangeVis={(event) =>
+          setVis([event.target.checked, event.target.checked])
+        }
+        onChangeVisMan={(event) => setVis([event.target.checked, vis[1]])}
+        onChangeVisPro={(event) => setVis([vis[0], event.target.checked])}
+      />
     </Scene>
-  )
+  );
 };
 export default App;

@@ -7,29 +7,34 @@ interface property extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   child: InputHTMLAttributes<HTMLInputElement>[];
 }
-const IndeterminateCheckbox:FC<property> = (prop) => {
+const IndeterminateCheckbox: FC<property> = (prop) => {
   const [checked, setChecked] = useState(
-    prop.child.map(_=>_.checked? _.checked:false)
+    prop.child.map((_) => (_.checked ? _.checked : false))
   );
 
   const handleChangeParent: ChangeEventHandler<HTMLInputElement> = (event) => {
     setChecked(checked.map((_) => event.target.checked));
-    if(prop.onChange){prop.onChange(event)};
+    if (prop.onChange) {
+      prop.onChange(event);
+    }
   };
 
-  const handleChangeChild: ((index: number) => ChangeEventHandler<HTMLInputElement>) =
-    (index) => (event) => {
-      setChecked(
-        checked.map((_, ind) => (ind === index ? event.target.checked : _))
-      );
-      if(prop.child[index].onChange){prop.child[index].onChange!(event)};
-    };
+  const handleChangeChild: (
+    index: number
+  ) => ChangeEventHandler<HTMLInputElement> = (index) => (event) => {
+    setChecked(
+      checked.map((_, ind) => (ind === index ? event.target.checked : _))
+    );
+    if (prop.child[index].onChange) {
+      prop.child[index].onChange!(event);
+    }
+  };
 
   const children = (
     <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
       {prop.child.map((prop_, ind) => (
         <FormControlLabel
-          label={prop_.name? prop_.name: ""}
+          label={prop_.name ? prop_.name : ""}
           key={ind}
           control={
             <Checkbox
@@ -45,7 +50,7 @@ const IndeterminateCheckbox:FC<property> = (prop) => {
   return (
     <div>
       <FormControlLabel
-        label={prop.name? prop.name: ""}
+        label={prop.name ? prop.name : ""}
         control={
           <Checkbox
             checked={checked.every((_) => _)}
@@ -57,7 +62,7 @@ const IndeterminateCheckbox:FC<property> = (prop) => {
       {children}
     </div>
   );
-}
+};
 
 IndeterminateCheckbox.defaultProps = {
   name: "Parent",
@@ -72,6 +77,5 @@ IndeterminateCheckbox.defaultProps = {
     },
   ],
 };
-
 
 export default IndeterminateCheckbox;
