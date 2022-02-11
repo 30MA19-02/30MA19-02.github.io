@@ -1,19 +1,33 @@
 import { pi } from "mathjs";
-import * as noneuc from "noneuclid";
+import {Point as Point_} from "noneuclid";
 import { Vector2, Vector3 } from "three";
 import * as projection from "./projection";
 
-export class Point extends noneuc.Point {
-  constructor(lat: number, lon: number, dir: number, kappa: number) {
-    if(lon === undefined){
-      super(lat);
-      return;
+export default class Point {
+  protected point: InstanceType<typeof Point_>;
+  constructor(kappa: number, lat?: number, lon?: number, dir?: number) {
+    if(lat === undefined || lon === undefined){
+      if(dir === undefined){
+        this.point = new Point_(kappa, 2);
+      }else{
+        this.point = new Point_(kappa, 2, [- dir * 2 * pi]);
+      }
+    }else{
+      if(dir === undefined){
+        this.point = new Point_(kappa, 2, [lat * 2 * pi, - lon * 2 * pi]);
+      }else{
+        this.point = new Point_(kappa, 2, [lat * 2 * pi, - lon * 2 * pi], [- dir * 2 * pi]);
+      }
     }
-    let [x, y, theta] = [lat * 2 * pi, - lon * 2 * pi, - dir * 2 * pi];
-    super(kappa, [x, y], [theta]);
+  }
+  get theta() {
+    return this.point.theta;
+  }
+  get kappa() {
+    return this.point.kappa;
   }
   get manifold() {
-    let pr = super.project;
+    let pr = this.point.project;
     return new Vector3(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
   }
   get hemi() {
@@ -69,5 +83,10 @@ export class Point extends noneuc.Point {
         throw new RangeError("Invalid projection type");
         
     }
+  }
+  operate(other: Point): Point{
+    let point = new Point(this.kappa);
+    point.point = this.point.operate(other.point);
+    return point;
   }
 }
