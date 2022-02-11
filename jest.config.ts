@@ -1,4 +1,4 @@
-import type { Config } from "@jest/types";
+import type { Config } from '@jest/types';
 
 /*
  * For a detailed explanation regarding each configuration property, visit:
@@ -25,7 +25,7 @@ const config: Config.InitialOptions = {
   // collectCoverageFrom: undefined,
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
@@ -73,14 +73,7 @@ const config: Config.InitialOptions = {
   // ],
 
   // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //   "js",
-  //   "jsx",
-  //   "ts",
-  //   "tsx",
-  //   "json",
-  //   "node"
-  // ],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
   // moduleNameMapper: {},
@@ -159,7 +152,7 @@ const config: Config.InitialOptions = {
   // ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
+  testRegex: ['text/**/*.test.ts'],
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
@@ -175,7 +168,7 @@ const config: Config.InitialOptions = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(j|t)sx?$": "ts-jest",
+    '^.+\\.(j|t)sx?$': 'ts-jest',
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
