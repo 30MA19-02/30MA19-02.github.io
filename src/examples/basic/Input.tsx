@@ -1,8 +1,6 @@
 import { ChangeEventHandler, FC } from 'react';
 
-import Slider from "src/Slider";
-import Checkbox from 'src/Checkbox';
-
+import { Slider, Checkbox }from "src/components/input";
 interface property{
     onChangeHeight?: ChangeEventHandler<HTMLInputElement>;
     onChangeWidth?: ChangeEventHandler<HTMLInputElement>;
@@ -15,7 +13,7 @@ interface property{
     onChangeVisPro?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const DocsInput: FC<property> = (prop) => {
+const AppInput: FC<property> = (prop) => {
     return (
             <form>
                 <label>Segments</label>
@@ -32,4 +30,4 @@ const DocsInput: FC<property> = (prop) => {
             </form>
     );
 };
-export default DocsInput;
+export default AppInput;

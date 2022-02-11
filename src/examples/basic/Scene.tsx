@@ -1,11 +1,11 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 
-import textureUrl from "src/public/image/world_map2.jpg";
+import textureUrl from "./image/world_map2.jpg";
 
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
-import { Point } from "src/point";
+import { Point } from "./point";
 import { pi } from "mathjs";
 
 interface property {

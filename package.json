@@ -15,6 +15,10 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@emotion/react": "^11.7.1",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.4.0",
+    "@mui/styled-engine-sc": "^5.3.0",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -22,22 +26,17 @@
     "@types/node": "^16.11.22",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "5.0.0",
-    "typescript": "^4.5.5",
-    "web-vitals": "^2.1.4",
-    "@emotion/react": "^11.7.1",
-    "@emotion/styled": "^11.6.0",
-    "@mui/material": "^5.4.0",
-    "@mui/styled-engine-sc": "^5.3.0",
     "@types/three": "^0.137.0",
     "hoist-non-react-statics": "^3.3.2",
-    "styled-components": "^5.3.3",
     "noneuclid": "file:module",
-    "three": "^0.137.5"
-  },
-  "devDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "styled-components": "^5.3.3",
+    "three": "^0.137.5",
+    "typescript": "^4.5.5",
+    "web-vitals": "^2.1.4"
   },
   "eslintConfig": {
     "extends": [

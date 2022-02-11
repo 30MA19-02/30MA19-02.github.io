@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 
-import Input from "src/Input";
-import Scene from "src/Scene";
+import Input from "./Input";
+import Scene from "./Scene";
 
-const Docs: FC = (prop) => {
+const App: FC = (prop) => {
   const [segment, setSegment] = useState([24, 32]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
@@ -35,4 +35,4 @@ const Docs: FC = (prop) => {
     </Scene>
   )
 };
-export default Docs;
+export default App;
