@@ -24,6 +24,7 @@ const Scene: FC<property> = (prop) => {
   const scene = useRef<THREE.Scene | null>(null);
   const camera = useRef<THREE.Camera | null>(null);
   const renderer = useRef<THREE.Renderer | null>(null);
+  const controls = useRef<OrbitControls | null>(null);
   const material = useRef<THREE.Material | null>(null);
   const dot = useRef<THREE.Mesh | null>(null);
   const manifold = useRef<THREE.Mesh | null>(null);
@@ -37,7 +38,7 @@ const Scene: FC<property> = (prop) => {
     const scene_ = new THREE.Scene();
     const camera_ = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     const renderer_ = new THREE.WebGLRenderer({ antialias: true });
-    const controls = new OrbitControls(camera_, renderer_.domElement);
+    const controls_ = new OrbitControls(camera_, renderer_.domElement);
     renderer_.setClearColor("#000000");
     renderer_.setSize(width, height);
     camera_.position.setZ(3);
@@ -59,6 +60,7 @@ const Scene: FC<property> = (prop) => {
     scene.current = scene_;
     camera.current = camera_;
     renderer.current = renderer_;
+    controls.current = controls_;
     material.current = material_;
     dot.current = dot_;
 

@@ -14,7 +14,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "dependencies": {
+  "devDependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.0",
@@ -26,6 +26,7 @@
     "@types/node": "^16.11.22",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
+    "@types/react-helmet-async": "^1.0.3",
     "@types/three": "^0.137.0",
     "hoist-non-react-statics": "^3.3.2",
     "noneuclid": "file:module",
@@ -33,6 +34,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-helmet-async": "^1.2.2",
     "styled-components": "^5.3.3",
     "three": "^0.137.5",
     "typescript": "^4.5.5",

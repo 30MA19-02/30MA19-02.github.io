@@ -31,7 +31,6 @@ const App: FC = (prop) => {
           onChangeVisMan={(event)=>setVis([event.target.checked, vis[1]])}
           onChangeVisPro={(event)=>setVis([vis[0], event.target.checked])}
         />
-
     </Scene>
   )
 };
