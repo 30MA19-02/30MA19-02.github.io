@@ -16,7 +16,7 @@ import {
   zeros,
   pi,
   Matrix,
-} from "mathjs";
+} from 'mathjs';
 
 function sine(theta: number, kappa: number = 1, s: boolean = false): number {
   return kappa === 0
@@ -30,7 +30,7 @@ function sine(theta: number, kappa: number = 1, s: boolean = false): number {
     : sinh(theta * kappa);
 }
 
-function cosine(theta: number, kappa:number = 1):number {
+function cosine(theta: number, kappa: number = 1): number {
   return kappa === 0 ? 1 : kappa > 0 ? cos(theta * kappa) : cosh(theta * kappa);
 }
 
@@ -42,15 +42,7 @@ function arcsine(x: number, kappa: number = 1, s: boolean = false): number {
   } else if (kappa === 0 && s) {
     if (!equal(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
   }
-  return kappa === 0
-    ? s
-      ? 0
-      : x
-    : kappa > 0
-    ? asin(x) / kappa
-    : s
-    ? asinh(-x) / kappa
-    : asinh(x) / kappa;
+  return kappa === 0 ? (s ? 0 : x) : kappa > 0 ? asin(x) / kappa : s ? asinh(-x) / kappa : asinh(x) / kappa;
 }
 
 function arccosine(x: number, kappa: number = 1): number {
@@ -79,15 +71,11 @@ function rotation(theta: number, kappa: number): Matrix {
  * @returns {matrix} position matrix
  */
 function positional(kappa: number, ...theta: number[]): Matrix {
-  let n = theta.length;
+  const n = theta.length;
 
   if (n === 0) return matrix([[1]]);
-  return (multiply(
-    concat(
-      concat(positional(kappa, ...theta.slice(0, -1)), zeros(1, n), 0),
-      concat(zeros(n, 1), identity(1), 0),
-      1
-    ),
+  return multiply(
+    concat(concat(positional(kappa, ...theta.slice(0, -1)), zeros(1, n), 0), concat(zeros(n, 1), identity(1), 0), 1),
     multiply(
       (identity(n + 1) as Matrix).swapRows(1, n),
       multiply(
@@ -96,23 +84,23 @@ function positional(kappa: number, ...theta: number[]): Matrix {
           : concat(
               concat(rotation(theta[n - 1], kappa), zeros(n - 1, 2), 0),
               concat(zeros(2, n - 1), identity(n - 1), 0),
-              1
+              1,
             ),
-        (identity(n + 1) as Matrix).swapRows(1, n)
-      )
-    )
-  ) as Matrix);
+        (identity(n + 1) as Matrix).swapRows(1, n),
+      ),
+    ),
+  ) as Matrix;
 }
 
 function orientational(...phi: number[][]): Matrix {
-  let n = phi.length;
-  let reflect = false;
-  if (n === 0) return (multiply(identity(1), reflect ? -1 : 1) as Matrix);
-  return (concat(
+  const n = phi.length;
+  const reflect = false;
+  if (n === 0) return multiply(identity(1), reflect ? -1 : 1) as Matrix;
+  return concat(
     concat(identity(1), zeros(n, 1), 0),
     concat(zeros(1, n), point(+1, phi[0], ...phi.slice(1)), 0),
-    1
-  ) as Matrix);
+    1,
+  ) as Matrix;
 }
 
 function point(kappa: number, theta: number[], ...phi: number[][]) {
@@ -120,53 +108,54 @@ function point(kappa: number, theta: number[], ...phi: number[][]) {
 }
 
 export class Point {
-  public dim: number
-  public kappa: number
-  private _mat!: Matrix
+  public dim: number;
+  public kappa: number;
+  private _mat!: Matrix;
   constructor(dim: number, kappa: number, ...phi: number[][]) {
-    if (!Number.isInteger(dim) || dim < 0){
-      throw new Error("Dimension must be a positive integer.");
+    if (!Number.isInteger(dim) || dim < 0) {
+      throw new Error('Dimension must be a positive integer.');
     }
     if (!Number.isFinite(kappa)) {
-      throw new Error("Curvature parameter must be a finite number.");
+      throw new Error('Curvature parameter must be a finite number.');
     }
     this.dim = dim;
     this.kappa = kappa;
-    if(phi.length === this.dim){
+    if (phi.length === this.dim) {
       this.matrix = point(this.kappa, phi[0], ...phi.slice(1), []);
-    }else if(phi.length === this.dim - 1){
+    } else if (phi.length === this.dim - 1) {
       this.matrix = orientational(...phi);
-    }else if(phi.length === 1){
+    } else if (phi.length === 1) {
       this.matrix = positional(this.kappa, ...phi[0]);
-    }else if(phi.length === 0){
-      this.matrix = (identity(this.dim + 1) as Matrix);
-    }else{
-      throw new Error("Invalid argument length.");
+    } else if (phi.length === 0) {
+      this.matrix = identity(this.dim + 1) as Matrix;
+    } else {
+      throw new Error('Invalid argument length.');
     }
   }
 
   protected set matrix(value: Matrix) {
-    if(value.size().some((i)=>(i!==this.dim))){
-      throw new Error("Invalid dimension.");
+    if (value.size().some((i) => i !== this.dim)) {
+      throw new Error('Invalid dimension.');
     }
     this._mat = value;
   }
   public get matrix(): Matrix {
     return this._mat;
   }
-  
+
   public get project(): Matrix {
     return multiply(
       multiply(this.matrix, concat(identity(1), zeros(this.dim, 1), 0)),
-      this.kappa !== 0 ? 1 / this.kappa : 1
+      this.kappa !== 0 ? 1 / this.kappa : 1,
     );
   }
 
   public get theta(): number[] {
-    let pr_ = multiply(this.project, this.kappa !== 0 ? this.kappa : 1);
-    let pr = new Array(this.dim + 1).fill(0).map((_, i) => pr_.get([i, 0]));
-    let theta = pr.slice().reverse();
-    let p = theta.pop();
+    let theta: number[] = new Array(this.dim + 1)
+      .fill(0)
+      .map((_, i) => multiply(this.project, this.kappa !== 0 ? this.kappa : 1).get([i, 0]));
+    theta = theta.slice().reverse();
+    const p = theta.pop()!;
     for (let i = 0; i < theta.length; ) {
       theta[i] = arcsine(theta[i], this.kappa);
       for (let j = ++i; j < theta.length; j++) {
@@ -174,7 +163,7 @@ export class Point {
       }
     }
     theta = theta.reverse();
-    if (this.kappa > 0 && p < 0) {
+    if (theta.length > 0 && this.kappa > 0 && p < 0) {
       theta[0] *= -1;
       if (theta[0] > 0) {
         theta[0] -= pi / this.kappa;
@@ -187,16 +176,12 @@ export class Point {
 
   public operate(other: Point): Point {
     if (!(this.dim === other.dim)) {
-      throw new RangeError(
-        "Points in space with different dimension cannot be operated by one another."
-      );
+      throw new RangeError('Points in space with different dimension cannot be operated by one another.');
     }
     if (!(this.kappa === other.kappa)) {
-      throw new RangeError(
-        "Points in space with different curvature cannot be operated by one another."
-      );
+      throw new RangeError('Points in space with different curvature cannot be operated by one another.');
     }
-    let p = new Point(this.kappa, this.dim);
+    const p = new Point(this.kappa, this.dim);
     p.matrix = multiply(other.matrix, this.matrix);
     return p;
   }
