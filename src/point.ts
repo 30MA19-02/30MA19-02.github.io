@@ -1,6 +1,6 @@
 import {
   abs,
-  equal,
+  deepEqual,
   sin,
   sinh,
   asin,
@@ -16,6 +16,11 @@ import {
   zeros,
   pi,
   Matrix,
+  transpose,
+  index,
+  range,
+  diag,
+  det,
 } from 'mathjs';
 
 function sine(theta: number, kappa: number = 1, s: boolean = false): number {
@@ -36,22 +41,22 @@ function cosine(theta: number, kappa: number = 1): number {
 
 function arcsine(x: number, kappa: number = 1, s: boolean = false): number {
   if (kappa > 0 && abs(x) > 1) {
-    if (equal(x, 1)) x = 1;
-    else if (equal(x, -1)) x = -1;
+    if (deepEqual(x, 1)) x = 1;
+    else if (deepEqual(x, -1)) x = -1;
     else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
   } else if (kappa === 0 && s) {
-    if (!equal(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
+    if (!deepEqual(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
   }
   return kappa === 0 ? (s ? 0 : x) : kappa > 0 ? asin(x) / kappa : s ? asinh(-x) / kappa : asinh(x) / kappa;
 }
 
 function arccosine(x: number, kappa: number = 1): number {
   if (kappa > 0 && abs(x) > 1) {
-    if (equal(x, 1)) x = 1;
-    else if (equal(x, -1)) x = -1;
+    if (deepEqual(x, 1)) x = 1;
+    else if (deepEqual(x, -1)) x = -1;
     else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
   } else if (kappa === 0) {
-    if (!equal(x, 1)) throw new RangeError(`The argument must be 1. Recieving ${x} as a parameter.`);
+    if (!deepEqual(x, 1)) throw new RangeError(`The argument must be 1. Recieving ${x} as a parameter.`);
   }
   return kappa === 0 ? 0 : kappa > 0 ? acos(x) / kappa : acosh(x) / kappa;
 }
@@ -84,10 +89,18 @@ function positional(kappa: number, ...theta: number[]): Matrix {
   ) as Matrix;
 }
 
-function orientational(...phi: number[][]): Matrix {
+function reflect(n: number): Matrix {
+  if (n === 0) return multiply(identity(1), -1) as Matrix;
+  return concat(
+    concat(identity(1), zeros(n, 1), 0),
+    concat(zeros(1, n), reflect(n - 1), 0),
+    1,
+  ) as Matrix;
+}
+
+function orientational (...phi: number[][]): Matrix {
   const n = phi.length;
-  const reflect = false;
-  if (n === 0) return multiply(identity(1), reflect ? -1 : 1) as Matrix;
+  if (n === 0) return multiply(identity(1), 1) as Matrix;
   return concat(
     concat(identity(1), zeros(n, 1), 0),
     concat(zeros(1, n), point(+1, phi[0], ...phi.slice(1)), 0),
@@ -95,19 +108,23 @@ function orientational(...phi: number[][]): Matrix {
   ) as Matrix;
 }
 
-function point(kappa: number, theta: number[], ...phi: number[][]) {
+function point(kappa: number, theta: number[], ...phi: number[][]): Matrix {
   return multiply(positional(kappa, ...theta), orientational(...phi));
 }
 
 export class Point {
   public dim: number;
-  public kappa: number;
+  public readonly kappa: number;
   private _mat!: Matrix;
   constructor(dim: number, kappa: number);
   constructor(dim: number, kappa: number, theta: number[]);
   constructor(dim: number, kappa: number, ...phi: number[][]);
+  constructor(dim: number, kappa: number, reflect: boolean);
   constructor(dim: number, kappa: number, theta: number[], ...phi: number[][]);
-  constructor(dim: number, kappa: number, ...phi: number[][]) {
+  constructor(dim: number, kappa: number, reflect: boolean, theta: number[]);
+  constructor(dim: number, kappa: number, reflect: boolean, ...phi: number[][]);
+  constructor(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]);
+  constructor(dim: number, kappa: number, ...arr: (number[]|boolean)[]) {
     if (!Number.isInteger(dim) || dim < 0) {
       throw new Error('Dimension must be a positive integer.');
     }
@@ -116,16 +133,43 @@ export class Point {
     }
     this.dim = dim;
     this.kappa = kappa;
-    if (phi.length === this.dim) {
-      this.matrix = point(this.kappa, phi[0], ...phi.slice(1), []);
-    } else if (phi.length === this.dim - 1) {
-      this.matrix = orientational(...phi);
-    } else if (phi.length === 1) {
-      this.matrix = positional(this.kappa, ...phi[0]);
-    } else if (phi.length === 0) {
+    const isReflect = (val: number[]|boolean) => typeof val === "boolean";
+    const isTheta = (val: number[]|boolean) => typeof val !== "boolean" && val.length === this.dim;
+    const isPhi = (arr: (number[]|boolean)[]) => arr.every((_, i) => (typeof _ !== "boolean" && _.length === this.dim - i - 1));
+    if (arr.length === this.dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && isPhi(arr.slice(2))) {
+      this.matrix = point(this.kappa, arr[1] as number[], ...arr.slice(2) as number[][], []);
+      if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+      return;
+    } else if (arr.length === this.dim && isPhi(arr.slice(1))) {
+      if(isReflect(arr[0])){
+        this.matrix = orientational(...arr.slice(1) as number[][]);
+        if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+        return;
+      }else if(isTheta(arr[1])){
+        this.matrix = point(this.kappa, arr[0] as number[], ...arr.slice(1) as number[][], []);
+        return;
+      }
+    } else if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
+      this.matrix = positional(this.kappa, ...arr[1] as number[]);
+      if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+      return;
+    }else if (arr.length === 1) {
+      if(isReflect(arr[0])){
+        this.matrix = identity(this.dim + 1) as Matrix;
+        if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+        return;
+      }else if(isTheta(arr[0])){
+        this.matrix = positional(this.kappa, ...arr[0] as number[]);
+        return;
+      }else if(isPhi(arr)){
+        this.matrix = orientational(...arr as number[][]);
+        return;
+      }
+    } else if (arr.length === 0) {
       this.matrix = identity(this.dim + 1) as Matrix;
+      return;
     } else {
-      throw new Error('Invalid argument length.');
+      throw new Error('Invalid argument.');
     }
   }
 
