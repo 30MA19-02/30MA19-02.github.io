@@ -171,8 +171,35 @@ export class Point {
   }
 
   protected set matrix(value: Matrix) {
-    if (value.size().some((i) => i !== this.dim)) {
-      throw new Error('Invalid dimension.');
+    if (value.size().length === 2 && value.size().some((i) => i !== this.dim + 1)) {
+      throw new Error(`Invalid dimension.`);
+    }
+    if(this.kappa > 0) {
+      if(!deepEqual(multiply(value, transpose(value)), identity(identity(this.dim + 1)))){
+        throw new Error('Invalid value: Not an orthogonal matrix.');
+      }
+    }else if(this.kappa < 0) {
+      const g = diag([1, ...new Array(this.dim).fill(-1)]);
+      if(!deepEqual(multiply(multiply(g, transpose(value)), multiply(g, value)), identity(this.dim + 1))){
+        throw new Error('Invalid value: Not an indefinite orthogonal matrix.');
+      }
+      if(!deepEqual(det(value), 1)){
+        throw new Error('Invalid value: Not an indefinite special orthogonal matrix.');
+      }
+      if(!(value.get([0,0])>0)){
+        throw new Error('Invalid value: Not an indefinite special orthogonal matrix in the positive cone.');
+      }
+    }else{
+      if(!deepEqual(value.get([0,0]), 1)){
+        throw new Error('Invalid value');
+      }
+      if(!deepEqual(value.subset(index(0,range(1,this.dim+1))), zeros(this.dim))){
+        throw new Error('Invalid value');
+      }
+      const o = value.subset(index(range(1,this.dim+1),range(1,this.dim+1)));
+      if(!deepEqual(multiply(o, transpose(o)), identity(this.dim))){
+        throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+      }
     }
     this._mat = value;
   }
