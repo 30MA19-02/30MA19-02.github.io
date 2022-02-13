@@ -91,14 +91,10 @@ function positional(kappa: number, ...theta: number[]): Matrix {
 
 function reflect(n: number): Matrix {
   if (n === 0) return multiply(identity(1), -1) as Matrix;
-  return concat(
-    concat(identity(1), zeros(n, 1), 0),
-    concat(zeros(1, n), reflect(n - 1), 0),
-    1,
-  ) as Matrix;
+  return concat(concat(identity(1), zeros(n, 1), 0), concat(zeros(1, n), reflect(n - 1), 0), 1) as Matrix;
 }
 
-function orientational (...phi: number[][]): Matrix {
+function orientational(...phi: number[][]): Matrix {
   const n = phi.length;
   if (n === 0) return multiply(identity(1), 1) as Matrix;
   return concat(
@@ -124,7 +120,7 @@ export class Point {
   constructor(dim: number, kappa: number, reflect: boolean, theta: number[]);
   constructor(dim: number, kappa: number, reflect: boolean, ...phi: number[][]);
   constructor(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]);
-  constructor(dim: number, kappa: number, ...arr: (number[]|boolean)[]) {
+  constructor(dim: number, kappa: number, ...arr: (number[] | boolean)[]) {
     if (!Number.isInteger(dim) || dim < 0) {
       throw new Error('Dimension must be a positive integer.');
     }
@@ -133,36 +129,37 @@ export class Point {
     }
     this.dim = dim;
     this.kappa = kappa;
-    const isReflect = (val: number[]|boolean) => typeof val === "boolean";
-    const isTheta = (val: number[]|boolean) => typeof val !== "boolean" && val.length === this.dim;
-    const isPhi = (arr: (number[]|boolean)[]) => arr.every((_, i) => (typeof _ !== "boolean" && _.length === this.dim - i - 1));
+    const isReflect = (val: number[] | boolean) => typeof val === 'boolean';
+    const isTheta = (val: number[] | boolean) => typeof val !== 'boolean' && val.length === this.dim;
+    const isPhi = (arr: (number[] | boolean)[]) =>
+      arr.every((_, i) => typeof _ !== 'boolean' && _.length === this.dim - i - 1);
     if (arr.length === this.dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && isPhi(arr.slice(2))) {
-      this.matrix = point(this.kappa, arr[1] as number[], ...arr.slice(2) as number[][], []);
-      if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+      this.matrix = point(this.kappa, arr[1] as number[], ...(arr.slice(2) as number[][]), []);
+      if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
       return;
     } else if (arr.length === this.dim && isPhi(arr.slice(1))) {
-      if(isReflect(arr[0])){
-        this.matrix = orientational(...arr.slice(1) as number[][]);
-        if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+      if (isReflect(arr[0])) {
+        this.matrix = orientational(...(arr.slice(1) as number[][]));
+        if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
         return;
-      }else if(isTheta(arr[1])){
-        this.matrix = point(this.kappa, arr[0] as number[], ...arr.slice(1) as number[][], []);
+      } else if (isTheta(arr[1])) {
+        this.matrix = point(this.kappa, arr[0] as number[], ...(arr.slice(1) as number[][]), []);
         return;
       }
     } else if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
-      this.matrix = positional(this.kappa, ...arr[1] as number[]);
-      if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+      this.matrix = positional(this.kappa, ...(arr[1] as number[]));
+      if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
       return;
-    }else if (arr.length === 1) {
-      if(isReflect(arr[0])){
+    } else if (arr.length === 1) {
+      if (isReflect(arr[0])) {
         this.matrix = identity(this.dim + 1) as Matrix;
-        if(arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
+        if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
         return;
-      }else if(isTheta(arr[0])){
-        this.matrix = positional(this.kappa, ...arr[0] as number[]);
+      } else if (isTheta(arr[0])) {
+        this.matrix = positional(this.kappa, ...(arr[0] as number[]));
         return;
-      }else if(isPhi(arr)){
-        this.matrix = orientational(...arr as number[][]);
+      } else if (isPhi(arr)) {
+        this.matrix = orientational(...(arr as number[][]));
         return;
       }
     } else if (arr.length === 0) {
