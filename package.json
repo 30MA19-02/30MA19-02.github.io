@@ -1,5 +1,5 @@
 {
-  "name": "noneuclid",
+  "name": "@30ma19-02/noneuclid",
   "version": "3.0.0",
   "description": "30MA19-02",
   "main": "lib/index.js",
@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "preversion": "npm test",
+    "version": "npm run format && git add .",
     "build": "tsc",
     "test": "jest",
     "testWatch": "jest --watchAll",
