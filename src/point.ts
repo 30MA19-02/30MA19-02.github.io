@@ -21,6 +21,8 @@ import {
   range,
   diag,
   det,
+  larger,
+  equal
 } from 'mathjs';
 
 function sine(theta: number, kappa: number = 1, s: boolean = false): number {
@@ -40,23 +42,23 @@ function cosine(theta: number, kappa: number = 1): number {
 }
 
 function arcsine(x: number, kappa: number = 1, s: boolean = false): number {
-  if (kappa > 0 && abs(x) > 1) {
-    if (deepEqual(x, 1)) x = 1;
-    else if (deepEqual(x, -1)) x = -1;
+  if (kappa > 0 && larger(abs(x),1)) {
+    if (equal(x, 1)) x = 1;
+    else if (equal(x, -1)) x = -1;
     else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
   } else if (kappa === 0 && s) {
-    if (!deepEqual(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
+    if (!equal(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
   }
   return kappa === 0 ? (s ? 0 : x) : kappa > 0 ? asin(x) / kappa : s ? asinh(-x) / kappa : asinh(x) / kappa;
 }
 
 function arccosine(x: number, kappa: number = 1): number {
-  if (kappa > 0 && abs(x) > 1) {
-    if (deepEqual(x, 1)) x = 1;
-    else if (deepEqual(x, -1)) x = -1;
+  if (kappa > 0 && larger(abs(x),1)) {
+    if (equal(x, 1)) x = 1;
+    else if (equal(x, -1)) x = -1;
     else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
   } else if (kappa === 0) {
-    if (!deepEqual(x, 1)) throw new RangeError(`The argument must be 1. Recieving ${x} as a parameter.`);
+    if (!equal(x, 1)) throw new RangeError(`The argument must be 1. Recieving ${x} as a parameter.`);
   }
   return kappa === 0 ? 0 : kappa > 0 ? acos(x) / kappa : acosh(x) / kappa;
 }
@@ -174,30 +176,32 @@ export class Point {
     if (value.size().length === 2 && value.size().some((i) => i !== this.dim + 1)) {
       throw new Error(`Invalid dimension.`);
     }
-    if(this.kappa > 0) {
-      if(!deepEqual(multiply(value, transpose(value)), identity(identity(this.dim + 1)))){
+    if(true){
+
+    }else if (this.kappa > 0) {
+      if (!deepEqual(multiply(value, transpose(value)), identity(identity(this.dim + 1)))) {
         throw new Error('Invalid value: Not an orthogonal matrix.');
       }
-    }else if(this.kappa < 0) {
+    } else if (this.kappa < 0) {
       const g = diag([1, ...new Array(this.dim).fill(-1)]);
-      if(!deepEqual(multiply(multiply(g, transpose(value)), multiply(g, value)), identity(this.dim + 1))){
-        throw new Error('Invalid value: Not an indefinite orthogonal matrix.');
+      if (!deepEqual(multiply(multiply(g, transpose(value)), multiply(g, value)), identity(this.dim + 1))) {
+        throw new Error(`Invalid value: Not an indefinite orthogonal matrix.`);
       }
-      if(!deepEqual(det(value), 1)){
-        throw new Error('Invalid value: Not an indefinite special orthogonal matrix.');
+      if (!larger(value.get([0, 0]), 0)) {
+        throw new Error('Invalid value: Not an orthochronous indefinite orthogonal matrix.');
       }
-      if(!(value.get([0,0])>0)){
-        throw new Error('Invalid value: Not an indefinite special orthogonal matrix in the positive cone.');
-      }
-    }else{
-      if(!deepEqual(value.get([0,0]), 1)){
+      // if (!equal(det(value), 1)) {
+      //   throw new Error('Invalid value: Not an indefinite special orthogonal matrix.');
+      // }
+    } else {
+      if (!equal(value.get([0, 0]), 1)) {
         throw new Error('Invalid value');
       }
-      if(!deepEqual(value.subset(index(0,range(1,this.dim+1))), zeros(this.dim))){
+      if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim))) {
         throw new Error('Invalid value');
       }
-      const o = value.subset(index(range(1,this.dim+1),range(1,this.dim+1)));
-      if(!deepEqual(multiply(o, transpose(o)), identity(this.dim))){
+      const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
+      if (!deepEqual(multiply(o, transpose(o)), identity(this.dim))) {
         throw new Error('Invalid value: Not an extension of orthogonal matrix.');
       }
     }
