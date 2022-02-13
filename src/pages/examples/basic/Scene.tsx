@@ -107,15 +107,15 @@ const Scene: FC<property> = (prop) => {
         let v = j / prop.height;
         let x = -Math.abs(factor) * (0.5 - u);
         let y = Math.abs(factor) * 0.5 * (0.5 - v);
-        let p = new Point(x, y, 0, prop.kappa);
-        p = p.operate(new Point(0, 0, 0.25, prop.kappa));
+        let p = new Point(prop.kappa, x, y);
+        p = p.operate(new Point(prop.kappa, 0.25));
         return p;
       });
     });
   }, [prop.width, prop.height, prop.kappa]); // Calculate points
   const calcOperator = useCallback(() => {
-    return new Point(-prop.lat, -prop.lon, 0, prop.kappa).operate(
-      new Point(0, 0, -prop.dir, prop.kappa)
+    return new Point(prop.kappa, -prop.lat, -prop.lon).operate(
+      new Point(prop.kappa, -prop.dir)
     );
   }, [prop.lat, prop.lon, prop.dir, prop.kappa]); // Calculate operator
 

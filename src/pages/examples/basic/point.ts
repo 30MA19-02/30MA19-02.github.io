@@ -1,28 +1,28 @@
-import { pi } from "mathjs";
-import { Point as Point_ } from "noneuclid";
-import { Vector2, Vector3 } from "three";
-import * as projection from "./projection";
+import { pi } from 'mathjs';
+import { Point as Point_ } from 'noneuclid';
+import { Vector2, Vector3 } from 'three';
+import * as projection from './projection';
 
 export default class Point {
   protected point: InstanceType<typeof Point_>;
-  constructor(kappa: number, lat?: number, lon?: number, dir?: number) {
-    if (lat === undefined || lon === undefined) {
-      if (dir === undefined) {
-        this.point = new Point_(kappa, 2);
-      } else {
-        this.point = new Point_(kappa, 2, [-dir * 2 * pi]);
-      }
+  constructor(kappa: number);
+  constructor(kappa: number, dir: number);
+  constructor(kappa: number, lat: number, lon: number);
+  constructor(kappa: number, lat: number, lon: number, dir: number);
+  constructor(kappa: number, p1?: number, p2?: number, p3?: number) {
+    const position_mapper = (lat: number, lon: number) => [lat * 2 * pi, -lon * 2 * pi];
+    const direction_mapper = (dir: number) => [-dir * 2 * pi];
+    if (p1 === undefined) {
+      this.point = new Point_(kappa, 2);
+    } else if (p2 === undefined) {
+      // dir = p1
+      this.point = new Point_(kappa, 2, direction_mapper(p1));
+    } else if (p3 === undefined) {
+      // lat = p1, lon = p2
+      this.point = new Point_(kappa, 2, position_mapper(p1, p2));
     } else {
-      if (dir === undefined) {
-        this.point = new Point_(kappa, 2, [lat * 2 * pi, -lon * 2 * pi]);
-      } else {
-        this.point = new Point_(
-          kappa,
-          2,
-          [lat * 2 * pi, -lon * 2 * pi],
-          [-dir * 2 * pi]
-        );
-      }
+      // lat = p1, lon = p2, dir = p3
+      this.point = new Point_(kappa, 2, position_mapper(p1, p2), direction_mapper(p3));
     }
   }
   get theta() {
@@ -80,7 +80,7 @@ export default class Point {
       }
 
       default:
-        throw new RangeError("Invalid projection type");
+        throw new RangeError('Invalid projection type');
     }
   }
   operate(other: Point): Point {
