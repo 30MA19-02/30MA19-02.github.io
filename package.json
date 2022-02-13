@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "preversion": "npm test",
+    "version": "npm run format && git add .",
     "build": "tsc",
     "test": "jest",
     "testWatch": "jest --watchAll",
