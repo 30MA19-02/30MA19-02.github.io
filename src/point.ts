@@ -63,16 +63,8 @@ function rotation(theta: number, kappa: number): Matrix {
   ]);
 }
 
-/**
- * Position matrix
- * @author HanchaiN
- * @param {number} kappa curvature parameter
- * @param  {...number} theta function argument(s)
- * @returns {matrix} position matrix
- */
 function positional(kappa: number, ...theta: number[]): Matrix {
   const n = theta.length;
-
   if (n === 0) return matrix([[1]]);
   return multiply(
     concat(concat(positional(kappa, ...theta.slice(0, -1)), zeros(1, n), 0), concat(zeros(n, 1), identity(1), 0), 1),
@@ -111,6 +103,10 @@ export class Point {
   public dim: number;
   public kappa: number;
   private _mat!: Matrix;
+  constructor(dim: number, kappa: number);
+  constructor(dim: number, kappa: number, theta: number[]);
+  constructor(dim: number, kappa: number, ...phi: number[][]);
+  constructor(dim: number, kappa: number, theta: number[], ...phi: number[][]);
   constructor(dim: number, kappa: number, ...phi: number[][]) {
     if (!Number.isInteger(dim) || dim < 0) {
       throw new Error('Dimension must be a positive integer.');
