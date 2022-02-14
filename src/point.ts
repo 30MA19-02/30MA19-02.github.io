@@ -1,29 +1,20 @@
 import {
-  abs,
-  deepEqual,
-  sin,
-  sinh,
-  asin,
-  asinh,
-  cos,
-  cosh,
-  acos,
-  acosh,
-  matrix,
-  multiply,
-  concat,
-  identity,
-  zeros,
-  pi,
-  Matrix,
-  transpose,
-  index,
-  range,
-  diag,
-  det,
-  larger,
-  equal
+  abs, acos,
+  acosh, add, asin,
+  asinh, concat, cos,
+  cosh, create, deepEqualDependencies, diag, equalDependencies, identity, index, largerDependencies, MathType, matrix, Matrix, multiply, ones, pi, range, sin,
+  sinh, subtract, transpose, zeros
 } from 'mathjs';
+
+const {
+  larger:larger_,
+  equal:equal_,
+  deepEqual:deepEqual_,
+} = create({largerDependencies, equalDependencies, deepEqualDependencies}, {epsilon:1e-12});
+
+const larger: typeof larger_ = (a: MathType, b: MathType) => larger_(add(subtract(a, b), 1), 1);
+const equal: typeof equal_ = (a: MathType, b: MathType) => equal_(add(subtract(a, b), 1), 1);
+const deepEqual: typeof deepEqual_ = (a: Matrix, b: Matrix) => deepEqual_(add(subtract(a, b), 1), ones(a.size()));
 
 function sine(theta: number, kappa: number = 1, s: boolean = false): number {
   return kappa === 0
@@ -176,10 +167,9 @@ export class Point {
     if (value.size().length === 2 && value.size().some((i) => i !== this.dim + 1)) {
       throw new Error(`Invalid dimension.`);
     }
-    if(true){
-
-    }else if (this.kappa > 0) {
-      if (!deepEqual(multiply(value, transpose(value)), identity(identity(this.dim + 1)))) {
+    if (this.kappa > 0) {
+      console.log(multiply(value, transpose(value)));
+      if (!deepEqual(multiply(value, transpose(value)), identity(this.dim + 1))) {
         throw new Error('Invalid value: Not an orthogonal matrix.');
       }
     } else if (this.kappa < 0) {
