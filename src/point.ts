@@ -158,12 +158,12 @@ export class Point {
     const isTheta = (val: number[] | boolean) => typeof val !== 'boolean' && val.length === this.dim;
     const isPhi = (arr: (number[] | boolean)[]) =>
       arr.every((_, i) => typeof _ !== 'boolean' && _.length === this.dim - i - 1);
-    if (arr.length === this.dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && isPhi(arr.slice(2))) {
+    if (arr.length === this.dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && arr.length > 2 && isPhi(arr.slice(2))) {
       this.matrix = point(this.kappa, arr[1] as number[], ...(arr.slice(2) as number[][]));
       if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
       return;
     }
-    if (arr.length === this.dim && isPhi(arr.slice(1))) {
+    if (arr.length === this.dim && arr.length > 1 && isPhi(arr.slice(1))) {
       if (isReflect(arr[0])) {
         this.matrix = orientational(...(arr.slice(1) as number[][]));
         if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
@@ -174,7 +174,7 @@ export class Point {
         return;
       }
     }
-    if (arr.length === this.dim - 1 && isPhi(arr)) {
+    if (arr.length === this.dim - 1 && arr.length > 0 && isPhi(arr)) {
       this.matrix = orientational(...(arr as number[][]));
       return;
     }
@@ -227,12 +227,22 @@ export class Point {
       if (!equal(value.get([0, 0]), 1)) {
         throw new Error('Invalid value: Fixed value is not 1.');
       }
-      if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
-        throw new Error('Invalid value: Fixed value is not 0.');
+      if(this.dim === 1) {
+        if (!equal(value.get([0,1]), 0)) {
+          throw new Error('Invalid value: Fixed value is not 0.');
+        }
+        if (!equal(abs(value.get([1,1])), 1)) {
+          throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+        }
       }
-      const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
-      if (!deepEqual(multiply(o, transpose(o)), identity(this.dim) as Matrix)) {
-        throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+      if(this.dim > 1) {
+        if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
+          throw new Error('Invalid value: Fixed value is not 0.');
+        }
+        const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
+        if (!deepEqual(multiply(o, transpose(o)), identity(this.dim) as Matrix)) {
+          throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+        }
       }
     }
     this._mat = value;

@@ -16,7 +16,35 @@ describe('Point', () => {
     // Test what happened when parameter length changes (include cases of disagreement: too many theta, too many phi, phi not ordered, etc.)
     // Include Orientation only case
     // Include garbage arguments cases too
-    it.todo('Curvature and dimension only');
+    describe('Curvature and dimension only', () => {
+      const runner_pass = (n: number) => {
+        const runner = (kappa: number) => ()=>{new Point(n, kappa)};
+        it(`Curved spherical (${n}D)`, runner(2));
+        it(`Standard spherical (${n}D)`, runner(1));
+        it(`Flatten spherical (${n}D)`, runner(0.5));
+        it(`Euclidean (${n}D)`, runner(0));
+        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${n}D)`, runner(-1));
+        it(`Curved hyperbolic (${n}D)`, runner(-2));
+      }
+      const runner_fail = (n: number) => {
+        const runner = (kappa: number) => ()=>{expect(()=>new Point(n, kappa)).toThrow()};
+        it(`Curved spherical (${n}D)`, runner(2));
+        it(`Standard spherical (${n}D)`, runner(1));
+        it(`Flatten spherical (${n}D)`, runner(0.5));
+        it(`Euclidean (${n}D)`, runner(0));
+        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${n}D)`, runner(-1));
+        it(`Curved hyperbolic (${n}D)`, runner(-2));
+      }
+      runner_pass(0); // Empty
+      runner_pass(1); // Introduce position
+      runner_pass(2); // Introduce orientation
+      runner_pass(3); // Multiple
+      runner_pass(64); // Extremely high (and slow)
+      runner_fail(0.5); // Decimal
+      runner_fail(-1); // Negative
+    });
     it.todo('Position only');
     it.todo('Orientation only');
     it.todo('Position and orientation');
