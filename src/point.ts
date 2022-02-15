@@ -158,10 +158,13 @@ export class Point {
         this.matrix = orientational(...(arr.slice(1) as number[][]));
         if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
         return;
-      } else if (isTheta(arr[1])) {
+      } else if (isTheta(arr[0])) {
         this.matrix = point(this.kappa, arr[0] as number[], ...(arr.slice(1) as number[][]), []);
         return;
       }
+    } else if (arr.length === this.dim - 1 && isPhi(arr)) {
+      this.matrix = orientational(...arr as number[][]);
+      return;
     } else if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
       this.matrix = positional(this.kappa, ...(arr[1] as number[]));
       if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
@@ -173,9 +176,6 @@ export class Point {
         return;
       } else if (isTheta(arr[0])) {
         this.matrix = positional(this.kappa, ...(arr[0] as number[]));
-        return;
-      } else if (isPhi(arr)) {
-        this.matrix = orientational(...(arr as number[][]));
         return;
       }
     } else if (arr.length === 0) {
@@ -208,10 +208,10 @@ export class Point {
       // }
     } else {
       if (!equal(value.get([0, 0]), 1)) {
-        throw new Error('Invalid value');
+        throw new Error('Invalid value: Fixed value is not 1.');
       }
       if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim))) {
-        throw new Error('Invalid value');
+        throw new Error('Invalid value: Fixed value is not 0.');
       }
       const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
       if (!deepEqual(multiply(o, transpose(o)), identity(this.dim))) {
