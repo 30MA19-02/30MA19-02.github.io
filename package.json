@@ -20,6 +20,6 @@
     "mathjs": "^10.1.1",
     "three": "^0.137.5",
     "noneuclid": "npm:@30ma19-02/noneuclid@^2.1.0",
-    "vite": "^2.8.1"
+    "vite": "^2.8.2"
   }
 }
