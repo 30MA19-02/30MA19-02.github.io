@@ -18,7 +18,9 @@ describe('Point', () => {
     // Include garbage arguments cases too
     describe('Curvature and dimension only', () => {
       const runner_pass = (n: number) => {
-        const runner = (kappa: number) => ()=>{new Point(n, kappa)};
+        const runner = (kappa: number) => () => {
+          new Point(n, kappa);
+        };
         it(`Curved spherical (${n}D)`, runner(2));
         it(`Standard spherical (${n}D)`, runner(1));
         it(`Flatten spherical (${n}D)`, runner(0.5));
@@ -26,9 +28,11 @@ describe('Point', () => {
         it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
         it(`Standard hyperbolic (${n}D)`, runner(-1));
         it(`Curved hyperbolic (${n}D)`, runner(-2));
-      }
+      };
       const runner_fail = (n: number) => {
-        const runner = (kappa: number) => ()=>{expect(()=>new Point(n, kappa)).toThrow()};
+        const runner = (kappa: number) => () => {
+          expect(() => new Point(n, kappa)).toThrow();
+        };
         it(`Curved spherical (${n}D)`, runner(2));
         it(`Standard spherical (${n}D)`, runner(1));
         it(`Flatten spherical (${n}D)`, runner(0.5));
@@ -36,7 +40,7 @@ describe('Point', () => {
         it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
         it(`Standard hyperbolic (${n}D)`, runner(-1));
         it(`Curved hyperbolic (${n}D)`, runner(-2));
-      }
+      };
       runner_pass(0); // Empty
       runner_pass(1); // Introduce position
       runner_pass(2); // Introduce orientation

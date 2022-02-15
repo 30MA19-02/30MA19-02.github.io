@@ -227,15 +227,15 @@ export class Point {
       if (!equal(value.get([0, 0]), 1)) {
         throw new Error('Invalid value: Fixed value is not 1.');
       }
-      if(this.dim === 1) {
-        if (!equal(value.get([0,1]), 0)) {
+      if (this.dim === 1) {
+        if (!equal(value.get([0, 1]), 0)) {
           throw new Error('Invalid value: Fixed value is not 0.');
         }
-        if (!equal(abs(value.get([1,1])), 1)) {
+        if (!equal(abs(value.get([1, 1])), 1)) {
           throw new Error('Invalid value: Not an extension of orthogonal matrix.');
         }
       }
-      if(this.dim > 1) {
+      if (this.dim > 1) {
         if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
           throw new Error('Invalid value: Fixed value is not 0.');
         }
