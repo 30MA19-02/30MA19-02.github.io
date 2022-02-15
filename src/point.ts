@@ -38,13 +38,13 @@ const {
   deepEqual: deepEqual_,
 } = create({ largerDependencies, equalDependencies, deepEqualDependencies }, { epsilon: 1e-12 });
 
-function larger(a: MathType, b: MathType):boolean {
+function larger(a: MathType, b: MathType): boolean {
   return !!larger_(add(subtract(a, b), 1), 1);
 }
-function equal(a: MathType, b: MathType):boolean {
+function equal(a: MathType, b: MathType): boolean {
   return !!equal_(add(subtract(a, b), 1), 1);
 }
-function deepEqual(a: Matrix, b: Matrix):boolean {
+function deepEqual(a: Matrix, b: Matrix): boolean {
   return !!deepEqual_(add(subtract(a, b), 1), ones(a.size()));
 }
 
@@ -162,36 +162,43 @@ export class Point {
       this.matrix = point(this.kappa, arr[1] as number[], ...(arr.slice(2) as number[][]));
       if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
       return;
-    } if (arr.length === this.dim && isPhi(arr.slice(1))) {
+    }
+    if (arr.length === this.dim && isPhi(arr.slice(1))) {
       if (isReflect(arr[0])) {
         this.matrix = orientational(...(arr.slice(1) as number[][]));
         if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
         return;
-      } if (isTheta(arr[0])) {
+      }
+      if (isTheta(arr[0])) {
         this.matrix = point(this.kappa, arr[0] as number[], ...(arr.slice(1) as number[][]));
         return;
       }
-    } if (arr.length === this.dim - 1 && isPhi(arr)) {
-      this.matrix = orientational(...arr as number[][]);
+    }
+    if (arr.length === this.dim - 1 && isPhi(arr)) {
+      this.matrix = orientational(...(arr as number[][]));
       return;
-    } if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
+    }
+    if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
       this.matrix = positional(this.kappa, ...(arr[1] as number[]));
       if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
       return;
-    } if (arr.length === 1) {
+    }
+    if (arr.length === 1) {
       if (isReflect(arr[0])) {
         this.matrix = identity(this.dim + 1) as Matrix;
         if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
         return;
-      } if (isTheta(arr[0])) {
+      }
+      if (isTheta(arr[0])) {
         this.matrix = positional(this.kappa, ...(arr[0] as number[]));
         return;
       }
-    } if (arr.length === 0) {
+    }
+    if (arr.length === 0) {
       this.matrix = identity(this.dim + 1) as Matrix;
       return;
     }
-    throw new Error("Invalid argument.");
+    throw new Error('Invalid argument.');
   }
 
   protected set matrix(value: Matrix) {
@@ -242,13 +249,16 @@ export class Point {
   }
 
   public get theta(): number[] {
-    let theta: number[] = this.matrix.subset(index(range(0, this.dim + 1), 0)).toArray().flat() as number[];
+    let theta: number[] = this.matrix
+      .subset(index(range(0, this.dim + 1), 0))
+      .toArray()
+      .flat() as number[];
     theta = theta.slice().reverse();
     const p = theta.pop()!;
     for (let i = 0; i < theta.length; i++) {
-      const cosine_ = sqrt(1-(this.kappa>0?1:-1)*square(theta[i])) // cosine(theta[i], this.kappa);
-      const scaler = equal(cosine_, 0)? 0 : 1/cosine_;
-      for (let j = i+1; j < theta.length; j++) {
+      const cosine_ = sqrt(1 - (this.kappa > 0 ? 1 : -1) * square(theta[i])); // cosine(theta[i], this.kappa);
+      const scaler = equal(cosine_, 0) ? 0 : 1 / cosine_;
+      for (let j = i + 1; j < theta.length; j++) {
         theta[j] *= scaler;
       }
       theta[i] = arcsine(theta[i], this.kappa);
