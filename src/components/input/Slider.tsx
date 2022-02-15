@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from "react";
+import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from "react";
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
@@ -11,13 +11,10 @@ const InputSlider: FC<property> = (prop) => {
   const [value, setValue] = useState<number>(prop.value);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if (prop.onChange) {
-      prop.onChange(event);
-    }
-    if (event.target.value !== "") {
-      setValue(parseFloat(event.target.value));
-      handleBlur();
-    }
+    if(event.target.value === "") event.target.value = value.toString();
+    prop.onChange?.call(undefined, event);
+    setValue(parseFloat(event.target.value));
+    handleBlur();
   };
 
   const handleBlur = () => {
@@ -34,11 +31,11 @@ const InputSlider: FC<property> = (prop) => {
   if (prop_.step === 0) prop_.step = 1e-18;
 
   return (
-    <div>
+    <Fragment>
       <label>{prop.name}</label>
       <input type={"range"} {...prop_}></input>
       <input type={"number"} {...prop_}></input>
-    </div>
+    </Fragment>
   );
 };
 

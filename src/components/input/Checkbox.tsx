@@ -1,7 +1,4 @@
-import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from "react";
-import Box from "@mui/material/Box";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
+import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from "react";
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
@@ -14,9 +11,7 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
 
   const handleChangeParent: ChangeEventHandler<HTMLInputElement> = (event) => {
     setChecked(checked.map((_) => event.target.checked));
-    if (prop.onChange) {
-      prop.onChange(event);
-    }
+    prop.onChange?.call(undefined, event);
   };
 
   const handleChangeChild: (
@@ -31,36 +26,32 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
   };
 
   const children = (
-    <Box sx={{ display: "flex", flexDirection: "column", ml: 3 }}>
+    <Fragment>
       {prop.child.map((prop_, ind) => (
-        <FormControlLabel
-          label={prop_.name ? prop_.name : ""}
-          key={ind}
-          control={
-            <Checkbox
-              checked={checked[ind]}
-              onChange={handleChangeChild(ind)}
-            />
-          }
-        />
+        <Fragment>
+        <label>{prop_.name? prop_.name : ""}</label>
+        <input
+        type={"checkbox"}
+        checked={checked[ind]}
+        onChange={handleChangeChild(ind)}
+      />
+      </Fragment>
       ))}
-    </Box>
+    </Fragment>
   );
 
   return (
-    <div>
-      <FormControlLabel
-        label={prop.name ? prop.name : ""}
-        control={
-          <Checkbox
-            checked={checked.every((_) => _)}
-            indeterminate={checked.some((_) => _) && checked.some((_) => !_)}
-            onChange={handleChangeParent}
-          />
-        }
+    <Fragment>
+      <label>{prop.name ? prop.name : ""}</label>
+      <input
+        type={"checkbox"}
+        checked={checked.every((_) => _)}
+        // indeterminate={checked.some((_) => _) && checked.some((_) => !_)}
+        onChange={handleChangeParent}
       />
+      <br />
       {children}
-    </div>
+    </Fragment>
   );
 };
 

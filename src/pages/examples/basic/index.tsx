@@ -27,8 +27,8 @@ const App: FC = (prop) => {
         onChangeHeight={(event) =>
           setSegment([segment[0], parseInt(event.target.value)])
         }
-        onChangeLat={(event) => setPos([parseInt(event.target.value), pos[1]])}
-        onChangeLon={(event) => setPos([pos[0], parseInt(event.target.value)])}
+        onChangeLat={(event) => setPos([parseFloat(event.target.value), pos[1]])}
+        onChangeLon={(event) => setPos([pos[0], parseFloat(event.target.value)])}
         onChangeDir={(event) => setDir(parseFloat(event.target.value))}
         onChangeKappa={(event) => setKappa(parseFloat(event.target.value))}
         onChangeVis={(event) =>

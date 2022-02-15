@@ -17,6 +17,7 @@ const AppInput: FC<property> = (prop) => {
   return (
     <form>
       <label>Segments</label>
+      <br/>
       <Slider
         name={"height"}
         min={2}
@@ -25,6 +26,7 @@ const AppInput: FC<property> = (prop) => {
         value={32}
         onChange={prop.onChangeHeight}
       ></Slider>
+      <br/>
       <Slider
         name={"width"}
         min={3}
@@ -33,7 +35,9 @@ const AppInput: FC<property> = (prop) => {
         value={24}
         onChange={prop.onChangeWidth}
       ></Slider>
+      <br/>
       <label>Position</label>
+      <br/>
       <Slider
         name={"latitude"}
         min={-0.25}
@@ -42,6 +46,7 @@ const AppInput: FC<property> = (prop) => {
         value={0.03815754722}
         onChange={prop.onChangeLat}
       ></Slider>
+      <br/>
       <Slider
         name={"lontitude"}
         min={-0.5}
@@ -50,6 +55,7 @@ const AppInput: FC<property> = (prop) => {
         value={0.27923107222}
         onChange={prop.onChangeLon}
       ></Slider>
+      <br/>
       <Slider
         name={"direction"}
         min={-0.5}
@@ -58,7 +64,9 @@ const AppInput: FC<property> = (prop) => {
         value={0}
         onChange={prop.onChangeDir}
       ></Slider>
+      <br/>
       <label>Curvature</label>
+      <br/>
       <Slider
         name={"kappa"}
         min={-1}
@@ -67,7 +75,9 @@ const AppInput: FC<property> = (prop) => {
         value={1}
         onChange={prop.onChangeKappa}
       ></Slider>
+      <br/>
       <label>Visibility</label>
+      <br/>
       <Checkbox
         name={"Projections"}
         child={[

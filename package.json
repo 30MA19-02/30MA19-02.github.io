@@ -15,6 +15,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@30ma19-02/noneuclid": "^3.0.1",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.4.0",
@@ -29,7 +30,8 @@
     "@types/react-helmet-async": "^1.0.3",
     "@types/three": "^0.137.0",
     "hoist-non-react-statics": "^3.3.2",
-    "noneuclid": "npm:@30ma19-02/noneuclid@^3.0.1",
+    "mathjs": "^10.1.1",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet-async": "^1.2.2",
@@ -39,9 +41,6 @@
     "three": "^0.137.5",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
-  },
-  "optionalDependencies": {
-    "prettier": "^2.5.1"
   },
   "eslintConfig": {
     "extends": [

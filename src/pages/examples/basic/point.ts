@@ -1,5 +1,5 @@
 import { pi } from 'mathjs';
-import { Point as Point_ } from 'noneuclid';
+import { Point as Point_ } from '@30ma19-02/noneuclid';
 import { Vector2, Vector3 } from 'three';
 import * as projection from './projection';
 
@@ -13,16 +13,16 @@ export default class Point {
     const position_mapper = (lat: number, lon: number) => [lat * 2 * pi, -lon * 2 * pi];
     const direction_mapper = (dir: number) => [-dir * 2 * pi];
     if (p1 === undefined) {
-      this.point = new Point_(kappa, 2);
+      this.point = new Point_(2, kappa);
     } else if (p2 === undefined) {
       // dir = p1
-      this.point = new Point_(kappa, 2, direction_mapper(p1));
+      this.point = new Point_(2, kappa, direction_mapper(p1));
     } else if (p3 === undefined) {
       // lat = p1, lon = p2
-      this.point = new Point_(kappa, 2, position_mapper(p1, p2));
+      this.point = new Point_(2, kappa, position_mapper(p1, p2));
     } else {
       // lat = p1, lon = p2, dir = p3
-      this.point = new Point_(kappa, 2, position_mapper(p1, p2), direction_mapper(p3));
+      this.point = new Point_(2, kappa, position_mapper(p1, p2), direction_mapper(p3));
     }
   }
   get theta() {
@@ -39,17 +39,25 @@ export default class Point {
     return projection.hemi(this);
   }
   get projection() {
-    const projectionType: number = 0;
-    switch (projectionType) {
-      case 0: {
+    const enum projectionType {
+      equirectangular,
+      orthographic,
+      gnomonic,
+      stereographic,
+      halfplane,
+    };
+    const projection_type: projectionType = projectionType.equirectangular;
+    switch (projection_type as projectionType) {
+      case projectionType.equirectangular: {
         let proj = projection
-          .equirectangular(this.operate(new Point(0, 0, -0.25, this.kappa)))
+          .equirectangular(this.operate(new Point(this.kappa, -0.25)))
           .rotateAround(new Vector2(), -0.5 * pi);
         // Remove border
+        // console.log(proj);
         return proj;
       }
 
-      case 1: {
+      case projectionType.orthographic: {
         let proj = projection.orthographic(this);
         // let proj = projection.klein(this);
         // Remove overlapping
@@ -59,21 +67,21 @@ export default class Point {
         return proj;
       }
 
-      case 2: {
+      case projectionType.gnomonic: {
         let proj = projection.gnomonic(this);
         // let proj = projection.gans(this);
         // Autoremove overlapping
         return proj;
       }
 
-      case 3: {
+      case projectionType.stereographic: {
         let proj = projection.stereographic(this);
         // let proj = projection.poincare(this).multiplyScalar(2);
         // Remove infinite
         return proj;
       }
 
-      case 4: {
+      case projectionType.halfplane: {
         let proj = projection.halfplane(this);
         // Autoreplce Euclidean
         return proj;
