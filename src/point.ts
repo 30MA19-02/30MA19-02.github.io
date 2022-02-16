@@ -1,137 +1,23 @@
 import {
   abs,
-  acos,
-  acosh,
-  add,
-  asin,
-  asinh,
   concat,
-  cos,
-  cosh,
-  create,
-  deepEqualDependencies,
   diag,
-  equalDependencies,
   identity,
   index,
-  largerDependencies,
-  MathType,
-  matrix,
   Matrix,
   multiply,
-  norm,
-  ones,
   pi,
   range,
-  sin,
-  sinh,
   sqrt,
   square,
-  subtract,
   transpose,
   zeros,
 } from 'mathjs';
 
-const {
-  larger: larger_,
-  equal: equal_,
-  deepEqual: deepEqual_,
-} = create({ largerDependencies, equalDependencies, deepEqualDependencies }, { epsilon: 1e-12 });
+import { point, reflect, orientational, positional } from './modules/transformations';
+import { arcsine } from './modules/trigonometry';
 
-function larger(a: MathType, b: MathType): boolean {
-  return !!larger_(add(subtract(a, b), 1), 1);
-}
-function equal(a: MathType, b: MathType): boolean {
-  return !!equal_(add(subtract(a, b), 1), 1);
-}
-function deepEqual(a: Matrix, b: Matrix): boolean {
-  return !!deepEqual_(add(subtract(a, b), 1), ones(a.size()));
-}
-
-function sine(theta: number, kappa: number = 1, s: boolean = false): number {
-  return kappa === 0
-    ? s
-      ? 0
-      : theta
-    : kappa > 0
-    ? sin(theta * kappa)
-    : s
-    ? -sinh(theta * kappa)
-    : sinh(theta * kappa);
-}
-
-function cosine(theta: number, kappa: number = 1): number {
-  return kappa === 0 ? 1 : kappa > 0 ? cos(theta * kappa) : cosh(theta * kappa);
-}
-
-function arcsine(x: number, kappa: number = 1, s: boolean = false): number {
-  if (kappa > 0 && larger(abs(x), 1)) {
-    if (equal(x, 1)) x = 1;
-    else if (equal(x, -1)) x = -1;
-    else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
-  } else if (kappa === 0 && s) {
-    if (!equal(x, 0)) throw new RangeError(`The argument must be 0. Recieving ${x} as a parameter.`);
-  }
-  return kappa === 0 ? (s ? 0 : x) : kappa > 0 ? asin(x) / kappa : s ? asinh(-x) / kappa : asinh(x) / kappa;
-}
-
-function arccosine(x: number, kappa: number = 1): number {
-  if (kappa > 0 && larger(abs(x), 1)) {
-    if (equal(x, 1)) x = 1;
-    else if (equal(x, -1)) x = -1;
-    else throw new RangeError(`The argument must be between -1 and 1. Recieving ${x} as a parameter.`);
-  } else if (kappa === 0) {
-    if (!equal(x, 1)) throw new RangeError(`The argument must be 1. Recieving ${x} as a parameter.`);
-  }
-  return kappa === 0 ? 0 : kappa > 0 ? acos(x) / kappa : acosh(x) / kappa;
-}
-
-function rotation(theta: number, kappa: number): Matrix {
-  return matrix([
-    [cosine(theta, kappa), -sine(theta, kappa, true)],
-    [sine(theta, kappa), cosine(theta, kappa)],
-  ]);
-}
-
-function positional(kappa: number, ...theta: number[]): Matrix {
-  const n = theta.length;
-  if (n === 0) return matrix([[1]]);
-  return multiply(
-    concat(concat(positional(kappa, ...theta.slice(0, -1)), zeros(1, n), 0), concat(zeros(n, 1), identity(1), 0), 1),
-    multiply(
-      (identity(n + 1) as Matrix).swapRows(1, n),
-      multiply(
-        n === 1
-          ? rotation(theta[n - 1], kappa)
-          : concat(
-              concat(rotation(theta[n - 1], kappa), zeros(n - 1, 2), 0),
-              concat(zeros(2, n - 1), identity(n - 1), 0),
-              1,
-            ),
-        (identity(n + 1) as Matrix).swapRows(1, n),
-      ),
-    ),
-  ) as Matrix;
-}
-
-function reflect(n: number): Matrix {
-  if (n === 0) return multiply(identity(1), -1) as Matrix;
-  return concat(concat(identity(1), zeros(n, 1), 0), concat(zeros(1, n), reflect(n - 1), 0), 1) as Matrix;
-}
-
-function orientational(...phi: number[][]): Matrix {
-  const n = phi.length + 1;
-  if (n === 1) return multiply(identity(2), 1) as Matrix;
-  return concat(
-    concat(identity(1), zeros(n, 1), 0),
-    concat(zeros(1, n), point(+1, phi[0], ...phi.slice(1)), 0),
-    1,
-  ) as Matrix;
-}
-
-function point(kappa: number, theta: number[], ...phi: number[][]): Matrix {
-  return multiply(positional(kappa, ...theta), orientational(...phi));
-}
+import { equal, deepEqual, larger } from './math/compare';
 
 export class Point {
   public dim: number;
