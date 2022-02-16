@@ -20,10 +20,18 @@ export class Matrix {
     return new Matrix(new Array(n).fill(0).map((_, i) => new Array(n).fill(0).map((_, j) => (i === j ? 1 : 0))));
   }
   static diagonal(diag: number[]) {
-    return new Matrix(new Array(diag.length).fill(0).map((_, i) => new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))));
+    return new Matrix(
+      new Array(diag.length)
+        .fill(0)
+        .map((_, i) => new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))),
+    );
   }
   static permutation(perm: number[]) {
-    return new Matrix(new Array(perm.length).fill(0).map((_, i) => new Array(perm.length).fill(0).map((_, j) => (perm[i] === j ? 1 : 0))));
+    return new Matrix(
+      new Array(perm.length)
+        .fill(0)
+        .map((_, i) => new Array(perm.length).fill(0).map((_, j) => (perm[i] === j ? 1 : 0))),
+    );
   }
   static block(sub: Matrix[][]) {
     assert(
@@ -97,22 +105,22 @@ export class Matrix {
     const dim = this.size[0];
     let matrix = this.data;
     let factor = 1;
-    for(let k=0; k<dim; k++){
-        for(let i=k+1; i<dim; i++){
-            for(let j=k+1; j<dim; j++){
-                matrix[i][j] = (matrix[i][j]*matrix[k][k]-matrix[i][k]*matrix[k][j]);
-                if(k===0) continue;
-                matrix[i][j]/=matrix[k-1][k-1];
-            }
+    for (let k = 0; k < dim; k++) {
+      for (let i = k + 1; i < dim; i++) {
+        for (let j = k + 1; j < dim; j++) {
+          matrix[i][j] = matrix[i][j] * matrix[k][k] - matrix[i][k] * matrix[k][j];
+          if (k === 0) continue;
+          matrix[i][j] /= matrix[k - 1][k - 1];
         }
-        if(matrix[k][k]===0){
-            factor *= -1;
-            let ind = matrix[k].find((val, ind)=>ind>k&&val!==0);
-            assert(ind === undefined);
-            matrix[k], matrix[ind!] = matrix[ind!], matrix[k];
-        }
+      }
+      if (matrix[k][k] === 0) {
+        factor *= -1;
+        let ind = matrix[k].find((val, ind) => ind > k && val !== 0);
+        assert(ind === undefined);
+        matrix[k], (matrix[ind!] = matrix[ind!]), matrix[k];
+      }
     }
-    return matrix[dim-1][dim-1];
+    return matrix[dim - 1][dim - 1];
   }
   public add(other: Matrix) {
     // O(n**2)
@@ -201,10 +209,10 @@ export class Matrix {
     assert(this.size[1] === other.size[0]);
     return this.square && other.square ? this.strassen_multiply(other) : this.definition_multiply(other);
   }
-  public sliceRow(start?: number,end?:number){
+  public sliceRow(start?: number, end?: number) {
     return new Matrix(this.data.slice(start, end));
   }
-  public sliceCol(start?: number,end?:number){
-    return new Matrix(this.data.map(_=>_.slice(start, end)));
+  public sliceCol(start?: number, end?: number) {
+    return new Matrix(this.data.map((_) => _.slice(start, end)));
   }
 }
