@@ -1,8 +1,8 @@
-import { concat, identity, matrix, Matrix, multiply, zeros } from 'mathjs';
 import { cosine, sine } from './trigonometry';
+import { Matrix } from '../math/matrix';
 
 export function rotation(theta: number, kappa: number): Matrix {
-  return matrix([
+  return new Matrix([
     [cosine(theta, kappa), -sine(theta, kappa, true)],
     [sine(theta, kappa), cosine(theta, kappa)],
   ]);
@@ -10,40 +10,29 @@ export function rotation(theta: number, kappa: number): Matrix {
 
 export function positional(kappa: number, ...theta: number[]): Matrix {
   const n = theta.length;
-  if (n === 0) return matrix([[1]]);
-  return multiply(
-    concat(concat(positional(kappa, ...theta.slice(0, -1)), zeros(1, n), 0), concat(zeros(n, 1), identity(1), 0), 1),
-    multiply(
-      (identity(n + 1) as Matrix).swapRows(1, n),
-      multiply(
-        n === 1
-          ? rotation(theta[n - 1], kappa)
-          : concat(
-              concat(rotation(theta[n - 1], kappa), zeros(n - 1, 2), 0),
-              concat(zeros(2, n - 1), identity(n - 1), 0),
-              1,
-            ),
-        (identity(n + 1) as Matrix).swapRows(1, n),
-      ),
-    ),
-  ) as Matrix;
+  if (n === 0) return Matrix.identity(1);
+  return Matrix.block([[positional(kappa, ...theta.slice(0, -1)), Matrix.zeros(1, n)], [Matrix.zeros(n, 1), Matrix.identity(1)]]).multiply(
+    Matrix.permutation(new Array(n+1).fill(0).map((_,i)=>i===1?n:i===n?1:i))
+  ).multiply(
+    n === 1 ? rotation(theta[n-1], kappa) : Matrix.block([[rotation(theta[n - 1], kappa), Matrix.zeros(n-1, 2)], [Matrix.zeros(2,n-1), Matrix.identity(n-1)]])
+  ).multiply(
+    Matrix.permutation(new Array(n+1).fill(0).map((_,i)=>i===1?n:i===n?1:i))
+  );
 }
 
 export function reflect(n: number): Matrix {
-  if (n === 0) return multiply(identity(1), -1) as Matrix;
-  return concat(concat(identity(1), zeros(n, 1), 0), concat(zeros(1, n), reflect(n - 1), 0), 1) as Matrix;
+  return Matrix.diagonal(new Array(n+1).fill(0).map((_,i)=>i===n?-1:+1));
 }
 
 export function orientational(...phi: number[][]): Matrix {
   const n = phi.length + 1;
-  if (n === 1) return multiply(identity(2), 1) as Matrix;
-  return concat(
-    concat(identity(1), zeros(n, 1), 0),
-    concat(zeros(1, n), point(+1, phi[0], ...phi.slice(1)), 0),
-    1,
-  ) as Matrix;
+  if (n === 1) return Matrix.identity(2);
+  return Matrix.block([
+    [Matrix.identity(1), Matrix.zeros(n,1)],
+    [Matrix.zeros(1,n), point(+1, phi[0], ...phi.slice(1))],
+  ]);
 }
 
 export function point(kappa: number, theta: number[], ...phi: number[][]): Matrix {
-  return multiply(positional(kappa, ...theta), orientational(...phi));
+  return positional(kappa, ...theta).multiply(orientational(...phi));
 }

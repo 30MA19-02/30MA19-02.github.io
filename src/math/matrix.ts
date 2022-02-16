@@ -22,6 +22,9 @@ export class Matrix {
   static diagonal(diag: number[]) {
     return new Matrix(new Array(diag.length).fill(0).map((_, i) => new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))));
   }
+  static permutation(perm: number[]) {
+    return new Matrix(new Array(perm.length).fill(0).map((_, i) => new Array(perm.length).fill(0).map((_, j) => (perm[i] === j ? 1 : 0))));
+  }
   static block(sub: Matrix[][]) {
     assert(
       sub.every((row) => sub[0].length === row.length),
@@ -190,12 +193,18 @@ export class Matrix {
       A[0][1].subtract(A[1][1]).multiply(B[1][0].add(B[1][1])),
     ];
     return Matrix.block([
-      [M[0].add(M[3]).subtract(M[4]).add(M[7]), M[2].add(M[4])],
+      [M[0].add(M[3]).subtract(M[4]).add(M[6]), M[2].add(M[4])],
       [M[1].add(M[3]), M[0].subtract(M[1]).add(M[2]).add(M[5])],
     ]);
   }
   public multiply(other: Matrix) {
     assert(this.size[1] === other.size[0]);
     return this.square && other.square ? this.strassen_multiply(other) : this.definition_multiply(other);
+  }
+  public sliceRow(start?: number,end?:number){
+    return new Matrix(this.data.slice(start, end));
+  }
+  public sliceCol(start?: number,end?:number){
+    return new Matrix(this.data.map(_=>_.slice(start, end)));
   }
 }
