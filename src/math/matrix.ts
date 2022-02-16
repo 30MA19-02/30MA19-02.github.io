@@ -19,6 +19,9 @@ export class Matrix {
   static identity(n: number) {
     return new Matrix(new Array(n).fill(0).map((_, i) => new Array(n).fill(0).map((_, j) => (i === j ? 1 : 0))));
   }
+  static diagonal(diag: number[]) {
+    return new Matrix(new Array(diag.length).fill(0).map((_, i) => new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))));
+  }
   static block(sub: Matrix[][]) {
     assert(
       sub.every((row) => sub[0].length === row.length),
