@@ -19,7 +19,9 @@ describe('Point', () => {
     describe('Curvature and dimension only', () => {
       const runner_pass = (n: number) => {
         const runner = (kappa: number) => () => {
-          new Point(n, kappa);
+          let p = new Point(n, kappa);
+          expect(p.dim).toBe(n);
+          expect(p.kappa).toBe(kappa);
         };
         it(`Curved spherical (${n}D)`, runner(2));
         it(`Standard spherical (${n}D)`, runner(1));
@@ -41,7 +43,23 @@ describe('Point', () => {
         it(`Standard hyperbolic (${n}D)`, runner(-1));
         it(`Curved hyperbolic (${n}D)`, runner(-2));
       };
-      runner_pass(0); // Empty
+      {
+        const runner_pass = (kappa: number) => () => {
+          let p = new Point(0, kappa);
+          expect(p.dim).toBe(0);
+          expect(p.kappa).toBe(1);
+        };
+        const runner_fail = (kappa: number) => () => {
+          expect(() => new Point(0, kappa)).toThrow();
+        };
+        it(`Curved spherical (0D)`, runner_pass(2));
+        it(`Standard spherical (0D)`, runner_pass(1));
+        it(`Flatten spherical (0D)`, runner_pass(0.5));
+        it(`Euclidean (0D)`, runner_fail(0));
+        it(`Flattened hyperbolic (0D)`, runner_fail(-0.5));
+        it(`Standard hyperbolic (0D)`, runner_fail(-1));
+        it(`Curved hyperbolic (0D)`, runner_fail(-2));
+      }
       runner_pass(1); // Introduce position
       runner_pass(2); // Introduce orientation
       runner_pass(3); // Multiple
@@ -50,8 +68,37 @@ describe('Point', () => {
       runner_fail(-1); // Negative
     });
     it.todo('Position only');
+    describe('Reflection only', () => {
+      const runner = (n: number) => {
+        const runner = (kappa: number) => () => {
+          new Point(n, kappa, true);
+          new Point(n, kappa, false);
+        };
+        it(`Curved spherical (${n}D)`, runner(2));
+        it(`Standard spherical (${n}D)`, runner(1));
+        it(`Flatten spherical (${n}D)`, runner(0.5));
+        it(`Euclidean (${n}D)`, runner(0));
+        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${n}D)`, runner(-1));
+        it(`Curved hyperbolic (${n}D)`, runner(-2));
+      };
+      {
+        const runner_pass = (kappa: number) => () => {
+          new Point(0, kappa, true);
+          new Point(0, kappa, false);
+        };
+        it(`Spherical (0D)`, runner_pass(1));
+      }
+      runner(1); // Introduce position
+      runner(2); // Introduce orientation
+      runner(3); // Multiple
+      runner(64); // Extremely high (and slow)
+    });
     it.todo('Orientation only');
-    it.todo('Position and orientation');
+    it.todo('Position and Orientation');
+    it.todo('Position and Reflection');
+    it.todo('Reflection and Orientation');
+    it.todo('All data');
     it.todo('Invalid parameter length');
   });
 

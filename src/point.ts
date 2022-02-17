@@ -33,17 +33,21 @@ export class Point {
   constructor(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]);
   constructor(dim: number, kappa: number, ...arr: (number[] | boolean)[]) {
     if (!Number.isInteger(dim) || dim < 0) {
-      throw new Error('Dimension must be a positive integer.');
+      throw new Error(`Dimension must be a positive integer (Recieved ${dim}).`);
     }
     if (!Number.isFinite(kappa)) {
-      throw new Error('Curvature parameter must be a finite number.');
+      throw new Error(`Curvature parameter must be a finite number (Recieved ${kappa}).`);
+    }
+    if (dim === 0){
+      if(!larger(kappa, 0)) throw new Error(`Zero dimensional manifold is only avaliable for spherical geometry (Recieved ${kappa}, expected to be positive).`);
+      kappa = 1; // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
     }
     this.dim = dim;
     this.kappa = kappa;
     const isReflect = (val: number[] | boolean) => typeof val === 'boolean';
-    const isTheta = (val: number[] | boolean) => typeof val !== 'boolean' && val.length === this.dim;
+    const isTheta = (val: number[] | boolean) => val !== undefined && typeof val !== 'boolean' && val.length === this.dim;
     const isPhi = (arr: (number[] | boolean)[]) =>
-      arr.every((_, i) => typeof _ !== 'boolean' && _.length === this.dim - i - 1);
+      arr.every((_, i) => _ !== undefined && typeof _ !== 'boolean' && _.length === this.dim - i - 1);
     if (arr.length === this.dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && arr.length > 2 && isPhi(arr.slice(2))) {
       this.matrix = point(this.kappa, arr[1] as number[], ...(arr.slice(2) as number[][]));
       if (arr[0] as boolean) this.matrix = multiply(this.matrix, reflect(this.dim));
@@ -89,45 +93,45 @@ export class Point {
 
   protected set matrix(value: Matrix) {
     if (value.size().length === 2 && value.size().some((i) => i !== this.dim + 1)) {
-      throw new Error(`Invalid dimension.`);
+      throw new Error(`Invalid dimension: Not an square matrix of dimension ${this.dim+1} (Recieved matrix of size ${value.size()}).`);
     }
     if (this.kappa > 0) {
       if (!deepEqual(multiply(value, transpose(value)), identity(this.dim + 1) as Matrix)) {
-        throw new Error('Invalid value: Not an orthogonal matrix.');
+        throw new Error(`Invalid value: Not an orthogonal matrix (M MT = ${multiply(value, transpose(value))}, expected identity matrix).`);
       }
       // if (!equal(det(value), 1)) {
-      //   throw new Error('Invalid value: Not an special orthogonal matrix.');
+      //   throw new Error(`Invalid value: Not an special orthogonal matrix.`);
       // }
     } else if (this.kappa < 0) {
       const g = diag([1, ...new Array(this.dim).fill(-1)]);
       if (!deepEqual(multiply(multiply(g, transpose(value)), multiply(g, value)), identity(this.dim + 1) as Matrix)) {
-        throw new Error(`Invalid value: Not an indefinite orthogonal matrix.`);
+        throw new Error(`Invalid value: Not an indefinite orthogonal matrix (g M g MT = ${multiply(multiply(g, transpose(value)), multiply(g, value))}, expected identity matrix).`);
       }
       if (!larger(value.get([0, 0]), 0)) {
-        throw new Error('Invalid value: Not an orthochronous indefinite orthogonal matrix.');
+        throw new Error(`Invalid value: Not an orthochronous indefinite orthogonal matrix (M00 = ${value.get([0, 0])}, expected to be positive).`);
       }
       // if (!equal(det(value), 1)) {
-      //   throw new Error('Invalid value: Not an indefinite special orthogonal matrix.');
+      //   throw new Error(`Invalid value: Not an indefinite special orthogonal matrix (det M = ${det(value)}, expected to be 1.`);
       // }
     } else {
       if (!equal(value.get([0, 0]), 1)) {
-        throw new Error('Invalid value: Fixed value is not 1.');
+        throw new Error(`Invalid value: Fixed value is not 1 (Recieved ${value.get([0, 0])}).`);
       }
       if (this.dim === 1) {
         if (!equal(value.get([0, 1]), 0)) {
-          throw new Error('Invalid value: Fixed value is not 0.');
+          throw new Error(`Invalid value: Fixed value is not 0 (Recieved ${value.get([0, 1])}).`);
         }
         if (!equal(abs(value.get([1, 1])), 1)) {
-          throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+          throw new Error(`Invalid value: Not an extension of orthogonal matrix (Recieved ${value.get([1, 1])}, expected to be +/-1).`);
         }
       }
       if (this.dim > 1) {
         if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
-          throw new Error('Invalid value: Fixed value is not 0.');
+          throw new Error(`Invalid value: Fixed value is not 0s (Recieved ${value.subset(index(0, range(1, this.dim + 1)))}).`);
         }
         const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
         if (!deepEqual(multiply(o, transpose(o)), identity(this.dim) as Matrix)) {
-          throw new Error('Invalid value: Not an extension of orthogonal matrix.');
+          throw new Error(`Invalid value: Not an extension of orthogonal matrix (Recieved M = ${o}, M MT = ${multiply(o, transpose(o))}, expected to be identity).`);
         }
       }
     }
@@ -172,11 +176,11 @@ export class Point {
   }
 
   public operate(other: Point): Point {
-    if (!equal(this.dim, other.dim)) {
-      throw new Error('Points in space with different dimension cannot be operated by one another.');
+    if (this.dim !== other.dim) {
+      throw new Error(`Points in space with different dimension cannot be operated by one another (Recieved ${other.dim}, expected to be ${this.dim}).`);
     }
     if (!equal(this.kappa, other.kappa)) {
-      throw new Error('Points in space with different curvature cannot be operated by one another.');
+      throw new Error(`Points in space with different curvature cannot be operated by one another (Recieved ${other.kappa}, expected to be ${this.kappa}).`);
     }
     const p = new Point(this.dim, this.kappa);
     p.matrix = multiply(other.matrix, this.matrix);

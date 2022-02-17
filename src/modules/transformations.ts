@@ -1,4 +1,4 @@
-import { concat, identity, matrix, Matrix, multiply, zeros } from 'mathjs';
+import { concat, diag, identity, matrix, Matrix, multiply, zeros } from 'mathjs';
 import { cosine, sine } from './trigonometry';
 
 export function rotation(theta: number, kappa: number): Matrix {
@@ -30,6 +30,7 @@ export function positional(kappa: number, ...theta: number[]): Matrix {
 }
 
 export function reflect(n: number): Matrix {
+  return diag([...new Array(n).fill(1), -1]);
   if (n === 0) return multiply(identity(1), -1) as Matrix;
   return concat(concat(identity(1), zeros(n, 1), 0), concat(zeros(1, n), reflect(n - 1), 0), 1) as Matrix;
 }
