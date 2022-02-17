@@ -1,14 +1,4 @@
-import {
-  abs,
-  acos,
-  acosh,
-  asin,
-  asinh,
-  cos,
-  cosh,
-  sin,
-  sinh,
-} from 'mathjs';
+import { abs, acos, acosh, asin, asinh, cos, cosh, sin, sinh } from 'mathjs';
 
 import { larger, equal } from '../math/compare';
 
