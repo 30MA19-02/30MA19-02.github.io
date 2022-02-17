@@ -208,6 +208,28 @@ To merge the file, it is needed to either pay the subscription or download and r
     $$\left(n,h\right)\left(n^\prime,h^\prime\right)=\left(n\theta_h\left(n^\prime\right),hh^\prime\right)\text{.}$$
 \end{definition}
 
+\begin{definition}\label{OrthogonalGroup}
+    An orthogonal group $O\left(n\right)$ is a group of orthogonal matrix $M$ where $M^{-1}=M^T$ with matrix multiplication.
+\end{definition}
+\begin{definition}\label{SpecialOrthogonalGroup}
+    An special orthogonal group $SO\left(n\right)$ is a subgroup of the orthogonal group $O\left(n\right)$ whose element $M$ have the property that $\det{M}=1$.
+\end{definition}
+\begin{definition}\label{IndefiniteOrthogonalGroup}
+    An indefinite orthogonal group $O\left(m,n\right)$ is a group of indefinite orthogonal matrix $M$ where $M^{-1}=gM^Tg$ for $g=\diag{\left(-1,\dots,-1,1,\dots,1\right)}$ with matrix multiplication.
+\end{definition}
+\begin{definition}\label{OrthochronusIndefiniteOrthogonalGroup}
+    An orthochronus indefinite orthogonal group $O^+\left(m,n\right)$ is a subgroup of the indefinite orthogonal group $O\left(m,n\right)$ whose element $M$ have the property that $\tensor{M}{^1_1}>0$.
+\end{definition}
+\begin{definition}\label{SpecialOrthochronusIndefiniteOrthogonalGroup}
+    An special orthochronus indefinite orthogonal group $SO^+\left(m,n\right)$ is a subgroup of the orthochronus indefinite orthogonal group $O^+\left(m,n\right)$ whose element $M$ have the property that $\det{M}=1$.
+\end{definition}
+\begin{definition}\label{TranslationGroup}
+    An translation group $T\left(n\right)$ is a group of vectors in $\R^n$ with vector addition.
+\end{definition}
+\begin{definition}\label{EuclideanGroup}
+    An euclidean group $E\left(n\right)$ is a semidirect product of orthogonal group $O\left(n\right)$ extended by translation group $T\left(n\right)$.
+\end{definition}
+
 \begin{definition}\label{KleinGeometry}
     A \textit{Klein geometry} is a pair $\left(G, H\right)$
     where $G$ is a Lie group
@@ -476,9 +498,9 @@ such that
 
     That is, from \cref{KleinGeometryExample},
     \begin{APAitemize}
-        \item For $\kappa>0$, $G\cong\ortho\left(n+1\right)$ and $H\cong\ortho\left(n\right)$.
-        \item For $\kappa=0$, $G\cong\euclid\left(n\right)$ and $H\cong\ortho\left(n\right)$.
-        \item For $\kappa<0$, $G\cong\ortho^{+}\left(1,n\right)$ and $H\cong\ortho\left(n\right)$.
+        \item For $\kappa>0$, $G\cong O\left(n+1\right)$ and $H\cong O\left(n\right)$.
+        \item For $\kappa=0$, $G\cong E\left(n\right)$ and $H\cong O\left(n\right)$.
+        \item For $\kappa<0$, $G\cong O^{+}\left(1,n\right)$ and $H\cong O\left(n\right)$.
     \end{APAitemize}
 \end{conjecture}
 
@@ -860,213 +882,311 @@ such that
 \begin{proof}[\proofof{M:Point:Set:Identity}]
     It can be implied from \cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
 \end{proof}
-% \subsection{Group structure}
-% Proof of validity of $\group{M}$ and $\subgroup{M}$ (validity of $\groupoperation{\elements}$, proof of the matrices to be $\subgroup{M}$ will later be discussed)...
-% \begin{lemma}\label{M:Orientation:Group}
-%     Orientation matrix with multiplication
-%     is isomorphic to orthogonal group.
-% \end{lemma}
-% \begin{proof}[\proofof{M:Orientation:Group}]
-%     Let
-%     \begin{APAitemize}
-%         \item the group of $Q\left(n\right)$ with multiplication is $\left(Q\left(n\right),\cdot\right)$,
-%         \item the group of $X\left(+1,n\right)$ with multiplication is $\left(X\left(+1,n\right),\cdot\right)$,
-%         \item the group of $P\left(+1,n\right)$ with multiplication is $\left(P\left(+1,n\right),\cdot\right)$.
-%     \end{APAitemize}
-
-%     Consider the mapping
-%     \begin{align*}
-%         f      & : X^{\pm}_{+1,n-1}\left(\phi,\dots\right) \mapsto Q^{\pm}_{n}\left(\phi,\dots\right) & \in X\left(1,n-1\right) \to Q\left(n\right) \text{,} \\
-%         f^{-1} & : Q^{\pm}_{n}\left(\phi,\dots\right) \mapsto X^{\pm}_{+1,n-1}\left(\phi,\dots\right) & \in Q\left(n\right) \to X\left(1,n-1\right) \text{,}
-%     \end{align*}
-%     which by \cref{M:Orientation} is equivalent to
-%     \begin{equation} \label{M:Point:Orientation:Isomorphism}
-%         f : X \mapsto \begin{bmatrix}
-%             1 & 0 \\
-%             0 & X \\
-%         \end{bmatrix}
-%         \text{.}
-%     \end{equation}
-
-%     For any point matrices $X_1, X_2 \in X\left(1,n-1\right)$, it can be shown that
-%     \begin{align*}
-%         f\left(X_1\right)\cdot f\left(X_2\right)
-%                                                  & =\begin{bmatrix}
-%             1 & 0   \\
-%             0 & X_1 \\
-%         \end{bmatrix}\cdot\begin{bmatrix}
-%             1 & 0   \\
-%             0 & X_2 \\
-%         \end{bmatrix}                         & \text{(\cref{M:Point:Orientation:Isomorphism})}\\
-%                                                  & =\begin{bmatrix}
-%             1 & 0            \\
-%             0 & X_1\cdot X_2 \\
-%         \end{bmatrix}                                                        & \text{(\cref{Matrix:Product:Block})}                                        \\
-%         f\left(X_1\right)\cdot f\left(X_2\right) & = f\left(X_1\cdot X_2\right)\text{.}
-%     \end{align*}
-%     Therefore,
-%     \begin{align*}
-%     	\forall n\in\N, 
-%     	&
-%     	Q\left(n\right)\cong X\left(+1, n-1\right) \\
-%     	\implies &
-%     	Q\left(n\right)\cong \ortho\left(n\right) \iff X\left(+1, n-1\right)\cong \ortho\left(n\right)
-%     \end{align*}
-
-%     \begin{align*}
-%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
-%         & \implies
-%         \forall X\in X\left(+1, n-1\right), X\in\ortho\left(n\right) & \text{()} \\
-%         & \implies
-%         \forall X\in X\left(+1, n-1\right), X^{-1}=X^T & \text{()} \\
-%         & \implies
-%         \forall Q\in Q\left(n\right)
-%         \exists X\in X\left(+1, n-1\right), \\
-%         & Q^{-1}
-%         =\begin{bmatrix}
-%         1 & 0 \\
-%         0 & X \\
-%         \end{bmatrix}^{-1} \\
-%         =\begin{bmatrix}
-%         1 & 0 \\
-%         0 & X^{-1} \\
-%         \end{bmatrix} \\
-%         =\begin{bmatrix}
-%         1 & 0 \\
-%         0 & X^{T} \\
-%         \end{bmatrix} \\
-%         =\begin{bmatrix}
-%         1 & 0 \\
-%         0 & X \\
-%         \end{bmatrix}^{T} \\
-%         & \implies
-%         \forall Q\in Q\left(n\right), Q^{-1}=Q^{T} \\
-%         & \implies
-%         \forall Q\in Q\left(n\right), Q\in\ortho\left(n+1\right) \\
-%         & \implies
-%         Q\left(n\right)\subset\ortho\left(n+1\right)
-%     \end{align*}
-%     \begin{equation}
-%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
-%         \implies
-%         Q\left(n\right)\subset\ortho\left(n+1\right)
-%     \end{equation}
-
-%     \begin{align*}
-%         T_{i,j}^{-1}=T_{i,j}=T_{i,j}^{T}
-%         & \implies T_{i,j}\in\ortho \\
-%         R_1\left(\theta\right)^{-1} = R_1\left(\theta\right)^{T}
-%         & \implies R_1\left(\theta\right)\in\ortho\left(2\right) \\
-%         & \implies 
-%         \begin{bmatrix}
-%             R_1\left(\theta\right) & 0_{2\times n-1} \\
-%             0_{n-1\times2} & I_{n-1} \\
-%         \end{bmatrix}\in\ortho\left(n+1\right)
-%     \end{align*}
-%     Prove by mathematical induction on $n$,
-%     \begin{align*}
-%         P\left(+1,n-1\right)\subset\ortho\left(n\right)
-%         & \implies
-%         \forall P\in P\left(+1,n-1\right),
-%         P\in\ortho\left(n\right) \\
-%         & \implies
-%         \forall P\in P\left(+1,n-1\right),
-%         \begin{bmatrix}
-%             P & 0_{n\times1} \\
-%             0_{1\times n} & 1 \\
-%         \end{bmatrix}\in\ortho\left(n+1\right) \\
-%         & \implies
-%         \begin{bmatrix}
-%             P_{1,n-1} & 0_{n\times1} \\
-%             0_{1\times n} & 1 \\
-%         \end{bmatrix}
-%         T_{2,n+1}
-%         \begin{bmatrix}
-%             R_{1} & 0_{2\times n-1} \\
-%             0_{n-1\times2} & I_{n-1} \\
-%         \end{bmatrix}
-%         T_{2,n+1}
-%         \in\ortho\left(n+1\right) \\
-%         & \implies
-%         \forall P\in P\left(+1,n\right),
-%         P \in\ortho\left(n+1\right) \\
-%         & \implies
-%         P\left(+1,n\right)\subset\ortho\left(n+1\right)
-%     \end{align*}
-%     \begin{equation}
-%         P\left(+1,n\right)\subset\ortho\left(n+1\right)
-%     \end{equation}
-
-%     Prove by mathematical induction on $n$,
-%     \begin{equation}
-%         X\left(+1, n-1\right)\subset\ortho\left(n\right)
-%     \end{equation}
-%     \begin{align*}
-%     	\forall{X \in X\left(1, n\right)} 
-%     	&
-%     	\exists{P \in P\left(1, n\right)}
-%     	\exists{Q \in Q\left(n\right)},
-%     	X = P\cdot Q & \text{(\cref{M:Point})} \\
-%     	\implies
-%     	&
-%     	\exists{P \in P\left(1, n\right)}
-%     	\exists{Q \in \ortho\left(n+1\right)},
-%     	X = P\cdot Q & \text{()} \\
-%     	\implies
-%     	&
-%     	\exists{P \in \ortho\left(n+1\right)}
-%     	\exists{Q \in \ortho\left(n\right)},
-%     	X = P\cdot Q & \text{()} \\
-%     	\implies
-%     	&
-%     	X \in \ortho\left(n+1\right) & \text{()}
-%     \end{align*}
-%    	\begin{equation*}
-%    		X\left(1, n\right) \subset \ortho\left(n+1\right)
-%    	\end{equation*}
-
-%    	\begin{equation}
-%         \ortho\left(1, n-1\right) \subset X\left(1, n-1\right)
-%     \end{equation}
-%     (To be prove)
-
-%    	\begin{align*}
-%    		X\left(1, n-1\right) &= \ortho\left(n\right) \\
-%    		X\left(1, n-1\right) &\cong \ortho\left(n\right) \\
-%    		Q\left(n\right) &\cong \ortho\left(n\right)
-%    	\end{align*}
-%    	\begin{equation*}
-%    		Q\left(n\right) \cong \ortho\left(n\right) \qedhere
-%    	\end{equation*}
-% \end{proof}
-% \begin{lemma}\label{M:Point:Group}
-%     Point matrix with multiplication
-%     is isomorphic to principal group of the associated Klein geometry.
-% \end{lemma}
-% \begin{proof}[\proofof{M:Point:Group}]
-%     \skipped
-
-%     Spherical case is proved successfully with \cref{M:Orientation:Group}.
-
-%     Euclidean case should use limits and first degree taylor series.
-
-%     Hyperbolic case use \cref{M:Orientation:Group} and closed property.
-% \end{proof}
-% \begin{lemma}\label{M:Position:Group}
-%     Position matrix is isomorphic to quotient group of the associated Klein geometry.
-% \end{lemma}
-% \begin{proof}[\proofof{M:Position:Group}]
-%     \skipped
-
-%     It can be seen that $P\cong X/Q \iff X \cong P \ltimes Q$,
-%     point matrix is isomorphic to the principal group,
-%     orientation matrix is isomorphic to the subgroup,
-%     and point matrix is product of position and orientation matrix.
-
-%     They may be useful for proving that is not yet to be known.
-
-%     Another way is to seek for general form of the matrix element of the group of the Klein geometry.
-% \end{proof}
+\subsection{Group structure}
+\begin{proposition}
+    Group of position matrix with multiplication is a subgroup of an orthogonal group for $k>0$.
+    \begin{equation*}
+        \left(P\left(n, k\right),\cdot\right)\cong O\left(n+1\right)
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        P&=P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) \\
+        &\defeq
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1} && \text{(\cref{M:Position})} \\
+        P^T
+        &=
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}^T
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}^T && \text{(Transpose of product)} \\
+        &=
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(Transpose of block)} \\
+        &=
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(Transpose of permutation matrix)} \\
+        PP^T
+        &=
+        \left(\begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}\right)\\
+        &\left(T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}\right) && \text{(Equation above)} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}\\
+        &
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{()} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}\\
+        &
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}\\
+        &
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{()} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{()} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
+        &= I_{n+1} && \text{(mathematical induction)}
+    \end{align*}
+\end{proof}
+\begin{proposition}
+    Group of position matrix with multiplication is a subgroup of an $\left(1,n\right)$-orthochronus indefinite orthogonal group for $k<0$.
+    \begin{equation*}
+        \left(P\left(n, k\right),\cdot\right)\cong O^+\left(1,n\right)
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        P&=P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) \\
+        &\defeq
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1} && \text{(\cref{M:Position})} \\
+        P^T
+        &=
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}^T
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}^T && \text{(Transpose of product)} \\
+        &=
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}^T
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(Transpose of block)} \\
+        &=
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix} && \text{(Transpose of permutation matrix)} \\
+        g
+        &= \diag{-1,1,\dots,1} \\
+        gPgP^T
+        &= I_{n+1} && \text{(mathematical induction)}
+    \end{align*}
+    \begin{align*}
+        \tensor{P}{^1_1} &> 0
+    \end{align*}
+\end{proof}
+\begin{proposition}
+    Group of position matrix with multiplication is isomorphic to translation group for $k\to0$.
+    \begin{equation*}
+        \left(P\left(n, k\right),\cdot\right)\cong E\left(n\right)
+    \end{equation*}
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        R_k\left(\theta\right)
+        &\defeq\begin{bmatrix}
+            \cos_k\left(\theta\right) & -\sin_k^\ast\left(\theta\right) \\
+            \sin_k\left(\theta\right) & \cos_k\left(\theta\right) \\
+        \end{bmatrix} && \text{(\cref{M:Rotation})} \\
+        &\to\begin{bmatrix}
+            1 & 0 \\
+            k\theta & 1 \\
+        \end{bmatrix} && \text{(Limits of the functions)} \\
+        P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)
+        &\defeq
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1} && \text{(\cref{M:Position})} \\
+        &\to
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            \begin{matrix*}1&0\\k\tensor{\theta}{^n}&0\\\end{matrix*} & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1} && \text{(Equation above)} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                              & 1             \\
+        \end{bmatrix}
+        \begin{bmatrix}
+            {I}_{n} & 0_{n \times1}          \\
+            \begin{matrix*}k\tensor{\theta}{^n} & 0_{1\times n-1}\end{matrix*} & 1 \\
+        \end{bmatrix} && \text{(property of permutation matrix)} \\
+        &=
+        \begin{bmatrix}
+            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n \times1}          \\
+            \begin{matrix*}k\tensor{\theta}{^n} & 0_{1\times n-1}\end{matrix*} & 1 \\
+        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
+        P_{k,n}\left(\tensor{\theta}{}\right)
+        &\to
+        \begin{bmatrix}
+            1 & 0_{n \times1}          \\
+            k\tensor{\theta}{} & I_n \\
+        \end{bmatrix} && \text{(mathematical induction)} \\
+        P_{k,n}\left(\tensor{\theta}{}\right) P_{k,n}\left(\tensor{\phi}{}\right)
+        &\to
+        \begin{bmatrix}
+            1 & 0_{n \times1}          \\
+            k\tensor{\theta}{} & I_n \\
+        \end{bmatrix}\begin{bmatrix}
+            1 & 0_{n \times1}          \\
+            k\tensor{\phi}{} & I_n \\
+        \end{bmatrix} && \text{(Equation above)} \\
+        &=
+        \begin{bmatrix}
+            1 & 0_{n \times1}          \\
+            k\tensor{\theta}{}+k\tensor{\phi}{} & I_n \\
+        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})}
+    \end{align*}
+\end{proof}
+\begin{proposition}
+    Group of orienatation with multiplication is isomorphic to orthogonal group.
+    \begin{equation*}
+        \left(Q\left(n\right),\cdot\right)\cong O\left(n\right)
+    \end{equation*}
+\end{proposition}
+\begin{proposition}
+    Group of point with multiplication is isomorphic to orthogonal group for $k>0$.
+    \begin{equation*}
+        \left(X\left(n\right),\cdot\right)\cong O\left(n\right)
+    \end{equation*}
+\end{proposition}
+\begin{proposition}
+    Group of point with multiplication is isomorphic to $\left(1,n\right)$-orthochronus indefinite orthogonal group for $k<0$.
+    \begin{equation*}
+        \left(X\left(n\right),\cdot\right)\cong O^+\left(1, n\right)
+    \end{equation*}
+\end{proposition}
+\begin{proposition}
+    Group of point with multiplication is isomorphic to Euclidean group for $k\to0$.
+    \begin{equation*}
+        \left(X\left(n\right),\cdot\right)\cong E\left(n\right)
+    \end{equation*}
+\end{proposition}
 \section{Model Parametrization}
 \begin{definition}\label{M:Parameter}
     For any point matrix $\tensor{X^\pm_{k,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}$,
