@@ -1,0 +1,37 @@
+% !TeX root = ../main.tex
+
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+\section{Objective}
+\paragraph{Objective}\label{Objective}
+The objective is that
+given a natural number $n$ and a real number $\kappa$,
+one can construct
+\begin{APAenumerate}
+    \item a set $M$
+    \item a Lie group $M$ with operation $\otimes_M$,
+    \item an $n$-dimensional $C^\infty$-manifold $M$ with chart $\varphi_i \subset M\to\R^n$,
+    \item a Riemannian manifold $M$ with inner product $g_p\in T_pM\times T_pM\to\R$
+\end{APAenumerate}
+(to be determined)
+such that
+\begin{APAitemize}
+    \item group action is distance preserved.
+    \item model is continuous with respect to $\kappa$ (and smooth with respect to each basis).
+    \item for all two-dimensional linear subspaces of the manifold, the sectional curvature is $\kappa$.
+\end{APAitemize}
+(cannot figure formal definition out yet.)
+
+\begin{conjecture}\label{GeometricGroupStructure}
+    If the parameters $\left(\kappa,n\right)$ is associated with Klein geometry $\left(G,H\right)$
+    then $\left(M,\otimes_M\right)\cong G/H$.
+
+    That is, from \cref{KleinGeometryExample},
+    \begin{APAitemize}
+        \item For $\kappa>0$, $G\cong O\left(n+1\right)$ and $H\cong O\left(n\right)$.
+        \item For $\kappa=0$, $G\cong E\left(n\right)$ and $H\cong O\left(n\right)$.
+        \item For $\kappa<0$, $G\cong O^{+}\left(1,n\right)$ and $H\cong O\left(n\right)$.
+    \end{APAitemize}
+\end{conjecture}
+\end{document}
