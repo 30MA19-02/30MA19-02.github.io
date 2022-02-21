@@ -1,0 +1,16 @@
+{
+  "index.html": {
+    "file": "assets/index.92cecf93.js",
+    "src": "index.html",
+    "isEntry": true,
+    "imports": [
+      "_vendor.e8a2c2b7.js"
+    ],
+    "assets": [
+      "assets/world_map2.0d66dc62.jpg"
+    ]
+  },
+  "_vendor.e8a2c2b7.js": {
+    "file": "assets/vendor.e8a2c2b7.js"
+  }
+}
