@@ -35,6 +35,7 @@ jobs:
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
           npm ci
           npm run build
+          npm run export
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.3
@@ -42,4 +43,4 @@ jobs:
           branch: gh-pages-react
           folder: build
           clean: true
-          commit-message: "Build `gh-pages`"
+          commit-message: 'Build `gh-pages`'

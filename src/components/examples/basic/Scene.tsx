@@ -1,12 +1,14 @@
-import { FC, Fragment, useCallback, useEffect, useRef, useState } from "react";
+import { FC, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
-import textureUrl from "./image/world_map2.jpg";
+import type { NextPage } from 'next';
 
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { ParametricGeometry } from "three/examples/jsm/geometries/ParametricGeometry";
-import Point from "./point";
-import { pi } from "mathjs";
+import initTexture from '/public/image/world_map2.jpg';
+
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
+import Point from '../../../script/examples/basic/point';
+import { pi } from 'mathjs';
 
 interface property {
   width: number;
@@ -19,7 +21,9 @@ interface property {
   vispro: boolean;
 }
 
-const Scene: FC<property> = (prop_) => {
+const textureURL = initTexture.src;
+
+const Scene: NextPage<property> = (prop_) => {
   const prop = useRef<property>(prop_);
 
   const mountPoint = useRef<HTMLDivElement>(null);
@@ -30,7 +34,9 @@ const Scene: FC<property> = (prop_) => {
   const texture = useRef<THREE.Texture | null>(null);
   const frameID = useRef<number | null>(null);
 
-  const dot = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh(new THREE.SphereGeometry(0.01)));
+  const dot = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(
+    new THREE.Mesh(new THREE.SphereGeometry(0.01)),
+  );
   const manifold = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
   const plane = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
 
@@ -49,9 +55,7 @@ const Scene: FC<property> = (prop_) => {
     });
   }, [prop_.width, prop_.height, prop_.kappa]); // Calculate points
   const calcOperator = useCallback(() => {
-    return new Point(prop_.kappa, -prop_.lat, -prop_.lon).operate(
-      new Point(prop_.kappa, -prop_.dir)
-    );
+    return new Point(prop_.kappa, -prop_.lat, -prop_.lon).operate(new Point(prop_.kappa, -prop_.dir));
   }, [prop_.lat, prop_.lon, prop_.dir, prop_.kappa]); // Calculate operator
 
   const [points, setPoints] = useState<Point[][]>(calcPoints);
@@ -73,25 +77,27 @@ const Scene: FC<property> = (prop_) => {
       let pr = p.manifold;
       target.set(pr.x, pr.y, pr.z);
     },
-    [points, operator]
-    ); // segment is unnecessary here
-    const planeParametric = useCallback(
-      (u: number, v: number, target: THREE.Vector3) => {
-        let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
-        let i = parseInt((u * prop.current.width).toString());
-        let j = parseInt((v * prop.current.height).toString());
-        let p = points![i][j];
-        p = p.operate(operator!);
-        target.set(factor, p.projection.x, p.projection.y);
+    [points, operator],
+  );
+  const planeParametric = useCallback(
+    (u: number, v: number, target: THREE.Vector3) => {
+      let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
+      let i = parseInt((u * prop.current.width).toString());
+      let j = parseInt((v * prop.current.height).toString());
+      let p = points![i][j];
+      p = p.operate(operator!);
+      target.set(factor, p.projection.x, p.projection.y);
       // For poincare disk model
       // target.set(0, p.projection.x, p.projection.y);
       // For poincare half plane model
       // target.set(-p.projection.y, p.projection.x, factor);
     },
-    [points, operator]
-  ); // segment, kappa is unnecessary here
-  
-  useEffect(()=>{prop.current = prop_}, [prop_]);
+    [points, operator],
+  );
+
+  useEffect(() => {
+    prop.current = prop_;
+  }, [prop_]);
   useEffect(() => {
     const width = mountPoint.current!.clientWidth;
     const height = mountPoint.current!.clientHeight;
@@ -100,11 +106,11 @@ const Scene: FC<property> = (prop_) => {
     const camera_ = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     const renderer_ = new THREE.WebGLRenderer({ antialias: true });
     const controls_ = new OrbitControls(camera_, renderer_.domElement);
-    renderer_.setClearColor("#000000");
+    renderer_.setClearColor('#000000');
     renderer_.setSize(width, height);
     camera_.position.setZ(3);
 
-    const texture_ = new THREE.TextureLoader().load(textureUrl);
+    const texture_ = new THREE.TextureLoader().load(textureURL);
 
     scene.current = scene_;
     camera.current = camera_;
@@ -165,60 +171,40 @@ const Scene: FC<property> = (prop_) => {
   useEffect(initOperator, [initOperator]);
   useEffect(() => {
     scene.current!.remove(manifold.current);
-    manifold.current.geometry.dispose()
-    manifold.current.geometry = new ParametricGeometry(
-      manifoldParametric,
-      prop.current.width,
-      prop.current.height
-      );
+    manifold.current.geometry.dispose();
+    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width, prop.current.height);
     scene.current!.add(manifold.current);
-  }, [
-    manifoldParametric,
-  ]); // Change manifold, segment is unnecessary here
+  }, [manifoldParametric]); // Change manifold, segment is unnecessary here
   useEffect(() => {
     scene.current!.remove(plane.current);
-    plane.current.geometry.dispose()
-    plane.current.geometry = new ParametricGeometry(
-      planeParametric,
-      prop.current.width,
-      prop.current.height
-      );
+    plane.current.geometry.dispose();
+    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
     scene.current!.add(plane.current);
-  }, [
-    planeParametric,
-  ]); // Change projection, segment is unnecessary here
+  }, [planeParametric]); // Change projection, segment is unnecessary here
   useEffect(() => {
-      manifold.current.material.map?.dispose();
-      manifold.current.material.map = texture.current;
-      plane.current.material.map?.dispose();
-      plane.current.material.map = texture.current;
-  }, [
-    texture,
-  ]);  // Change material
+    manifold.current.material.map?.dispose();
+    manifold.current.material.map = texture.current;
+    plane.current.material.map?.dispose();
+    plane.current.material.map = texture.current;
+  }, [texture]); // Change material
   useEffect(() => {
     scene.current!.remove(dot.current);
     let factor = prop_.kappa === 0 ? 1 : 1 / prop_.kappa;
     dot.current.position.set(+factor, 0, 0);
     scene.current!.add(dot.current);
-  }, [
-    prop_.kappa,
-  ]);  // Move dot according to kappa
+  }, [prop_.kappa]); // Move dot according to kappa
   useEffect(() => {
     if (prop_.visman) camera.current!.layers.enable(1);
     if (!prop_.visman) camera.current!.layers.disable(1);
-  }, [
-    prop_.visman,
-  ]);  // Show / hide manifold
+  }, [prop_.visman]); // Show / hide manifold
   useEffect(() => {
     if (prop_.vispro) camera.current!.layers.enable(2);
     if (!prop_.vispro) camera.current!.layers.disable(2);
-  }, [
-    prop_.vispro,
-  ]);  // Show / hide projection
+  }, [prop_.vispro]); // Show / hide projection
 
   return (
     <Fragment>
-      <div style={{ width: "400px", height: "400px" }} ref={mountPoint}></div>
+      <div style={{ width: '400px', height: '400px' }} ref={mountPoint}></div>
       {prop_.children}
     </Fragment>
   );
