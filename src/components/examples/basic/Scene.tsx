@@ -2,8 +2,6 @@ import { FC, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import initTexture from '/public/image/world_map2.jpg';
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
@@ -19,9 +17,8 @@ interface property {
   kappa: number;
   visman: boolean;
   vispro: boolean;
+  texture: string;
 }
-
-const textureURL = initTexture.src;
 
 const Scene: NextPage<property> = (prop_) => {
   const prop = useRef<property>(prop_);
@@ -61,38 +58,36 @@ const Scene: NextPage<property> = (prop_) => {
   const [points, setPoints] = useState<Point[][]>(calcPoints);
   const [operator, setOperator] = useState<Point>(calcOperator);
 
-  const initPoints = useCallback(() => {
-    setPoints(calcPoints());
-  }, [calcPoints]); // Update points
-  const initOperator = useCallback(() => {
-    setOperator(calcOperator());
-  }, [calcOperator]); // Update operator
+  
+  const calcOperated = useCallback(() => {
+    return points.map((ps)=>ps.map((p)=>p.operate(operator)));
+  }, [points, operator]); // Calculate operated
+  
+  const [operated, setOperated] = useState<Point[][]>(calcOperated);
 
   const manifoldParametric = useCallback(
     (u: number, v: number, target: THREE.Vector3) => {
       let i = parseInt((u * prop.current.width).toString());
       let j = parseInt((v * prop.current.height).toString());
-      let p = points![i][j];
-      p = p.operate(operator!);
+      let p = operated[i][j];
       let pr = p.manifold;
       target.set(pr.x, pr.y, pr.z);
     },
-    [points, operator],
+    [operated],
   );
   const planeParametric = useCallback(
     (u: number, v: number, target: THREE.Vector3) => {
       let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
       let i = parseInt((u * prop.current.width).toString());
       let j = parseInt((v * prop.current.height).toString());
-      let p = points![i][j];
-      p = p.operate(operator!);
+      let p = operated[i][j];
       target.set(factor, p.projection.x, p.projection.y);
       // For poincare disk model
       // target.set(0, p.projection.x, p.projection.y);
       // For poincare half plane model
       // target.set(-p.projection.y, p.projection.x, factor);
     },
-    [points, operator],
+    [operated],
   );
 
   useEffect(() => {
@@ -110,7 +105,7 @@ const Scene: NextPage<property> = (prop_) => {
     renderer_.setSize(width, height);
     camera_.position.setZ(3);
 
-    const texture_ = new THREE.TextureLoader().load(textureURL);
+    const texture_ = new THREE.TextureLoader().load(prop.current.texture);
 
     scene.current = scene_;
     camera.current = camera_;
@@ -167,8 +162,9 @@ const Scene: NextPage<property> = (prop_) => {
       mountPoint_.removeChild(renderer.current!.domElement);
     };
   }, []); // Initial call
-  useEffect(initPoints, [initPoints]);
-  useEffect(initOperator, [initOperator]);
+  useEffect(()=>{setPoints(calcPoints());}, [calcPoints]);
+  useEffect(()=>{setOperator(calcOperator());}, [calcOperator]);
+  useEffect(()=>{setOperated(calcOperated());}, [calcOperated]);
   useEffect(() => {
     scene.current!.remove(manifold.current);
     manifold.current.geometry.dispose();
@@ -181,12 +177,13 @@ const Scene: NextPage<property> = (prop_) => {
     plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
     scene.current!.add(plane.current);
   }, [planeParametric]); // Change projection, segment is unnecessary here
-  useEffect(() => {
+  useEffect(()=>{
+    texture.current = new THREE.TextureLoader().load(prop_.texture);
     manifold.current.material.map?.dispose();
     manifold.current.material.map = texture.current;
     plane.current.material.map?.dispose();
     plane.current.material.map = texture.current;
-  }, [texture]); // Change material
+  }, [prop_.texture]); // Change material
   useEffect(() => {
     scene.current!.remove(dot.current);
     let factor = prop_.kappa === 0 ? 1 : 1 / prop_.kappa;

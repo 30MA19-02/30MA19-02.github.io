@@ -2,9 +2,11 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import Input from '../../../components/examples/basic/Input';
+import Input from '../../../components/examples/basic/Form';
 import Scene from '../../../components/examples/basic/Scene';
 import Head from 'next/head';
+
+import initTexture from '/public/image/world_map2.jpg';
 
 const App: NextPage = (prop) => {
   const [segment, setSegment] = useState([24, 32]);
@@ -12,6 +14,7 @@ const App: NextPage = (prop) => {
   const [dir, setDir] = useState(0);
   const [kappa, setKappa] = useState(1);
   const [vis, setVis] = useState([true, true]);
+  const [textureURL, setTextureURL] = useState(initTexture.src);
   return (
     <div>
       <Head>
@@ -31,6 +34,7 @@ const App: NextPage = (prop) => {
         kappa={kappa}
         visman={vis[0]}
         vispro={vis[1]}
+        texture={textureURL}
       >
         <Input
           onChangeWidth={(event) => setSegment([parseInt(event.target.value), segment[1]])}
@@ -42,6 +46,7 @@ const App: NextPage = (prop) => {
           onChangeVis={(event) => setVis([event.target.checked, event.target.checked])}
           onChangeVisMan={(event) => setVis([event.target.checked, vis[1]])}
           onChangeVisPro={(event) => setVis([vis[0], event.target.checked])}
+          onChangeTexture={(event) => setTextureURL(URL.createObjectURL(event.target.files![0]!))}
         />
       </Scene>
     </div>

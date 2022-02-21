@@ -2,7 +2,8 @@ import { ChangeEventHandler } from 'react';
 
 import type { NextPage } from 'next';
 
-import { Slider, Checkbox } from '../../global/input';
+import { Slider, Checkbox, ImageInput } from './input';
+
 interface property {
   onChangeHeight?: ChangeEventHandler<HTMLInputElement>;
   onChangeWidth?: ChangeEventHandler<HTMLInputElement>;
@@ -13,6 +14,7 @@ interface property {
   onChangeVis?: ChangeEventHandler<HTMLInputElement>;
   onChangeVisMan?: ChangeEventHandler<HTMLInputElement>;
   onChangeVisPro?: ChangeEventHandler<HTMLInputElement>;
+  onChangeTexture?: ChangeEventHandler<HTMLInputElement>;
 }
 
 const AppInput: NextPage<property> = (prop) => {
@@ -60,6 +62,8 @@ const AppInput: NextPage<property> = (prop) => {
         ]}
         onChange={prop.onChangeVis}
       ></Checkbox>
+      <br/>
+      <ImageInput name={'texture'} width={400} height={200} onChange={prop.onChangeTexture}></ImageInput>
     </form>
   );
 };
