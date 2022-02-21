@@ -4,6 +4,12 @@ name: Build gh-pages
 
 # Controls when the workflow will run
 on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -19,7 +25,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          ref: main
           submodules: recursive
       - uses: actions/setup-node@v2.5.1
         with:
@@ -30,11 +35,13 @@ jobs:
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
           npm ci
           npm run build
-        
+          npm run export
+          touch ./build/.nojekyll
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
           folder: build
           clean: true
-          commit-message: "Build `gh-pages` from `main`"
+          commit-message: 'Build `gh-pages` from `next`.'
