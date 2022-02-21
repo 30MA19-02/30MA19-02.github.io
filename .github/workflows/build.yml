@@ -40,7 +40,7 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.3
         with:
-          branch: gh-pages-react
+          branch: gh-pages
           folder: build
           clean: true
-          commit-message: 'Build `gh-pages`'
+          commit-message: 'Build `gh-pages` from `next`.'
