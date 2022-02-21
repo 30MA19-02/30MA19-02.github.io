@@ -58,11 +58,10 @@ const Scene: NextPage<property> = (prop_) => {
   const [points, setPoints] = useState<Point[][]>(calcPoints);
   const [operator, setOperator] = useState<Point>(calcOperator);
 
-  
   const calcOperated = useCallback(() => {
-    return points.map((ps)=>ps.map((p)=>p.operate(operator)));
+    return points.map((ps) => ps.map((p) => p.operate(operator)));
   }, [points, operator]); // Calculate operated
-  
+
   const [operated, setOperated] = useState<Point[][]>(calcOperated);
 
   const manifoldParametric = useCallback(
@@ -162,9 +161,15 @@ const Scene: NextPage<property> = (prop_) => {
       mountPoint_.removeChild(renderer.current!.domElement);
     };
   }, []); // Initial call
-  useEffect(()=>{setPoints(calcPoints());}, [calcPoints]);
-  useEffect(()=>{setOperator(calcOperator());}, [calcOperator]);
-  useEffect(()=>{setOperated(calcOperated());}, [calcOperated]);
+  useEffect(() => {
+    setPoints(calcPoints());
+  }, [calcPoints]);
+  useEffect(() => {
+    setOperator(calcOperator());
+  }, [calcOperator]);
+  useEffect(() => {
+    setOperated(calcOperated());
+  }, [calcOperated]);
   useEffect(() => {
     scene.current!.remove(manifold.current);
     manifold.current.geometry.dispose();
@@ -177,7 +182,7 @@ const Scene: NextPage<property> = (prop_) => {
     plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
     scene.current!.add(plane.current);
   }, [planeParametric]); // Change projection, segment is unnecessary here
-  useEffect(()=>{
+  useEffect(() => {
     texture.current = new THREE.TextureLoader().load(prop_.texture);
     manifold.current.material.map?.dispose();
     manifold.current.material.map = texture.current;

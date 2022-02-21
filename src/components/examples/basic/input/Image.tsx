@@ -9,7 +9,7 @@ const ImageInput: FC<property> = (prop) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = async (event) => {
     if (!event.target.files) return;
     let image_ = event.target.files.item(0);
-    if(!image_) return;
+    if (!image_) return;
     setURL(URL.createObjectURL(image_));
     prop.onChange?.call(undefined, event);
   };
@@ -21,7 +21,11 @@ const ImageInput: FC<property> = (prop) => {
       <label>{prop.name}</label>
       <input type={'file'} accept={'image/*'} minLength={1} maxLength={1} {...prop_}></input>
       <div>
-        {url? <Image src={url} alt={'uploaded image'} width={prop.width} height={prop.height}></Image> : <Fragment></Fragment>}
+        {url ? (
+          <Image src={url} alt={'uploaded image'} width={prop.width} height={prop.height}></Image>
+        ) : (
+          <Fragment></Fragment>
+        )}
       </div>
     </Fragment>
   );
