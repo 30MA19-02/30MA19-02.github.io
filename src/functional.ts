@@ -6,14 +6,14 @@ import { arcsine } from './modules/trigonometry';
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
 
-export interface publicPoint{
-    readonly kappa: number;
-    dim: number;
+export interface publicPoint {
+  readonly kappa: number;
+  dim: number;
 }
 export interface privatePoint extends publicPoint {
-    matrix: Matrix;
-    kappa: number;
-    dim: number;
+  matrix: Matrix;
+  kappa: number;
+  dim: number;
 }
 
 export function point(dim: number, kappa: number): privatePoint;

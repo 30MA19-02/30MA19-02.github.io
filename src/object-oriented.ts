@@ -3,7 +3,7 @@ import * as point from './functional';
 
 import config from './config';
 
-export class Point implements point.publicPoint{
+export class Point implements point.publicPoint {
   public dim: number;
   public readonly kappa: number;
   private _mat!: Matrix;
@@ -17,9 +17,9 @@ export class Point implements point.publicPoint{
   constructor(dim: number, kappa: number, reflect: boolean, theta: number[]);
   constructor(dim: number, kappa: number, reflect: boolean, ...phi: number[][]);
   constructor(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]);
-  constructor(val: number|point.publicPoint|point.privatePoint, kappa?: number, ...arr: (number[] | boolean)[]) {
-    if(typeof val !== 'number'){
-      if('matrix' in val){
+  constructor(val: number | point.publicPoint | point.privatePoint, kappa?: number, ...arr: (number[] | boolean)[]) {
+    if (typeof val !== 'number') {
+      if ('matrix' in val) {
         this.dim = val.dim;
         this.kappa = val.kappa;
         this.matrix = val.matrix;
@@ -34,12 +34,12 @@ export class Point implements point.publicPoint{
     this.matrix = object.matrix;
   }
 
-  protected get privateObject(): point.privatePoint{
-    return {dim: this.dim, kappa: this.kappa, matrix: this.matrix};
+  protected get privateObject(): point.privatePoint {
+    return { dim: this.dim, kappa: this.kappa, matrix: this.matrix };
   }
 
   protected set matrix(value: Matrix) {
-    if(config.strict){
+    if (config.strict) {
       point.isValid(this.privateObject);
     }
     this._mat = value;

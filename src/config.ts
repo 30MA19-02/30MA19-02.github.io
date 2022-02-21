@@ -1,4 +1,4 @@
 const config = {
-    strict: false,
+  strict: false,
 };
 export default config;
