@@ -1,16 +1,14 @@
 import {
-  abs,
   concat,
-  diag,
   identity,
   index,
+  matrix,
   Matrix,
   multiply,
   pi,
   range,
   sqrt,
   square,
-  transpose,
   zeros,
 } from 'mathjs';
 
@@ -18,6 +16,9 @@ import { point, reflect, orientational, positional } from './modules/transformat
 import { arcsine } from './modules/trigonometry';
 
 import { equal, deepEqual, larger } from './math/compare';
+import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
+
+import config from './config';
 
 export class Point {
   public dim: number;
@@ -96,75 +97,42 @@ export class Point {
   }
 
   protected set matrix(value: Matrix) {
-    if (value.size().length === 2 && value.size().some((i) => i !== this.dim + 1)) {
-      throw new Error(
-        `Invalid dimension: Not an square matrix of dimension ${
-          this.dim + 1
-        } (Recieved matrix of size ${value.size()}).`,
-      );
-    }
-    if (this.kappa > 0) {
-      if (!deepEqual(multiply(value, transpose(value)), identity(this.dim + 1) as Matrix)) {
+    if(config.strict){
+        if (!(isSquare(value) && value.size()[0] === this.dim + 1)) {
         throw new Error(
-          `Invalid value: Not an orthogonal matrix (M MT = ${multiply(
-            value,
-            transpose(value),
-          )}, expected identity matrix).`,
+          `Invalid dimension: Not an square matrix of dimension ${
+            this.dim + 1
+          } (Recieved matrix of size ${value.size()}).`,
         );
       }
-      // if (!equal(det(value), 1)) {
-      //   throw new Error(`Invalid value: Not an special orthogonal matrix.`);
-      // }
-    } else if (this.kappa < 0) {
-      const g = diag([1, ...new Array(this.dim).fill(-1)]);
-      if (!deepEqual(multiply(multiply(g, transpose(value)), multiply(g, value)), identity(this.dim + 1) as Matrix)) {
-        throw new Error(
-          `Invalid value: Not an indefinite orthogonal matrix (g M g MT = ${multiply(
-            multiply(g, transpose(value)),
-            multiply(g, value),
-          )}, expected identity matrix).`,
-        );
-      }
-      if (!larger(value.get([0, 0]), 0)) {
-        throw new Error(
-          `Invalid value: Not an orthochronous indefinite orthogonal matrix (M00 = ${value.get([
-            0, 0,
-          ])}, expected to be positive).`,
-        );
-      }
-      // if (!equal(det(value), 1)) {
-      //   throw new Error(`Invalid value: Not an indefinite special orthogonal matrix (det M = ${det(value)}, expected to be 1.`);
-      // }
-    } else {
-      if (!equal(value.get([0, 0]), 1)) {
-        throw new Error(`Invalid value: Fixed value is not 1 (Recieved ${value.get([0, 0])}).`);
-      }
-      if (this.dim === 1) {
-        if (!equal(value.get([0, 1]), 0)) {
-          throw new Error(`Invalid value: Fixed value is not 0 (Recieved ${value.get([0, 1])}).`);
-        }
-        if (!equal(abs(value.get([1, 1])), 1)) {
+      if (this.kappa > 0) {
+        if (!isOrthogonal(value)) {
           throw new Error(
-            `Invalid value: Not an extension of orthogonal matrix (Recieved ${value.get([
-              1, 1,
-            ])}, expected to be +/-1).`,
+            `Invalid value: Not an orthogonal matrix.`,
           );
         }
-      }
-      if (this.dim > 1) {
-        if (!deepEqual(value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
+      } else if (this.kappa < 0) {
+        if (!isOrthochronusIndefiniteOrthogonal(value, 1, this.dim)) {
           throw new Error(
-            `Invalid value: Fixed value is not 0s (Recieved ${value.subset(index(0, range(1, this.dim + 1)))}).`,
+            `Invalid value: Not an orthochronous indefinite orthogonal matrix.`,
           );
         }
-        const o = value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
-        if (!deepEqual(multiply(o, transpose(o)), identity(this.dim) as Matrix)) {
-          throw new Error(
-            `Invalid value: Not an extension of orthogonal matrix (Recieved M = ${o}, M MT = ${multiply(
-              o,
-              transpose(o),
-            )}, expected to be identity).`,
-          );
+      } else {
+        if (!equal(value.get([0, 0]), 1)) {
+          throw new Error(`Invalid value: Fixed value is not 1.`);
+        }
+        if (this.dim > 0) {
+          if (!deepEqual(this.dim===1?matrix([[value.get([0,1])]]):value.subset(index(0, range(1, this.dim + 1))), zeros(1, this.dim) as Matrix)) {
+            throw new Error(
+              `Invalid value: Fixed value is not 0s.`,
+            );
+          }
+          const o = this.dim===1?matrix([[value.get([1,1])]]):value.subset(index(range(1, this.dim + 1), range(1, this.dim + 1)));
+          if (!isOrthogonal(o)) {
+            throw new Error(
+              `Invalid value: Not an extension of orthogonal matrix.`,
+            );
+          }
         }
       }
     }
