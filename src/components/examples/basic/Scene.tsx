@@ -206,7 +206,7 @@ const Scene: NextPage<property> = (prop_) => {
 
   return (
     <Fragment>
-      <div style={{ width: '400px', height: '400px' }} ref={mountPoint}></div>
+      <div style={{ width: '500px', height: '500px' }} ref={mountPoint}></div>
       {prop_.children}
     </Fragment>
   );

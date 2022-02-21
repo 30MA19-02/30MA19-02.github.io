@@ -63,7 +63,9 @@ const AppInput: NextPage<property> = (prop) => {
         onChange={prop.onChangeVis}
       ></Checkbox>
       <br />
-      <ImageInput name={'texture'} width={400} height={200} onChange={prop.onChangeTexture}></ImageInput>
+      <label>Texture selection</label>
+      <br />
+      <ImageInput name={''} width={400} height={200} onChange={prop.onChangeTexture}></ImageInput>
     </form>
   );
 };
