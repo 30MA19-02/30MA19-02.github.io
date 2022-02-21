@@ -42,4 +42,4 @@ jobs:
           branch: gh-pages-react
           folder: build
           clean: true
-          commit-message: "Build `gh-pages`"
+          commit-message: 'Build `gh-pages`'

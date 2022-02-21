@@ -1,20 +1,20 @@
-import React from "react";
-import { useRoutes } from "react-router-dom";
-import Home from "./home";
-import Example from "./examples";
-import { Navigate } from "react-router-dom";
+import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import Home from './home';
+import Example from './examples';
+import { Navigate } from 'react-router-dom';
 const Pages = () => {
   return useRoutes([
     {
-      path: "",
+      path: '',
       element: <Navigate to="examples" />,
     },
     {
-      path: "examples/*",
+      path: 'examples/*',
       element: <Example />,
     },
     {
-      path: "react",
+      path: 'react',
       element: <Home />,
     },
   ]);

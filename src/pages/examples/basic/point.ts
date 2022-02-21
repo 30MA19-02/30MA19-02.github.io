@@ -45,7 +45,7 @@ export default class Point {
       gnomonic,
       stereographic,
       halfplane,
-    };
+    }
     const projection_type: projectionType = projectionType.equirectangular;
     switch (projection_type as projectionType) {
       case projectionType.equirectangular: {

@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from "react";
+import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   value: number;
@@ -11,7 +11,7 @@ const InputSlider: FC<property> = (prop) => {
   const [value, setValue] = useState<number>(prop.value);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-    if(event.target.value === "") event.target.value = value.toString();
+    if (event.target.value === '') event.target.value = value.toString();
     prop.onChange?.call(undefined, event);
     setValue(parseFloat(event.target.value));
     handleBlur();
@@ -33,12 +33,12 @@ const InputSlider: FC<property> = (prop) => {
   return (
     <Fragment>
       <label>{prop.name}</label>
-      <input type={"range"} {...prop_}></input>
-      <input type={"number"} {...prop_}></input>
+      <input type={'range'} {...prop_}></input>
+      <input type={'number'} {...prop_}></input>
     </Fragment>
   );
 };
 
-InputSlider.defaultProps = { name: "", value: 30, min: 0, max: 100, step: 1 };
+InputSlider.defaultProps = { name: '', value: 30, min: 0, max: 100, step: 1 };
 
 export default InputSlider;

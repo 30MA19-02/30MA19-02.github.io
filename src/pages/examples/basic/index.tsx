@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useState } from 'react';
 
-import Input from "./Input";
-import Scene from "./Scene";
+import Input from './Input';
+import Scene from './Scene';
 
 const App: FC = (prop) => {
   const [segment, setSegment] = useState([24, 32]);
@@ -21,19 +21,13 @@ const App: FC = (prop) => {
       vispro={vis[1]}
     >
       <Input
-        onChangeWidth={(event) =>
-          setSegment([parseInt(event.target.value), segment[1]])
-        }
-        onChangeHeight={(event) =>
-          setSegment([segment[0], parseInt(event.target.value)])
-        }
+        onChangeWidth={(event) => setSegment([parseInt(event.target.value), segment[1]])}
+        onChangeHeight={(event) => setSegment([segment[0], parseInt(event.target.value)])}
         onChangeLat={(event) => setPos([parseFloat(event.target.value), pos[1]])}
         onChangeLon={(event) => setPos([pos[0], parseFloat(event.target.value)])}
         onChangeDir={(event) => setDir(parseFloat(event.target.value))}
         onChangeKappa={(event) => setKappa(parseFloat(event.target.value))}
-        onChangeVis={(event) =>
-          setVis([event.target.checked, event.target.checked])
-        }
+        onChangeVis={(event) => setVis([event.target.checked, event.target.checked])}
         onChangeVisMan={(event) => setVis([event.target.checked, vis[1]])}
         onChangeVisPro={(event) => setVis([vis[0], event.target.checked])}
       />

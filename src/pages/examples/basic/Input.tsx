@@ -1,6 +1,6 @@
-import { ChangeEventHandler, FC } from "react";
+import { ChangeEventHandler, FC } from 'react';
 
-import { Slider, Checkbox } from "src/components/input";
+import { Slider, Checkbox } from 'src/components/input';
 interface property {
   onChangeHeight?: ChangeEventHandler<HTMLInputElement>;
   onChangeWidth?: ChangeEventHandler<HTMLInputElement>;
@@ -17,72 +17,44 @@ const AppInput: FC<property> = (prop) => {
   return (
     <form>
       <label>Segments</label>
-      <br/>
-      <Slider
-        name={"height"}
-        min={2}
-        max={32}
-        step={1}
-        value={32}
-        onChange={prop.onChangeHeight}
-      ></Slider>
-      <br/>
-      <Slider
-        name={"width"}
-        min={3}
-        max={24}
-        step={1}
-        value={24}
-        onChange={prop.onChangeWidth}
-      ></Slider>
-      <br/>
+      <br />
+      <Slider name={'height'} min={2} max={32} step={1} value={32} onChange={prop.onChangeHeight}></Slider>
+      <br />
+      <Slider name={'width'} min={3} max={24} step={1} value={24} onChange={prop.onChangeWidth}></Slider>
+      <br />
       <label>Position</label>
-      <br/>
+      <br />
       <Slider
-        name={"latitude"}
+        name={'latitude'}
         min={-0.25}
         max={+0.25}
         step={0}
         value={0.03815754722}
         onChange={prop.onChangeLat}
       ></Slider>
-      <br/>
+      <br />
       <Slider
-        name={"lontitude"}
+        name={'lontitude'}
         min={-0.5}
         max={+0.5}
         step={0}
         value={0.27923107222}
         onChange={prop.onChangeLon}
       ></Slider>
-      <br/>
-      <Slider
-        name={"direction"}
-        min={-0.5}
-        max={+0.5}
-        step={0}
-        value={0}
-        onChange={prop.onChangeDir}
-      ></Slider>
-      <br/>
+      <br />
+      <Slider name={'direction'} min={-0.5} max={+0.5} step={0} value={0} onChange={prop.onChangeDir}></Slider>
+      <br />
       <label>Curvature</label>
-      <br/>
-      <Slider
-        name={"kappa"}
-        min={-1}
-        max={+1}
-        step={0}
-        value={1}
-        onChange={prop.onChangeKappa}
-      ></Slider>
-      <br/>
+      <br />
+      <Slider name={'kappa'} min={-1} max={+1} step={0} value={1} onChange={prop.onChangeKappa}></Slider>
+      <br />
       <label>Visibility</label>
-      <br/>
+      <br />
       <Checkbox
-        name={"Projections"}
+        name={'Projections'}
         child={[
-          { name: "Manifold", onChange: prop.onChangeVisMan, checked: true },
-          { name: "Projection", onChange: prop.onChangeVisPro, checked: true },
+          { name: 'Manifold', onChange: prop.onChangeVisMan, checked: true },
+          { name: 'Projection', onChange: prop.onChangeVisPro, checked: true },
         ]}
         onChange={prop.onChangeVis}
       ></Checkbox>
