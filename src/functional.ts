@@ -6,26 +6,26 @@ import { arcsine } from './modules/trigonometry';
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
 
-export interface publicPoint{
-    readonly kappa: number;
-    dim: number;
+export interface Point_ {
+  readonly kappa: number;
+  dim: number;
 }
-export interface privatePoint extends publicPoint {
-    matrix: Matrix;
-    kappa: number;
-    dim: number;
+export interface Point extends Point_ {
+  matrix: Matrix;
+  kappa: number;
+  dim: number;
 }
 
-export function point(dim: number, kappa: number): privatePoint;
-export function point(dim: number, kappa: number, theta: number[]): privatePoint;
-export function point(dim: number, kappa: number, ...phi: number[][]): privatePoint;
-export function point(dim: number, kappa: number, reflect: boolean): privatePoint;
-export function point(dim: number, kappa: number, theta: number[], ...phi: number[][]): privatePoint;
-export function point(dim: number, kappa: number, reflect: boolean, theta: number[]): privatePoint;
-export function point(dim: number, kappa: number, reflect: boolean, ...phi: number[][]): privatePoint;
-export function point(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]): privatePoint;
-export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): privatePoint;
-export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): privatePoint {
+export function point(dim: number, kappa: number): Point;
+export function point(dim: number, kappa: number, theta: number[]): Point;
+export function point(dim: number, kappa: number, ...phi: number[][]): Point;
+export function point(dim: number, kappa: number, reflect: boolean): Point;
+export function point(dim: number, kappa: number, theta: number[], ...phi: number[][]): Point;
+export function point(dim: number, kappa: number, reflect: boolean, theta: number[]): Point;
+export function point(dim: number, kappa: number, reflect: boolean, ...phi: number[][]): Point;
+export function point(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]): Point;
+export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): Point;
+export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): Point {
   if (!Number.isInteger(dim) || dim < 0) {
     throw new Error(`Dimension must be a positive integer (Recieved ${dim}).`);
   }
@@ -87,7 +87,7 @@ export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]
   throw new Error('Invalid argument.');
 }
 
-export function isValid(point: privatePoint): void {
+export function isValid(point: Point): void {
   if (!(isSquare(point.matrix) && point.matrix.size()[0] === point.dim + 1)) {
     throw new Error(
       `Invalid dimension: Not an square matrix of dimension ${
@@ -129,14 +129,14 @@ export function isValid(point: privatePoint): void {
   }
 }
 
-export function project(point: privatePoint): Matrix {
+export function project(point: Point): Matrix {
   return multiply(
     multiply(point.matrix, concat(identity(1), zeros(point.dim, 1), 0)),
     point.kappa !== 0 ? 1 / point.kappa : 1,
   );
 }
 
-export function theta(point: privatePoint): number[] {
+export function theta(point: Point): number[] {
   let theta: number[] = point.matrix
     .subset(index(range(0, point.dim + 1), 0))
     .toArray()
@@ -163,7 +163,7 @@ export function theta(point: privatePoint): number[] {
   return theta;
 }
 
-export function operate(point: privatePoint, transformations: privatePoint): privatePoint {
+export function operate(point: Point, transformations: Point): Point {
   if (point.dim !== transformations.dim) {
     throw new Error(
       `Points in space with different dimension cannot be operated by one another (Recieved ${point.dim} and ${transformations.dim}).`,
