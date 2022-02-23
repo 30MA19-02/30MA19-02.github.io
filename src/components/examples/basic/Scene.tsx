@@ -36,6 +36,7 @@ const Scene: NextPage<property> = (prop_) => {
   );
   const manifold = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
   const plane = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
+  const planeBack = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
 
   const calcPoints = useCallback(() => {
     let factor = prop_.kappa === 0 ? 1 : 1 / prop_.kappa;
@@ -88,6 +89,16 @@ const Scene: NextPage<property> = (prop_) => {
     },
     [operated],
   );
+  const planeParametricBack = useCallback(
+    (u: number, v: number, target: THREE.Vector3) => {
+      let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
+      let i = parseInt((u * prop.current.width).toString());
+      let j = parseInt((v * prop.current.height).toString());
+      let p = operated[i][j];
+      target.set(-factor, p.projection.x, p.projection.y);
+    },
+    [operated],
+  );
 
   useEffect(() => {
     prop.current = prop_;
@@ -122,10 +133,14 @@ const Scene: NextPage<property> = (prop_) => {
     manifold.current.layers.set(1);
     scene.current.add(manifold.current);
 
-    plane.current.material.side = THREE.DoubleSide;
+    plane.current.material.side = THREE.FrontSide;
     plane.current.material.map = texture.current;
     plane.current.layers.set(2);
+    planeBack.current.material.side = THREE.FrontSide;
+    planeBack.current.material.map = texture.current;
+    planeBack.current.layers.set(2);
     scene.current.add(plane.current);
+    scene.current.add(planeBack.current);
 
     mountPoint.current!.prepend(renderer.current.domElement);
 
@@ -183,11 +198,21 @@ const Scene: NextPage<property> = (prop_) => {
     scene.current!.add(plane.current);
   }, [planeParametric]); // Change projection, segment is unnecessary here
   useEffect(() => {
+    scene.current!.remove(planeBack.current);
+    planeBack.current.geometry.dispose();
+    planeBack.current.geometry = new ParametricGeometry(planeParametricBack, prop.current.width, prop.current.height);
+    planeBack.current.scale.setX(-1);
+    planeBack.current.translateX(-(1e-3));
+    scene.current!.add(planeBack.current);
+  }, [planeParametricBack]); // Change projection, segment is unnecessary here
+  useEffect(() => {
     texture.current = new THREE.TextureLoader().load(prop_.texture);
     manifold.current.material.map?.dispose();
     manifold.current.material.map = texture.current;
     plane.current.material.map?.dispose();
     plane.current.material.map = texture.current;
+    planeBack.current.material.map?.dispose();
+    planeBack.current.material.map = texture.current;
   }, [prop_.texture]); // Change material
   useEffect(() => {
     scene.current!.remove(dot.current);
