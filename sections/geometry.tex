@@ -8,12 +8,10 @@
 \begin{definition}\label{M:Embedding}
     Let $N=\left(Q,g\right)$ be a $n$-dimension Riemannian manifold
     on position parameter space with such inner product $g$ that
-    the map $\cdot\mapsto\frac{1}{k}\cdot\tensor{e}{^1}\in P\to P^\ast$ is an isometric embedding to $\left(n+1\right)$-Euclidean manifold.
+    the map ${\psi_0}^{-1}$
+    is an isometric embedding to $\left(n+1\right)$-manifold
+    with the metric of $g=\diag{\left(\sign{k},1,\dots,1\right)}$.
 \end{definition}
-\begin{remark}
-    It have been proved that there is no isometric embedding from $H^n$ to $E^{n+1}$.
-    Hence, this section is based on a faulty assumption and would not provide a useful information.
-\end{remark}
 \begin{lemma}\label{M:Tangent:Basis}
     Position parameter $\tensor{\theta}{^i}$ is associated to the following vector in position vector space.
     \begin{equation*}
@@ -28,8 +26,8 @@
 \begin{proof}[\proofof{M:Tangent:Basis}]
     \begin{align*}
         \frac{\partial}{\partial\tensor{\theta}{^i}}
-                                                                                                        & = \frac{\partial\tensor{p}{^j}}{\partial\tensor{\theta}{^i}}\frac{\partial}{\partial\tensor{p}{^j}} \\
-                                                                                                        & = \frac{\partial}{\partial\tensor{\theta}{^i}}
+                                                                                                       & = \frac{\partial\tensor{p}{^j}}{\partial\tensor{\theta}{^i}}\frac{\partial}{\partial\tensor{p}{^j}} \\
+                                                                                                       & = \frac{\partial}{\partial\tensor{\theta}{^i}}
         \left[
             \frac{1}{k}
             \begin{pmatrix}
@@ -37,8 +35,8 @@
                 \sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
                 \sin_k{{\tensor{\theta}{^n}}}                                                      \\
             \end{pmatrix}
-        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                  & \text{\cref{M:Vector:Value}}                                                                        \\
-                                                                                                        & =
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                 & \text{\cref{M:Vector:Value}}                                                                        \\
+                                                                                                       & =
         \frac{1}{k}
         \frac{\partial}{\partial\tensor{\theta}{^i}}
         \left[
@@ -47,8 +45,8 @@
                 \sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
                 \sin_k{{\tensor{\theta}{^n}}}                                                      \\
             \end{pmatrix}
-        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                        \\
-                                                                                                        & =
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                       \\
+                                                                                                       & =
         \frac{1}{k}
         \left[
             \begin{pmatrix}
@@ -57,16 +55,16 @@
                 k\cos_k{\tensor{\theta}{^{i}}}\prod_{l\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^l}}}                                          \\
                 0                                                                                                                            \\
             \end{pmatrix}
-        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                  & \text{\cref{M:Trigonometry:Derivative}}                                                             \\
-                                                                                                        & =
+        \right]\frac{\partial}{\partial\tensor{p}{^j}}                                                 & \text{\cref{M:Trigonometry:Derivative}}                                                             \\
+                                                                                                       & =
         \begin{pmatrix}
             -\tan_k^\ast{\tensor{\theta}{^i}}\prod_{l\in\Set{1..n}}{\cos_k{\tensor{\theta}{^l}}}                                \\
             -\tan_k^\ast{\tensor{\theta}{^i}}\sin_k{\tensor{\theta}{^{j-1}}}\prod_{l\in\Set{j..n}}{\cos_k{\tensor{\theta}{^l}}} \\
             \frac{1}{\tan_k{\tensor{\theta}{^{i}}}}\prod_{l\in\Set{i+1..n}}{\cos_k{\tensor{\theta}{^l}}}                        \\
             0                                                                                                                   \\
         \end{pmatrix}
-        \frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                               \\
-                                                                                                        & =
+        \frac{\partial}{\partial\tensor{p}{^j}}                                                                                                                                                              \\
+                                                                                                       & =
         \begin{pmatrix}
             -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}         \\
             k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
@@ -77,13 +75,9 @@
 \begin{lemma}\label{M:MetricTensor}
     The metric tensor of $N$ is
     \begin{align*}
-        \tensor{g}{_i_j} & =
+        \tensor{g}{_a_b} & =
         \begin{cases}
-            \left(1-\sign{k}\right)
-            \tan_k^2\left(\tensor{\theta}{^a}\right)
-            \prod_{1\le j}{\cos_k^2\tensor{\theta}{^j}}
-            +
-            \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}} & \text{if $i=j$,}  \\
+            \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}} & \text{if $a=b$,}  \\
             0                                        & \text{otherwise.} \\
         \end{cases}
     \end{align*}
@@ -96,7 +90,12 @@
         \tensor{g}{_l_m}\left[\frac{\partial}{\partial\tensor{p}{^i}}\right]
         \frac{\partial{\tensor{p}{^m}}}{\partial{\tensor{\theta}{^b}}}
         }                        \\
-         & = \sum_{l=1}^{n+1}{
+         & =
+        \left(\sign{k}\right)
+        \frac{\partial{\tensor{p}{^1}}}{\partial{\tensor{\theta}{^a}}}
+        \frac{\partial{\tensor{p}{^1}}}{\partial{\tensor{\theta}{^b}}}
+        +
+        \sum_{l=2}^{n+1}{
         \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^a}}}
         \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^b}}}
         }
@@ -105,43 +104,50 @@
     If $a<b$,
     \begin{align*}
         \tensor{g}{_a_b}
-                         & =\begin{bmatrix}
-                                -k\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tensor{p}{^j}         \\
-                                k\frac{1}{\tan_k\left(\tensor{\theta}{^a}\right)}\tensor{p}{^{a+1}} \\
-                                0                                                                   \\
-                            \end{bmatrix}\cdot\begin{bmatrix}
-                                                  -k\tan_k^\ast\left(\tensor{\theta}{^b}\right)\tensor{p}{^j}         \\
-                                                  k\frac{1}{\tan_k\left(\tensor{\theta}{^b}\right)}\tensor{p}{^{b+1}} \\
-                                                  0                                                                   \\
-                                              \end{bmatrix} \\
-                         & =
-        \sum{
+         & =\begin{pmatrix}
+                -k\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tensor{p}{^j}         \\
+                k\frac{1}{\tan_k\left(\tensor{\theta}{^a}\right)}\tensor{p}{^{a+1}} \\
+                0                                                                   \\
+            \end{pmatrix}
+        \tensor{g}{}\left[\frac{\partial}{\partial\tensor{p}{^i}}\right]
+        \begin{pmatrix}
+            -k\tan_k^\ast\left(\tensor{\theta}{^b}\right)\tensor{p}{^j}         \\
+            k\frac{1}{\tan_k\left(\tensor{\theta}{^b}\right)}\tensor{p}{^{b+1}} \\
+            0                                                                   \\
+        \end{pmatrix}                         \\
+         & =
+        \left(\sign{k}\right) k^2\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tan_k^\ast\left(\tensor{\theta}{^b}\right){\tensor{p}{^1}}^2
+        +
+        \sum_j{
             k^2\tan_k^\ast\left(\tensor{\theta}{^a}\right)\tan_k^\ast\left(\tensor{\theta}{^b}\right){\tensor{p}{^j}}^2
         }
-        -k^2\frac{\tan_k^\ast\left(\tensor{\theta}{^b}\right)}{\tan_k\left(\tensor{\theta}{^a}\right)}{\tensor{p}{^{a+1}}}^2               \\
-                         & =
+        -k^2\frac{\tan_k^\ast\left(\tensor{\theta}{^b}\right)}{\tan_k\left(\tensor{\theta}{^a}\right)}{\tensor{p}{^{a+1}}}^2 \\
+         & =
         \tan_k\left(\tensor{\theta}{^b}\right)
         \tan_k\left(\tensor{\theta}{^a}\right)
         \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
         \left(
+        \left(\sign{k}\right)
         \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         + \sum{
             \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
         }
         -\sign{k}
-        \right)                                                                                                                            \\
-                         & =
+        \right)                                                                                                              \\
+         & =
         \tan_k\left(\tensor{\theta}{^b}\right)
         \tan_k\left(\tensor{\theta}{^a}\right)
         \prod_{a\le j\le n+1}{\cos_k^2\tensor{\theta}{^j}}
         \left(
+        \left(\sign{k}\right)
         \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         + \sign{k}\left(
         1-\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         \right)
         - \sign{k}
-        \right)                                                                                                                            \\
-        \tensor{g}{_a_b} & = 0 \text{.}
+        \right)                                                                                                              \\
+        \tensor{g}{_a_b}
+         & = 0 \text{.}
     \end{align*}
 
     If $a>b$, $\tensor{g}{_a_b}=\tensor{g}{_b_a}=0$.
@@ -152,320 +158,216 @@
          & =\begin{pmatrix}
                 -k\tan_k^\ast\tensor{\theta}{^a}\tensor{p}{^j}         \\
                 k\frac{1}{\tan_k\tensor{\theta}{^a}}\tensor{p}{^{a+1}} \\
-                0
-            \end{pmatrix}\cdot\begin{pmatrix}
-                                  -k\tan_k^\ast\tensor{\theta}{^a}\tensor{p}{^j}         \\
-                                  k\frac{1}{\tan_k\tensor{\theta}{^a}}\tensor{p}{^{a+1}} \\
-                                  0
-                              \end{pmatrix} \\
+                0                                                      \\
+            \end{pmatrix}
+        \tensor{g}{}\left[\frac{\partial}{\partial\tensor{p}{^i}}\right]
+        \begin{pmatrix}
+            -k\tan_k^\ast\tensor{\theta}{^a}\tensor{p}{^j}         \\
+            k\frac{1}{\tan_k\tensor{\theta}{^a}}\tensor{p}{^{a+1}} \\
+            0
+        \end{pmatrix}     \\
          & =
-        \sum_{j=1}^{a}{\left(k\tensor{p}{^j}\tan_k^\ast\tensor{\theta}{^a}\right)^2}
-        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                                       \\
+        \left(\sign{k}\right)\left(k\tensor{p}{^1}\tan_k^\ast\tensor{\theta}{^a}\right)^2
+        +\sum_j{\left(k\tensor{p}{^j}\tan_k^\ast\tensor{\theta}{^a}\right)^2}
+        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                     \\
          & =
-        \sum_{j=1}^{a}{\left(k\tensor{p}{^j}\tan_k\tensor{\theta}{^a}\right)^2}
-        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                                       \\
+        \left(\sign{k}\right)\left(k\tensor{p}{^1}\tan_k\tensor{\theta}{^a}\right)^2
+        +\sum_j{\left(k\tensor{p}{^j}\tan_k\tensor{\theta}{^a}\right)^2}
+        +\left(k\tensor{p}{^{a+1}}\cot_k\tensor{\theta}{^a}\right)^2                                     \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
         \left(
+        \left(\sign{k}\right)
         \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         + \sum_{1\le i<a}{
             \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
         }
         +\cot_k^2\left(\tensor{\theta}{^a}\right)
-        \right)                                                                                                            \\
+        \right)                                                                                          \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
         \left(
+        \left(\sign{k}\right)
         \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
         + \sum_{1\le i<a}{
             \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
         }
         +\cot_k^2\left(\tensor{\theta}{^a}\right)
-        \right)                                                                                                            \\
+        \right)                                                                                          \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
         \left(
-        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        +\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        + \sum_{1\le i<a}{
-            \sin_k^2{\tensor{\theta}{^{i}}}\prod_{i<j<a}{\cos_k^2\tensor{\theta}{^j}}
-        }
-        +\cot_k^2\left(\tensor{\theta}{^a}\right)
-        \right)                                                                                                            \\
-         & =
-        \sin_k^2\left(\tensor{\theta}{^a}\right)
-        \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
-        \left(
-        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        +\sign{k}
+        \sign{k}
         +\cot_k^2\left(\tensor{\theta}{^a}
-        \right)
-        \right)                                                                                                            \\
+            \right)
+        \right)                                                                                          \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
         \left(
-        \prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        -\sign{k}\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        +\sign{k}
+        \sign{k}
         +\csc_k^2\left(\tensor{\theta}{^a}
-        -\sign{k}
-        \right)
-        \right)                                                                                                            \\
+            -\sign{k}
+            \right)
+        \right)                                                                                          \\
          & =
         \sin_k^2\left(\tensor{\theta}{^a}\right)
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
         \left(
-        \left(1-\sign{k}\right)\prod_{1\le j<a}{\cos_k^2\tensor{\theta}{^j}}
-        +\csc_k^2\left(\tensor{\theta}{^a}
-        \right)
-        \right)                                                                                                            \\
+        \csc_k^2\left(\tensor{\theta}{^a}
+            \right)
+        \right)                                                                                          \\
          & =
-        \left(1-\sign{k}\right)
-        \tan_k^2\left(\tensor{\theta}{^a}\right)
-        \prod_{j}{\cos_k^2\tensor{\theta}{^j}}
-        +
         \prod_{a<j}{\cos_k^2\tensor{\theta}{^j}}
     \end{align*}
 \end{proof}
 \subsection{Curvature}
-\subsubsection{Curvature (Method I)}
-This method may be easier to generalize to
-Model II where each direction can have partially independent curvature
-(or even Model III where extrinsic curvature become a thing).
-But it may be challenging to define Gauss map properly.
+\subsubsection{Curvature}
 \begin{lemma}\label{M:Normal}
-    Given a position parameter $\tensor{\theta}{}$,
-    the tangent vector in position vector space can be calculated as follows
+    Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
+    the unit normal vector in position vector space can be calculated as follows
     \begin{equation*}
-        \nu(p)
-        =
-        \begin{cases}
-            \begin{bmatrix}
-                k\tensor{p}{^1}  \\
-                +k\tensor{p}{^i} \\
-            \end{bmatrix} & k>0     \\
-            \begin{bmatrix}
-                1 \\
-                0 \\
-            \end{bmatrix}     & k=0 \\
-            \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
-            \begin{bmatrix}
-                k\tensor{p}{^1}  \\
-                -k\tensor{p}{^i} \\
-            \end{bmatrix} & k<0
-        \end{cases}
+        \nu\left(\tensor{\theta}{}\right)
+        = \hat{k\tensor{p}{}}
         \text{.}
     \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{M:Normal}]
-    From \cref{SphericalLocus,EuclideanLocus,HyperbolicLocus},
-    \begin{equation*}
-        p \in P \iff
-        \begin{cases}
-           \sum_{i}{{\tensor{p}{^i}}^2}=k^{-2} & \text{$k>0$,} \\
-           \tensor{p}{^1} = k^{-1} \iffalse{\wedge \tensor{p}{^i} = \tensor{\theta}{^{i-1}}}\fi & \text{$k\to 0$,} \\
-             {\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}=k^{-2} \wedge \tensor{p}{^1} > 0 & \text{$k<0$.} \\
-        \end{cases}
-    \end{equation*}
-    Let
-    \begin{equation*}
-        F(p) = \begin{cases}
-           \sum_{i}{{\tensor{p}{^i}}^2}-k^{-2} & \text{$k>0$,} \\
-           \tensor{p}{^1} - k^{-1} & \text{$k\to 0$,} \\
-             {\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}-k^{-2} & \text{$k<0$.} \\
-        \end{cases}
-    \end{equation*}
+    Let define the normal vector as a set of the vector whose inner product with any tangent vector is zero.
+
     \begin{align*}
-        n
-        &= l \nabla F(p) \\
-        &= l \begin{cases}
-            \nabla{\sum_{i}{{\tensor{p}{^i}}^2}-k^{-2}} & \text{$k>0$,} \\
-            \nabla{\tensor{p}{^1} - k^{-1}} & \text{$k\to 0$,} \\
-            \nabla{{\tensor{p}{^1}}^2 - \sum_{1<i}{{\tensor{p}{^i}}^2}-k^{-2}} & \text{$k<0$.} \\
-         \end{cases} \\
-         &= l \begin{cases}
-            \begin{pmatrix}
-                2\tensor{p}{^i} \\
-            \end{pmatrix} & \text{$k>0$,} \\
-            \begin{pmatrix}
-                1 \\
-                0 \\
-            \end{pmatrix} & \text{$k\to 0$,} \\
-            \begin{pmatrix}
-                -2\tensor{p}{^1} \\
-                2\tensor{p}{^i} \\
-            \end{pmatrix} & \text{$k<0$.} \\
-          \end{cases} \\
-          \hat{n}
-          &= \pm
-            \begin{cases}
-            \frac{1}{\norm{p}}
-             \begin{pmatrix}
-                 \tensor{p}{^i} \\
-             \end{pmatrix} & \text{$k>0$,} \\
-             \begin{pmatrix}
-                 1 \\
-                 0 \\
-             \end{pmatrix} & \text{$k\to 0$,} \\
-             \frac{1}{\norm{p}}
-             \begin{pmatrix}
-                 -\tensor{p}{^1} \\
-                 \tensor{p}{^i} \\
-             \end{pmatrix} & \text{$k<0$.} \\
-           \end{cases} \\
-           &= \pm
-             \begin{cases}
-             \frac{1}{k^{-1}}
-              \begin{pmatrix}
-                  \tensor{p}{^i} \\
-              \end{pmatrix} & \text{$k>0$,} \\
-              \begin{pmatrix}
-                  1 \\
-                  0 \\
-              \end{pmatrix} & \text{$k\to 0$,} \\
-              \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
-              \begin{pmatrix}
-                  -\tensor{p}{^1} \\
-                  \tensor{p}{^i} \\
-              \end{pmatrix} & \text{$k<0$.} \\
-            \end{cases} \\
-            \nu=\hat{n}
-            &\defeq
-              \begin{cases}
-               \begin{pmatrix}
-                   k\tensor{p}{^i} \\
-               \end{pmatrix} & \text{$k>0$,} \\
-               \begin{pmatrix}
-                   1 \\
-                   0 \\
-               \end{pmatrix} & \text{$k\to 0$,} \\
-               \frac{1}{\sqrt{-1+2\left(k\tensor{p}{^1}\right)^2}}
-               \begin{pmatrix}
-                   \tensor{p}{^1} \\
-                   -\tensor{p}{^i} \\
-               \end{pmatrix} & \text{$k<0$.} \\
-             \end{cases} \qedhere
+        0
+         & \defeq \inner{\nu}{\frac{\partial}{\partial \tensor{\theta}{^i}}}     \\
+         & = \nu^T g \frac{\partial}{\partial \tensor{\theta}{^i}}          \\
+         & = \nu^T \diag\diag{\left(\sign{k},1,\dots,1\right)}
+        \begin{pmatrix}
+            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}         \\
+            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
+            0                                                      \\
+        \end{pmatrix}
+        \frac{\partial}{\partial \tensor{p}{^j}}                            \\
+         & = \nu^T
+        \begin{pmatrix}
+            -\sign{k}k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^1}           \\
+            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}           \\
+            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
+            0                                                                                              \\
+        \end{pmatrix}
+        \frac{\partial}{\partial \tensor{p}{^j}}                            \\
+        & = \nu^T
+        \begin{pmatrix}
+            -k\tan_k\tensor{\theta}{^i}\tensor{p}{^1}           \\
+            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}           \\
+           k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
+           0                                                                                              \\
+       \end{pmatrix}
+       \frac{\partial}{\partial \tensor{p}{^j}}                            \\
+        0
+         & =
+        -\tensor{\nu}{^1}k\tan_k\tensor{\theta}{^i}\tensor{p}{^1}
+        +\sum_{1<j\le i}{\left(-\tensor{\nu}{^j}k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}\right)}
+        +\tensor{\nu}{^{i+1}}k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}}
     \end{align*}
-\end{proof}
-\begin{lemma}\label{M:ShapeOperator}
+    \begin{align*}
+        \frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}}\tensor{\nu}{^{i+1}}
+         & =
+         \tan_k\tensor{\theta}{^i}\tensor{p}{^1}\tensor{\nu}{^1}
+        +\tan_k^\ast\tensor{\theta}{^i}\sum_{1<j\le i}{\left(\tensor{p}{^j}\tensor{\nu}{^j}\right)}                                                            \\
+        \tensor{\nu}{^{i+1}}
+         & =
+         \frac{\tan_k\tensor{\theta}{^i}\tan_k\tensor{\theta}{^i}}{\tensor{p}{^{i+1}}}\tensor{p}{^1}\tensor{\nu}{^1}
+        +\frac{\tan_k\tensor{\theta}{^i}\tan_k^\ast\tensor{\theta}{^i}}{\tensor{p}{^{i+1}}}\sum_{1<j\le i}{\tensor{p}{^j}\tensor{\nu}{^j}} \\
+        \tensor{\nu}{^i}
+         & =
+         \frac{\tan_k\tensor{\theta}{^{i-1}}\tan_k\tensor{\theta}{^{i-1}}}{\tensor{p}{^{i}}}\tensor{p}{^1}\tensor{\nu}{^1}
+        +\frac{\tan_k\tensor{\theta}{^{i-1}}\tan_k^\ast\tensor{\theta}{^{i-1}}}{\tensor{p}{^i}}\sum_{1<j<i}{\tensor{p}{^j}\tensor{\nu}{^j}} \\
+        & =
+        \tan_k^2\tensor{\theta}{^{i-1}}
+        \left(
+            \frac{\prod_{l}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}\prod_{i\le l}\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^1}
+            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}\prod_{i\le l}\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^j}}
+        \right) \\
+        & =
+        \tan_k^2\tensor{\theta}{^{i-1}}
+        \left(
+            \frac{\prod_{l<i}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}}\tensor{\nu}{^1}
+            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l<i}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}}\tensor{\nu}{^j}}
+        \right) \\
+        & =
+        \tan_k\tensor{\theta}{^{i-1}}
+        \left(
+            \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^1}
+            +\sign{k}\sum_{1<j<i}{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l<i-1}{\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^j}}
+        \right) \\
+        & =
+        \tan_k\tensor{\theta}{^{i-1}}
+        \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}
+        \left(
+            \tensor{\nu}{^1}
+            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}}{\prod_{l<j}{\cos_k\tensor{\theta}{^l}}}\tensor{\nu}{^j}}
+        \right) \\
+        & =
+        \tan_k\tensor{\theta}{^{i-1}}
+        \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}
+        \left(
+            \tensor{\nu}{^1}
+            +\sign{k}\sum_{1<j<i}{
+            \tan_k^2\tensor{\theta}{^{j-1}}
+            \frac{\tensor{\nu}{^j}}{\tan_k\tensor{\theta}{^{j-1}}\prod_{l<{j-1}}{\cos_k\tensor{\theta}{^l}}}
+            }
+        \right) \\
+        \tensor{\upsilon}{^i}
+        & \defeq
+        \frac{\tensor{\nu}{^i}}{\tensor{\nu}{^1}\tan_k\tensor{\theta}{^{i-1}}\prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}} \\
+        &=
+        1
+        +\sign{k}\sum_{1<j<i}{
+        \tan_k^2\tensor{\theta}{^{j-1}}
+        \tensor{\upsilon}{^j}
+        } \\
+        &= \frac{1}{\prod_{j<i-1}\cos_k^2\tensor{\theta}{^j}} \\
+        \tensor{\nu}{^i}
+        &=
+        \tensor{\upsilon}{^i}
+        \tensor{\nu}{^1}\tan_k\tensor{\theta}{^{i-1}}\prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}} \\
+        &=
+        \frac{\sin_k\tensor{\theta}{^{i-1}}}{\prod_{j<i}\cos_k\tensor{\theta}{^j}}
+        \tensor{\nu}{^1}
+    \end{align*}
+    Without loss of generality, let $\tensor{\nu}{^1}=k\tensor{p}{^1}$.
     \begin{equation*}
-        L(p) = \begin{cases}
-            -k I & \text{$k>0$,} \\
-            0 & \text{$k\to0$,} \\
-            \frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right) & \text{$k<0$.} \\
-        \end{cases}
+        \tensor{\nu}{^i} = k\tensor{p}{^i} \qedhere
+    \end{equation*}
+\end{proof}
+\begin{remark}
+    It can be proved that $\norm{k\tensor{p}{^i}}=\inner{k\tensor{p}{^i}}{k\tensor{p}{^i}}=1$, hence, $\hat{k\tensor{p}{}}=k\tensor{p}{}$
+\end{remark}
+\begin{lemma}\label{M:ShapeOperator}
+    Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
+    the shape operator can be calculated as follows
+    \begin{equation*}
+        L\left(\tensor{\theta}{}\right) = 
     \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{M:ShapeOperator}]
-    \begin{align*}
-        \frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}
-        &= \frac{\partial}{\partial\norm{p}}{\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}{\norm{p}} \\
-        &= {-\frac{1}{\norm{p}^2}}\frac{\partial}{\partial\tensor{p}{^j}}{\sqrt{\sum_i{{\tensor{p}{^i}}^2}}} \\
-        &= {-\frac{1}{\norm{p}^2}}\frac{\partial}{\partial \sum_i{{\tensor{p}{^i}}^2}}{\sqrt{\sum_i{{\tensor{p}{^i}}^2}}}\frac{\partial}{\partial\tensor{p}{^j}}{\sum_i{{\tensor{p}{^i}}^2}} \\
-        &= {-\frac{1}{\norm{p}^2}}\frac{1}{2\sqrt{\sum_i{{\tensor{p}{^i}}^2}}}{2{{\tensor{p}{^j}}}} \\
-        &= {-\frac{1}{\norm{p}^2}}\frac{1}{2\norm{p}}{2{{\tensor{p}{^j}}}} \\
-        &= -\frac{\tensor{p}{^j}}{\norm{p}^3}
-    \end{align*}
     From \cref{Manifold:Hypersurface},
     \begin{align*}
-        L(p)
-        &= - (D\nu \circ \left(Df\right)^{-1})(p) \\
-        &= - (D\nu)(p) \\
-        &= - \left(\left.\frac{\partial}{\partial\tensor{p}{^j}}\tensor{\nu}{^i}\right|_p\right)_{i,j} \\
-        \left(L(p)\right)_{i,j}
-        &= \begin{cases}
-            - \frac{\partial}{\partial\tensor{p}{^j}} k\tensor{p}{^i} & \text{$k>0$,} \\
-            - \frac{\partial}{\partial\tensor{p}{^j}} 1 & \text{$k\to 0$ and $i=1$,} \\
-            - \frac{\partial}{\partial\tensor{p}{^j}} 0 & \text{$k\to 0$ and $i\ne1$,} \\
-            - \frac{\partial}{\partial\tensor{p}{^j}} \left({\frac{1}{\norm{p}}}\tensor{p}{^1}\right) & \text{$k<0$ and $i=1$,} \\
-            - \frac{\partial}{\partial\tensor{p}{^j}} \left(-{\frac{1}{\norm{p}}}\tensor{p}{^i}\right) & \text{$k<0$ and $i\ne 1$,} \\
-          \end{cases} \\
-          &= \begin{cases}
-              - k & \text{$k>0$ and $i=j$,} \\
-              0 & \text{$k>0$ and $i\ne j$,} \\
-              0 & \text{$k\to 0$,} \\
-              - \left({\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}\tensor{p}{^1} + \tensor{p}{^1}\frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}\right) & \text{$k<0$ and $i=1$,} \\
-              \left({\frac{1}{\norm{p}}}\frac{\partial}{\partial\tensor{p}{^j}}\tensor{p}{^i} + \tensor{p}{^i}\frac{\partial}{\partial\tensor{p}{^j}}{\frac{1}{\norm{p}}}\right) & \text{$k<0$ and $i\ne 1$,} \\
-            \end{cases} \\
-            &= \begin{cases}
-                - k & \text{$k>0$ and $i=j$,} \\
-                0 & \text{$k>0$ and $i\ne j$,} \\
-                0 & \text{$k\to 0$,} \\
-                -{\frac{1}{\norm{p}}} + \frac{{\tensor{p}{^1}}^2}{\norm{p}^3} & \text{$k<0$ and $i=j=1$,} \\
-                \frac{\tensor{p}{^1}\tensor{p}{^j}}{\norm{p}^3} & \text{$k<0$ and $j\ne i=1$,} \\
-                {\frac{1}{\norm{p}}} - \frac{{\tensor{p}{^i}}^2}{\norm{p}^3} & \text{$k<0$ and $i=j\ne1$,} \\
-                -\frac{\tensor{p}{^i}\tensor{p}{^j}}{\norm{p}^3} & \text{$k<0$, $i\ne j$ and $i\ne1$,} \\
-              \end{cases}
+        L
+        & = - D\nu \circ \left(D{{\psi_0}^{-1}}\right)^{-1} \\
     \end{align*}
-
-    For $k>0$, $L(p)=-k I$.
-
-    For $k\to0$, $L(p)=0$.
-
-    For $k<0$, $L(p)= \frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)$.
 \end{proof}
 \begin{lemma}\label{Model:PrincipalCurvature}
 
 \end{lemma}
 \begin{proof}[\proofof{Model:PrincipalCurvature}]
-    \skipped
-
-    For $k>0$,
     \begin{align*}
         0
-        &= \det{L(p)-\lambda I} \\
-        &= \det{-k I-\lambda I} \\
-        &= \det{(-k-\lambda) I} \\
-        &= (-k-\lambda)^{n+1}\det{I} \\
-        &= (-k-\lambda)^{n+1} \\
-        \lambda &\in \Set{-k,\dots,-k}
-    \end{align*}
-
-    For $k<0$,
-    \begin{align*}
-        0
-        &= \det{L(p)-\lambda I} \\
-        &= \det{\frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)-\lambda I} \\
-        &= \det{\frac{1}{\norm{p}} \left(\frac{1}{\norm{p}^2} p p^T \diag{\left(-1,1\dots,1\right)} - I\right)-\left(\lambda^\prime-\frac{1}{\norm{p}}\right) I} & \text{$\lambda^\prime \defeq \lambda + \frac{1}{\norm{p}}$}\\
-        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \frac{1}{\norm{p}}I-\left(\lambda^\prime-\frac{1}{\norm{p}}\right) I}\\
-        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^\prime I}\\
-        &= \det{\frac{1}{\norm{p}^3} p p^T \diag{\left(-1,1\dots,1\right)} - \frac{1}{\norm{p}^3}\lambda^{\prime\prime} I} & \text{$\lambda^{\prime\prime} \defeq \norm{p}^3\lambda^\prime$}\\
-        &= \frac{1}{\norm{p}^{3(n+1)}}\det{p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^{\prime\prime} I}\\
-        &= \det{p p^T \diag{\left(-1,1\dots,1\right)} - \lambda^{\prime\prime} I}\\
-        &= {\lambda^{\prime\prime}}^n\left(\lambda^{\prime\prime}+\tensor{p}{^1}^2-\sum_{i\ne 1}{\tensor{p}{^i}^2}\right) \\
-        0 &= {\lambda^{\prime\prime}}^n\left(\lambda^{\prime\prime}+\frac{1}{k}\right) \\
-        \lambda^{\prime\prime} &\in \Set{-\frac{1}{k},0,\dots,0} \\
-        \lambda^\prime &\in \Set{-\frac{1}{k\norm{p}^3},0,\dots,0} \\
-        \lambda &\in \Set{-\frac{1}{k\norm{p}^3} - \frac{1}{\norm{p}},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
-        &= \Set{-\frac{1+\norm{p}^2}{k\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
-        &= \Set{-\frac{2k^2{\tensor{p}{^1}}^2}{k\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
-        &= \Set{-\frac{2k{\tensor{p}{^1}}^2}{\norm{p}^3},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
-        &= \Set{k^2\norm{p}\frac{-2{\tensor{p}{^1}}^2}{k\norm{p}^4},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
-        &= \Set{k^2\norm{p}\frac{-2{\tensor{p}{^1}}^2}{k\norm{p}^4},-\frac{1}{\norm{p}},\dots,-\frac{1}{\norm{p}}} \\
+        & = \det{L(p)-\lambda I}
     \end{align*}
 \end{proof}
-\subsubsection{Curvature (Method II)}
-This method may be easier to be done
-(despite the fact that it never finished).
-But it raises problems when trying to generalize e.g. dealing with extrinsic curvature
-(which may be introduced in Model III
-if not to mess with other basis geometries).
-\begin{lemma}\label{Model:ChristoffelSymbol}
-
-\end{lemma}
-\begin{lemma}\label{Model:RiemannCurvatureTensor}
-
-\end{lemma}
-\subsubsection{Curvature (Conclusion)}
-\begin{lemma}\label{Model:SectionalCurvature}
-
-\end{lemma}
 \paragraph{CurvatureParameter}
 It can be seen that $\operatorname{sec}\left(p\right) = \kappa = \sign{\left(k\right)}k^2$.
 Hence, when provided $\kappa$, $k$ can be determined and used to evaluate the model.
