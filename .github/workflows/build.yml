@@ -30,13 +30,14 @@ jobs:
         with:
           node-version: 16
 
-      - name: Build `docs` in `main` branch
+      - name: Build gh-pages
         run: |
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
-          npm ci
-          npm run build
-          npm run export
+          yarn run ci
+          yarn run build
+          yarn run export
           touch ./build/.nojekyll
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:

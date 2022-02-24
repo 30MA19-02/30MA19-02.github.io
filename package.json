@@ -9,6 +9,8 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "scripts": {
+    "preci": "rm -fr node_modules",
+    "ci": "yarn install --frozen-lockfile",
     "dev": "next dev",
     "build": "next build",
     "export": "next export -o build",
@@ -17,7 +19,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@30ma19-02/noneuclid": "github:30MA19-02/noneuclidjs",
+    "@30ma19-02/noneuclid": "^3.2.0",
     "mathjs": "^10.1.1",
     "next": "12.1.0",
     "react": "17.0.2",

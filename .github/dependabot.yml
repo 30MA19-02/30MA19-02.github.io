@@ -10,6 +10,11 @@ updates:
     schedule:
       interval: 'daily'
 
+  - package-ecosystem: 'yarn' # See documentation for possible values
+    directory: '/' # Location of package manifests
+    schedule:
+      interval: 'daily'
+
   - package-ecosystem: 'gitsubmodule' # See documentation for possible values
     directory: '/' # Location of package manifests
     schedule:
