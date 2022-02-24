@@ -5,15 +5,15 @@ import type { NextPage } from 'next';
 import { Slider, Checkbox, ImageInput } from './input';
 
 interface property {
-  height: number,
-  width: number,
-  lat: number,
-  lon: number,
-  dir: number,
-  kappa: number,
-  visman: boolean,
-  vispro: boolean,
-  texture: string,
+  height: number;
+  width: number;
+  lat: number;
+  lon: number;
+  dir: number;
+  kappa: number;
+  visman: boolean;
+  vispro: boolean;
+  texture: string;
   onChangeHeight?: ChangeEventHandler<HTMLInputElement>;
   onChangeWidth?: ChangeEventHandler<HTMLInputElement>;
   onChangeLat?: ChangeEventHandler<HTMLInputElement>;
@@ -37,23 +37,9 @@ const AppInput: NextPage<property> = (prop) => {
       <br />
       <label>Position</label>
       <br />
-      <Slider
-        name={'latitude'}
-        min={-0.25}
-        max={+0.25}
-        step={0}
-        value={prop.lat}
-        onChange={prop.onChangeLat}
-      ></Slider>
+      <Slider name={'latitude'} min={-0.25} max={+0.25} step={0} value={prop.lat} onChange={prop.onChangeLat}></Slider>
       <br />
-      <Slider
-        name={'lontitude'}
-        min={-0.5}
-        max={+0.5}
-        step={0}
-        value={prop.lon}
-        onChange={prop.onChangeLon}
-      ></Slider>
+      <Slider name={'lontitude'} min={-0.5} max={+0.5} step={0} value={prop.lon} onChange={prop.onChangeLon}></Slider>
       <br />
       <Slider name={'direction'} min={-0.5} max={+0.5} step={0} value={prop.dir} onChange={prop.onChangeDir}></Slider>
       <br />
@@ -74,7 +60,7 @@ const AppInput: NextPage<property> = (prop) => {
       <br />
       <label>Texture selection</label>
       <br />
-      <ImageInput name={''} width={400} height={200} onChange={prop.onChangeTexture} value={prop.texture}></ImageInput>
+      <ImageInput name={''} width={400} height={200} onChange={prop.onChangeTexture}></ImageInput>
     </form>
   );
 };

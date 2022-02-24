@@ -126,7 +126,7 @@ const Scene: NextPage<property> = (prop_) => {
     plane.current.material.side = THREE.FrontSide;
     plane.current.material.map = texture.current;
     plane.current.layers.set(2);
-    planeBack.current.material.side = THREE.FrontSide;
+    planeBack.current.material.side = THREE.BackSide;
     planeBack.current.material.map = texture.current;
     planeBack.current.layers.set(2);
     scene.current.add(plane.current);
@@ -182,6 +182,7 @@ const Scene: NextPage<property> = (prop_) => {
     scene.current!.add(manifold.current);
   }, [manifoldParametric]); // Change manifold, segment is unnecessary here
   useEffect(() => {
+    const factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
     scene.current!.remove(plane.current);
     plane.current.geometry.dispose();
     plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
@@ -189,9 +190,8 @@ const Scene: NextPage<property> = (prop_) => {
 
     scene.current!.remove(planeBack.current);
     planeBack.current.geometry.dispose();
-    planeBack.current = plane.current.clone();
-    planeBack.current.scale.setX(-1);
-    planeBack.current.translateX((prop_.kappa === 0 ? 1 : 2 / prop_.kappa) - (1e-3));
+    planeBack.current.geometry = plane.current.geometry.clone();
+    planeBack.current.translateX(- 1e-3 * factor);
     scene.current!.add(planeBack.current);
   }, [planeParametric]); // Change projection, segment is unnecessary here
   useEffect(() => {
