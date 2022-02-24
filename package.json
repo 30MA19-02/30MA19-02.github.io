@@ -9,8 +9,6 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "scripts": {
-    "preci": "rm -fr node_modules",
-    "ci": "yarn install --frozen-lockfile",
     "dev": "next dev",
     "build": "next build",
     "export": "next export -o build",
