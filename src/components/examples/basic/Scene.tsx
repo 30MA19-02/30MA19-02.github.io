@@ -89,16 +89,6 @@ const Scene: NextPage<property> = (prop_) => {
     },
     [operated],
   );
-  const planeParametricBack = useCallback(
-    (u: number, v: number, target: THREE.Vector3) => {
-      let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
-      let i = parseInt((u * prop.current.width).toString());
-      let j = parseInt((v * prop.current.height).toString());
-      let p = operated[i][j];
-      target.set(-factor, p.projection.x, p.projection.y);
-    },
-    [operated],
-  );
 
   useEffect(() => {
     prop.current = prop_;
@@ -188,23 +178,22 @@ const Scene: NextPage<property> = (prop_) => {
   useEffect(() => {
     scene.current!.remove(manifold.current);
     manifold.current.geometry.dispose();
-    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width/2, prop.current.height/2);
+    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width / 2, prop.current.height / 2);
     scene.current!.add(manifold.current);
   }, [manifoldParametric]); // Change manifold, segment is unnecessary here
   useEffect(() => {
     scene.current!.remove(plane.current);
     plane.current.geometry.dispose();
-    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width/2, prop.current.height/2);
+    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width / 2, prop.current.height / 2);
     scene.current!.add(plane.current);
-  }, [planeParametric]); // Change projection, segment is unnecessary here
-  useEffect(() => {
+
     scene.current!.remove(planeBack.current);
     planeBack.current.geometry.dispose();
-    planeBack.current.geometry = new ParametricGeometry(planeParametricBack, prop.current.width/2, prop.current.height/2);
+    planeBack.current = plane.current.clone();
     planeBack.current.scale.setX(-1);
-    planeBack.current.translateX(-(1e-3));
+    planeBack.current.translateX((prop_.kappa === 0 ? 1 : 2 / prop_.kappa) - (1e-3));
     scene.current!.add(planeBack.current);
-  }, [planeParametricBack]); // Change projection, segment is unnecessary here
+  }, [planeParametric]); // Change projection, segment is unnecessary here
   useEffect(() => {
     texture.current = new THREE.TextureLoader().load(prop_.texture);
     manifold.current.material.map?.dispose();
