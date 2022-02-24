@@ -9,7 +9,7 @@ import Head from 'next/head';
 import initTexture from '/public/image/world_map2.jpg';
 
 const App: NextPage = (prop) => {
-  const [segment, setSegment] = useState([24, 32]);
+  const [segment, setSegment] = useState([24, 16]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
   const [kappa, setKappa] = useState(1);

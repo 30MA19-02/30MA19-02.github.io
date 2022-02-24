@@ -22,7 +22,7 @@ const AppInput: NextPage<property> = (prop) => {
     <form>
       <label>Segments</label>
       <br />
-      <Slider name={'height'} min={2} max={32} step={1} value={32} onChange={prop.onChangeHeight}></Slider>
+      <Slider name={'height'} min={2} max={32} step={1} value={16} onChange={prop.onChangeHeight}></Slider>
       <br />
       <Slider name={'width'} min={3} max={24} step={1} value={24} onChange={prop.onChangeWidth}></Slider>
       <br />
