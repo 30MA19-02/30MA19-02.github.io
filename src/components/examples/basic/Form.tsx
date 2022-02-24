@@ -5,6 +5,15 @@ import type { NextPage } from 'next';
 import { Slider, Checkbox, ImageInput } from './input';
 
 interface property {
+  height: number,
+  width: number,
+  lat: number,
+  lon: number,
+  dir: number,
+  kappa: number,
+  visman: boolean,
+  vispro: boolean,
+  texture: string,
   onChangeHeight?: ChangeEventHandler<HTMLInputElement>;
   onChangeWidth?: ChangeEventHandler<HTMLInputElement>;
   onChangeLat?: ChangeEventHandler<HTMLInputElement>;
@@ -22,9 +31,9 @@ const AppInput: NextPage<property> = (prop) => {
     <form>
       <label>Segments</label>
       <br />
-      <Slider name={'height'} min={2} max={32} step={1} value={16} onChange={prop.onChangeHeight}></Slider>
+      <Slider name={'height'} min={2} max={32} step={1} value={prop.height} onChange={prop.onChangeHeight}></Slider>
       <br />
-      <Slider name={'width'} min={3} max={24} step={1} value={24} onChange={prop.onChangeWidth}></Slider>
+      <Slider name={'width'} min={3} max={24} step={1} value={prop.width} onChange={prop.onChangeWidth}></Slider>
       <br />
       <label>Position</label>
       <br />
@@ -33,7 +42,7 @@ const AppInput: NextPage<property> = (prop) => {
         min={-0.25}
         max={+0.25}
         step={0}
-        value={0.03815754722}
+        value={prop.lat}
         onChange={prop.onChangeLat}
       ></Slider>
       <br />
@@ -42,30 +51,30 @@ const AppInput: NextPage<property> = (prop) => {
         min={-0.5}
         max={+0.5}
         step={0}
-        value={0.27923107222}
+        value={prop.lon}
         onChange={prop.onChangeLon}
       ></Slider>
       <br />
-      <Slider name={'direction'} min={-0.5} max={+0.5} step={0} value={0} onChange={prop.onChangeDir}></Slider>
+      <Slider name={'direction'} min={-0.5} max={+0.5} step={0} value={prop.dir} onChange={prop.onChangeDir}></Slider>
       <br />
       <label>Curvature</label>
       <br />
-      <Slider name={'kappa'} min={-1} max={+1} step={0} value={1} onChange={prop.onChangeKappa}></Slider>
+      <Slider name={'kappa'} min={-1} max={+1} step={0} value={prop.kappa} onChange={prop.onChangeKappa}></Slider>
       <br />
       <label>Visibility</label>
       <br />
       <Checkbox
         name={'Projections'}
         child={[
-          { name: 'Manifold', onChange: prop.onChangeVisMan, checked: true },
-          { name: 'Projection', onChange: prop.onChangeVisPro, checked: true },
+          { name: 'Manifold', onChange: prop.onChangeVisMan, checked: prop.visman },
+          { name: 'Projection', onChange: prop.onChangeVisPro, checked: prop.vispro },
         ]}
         onChange={prop.onChangeVis}
       ></Checkbox>
       <br />
       <label>Texture selection</label>
       <br />
-      <ImageInput name={''} width={400} height={200} onChange={prop.onChangeTexture}></ImageInput>
+      <ImageInput name={''} width={400} height={200} onChange={prop.onChangeTexture} value={prop.texture}></ImageInput>
     </form>
   );
 };

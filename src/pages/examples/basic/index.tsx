@@ -37,6 +37,15 @@ const App: NextPage = (prop) => {
         texture={textureURL}
       >
         <Input
+          width={segment[0]}
+          height={segment[1]}
+          lat={pos[0]}
+          lon={pos[1]}
+          dir={dir}
+          kappa={kappa}
+          visman={vis[0]}
+          vispro={vis[1]}
+          texture={textureURL}
           onChangeWidth={(event) => setSegment([parseInt(event.target.value), segment[1]])}
           onChangeHeight={(event) => setSegment([segment[0], parseInt(event.target.value)])}
           onChangeLat={(event) => setPos([parseFloat(event.target.value), pos[1]])}
