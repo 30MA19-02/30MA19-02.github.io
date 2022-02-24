@@ -178,13 +178,13 @@ const Scene: NextPage<property> = (prop_) => {
   useEffect(() => {
     scene.current!.remove(manifold.current);
     manifold.current.geometry.dispose();
-    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width / 2, prop.current.height / 2);
+    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width, prop.current.height);
     scene.current!.add(manifold.current);
   }, [manifoldParametric]); // Change manifold, segment is unnecessary here
   useEffect(() => {
     scene.current!.remove(plane.current);
     plane.current.geometry.dispose();
-    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width / 2, prop.current.height / 2);
+    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
     scene.current!.add(plane.current);
 
     scene.current!.remove(planeBack.current);
