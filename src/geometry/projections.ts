@@ -5,11 +5,8 @@ import { arcsine } from './trigonometry';
 import { equal } from '../math/compare';
 
 export function embedded(kappa: number, point: Matrix): Matrix {
-    const dim = point.size()[0];
-  return multiply(
-    multiply(point, concat(identity(1), zeros(dim, 1), 0)),
-    kappa !== 0 ? 1 / kappa : 1,
-  );
+  const dim = point.size()[0];
+  return multiply(multiply(point, concat(identity(1), zeros(dim, 1), 0)), kappa !== 0 ? 1 / kappa : 1);
 }
 
 export function coordinate(kappa: number, point: Matrix): number[] {
