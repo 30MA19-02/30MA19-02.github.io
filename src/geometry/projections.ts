@@ -7,7 +7,10 @@ import { arcsine } from './trigonometry';
 import { equal } from '../math/compare';
 
 export function embedded(point: Point): Matrix {
-  return multiply(multiply(point.matrix, concat(identity(1), zeros(point.dim, 1), 0)), point.kappa !== 0 ? 1 / point.kappa : 1);
+  return multiply(
+    multiply(point.matrix, concat(identity(1), zeros(point.dim, 1), 0)),
+    point.kappa !== 0 ? 1 / point.kappa : 1,
+  );
 }
 
 export function coordinate(point: Point): number[] {
