@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === "production"? 'noneuclidjs-docs/' : '',
+  assetPrefix: process.env.NODE_ENV === "production"? '.' : '',
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
       '/': { page: '/examples/basic', dev: true },
