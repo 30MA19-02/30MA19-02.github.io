@@ -1,11 +1,9 @@
 import { FC, Fragment, useCallback, useEffect, useRef, useState } from 'react';
 
-import type { NextPage } from 'next';
-
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
-import Point from '../../../script/examples/basic/point';
+import Point from './script/point';
 import { pi } from 'mathjs';
 
 interface property {
@@ -20,7 +18,7 @@ interface property {
   texture: string;
 }
 
-const Scene: NextPage<property> = (prop_) => {
+const Scene: FC<property> = (prop_) => {
   const prop = useRef<property>(prop_);
 
   const mountPoint = useRef<HTMLDivElement>(null);

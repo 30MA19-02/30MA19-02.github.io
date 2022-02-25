@@ -1,6 +1,4 @@
-import { ChangeEventHandler } from 'react';
-
-import type { NextPage } from 'next';
+import { ChangeEventHandler, FC } from 'react';
 
 import { Slider, Checkbox, ImageInput } from './input';
 
@@ -26,7 +24,7 @@ interface property {
   onChangeTexture?: ChangeEventHandler<HTMLInputElement>;
 }
 
-const AppInput: NextPage<property> = (prop) => {
+const AppInput: FC<property> = (prop) => {
   return (
     <form>
       <label>Segments</label>

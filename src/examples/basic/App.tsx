@@ -1,30 +1,19 @@
-import { useState } from 'react';
+import { FC, Fragment, useState } from 'react';
 
-import type { NextPage } from 'next';
+import Input from './Form';
+import Scene from './Scene';
 
-import Input from '../../../components/examples/basic/Form';
-import Scene from '../../../components/examples/basic/Scene';
-import Head from 'next/head';
+import initTexture from './image/world_map2.jpg';
 
-import initTexture from '/public/image/world_map2.jpg';
-
-const App: NextPage = (prop) => {
+const App: FC = (prop) => {
   const [segment, setSegment] = useState([24, 16]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
   const [kappa, setKappa] = useState(1);
   const [vis, setVis] = useState([true, true]);
-  const [textureURL, setTextureURL] = useState(initTexture.src);
+  const [textureURL, setTextureURL] = useState(initTexture);
   return (
-    <div>
-      <Head>
-        <title>Basic Example | Noneuclidjs</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Documentation page for noneuclidjs." />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <Fragment>
       <Scene
         width={segment[0]}
         height={segment[1]}
@@ -58,7 +47,7 @@ const App: NextPage = (prop) => {
           onChangeTexture={(event) => setTextureURL(URL.createObjectURL(event.target.files![0]!))}
         />
       </Scene>
-    </div>
+    </Fragment>
   );
 };
 export default App;
