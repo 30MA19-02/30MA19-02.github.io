@@ -1,0 +1,38 @@
+{
+  "vite/index.html": {
+    "file": "assets/framework.4ce441b9.js",
+    "src": "vite/index.html",
+    "isEntry": true,
+    "imports": [
+      "_jsx-runtime.3061aec3.js",
+      "_vendor.5d318e53.js"
+    ],
+    "css": [
+      "assets/framework.acb61512.css"
+    ],
+    "assets": [
+      "assets/logo.ecc203fb.svg"
+    ]
+  },
+  "examples/basic/index.html": {
+    "file": "assets/examples.9bfcf407.js",
+    "src": "examples/basic/index.html",
+    "isEntry": true,
+    "imports": [
+      "_jsx-runtime.3061aec3.js",
+      "_vendor.5d318e53.js"
+    ],
+    "assets": [
+      "assets/world_map2.0d66dc62.jpg"
+    ]
+  },
+  "_vendor.5d318e53.js": {
+    "file": "assets/vendor.5d318e53.js"
+  },
+  "_jsx-runtime.3061aec3.js": {
+    "file": "assets/jsx-runtime.3061aec3.js",
+    "imports": [
+      "_vendor.5d318e53.js"
+    ]
+  }
+}
