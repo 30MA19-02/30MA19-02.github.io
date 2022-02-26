@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from 'react';
+import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {}
 
@@ -17,17 +17,17 @@ const ImageInput: FC<property> = (prop) => {
   prop_.onChange = onChange;
 
   return (
-    <Fragment>
+    <>
       <label>{prop.name}</label>
       <input type={'file'} accept={'image/*'} minLength={1} maxLength={1} {...prop_}></input>
       <div>
         {url ? (
           <Image src={url} alt={'uploaded image'} width={prop.width} height={prop.height}></Image>
         ) : (
-          <Fragment></Fragment>
+          <></>
         )}
       </div>
-    </Fragment>
+    </>
   );
 };
 

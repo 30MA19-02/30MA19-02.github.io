@@ -20,18 +20,18 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
   };
 
   const children = (
-    <Fragment>
+    <>
       {prop.child.map((prop_, ind) => (
         <Fragment key={ind}>
           <label>{prop_.name ? prop_.name : ''}</label>
           <input type={'checkbox'} checked={checked[ind]} onChange={handleChangeChild(ind)} />
         </Fragment>
       ))}
-    </Fragment>
+    </>
   );
 
   return (
-    <Fragment>
+    <>
       <label>{prop.name ? prop.name : ''}</label>
       <input
         type={'checkbox'}
@@ -41,7 +41,7 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
       />
       <br />
       {children}
-    </Fragment>
+    </>
   );
 };
 
