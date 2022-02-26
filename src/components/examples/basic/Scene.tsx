@@ -101,6 +101,9 @@ const Scene_: FC<property> = (prop_) => {
     setOperated(calcOperated());
   }, [calcOperated]);
 
+  useEffect(()=>{
+    camera.position.setZ(3);
+  }, []);
   useFrame((event) => {
     scene.rotateY(-pi / 2);
     scene.translateX(-dot.current.position.x);
@@ -125,7 +128,7 @@ const Scene_: FC<property> = (prop_) => {
   return (
     <>
       <color attach="background" args={[0, 0, 0]} />
-      <PerspectiveCamera fov={75} aspect={size.width / size.height} near={0.1} far={1000} position={[0,0,3]}>
+      <PerspectiveCamera fov={75} aspect={size.width / size.height} near={0.1} far={1000}>
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false}/>
         <mesh ref={dot}>
           <sphereGeometry args={[0.01]} />
