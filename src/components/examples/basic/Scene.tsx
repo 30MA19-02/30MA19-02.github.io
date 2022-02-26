@@ -1,12 +1,12 @@
-import { FC, Fragment, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
-import type { NextPage } from 'next';
-
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import Point from '../../../script/examples/basic/point';
 import { pi } from 'mathjs';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
+import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
+import { Color, Mesh, TextureLoader, Vector3 } from 'three';
+import { DoubleSide, FrontSide, BackSide } from 'three';
 
 interface property {
   width: number;
@@ -20,23 +20,14 @@ interface property {
   texture: string;
 }
 
-const Scene: NextPage<property> = (prop_) => {
+const Scene_: FC<property> = (prop_) => {
   const prop = useRef<property>(prop_);
 
-  const mountPoint = useRef<HTMLDivElement>(null);
-  const scene = useRef<THREE.Scene | null>(null);
-  const camera = useRef<THREE.Camera | null>(null);
-  const renderer = useRef<THREE.Renderer | null>(null);
-  const controls = useRef<OrbitControls | null>(null);
-  const texture = useRef<THREE.Texture | null>(null);
-  const frameID = useRef<number | null>(null);
-
-  const dot = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(
-    new THREE.Mesh(new THREE.SphereGeometry(0.01)),
-  );
-  const manifold = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
-  const plane = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
-  const planeBack = useRef<THREE.Mesh<THREE.BufferGeometry, THREE.MeshBasicMaterial>>(new THREE.Mesh());
+  const size = useThree((state) => state.size);
+  const scene = useThree((state) => state.scene);
+  const camera = useThree((state) => state.camera);
+  const texture = useLoader(TextureLoader, prop_.texture);
+  const dot = useRef<Mesh>(null!);
 
   const calcPoints = useCallback(() => {
     let factor = prop_.kappa === 0 ? 1 : 1 / prop_.kappa;
@@ -66,7 +57,7 @@ const Scene: NextPage<property> = (prop_) => {
   const [operated, setOperated] = useState<Point[][]>(calcOperated);
 
   const manifoldParametric = useCallback(
-    (u: number, v: number, target: THREE.Vector3) => {
+    (u: number, v: number, target: Vector3) => {
       let i = parseInt((u * prop.current.width).toString());
       let j = parseInt((v * prop.current.height).toString());
       let p = operated[i][j];
@@ -76,7 +67,7 @@ const Scene: NextPage<property> = (prop_) => {
     [operated],
   );
   const planeParametric = useCallback(
-    (u: number, v: number, target: THREE.Vector3) => {
+    (u: number, v: number, target: Vector3) => {
       let factor = prop.current.kappa === 0 ? 1 : 1 / prop.current.kappa;
       let i = parseInt((u * prop.current.width).toString());
       let j = parseInt((v * prop.current.height).toString());
@@ -90,67 +81,16 @@ const Scene: NextPage<property> = (prop_) => {
     [operated],
   );
 
+  const [manifold, setManifold] = useState(
+    () => new ParametricGeometry(manifoldParametric, prop.current.width, prop.current.height),
+  );
+  const [plane, setPlane] = useState(
+    () => new ParametricGeometry(planeParametric, prop.current.width, prop.current.height),
+  );
+
   useEffect(() => {
     prop.current = prop_;
   }, [prop_]);
-  useEffect(() => {
-    const width = mountPoint.current!.clientWidth;
-    const height = mountPoint.current!.clientHeight;
-
-    const scene_ = new THREE.Scene();
-    const camera_ = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
-    const renderer_ = new THREE.WebGLRenderer({ antialias: true });
-    const controls_ = new OrbitControls(camera_, renderer_.domElement);
-    renderer_.setClearColor('#000000');
-    renderer_.setSize(width, height);
-    camera_.position.setZ(3);
-
-    scene.current = scene_;
-    camera.current = camera_;
-    camera.current.layers.enableAll();
-    renderer.current = renderer_;
-    controls.current = controls_;
-
-    dot.current.material.color = new THREE.Color(0xffff00);
-    dot.current.layers.set(0);
-    manifold.current.layers.set(1);
-    plane.current.layers.set(2);
-    planeBack.current.layers.set(2);
-
-    mountPoint.current!.prepend(renderer.current.domElement);
-
-    let renderScene = () => {
-      scene.current!.rotateY(-pi / 2);
-      scene.current!.translateX(-dot.current.position.x);
-      scene.current!.translateY(-dot.current.position.y);
-      scene.current!.translateZ(-dot.current.position.z);
-      renderer.current!.render(scene.current!, camera.current!);
-      scene.current!.translateX(+dot.current.position.x);
-      scene.current!.translateY(+dot.current.position.y);
-      scene.current!.translateZ(+dot.current.position.z);
-      scene.current!.rotateY(+pi / 2);
-    };
-    let animate = () => {
-      renderScene();
-      frameID.current = window.requestAnimationFrame(animate);
-    };
-
-    let start = () => {
-      if (!frameID.current) {
-        frameID.current = requestAnimationFrame(animate);
-      }
-    };
-    let stop = () => {
-      cancelAnimationFrame(frameID.current!);
-    };
-
-    start();
-    let mountPoint_ = mountPoint.current!;
-    return () => {
-      stop();
-      mountPoint_.removeChild(renderer.current!.domElement);
-    };
-  }, []); // Initial call
   useEffect(() => {
     setPoints(calcPoints());
   }, [calcPoints]);
@@ -160,57 +100,72 @@ const Scene: NextPage<property> = (prop_) => {
   useEffect(() => {
     setOperated(calcOperated());
   }, [calcOperated]);
-  useEffect(() => {
-    scene.current!.remove(manifold.current);
-    manifold.current.geometry.dispose();
-    manifold.current.geometry = new ParametricGeometry(manifoldParametric, prop.current.width, prop.current.height);
-    scene.current!.add(manifold.current);
-  }, [manifoldParametric]); // Change manifold, segment is unnecessary here
-  useEffect(() => {
-    const factor = prop.current.kappa <= 0 ? 0 : 1 / prop.current.kappa;
-    scene.current!.remove(plane.current);
-    plane.current.geometry.dispose();
-    plane.current.geometry = new ParametricGeometry(planeParametric, prop.current.width, prop.current.height);
-    scene.current!.add(plane.current);
 
-    scene.current!.remove(planeBack.current);
-    planeBack.current.geometry.dispose();
-    planeBack.current.geometry = plane.current.geometry.clone();
-    planeBack.current.geometry.translate(- 1e-3 * factor,0,0);
-    scene.current!.add(planeBack.current);
-  }, [planeParametric]); // Change projection, segment is unnecessary here
+  useFrame((event) => {
+    scene.rotateY(-pi / 2);
+    scene.translateX(-dot.current.position.x);
+    scene.translateY(-dot.current.position.y);
+    scene.translateZ(-dot.current.position.z);
+    event.gl.render(scene, camera);
+    scene.translateX(+dot.current.position.x);
+    scene.translateY(+dot.current.position.y);
+    scene.translateZ(+dot.current.position.z);
+    scene.rotateY(+pi / 2);
+  }, 1);
   useEffect(() => {
-    texture.current = new THREE.TextureLoader().load(prop_.texture);
-    manifold.current.material.map?.dispose();
-    manifold.current.material.map = texture.current;
-    plane.current.material.map?.dispose();
-    plane.current.material.map = texture.current;
-    planeBack.current.material.map?.dispose();
-    planeBack.current.material.map = texture.current;
-    manifold.current.material.side = THREE.DoubleSide;
-    plane.current.material.side = THREE.FrontSide;
-    planeBack.current.material.side = THREE.BackSide;
-  }, [prop_.texture]); // Change material
-  useEffect(() => {
-    scene.current!.remove(dot.current);
     let factor = prop_.kappa === 0 ? 1 : 1 / prop_.kappa;
     dot.current.position.set(+factor, 0, 0);
-    scene.current!.add(dot.current);
-  }, [prop_.kappa]); // Move dot according to kappa
-  useEffect(() => {
-    if (prop_.visman) camera.current!.layers.enable(1);
-    if (!prop_.visman) camera.current!.layers.disable(1);
-  }, [prop_.visman]); // Show / hide manifold
-  useEffect(() => {
-    if (prop_.vispro) camera.current!.layers.enable(2);
-    if (!prop_.vispro) camera.current!.layers.disable(2);
-  }, [prop_.vispro]); // Show / hide projection
-
+  }, [prop_.kappa]);
+  useEffect(()=>{
+    setManifold(new ParametricGeometry(manifoldParametric, prop.current.width, prop.current.height));
+  }, [manifoldParametric]);
+  useEffect(()=>{
+    setPlane(new ParametricGeometry(planeParametric, prop.current.width, prop.current.height));
+  }, [planeParametric]);
   return (
-    <Fragment>
-      <div style={{ width: '500px', height: '500px' }} ref={mountPoint}></div>
-      {prop_.children}
-    </Fragment>
+    <>
+      <color attach="background" args={[0, 0, 0]} />
+      <PerspectiveCamera fov={75} aspect={size.width / size.height} near={0.1} far={1000} position={[0,0,3]}>
+        <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false}/>
+        <mesh ref={dot}>
+          <sphereGeometry args={[0.01]} />
+          <meshBasicMaterial color={new Color(0xffff00)} />
+        </mesh>
+        {prop_.visman ? (
+          <mesh geometry={manifold}>
+            <meshBasicMaterial map={texture} side={DoubleSide} />
+          </mesh>
+        ) : (
+          <></>
+        )}
+        {prop_.vispro ? (
+          <>
+            <mesh geometry={plane}>
+              <meshBasicMaterial map={texture} side={FrontSide} />
+            </mesh>
+            <mesh geometry={plane.clone().translate(-1e-3, 0, 0)}>
+              <meshBasicMaterial map={texture} side={BackSide} />
+            </mesh>
+          </>
+        ) : (
+          <></>
+        )}
+      </PerspectiveCamera>
+    </>
+  );
+};
+
+const Scene: FC<property> = (prop_) => {
+  const {children, ...prop} = prop_;
+  return (
+    <>
+      <Canvas style={{ width: '500px', height: '500px' }}>
+        <Suspense fallback={null}>
+          <Scene_ {...prop} />
+        </Suspense>
+      </Canvas>
+      {children}
+    </>
   );
 };
 export default Scene;
