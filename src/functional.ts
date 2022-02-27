@@ -2,29 +2,33 @@ import { identity, index, matrix as Matrix, multiply, range, zeros } from 'mathj
 
 import type { Matrix as Matrix_ } from 'mathjs';
 
-import { point as point_, reflect, orientational, positional } from './geometry/transformations';
+import { point as point_, reflect as reflect_, orientational, positional } from './geometry/transformations';
 
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
 
-export interface Point_ {
-  readonly kappa: number;
+export interface Point {
   readonly dim: number;
-}
-export interface Point extends Point_ {
-  matrix: Matrix_;
+  readonly kappa: number;
+  readonly matrix: Matrix_;
 }
 
-export function point(dim: number, kappa: number): Point;
-export function point(dim: number, kappa: number, theta: number[]): Point;
-export function point(dim: number, kappa: number, ...phi: number[][]): Point;
-export function point(dim: number, kappa: number, reflect: boolean): Point;
-export function point(dim: number, kappa: number, theta: number[], ...phi: number[][]): Point;
-export function point(dim: number, kappa: number, reflect: boolean, theta: number[]): Point;
-export function point(dim: number, kappa: number, reflect: boolean, ...phi: number[][]): Point;
-export function point(dim: number, kappa: number, reflect: boolean, theta: number[], ...phi: number[][]): Point;
-export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): Point;
-export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]): Point {
+export interface Coordinate {
+  readonly dim: number;
+  readonly kappa: number;
+  readonly reflect?: boolean;
+  readonly theta?: number[];
+  readonly phi?: number[][];
+}
+
+export function validateTheta({theta, dim}: Coordinate): boolean{
+  return theta? theta.length === dim: false;
+}
+export function validatePhi({phi, dim}: Coordinate): boolean{
+  return phi? phi.length === dim - 1 && phi.every((_, i) => _.length === dim - i - 1): false;
+}
+
+export function point({dim, kappa, reflect, theta, phi}: Coordinate): Point {
   if (!Number.isInteger(dim) || dim < 0) {
     throw new Error(`Dimension must be a positive integer (Recieved ${dim}).`);
   }
@@ -38,52 +42,13 @@ export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]
       );
     kappa = 1; // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
   }
-  const isReflect = (val: number[] | boolean) => typeof val === 'boolean';
-  const isTheta = (val: number[] | boolean) => val !== undefined && typeof val !== 'boolean' && val.length === dim;
-  const isPhi = (arr: (number[] | boolean)[]) =>
-    arr.every((_, i) => _ !== undefined && typeof _ !== 'boolean' && _.length === dim - i - 1);
   let matrix: Matrix_;
-  if (arr.length === dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && arr.length > 2 && isPhi(arr.slice(2))) {
-    matrix = point_(kappa, arr[1] as number[], ...(arr.slice(2) as number[][]));
-    if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
-    return { dim, kappa, matrix };
-  }
-  if (arr.length === dim && arr.length > 1 && isPhi(arr.slice(1))) {
-    if (isReflect(arr[0])) {
-      matrix = orientational(...(arr.slice(1) as number[][]));
-      if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
-      return { dim, kappa, matrix };
-    }
-    if (isTheta(arr[0])) {
-      matrix = point_(kappa, arr[0] as number[], ...(arr.slice(1) as number[][]));
-      return { dim, kappa, matrix };
-    }
-  }
-  if (arr.length === dim - 1 && arr.length > 0 && isPhi(arr)) {
-    matrix = orientational(...(arr as number[][]));
-    return { dim, kappa, matrix };
-  }
-  if (arr.length === 2 && isReflect(arr[0]) && isTheta(arr[1])) {
-    matrix = positional(kappa, ...(arr[1] as number[]));
-    if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
-    return { dim, kappa, matrix };
-  }
-  if (arr.length === 1) {
-    if (isReflect(arr[0])) {
-      matrix = identity(dim + 1) as Matrix_;
-      if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
-      return { dim, kappa, matrix };
-    }
-    if (isTheta(arr[0])) {
-      matrix = positional(kappa, ...(arr[0] as number[]));
-      return { dim, kappa, matrix };
-    }
-  }
-  if (arr.length === 0) {
-    matrix = identity(dim + 1) as Matrix_;
-    return { dim, kappa, matrix };
-  }
-  throw new Error('Invalid argument.');
+  if(theta && phi) matrix = point_(kappa, theta, ...phi);
+  else if(theta) matrix = positional(kappa, ...theta);
+  else if(phi) matrix = orientational(...phi);
+  else matrix = identity(dim + 1) as Matrix_;
+  if(reflect) matrix = multiply(matrix, reflect_(dim));
+  return {kappa, dim, matrix};
 }
 
 export function isValid({matrix, dim, kappa}: Point): void {

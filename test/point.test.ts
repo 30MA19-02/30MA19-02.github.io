@@ -1,4 +1,4 @@
-import { Point } from '..';
+import { Point } from '../index';
 // Change attributes / method or others such that it is easy for you to use
 // The test must test the indicated property of the class
 // It will be used to do test-driven development for user-friendly interface later
@@ -17,40 +17,40 @@ describe('Point', () => {
     // Include Orientation only case
     // Include garbage arguments cases too
     describe('Curvature and dimension only', () => {
-      const runner_pass = (n: number) => {
+      const runner_pass = (dim: number) => {
         const runner = (kappa: number) => () => {
-          let p = new Point(n, kappa);
-          expect(p.dim).toBe(n);
+          let p = new Point({dim, kappa});
+          expect(p.dim).toBe(dim);
           expect(p.kappa).toBe(kappa);
         };
-        it(`Curved spherical (${n}D)`, runner(2));
-        it(`Standard spherical (${n}D)`, runner(1));
-        it(`Flatten spherical (${n}D)`, runner(0.5));
-        it(`Euclidean (${n}D)`, runner(0));
-        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
-        it(`Standard hyperbolic (${n}D)`, runner(-1));
-        it(`Curved hyperbolic (${n}D)`, runner(-2));
+        it(`Curved spherical (${dim}D)`, runner(2));
+        it(`Standard spherical (${dim}D)`, runner(1));
+        it(`Flatten spherical (${dim}D)`, runner(0.5));
+        it(`Euclidean (${dim}D)`, runner(0));
+        it(`Flattened hyperbolic (${dim}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${dim}D)`, runner(-1));
+        it(`Curved hyperbolic (${dim}D)`, runner(-2));
       };
-      const runner_fail = (n: number) => {
+      const runner_fail = (dim: number) => {
         const runner = (kappa: number) => () => {
-          expect(() => new Point(n, kappa)).toThrow();
+          expect(() => new Point({dim, kappa})).toThrow();
         };
-        it(`Curved spherical (${n}D)`, runner(2));
-        it(`Standard spherical (${n}D)`, runner(1));
-        it(`Flatten spherical (${n}D)`, runner(0.5));
-        it(`Euclidean (${n}D)`, runner(0));
-        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
-        it(`Standard hyperbolic (${n}D)`, runner(-1));
-        it(`Curved hyperbolic (${n}D)`, runner(-2));
+        it(`Curved spherical (${dim}D)`, runner(2));
+        it(`Standard spherical (${dim}D)`, runner(1));
+        it(`Flatten spherical (${dim}D)`, runner(0.5));
+        it(`Euclidean (${dim}D)`, runner(0));
+        it(`Flattened hyperbolic (${dim}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${dim}D)`, runner(-1));
+        it(`Curved hyperbolic (${dim}D)`, runner(-2));
       };
       {
         const runner_pass = (kappa: number) => () => {
-          let p = new Point(0, kappa);
+          let p = new Point({dim:0, kappa});
           expect(p.dim).toBe(0);
           expect(p.kappa).toBe(1);
         };
         const runner_fail = (kappa: number) => () => {
-          expect(() => new Point(0, kappa)).toThrow();
+          expect(() => new Point({dim:0, kappa})).toThrow();
         };
         it(`Curved spherical (0D)`, runner_pass(2));
         it(`Standard spherical (0D)`, runner_pass(1));
@@ -69,23 +69,23 @@ describe('Point', () => {
     });
     it.todo('Position only');
     describe('Reflection only', () => {
-      const runner = (n: number) => {
+      const runner = (dim: number) => {
         const runner = (kappa: number) => () => {
-          new Point(n, kappa, true);
-          new Point(n, kappa, false);
+          new Point({dim, kappa, reflect:true});
+          new Point({dim, kappa, reflect:false});
         };
-        it(`Curved spherical (${n}D)`, runner(2));
-        it(`Standard spherical (${n}D)`, runner(1));
-        it(`Flatten spherical (${n}D)`, runner(0.5));
-        it(`Euclidean (${n}D)`, runner(0));
-        it(`Flattened hyperbolic (${n}D)`, runner(-0.5));
-        it(`Standard hyperbolic (${n}D)`, runner(-1));
-        it(`Curved hyperbolic (${n}D)`, runner(-2));
+        it(`Curved spherical (${dim}D)`, runner(2));
+        it(`Standard spherical (${dim}D)`, runner(1));
+        it(`Flatten spherical (${dim}D)`, runner(0.5));
+        it(`Euclidean (${dim}D)`, runner(0));
+        it(`Flattened hyperbolic (${dim}D)`, runner(-0.5));
+        it(`Standard hyperbolic (${dim}D)`, runner(-1));
+        it(`Curved hyperbolic (${dim}D)`, runner(-2));
       };
       {
         const runner_pass = (kappa: number) => () => {
-          new Point(0, kappa, true);
-          new Point(0, kappa, false);
+          new Point({dim:0, kappa, reflect:true});
+          new Point({dim:0, kappa, reflect:false});
         };
         it(`Spherical (0D)`, runner_pass(1));
       }
