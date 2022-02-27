@@ -4,7 +4,7 @@ import * as point from './functional';
 import config from './config';
 
 export class Point implements point.Point_ {
-  public dim: number;
+  public readonly dim: number;
   public readonly kappa: number;
   private _mat!: Matrix;
   constructor(publicObj: point.Point_);
@@ -35,7 +35,7 @@ export class Point implements point.Point_ {
   }
 
   protected get privateObject(): point.Point {
-    return { dim: this.dim, kappa: this.kappa, matrix: this.matrix };
+    return { ...this, matrix: this.matrix };
   }
 
   protected set matrix(value: Matrix) {

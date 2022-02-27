@@ -1,19 +1,18 @@
-import { identity, index, matrix, Matrix, multiply, range, zeros } from 'mathjs';
+import { identity, index, matrix as Matrix, multiply, range, zeros } from 'mathjs';
+
+import type { Matrix as Matrix_ } from 'mathjs';
 
 import { point as point_, reflect, orientational, positional } from './geometry/transformations';
-import { embedded, coordinate } from './geometry/projections';
 
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
 
 export interface Point_ {
   readonly kappa: number;
-  dim: number;
+  readonly dim: number;
 }
 export interface Point extends Point_ {
-  matrix: Matrix;
-  kappa: number;
-  dim: number;
+  matrix: Matrix_;
 }
 
 export function point(dim: number, kappa: number): Point;
@@ -43,7 +42,7 @@ export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]
   const isTheta = (val: number[] | boolean) => val !== undefined && typeof val !== 'boolean' && val.length === dim;
   const isPhi = (arr: (number[] | boolean)[]) =>
     arr.every((_, i) => _ !== undefined && typeof _ !== 'boolean' && _.length === dim - i - 1);
-  let matrix: Matrix;
+  let matrix: Matrix_;
   if (arr.length === dim + 1 && isReflect(arr[0]) && isTheta(arr[1]) && arr.length > 2 && isPhi(arr.slice(2))) {
     matrix = point_(kappa, arr[1] as number[], ...(arr.slice(2) as number[][]));
     if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
@@ -71,7 +70,7 @@ export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]
   }
   if (arr.length === 1) {
     if (isReflect(arr[0])) {
-      matrix = identity(dim + 1) as Matrix;
+      matrix = identity(dim + 1) as Matrix_;
       if (arr[0] as boolean) matrix = multiply(matrix, reflect(dim));
       return { dim, kappa, matrix };
     }
@@ -81,47 +80,47 @@ export function point(dim: number, kappa: number, ...arr: (number[] | boolean)[]
     }
   }
   if (arr.length === 0) {
-    matrix = identity(dim + 1) as Matrix;
+    matrix = identity(dim + 1) as Matrix_;
     return { dim, kappa, matrix };
   }
   throw new Error('Invalid argument.');
 }
 
-export function isValid(point: Point): void {
-  if (!(isSquare(point.matrix) && point.matrix.size()[0] === point.dim + 1)) {
+export function isValid({matrix, dim, kappa}: Point): void {
+  if (!(isSquare(matrix) && matrix.size()[0] === dim + 1)) {
     throw new Error(
       `Invalid dimension: Not an square matrix of dimension ${
-        point.dim + 1
-      } (Recieved matrix of size ${point.matrix.size()}).`,
+        dim + 1
+      } (Recieved matrix of size ${matrix.size()}).`,
     );
   }
-  if (point.kappa > 0) {
-    if (!isOrthogonal(point.matrix)) {
+  if (kappa > 0) {
+    if (!isOrthogonal(matrix)) {
       throw new Error(`Invalid value: Not an orthogonal matrix.`);
     }
-  } else if (point.kappa < 0) {
-    if (!isOrthochronusIndefiniteOrthogonal(point.matrix, 1, point.dim)) {
+  } else if (kappa < 0) {
+    if (!isOrthochronusIndefiniteOrthogonal(matrix, 1, dim)) {
       throw new Error(`Invalid value: Not an orthochronous indefinite orthogonal matrix.`);
     }
   } else {
-    if (!equal(point.matrix.get([0, 0]), 1)) {
+    if (!equal(matrix.get([0, 0]), 1)) {
       throw new Error(`Invalid value: Fixed value is not 1.`);
     }
-    if (point.dim > 0) {
+    if (dim > 0) {
       if (
         !deepEqual(
-          point.dim === 1
-            ? matrix([[point.matrix.get([0, 1])]])
-            : point.matrix.subset(index(0, range(1, point.dim + 1))),
-          zeros(1, point.dim) as Matrix,
+          dim === 1
+            ? Matrix([[matrix.get([0, 1])]])
+            : matrix.subset(index(0, range(1, dim + 1))),
+          zeros(1, dim) as Matrix_,
         )
       ) {
         throw new Error(`Invalid value: Fixed value is not 0s.`);
       }
       const o =
-        point.dim === 1
-          ? matrix([[point.matrix.get([1, 1])]])
-          : point.matrix.subset(index(range(1, point.dim + 1), range(1, point.dim + 1)));
+        dim === 1
+          ? Matrix([[matrix.get([1, 1])]])
+          : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
       if (!isOrthogonal(o)) {
         throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
       }
@@ -129,24 +128,19 @@ export function isValid(point: Point): void {
   }
 }
 
-export function project(point: Point): Matrix {
-  return embedded(point);
-}
+export { embedded as project, coordinate as theta } from './geometry/projections';
 
-export function theta(point: Point): number[] {
-  return coordinate(point);
-}
-
-export function operate(point: Point, transformations: Point): Point {
-  if (point.dim !== transformations.dim) {
+export function operate(point: Point, transformations: Point): Point;
+export function operate({matrix, dim, kappa}: Point, {matrix: matrix_, dim: dim_, kappa: kappa_}: Point): Point {
+  if (dim !== dim_) {
     throw new Error(
-      `Points in space with different dimension cannot be operated by one another (Recieved ${point.dim} and ${transformations.dim}).`,
+      `Points in space with different dimension cannot be operated by one another (Recieved ${dim} and ${dim_}).`,
     );
   }
-  if (!equal(point.kappa, transformations.kappa)) {
+  if (!equal(kappa, kappa_)) {
     throw new Error(
-      `Points in space with different curvature cannot be operated by one another (Recieved ${point.kappa} and ${transformations.kappa}).`,
+      `Points in space with different curvature cannot be operated by one another (Recieved ${kappa} and ${kappa_}).`,
     );
   }
-  return { dim: point.dim, kappa: point.kappa, matrix: multiply(transformations.matrix, point.matrix) };
+  return { dim, kappa, matrix: multiply(matrix_, matrix) };
 }
