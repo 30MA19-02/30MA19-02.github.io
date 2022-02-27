@@ -6,14 +6,11 @@ import { arcsine } from './trigonometry';
 
 import { equal } from '../math/compare';
 
-export function embedded({matrix, dim, kappa}: Point): Matrix {
-  return multiply(
-    multiply(matrix, concat(identity(1), zeros(dim, 1), 0)),
-    kappa !== 0 ? 1 / kappa : 1,
-  );
+export function embedded({ matrix, dim, kappa }: Point): Matrix {
+  return multiply(multiply(matrix, concat(identity(1), zeros(dim, 1), 0)), kappa !== 0 ? 1 / kappa : 1);
 }
 
-export function coordinate({matrix, dim, kappa}: Point): number[] {
+export function coordinate({ matrix, dim, kappa }: Point): number[] {
   let theta: number[] = matrix
     .subset(index(range(0, dim + 1), 0))
     .toArray()

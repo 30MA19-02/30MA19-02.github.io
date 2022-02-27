@@ -19,7 +19,7 @@ describe('Point', () => {
     describe('Curvature and dimension only', () => {
       const runner_pass = (dim: number) => {
         const runner = (kappa: number) => () => {
-          let p = new Point({dim, kappa});
+          let p = new Point({ dim, kappa });
           expect(p.dim).toBe(dim);
           expect(p.kappa).toBe(kappa);
         };
@@ -33,7 +33,7 @@ describe('Point', () => {
       };
       const runner_fail = (dim: number) => {
         const runner = (kappa: number) => () => {
-          expect(() => new Point({dim, kappa})).toThrow();
+          expect(() => new Point({ dim, kappa })).toThrow();
         };
         it(`Curved spherical (${dim}D)`, runner(2));
         it(`Standard spherical (${dim}D)`, runner(1));
@@ -45,12 +45,12 @@ describe('Point', () => {
       };
       {
         const runner_pass = (kappa: number) => () => {
-          let p = new Point({dim:0, kappa});
+          let p = new Point({ dim: 0, kappa });
           expect(p.dim).toBe(0);
           expect(p.kappa).toBe(1);
         };
         const runner_fail = (kappa: number) => () => {
-          expect(() => new Point({dim:0, kappa})).toThrow();
+          expect(() => new Point({ dim: 0, kappa })).toThrow();
         };
         it(`Curved spherical (0D)`, runner_pass(2));
         it(`Standard spherical (0D)`, runner_pass(1));
@@ -71,8 +71,8 @@ describe('Point', () => {
     describe('Reflection only', () => {
       const runner = (dim: number) => {
         const runner = (kappa: number) => () => {
-          new Point({dim, kappa, reflect:true});
-          new Point({dim, kappa, reflect:false});
+          new Point({ dim, kappa, reflect: true });
+          new Point({ dim, kappa, reflect: false });
         };
         it(`Curved spherical (${dim}D)`, runner(2));
         it(`Standard spherical (${dim}D)`, runner(1));
@@ -84,8 +84,8 @@ describe('Point', () => {
       };
       {
         const runner_pass = (kappa: number) => () => {
-          new Point({dim:0, kappa, reflect:true});
-          new Point({dim:0, kappa, reflect:false});
+          new Point({ dim: 0, kappa, reflect: true });
+          new Point({ dim: 0, kappa, reflect: false });
         };
         it(`Spherical (0D)`, runner_pass(1));
       }

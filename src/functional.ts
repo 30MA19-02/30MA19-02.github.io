@@ -21,14 +21,14 @@ export interface Coordinate {
   readonly phi?: number[][];
 }
 
-export function validateTheta({theta, dim}: Coordinate): boolean{
-  return theta? theta.length === dim: false;
+export function validateTheta({ theta, dim }: Coordinate): boolean {
+  return theta ? theta.length === dim : false;
 }
-export function validatePhi({phi, dim}: Coordinate): boolean{
-  return phi? phi.length === dim - 1 && phi.every((_, i) => _.length === dim - i - 1): false;
+export function validatePhi({ phi, dim }: Coordinate): boolean {
+  return phi ? phi.length === dim - 1 && phi.every((_, i) => _.length === dim - i - 1) : false;
 }
 
-export function point({dim, kappa, reflect, theta, phi}: Coordinate): Point {
+export function point({ dim, kappa, reflect, theta, phi }: Coordinate): Point {
   if (!Number.isInteger(dim) || dim < 0) {
     throw new Error(`Dimension must be a positive integer (Recieved ${dim}).`);
   }
@@ -43,20 +43,18 @@ export function point({dim, kappa, reflect, theta, phi}: Coordinate): Point {
     kappa = 1; // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
   }
   let matrix: Matrix_;
-  if(theta && phi) matrix = point_(kappa, theta, ...phi);
-  else if(theta) matrix = positional(kappa, ...theta);
-  else if(phi) matrix = orientational(...phi);
+  if (theta && phi) matrix = point_(kappa, theta, ...phi);
+  else if (theta) matrix = positional(kappa, ...theta);
+  else if (phi) matrix = orientational(...phi);
   else matrix = identity(dim + 1) as Matrix_;
-  if(reflect) matrix = multiply(matrix, reflect_(dim));
-  return {kappa, dim, matrix};
+  if (reflect) matrix = multiply(matrix, reflect_(dim));
+  return { kappa, dim, matrix };
 }
 
-export function isValid({matrix, dim, kappa}: Point): void {
+export function isValid({ matrix, dim, kappa }: Point): void {
   if (!(isSquare(matrix) && matrix.size()[0] === dim + 1)) {
     throw new Error(
-      `Invalid dimension: Not an square matrix of dimension ${
-        dim + 1
-      } (Recieved matrix of size ${matrix.size()}).`,
+      `Invalid dimension: Not an square matrix of dimension ${dim + 1} (Recieved matrix of size ${matrix.size()}).`,
     );
   }
   if (kappa > 0) {
@@ -74,18 +72,13 @@ export function isValid({matrix, dim, kappa}: Point): void {
     if (dim > 0) {
       if (
         !deepEqual(
-          dim === 1
-            ? Matrix([[matrix.get([0, 1])]])
-            : matrix.subset(index(0, range(1, dim + 1))),
+          dim === 1 ? Matrix([[matrix.get([0, 1])]]) : matrix.subset(index(0, range(1, dim + 1))),
           zeros(1, dim) as Matrix_,
         )
       ) {
         throw new Error(`Invalid value: Fixed value is not 0s.`);
       }
-      const o =
-        dim === 1
-          ? Matrix([[matrix.get([1, 1])]])
-          : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
+      const o = dim === 1 ? Matrix([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
       if (!isOrthogonal(o)) {
         throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
       }
@@ -96,7 +89,7 @@ export function isValid({matrix, dim, kappa}: Point): void {
 export { embedded as project, coordinate as theta } from './geometry/projections';
 
 export function operate(point: Point, transformations: Point): Point;
-export function operate({matrix, dim, kappa}: Point, {matrix: matrix_, dim: dim_, kappa: kappa_}: Point): Point {
+export function operate({ matrix, dim, kappa }: Point, { matrix: matrix_, dim: dim_, kappa: kappa_ }: Point): Point {
   if (dim !== dim_) {
     throw new Error(
       `Points in space with different dimension cannot be operated by one another (Recieved ${dim} and ${dim_}).`,
