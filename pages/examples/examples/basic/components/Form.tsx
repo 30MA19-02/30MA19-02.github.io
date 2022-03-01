@@ -1,6 +1,7 @@
 import { FC, ChangeEventHandler } from 'react';
-
-import { Slider, Checkbox, ImageInput } from './input';
+import Checkbox from './input/Checkbox';
+import ImageInput from './input/Image';
+import Slider from './input/Slider';
 
 interface property {
   height: number;

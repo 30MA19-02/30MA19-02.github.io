@@ -8,6 +8,7 @@ const nextConfig = {
       '/framework': { page: '/next' , dev: true },
     };
   },
+  pageExtensions: ['index.tsx', 'index.ts', 'index.jsx', 'index.js'],
   images: {
     loader: 'imgix',
     path: '',
