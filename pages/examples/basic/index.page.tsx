@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 import type { NextPage } from 'next';
 
-import Input from '../../../components/examples/basic/Form';
-import Scene from '../../../components/examples/basic/Scene';
+import Input from './components/Form';
+import Scene from './components/Scene';
 import Head from 'next/head';
 
 import initTexture from '/public/image/world_map2.jpg';

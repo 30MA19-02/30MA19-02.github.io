@@ -1,7 +1,7 @@
 import { FC, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
-import Point from '../../../script/examples/basic/point';
+import Point from '../script/point';
 import { pi } from 'mathjs';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
