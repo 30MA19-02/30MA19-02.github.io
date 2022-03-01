@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@30ma19-02/noneuclid": "^3.2.0",
-    "@react-three/drei": "^8.11.0",
+    "@react-three/drei": "^8.11.1",
     "@react-three/fiber": "^7.0.26",
-    "mathjs": "^10.1.1",
+    "mathjs": "^10.2.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "three": "^0.138.0"
+    "three": "^0.138.2"
   },
   "devDependencies": {
     "@types/node": "17.0.21",
