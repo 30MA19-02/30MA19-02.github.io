@@ -1,11 +1,12 @@
-import { flatten, matrix, norm, sqrt, square } from 'mathjs';
+import { flatten, matrix, square } from 'mathjs';
 import { point, project, theta } from '../src/functional';
-import { equal } from '../src/math/compare';
+import * as rnd from '../src/util/randomizer';
 // Change attributes / method or others such that it is easy for you to use
 // The test must test the indicated property of the class
 // It will be used to do test-driven development for user-friendly interface later
-describe('Point', () => {
+describe('Functional module test', () => {
   const max_theta = 5;
+  const iter = 10;
   const precision = 2;
   // Most test are
   // - kappa: -2, -1, -0.5, 0, +0.5, +1, +2, inf, -inf, null, undefined, ... (any invalid value with valid type)
@@ -132,23 +133,23 @@ describe('Point', () => {
       const runner = (dim: number) => {
         const runner_spherical = (kappa: number) => () => {
           // Critical point such as val=0, 0.25, 0.5, 0.75, 1 is not implemented yet
-          for(let _ = 0; _<10; _++){
-            const theta_ = new Array(dim).fill(0).map(_=>Math.random()).map(val=>val*max_theta);
+          for(let _ = 0; _<iter; _++){
+            const theta_ = rnd.theta(dim, -max_theta);
             const proj = flatten(project(point({ dim, kappa, theta:theta_ })));
             const value = new Array(dim+1).fill(0).reduce((prev, _, ind)=>prev+square(proj.get([ind])), 0);
             expect(value).toBeCloseTo(square(1/kappa), precision);
           }
         };
         const runner_euclidean = (kappa: number) => () => {
-          for(let _ = 0; _<10; _++){
-            const theta_ = new Array(dim).fill(0).map(_=>Math.random()).map(val=>val*max_theta);
+          for(let _ = 0; _<iter; _++){
+            const theta_ = rnd.theta(dim, -max_theta);
             const value = project(point({ dim, kappa, theta:theta_ })).get([0,0]);
             expect(value).toBeCloseTo(1, precision);
           }
         };
         const runner_hyperbolic = (kappa: number) => () => {
-          for(let _ = 0; _<10; _++){
-            const theta_ = new Array(dim).fill(0).map(_=>Math.random()).map(val=>val*max_theta);
+          for(let _ = 0; _<iter; _++){
+            const theta_ = rnd.theta(dim, -max_theta);
             const proj = flatten(project(point({ dim, kappa, theta:theta_ })));
             const value = new Array(dim+1).fill(0).reduce((prev, _, ind)=>prev+square(proj.get([ind]))*(ind===0?1:-1), 0);
             expect(value).toBeCloseTo(square(1/kappa), precision);
@@ -172,9 +173,11 @@ describe('Point', () => {
         const runner = (kappa: number) => () => {
           // Critical point such as val=0, 0.25, 0.5, 0.75, 1 is not implemented yet
           let pos = matrix(new Array(dim+1).fill(0).map((_,index)=>index===0?1:0));
-          expect(equal(flatten(project(point({ dim, kappa }))), pos)).toBeTruthy();
-          expect(equal(flatten(project(point({ dim, kappa, reflect:false }))), pos)).toBeTruthy();
-          expect(equal(flatten(project(point({ dim, kappa, reflect:true }))), pos)).toBeTruthy();
+          for(let _=0; _<iter; _++){
+            let phi = rnd.phi(dim);
+            expect(flatten(project(point({ dim, kappa, phi, reflect:false })))).toBeAllClose(pos);
+            expect(flatten(project(point({ dim, kappa, phi, reflect:true })))).toBeAllClose(pos);
+          }
         };
         it(`Curved spherical (${dim}D)`, runner(2));
         it(`Standard spherical (${dim}D)`, runner(1));
@@ -201,9 +204,9 @@ describe('Point', () => {
       const runner = (dim: number) => {
         const runner = (kappa: number) => () => {
           // Critical point such as val=0, 0.25, 0.5, 0.75, 1 is not implemented yet
-          for(let _ = 0; _<10; _++){
-            let theta_ = new Array(dim).fill(0).map(_=>Math.random()).map((val, index)=>val*(kappa>0?(Math.PI/kappa*(index===0?2:1)):max_theta));
-            expect(equal(theta(point({ dim, kappa, theta:theta_ })), theta_)).toBeTruthy();
+          for(let _ = 0; _<iter; _++){
+            let theta_ = rnd.theta(dim, kappa>0?kappa:-max_theta);
+            expect(matrix(theta(point({ dim, kappa, theta:theta_ })))).toBeAllClose(matrix(theta_));
           }
         };
         it(`Curved spherical (${dim}D)`, runner(2));
@@ -224,9 +227,11 @@ describe('Point', () => {
         const runner = (kappa: number) => () => {
           // Critical point such as val=0, 0.25, 0.5, 0.75, 1 is not implemented yet
           let theta_ = new Array(dim).fill(0);
-          expect(equal(theta(point({ dim, kappa })), theta_)).toBeTruthy();
-          expect(equal(theta(point({ dim, kappa, reflect:false })), theta_)).toBeTruthy();
-          expect(equal(theta(point({ dim, kappa, reflect:true })), theta_)).toBeTruthy();
+          for(let _=0; _<iter; _++){
+            let phi = rnd.phi(dim);
+            expect(matrix(theta(point({ dim, kappa, phi, reflect:false })))).toBeAllClose(matrix(theta_));
+            expect(matrix(theta(point({ dim, kappa, phi, reflect:true })))).toBeAllClose(matrix(theta_));
+          }
         };
         it(`Curved spherical (${dim}D)`, runner(2));
         it(`Standard spherical (${dim}D)`, runner(1));

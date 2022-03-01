@@ -1,6 +1,6 @@
 import { concat, identity, index, Matrix, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
 
-import { Point } from '../functional';
+import type { Point } from '../functional';
 
 import { arcsine } from './trigonometry';
 

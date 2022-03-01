@@ -22,5 +22,5 @@ export function equal(a: MathType, b: MathType): boolean {
   return !!equal_(add(subtract(a, b), 1), 1);
 }
 export function deepEqual(a: Matrix, b: Matrix): boolean {
-  return !!deepEqual_(add(subtract(a, b), 1), ones(a.size()));
+  return !!(deepEqual_(add(subtract(a, b), 1), add(subtract(a, a), 1)) || deepEqual_(add(subtract(a, b), 1), add(subtract(b, b), 1)));
 }
