@@ -1,5 +1,7 @@
-import { Matrix, multiply, transpose, identity, det, diag, index, range } from 'mathjs';
+import { multiply, transpose, identity, det, diag, index, range } from 'mathjs';
 import { deepEqual, larger } from './compare';
+
+import type { Matrix } from 'mathjs';
 
 export function isMatrix(M: Matrix): boolean {
   return M.size().length === 2;

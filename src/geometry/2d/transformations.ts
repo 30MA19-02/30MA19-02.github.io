@@ -1,5 +1,7 @@
-import { matrix, Matrix, multiply } from 'mathjs';
+import { matrix, multiply } from 'mathjs';
 import { cosine, sine } from '../trigonometry';
+
+import type { Matrix } from 'mathjs';
 
 import * as gen from '../transformations';
 

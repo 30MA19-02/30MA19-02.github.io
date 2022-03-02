@@ -10,8 +10,7 @@ describe('Parameters randomizer: validity test', () => {
     const [min, max] = [-100, +100];
     for (let _ = 0; _ < iter; _++) {
       const val = rnd.range(min, max);
-      expect(val).toBeGreaterThanOrEqual(min);
-      expect(val).toBeLessThanOrEqual(max);
+      expect(val).toBeInRange(min, max);
     }
   });
   it('theta', () => {

@@ -1,4 +1,4 @@
-import * as std from '../../src/geometry/transformations';
+import * as std from '../../src/geometry/general/transformations';
 import * as opt from '../../src/geometry/2d/transformations';
 import * as rnd from '../../src/util/randomizer';
 import '../extension';
@@ -6,8 +6,8 @@ import '../extension';
 // The test must test the indicated property of the class
 // It will be used to do test-driven development for user-friendly interface later
 describe('2D optimization: validity test', () => {
-  const max_theta = 10;
-  const max_kappa = 10;
+  const max_theta = 5;
+  const max_kappa = 2;
   const iter = 10;
   const dim = 2;
   it('positional', () => {

@@ -1,16 +1,14 @@
-import { identity, index, matrix as Matrix, multiply, range, zeros } from 'mathjs';
-
-import type { Matrix as Matrix_ } from 'mathjs';
-
+import { identity, index, matrix as matrix_, multiply, range, zeros } from 'mathjs';
 import { point as point_, reflect as reflect_, orientational, positional } from './geometry/transformations';
-
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
+
+import type { Matrix } from 'mathjs';
 
 export interface Point {
   readonly dim: number;
   readonly kappa: number;
-  readonly matrix: Matrix_;
+  readonly matrix: Matrix;
 }
 
 export interface Coordinate {
@@ -42,11 +40,11 @@ export function point({ dim, kappa, reflect, theta, phi }: Coordinate): Point {
       );
     kappa = 1; // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
   }
-  let matrix: Matrix_;
+  let matrix: Matrix;
   if (theta && phi) matrix = point_(kappa, theta, ...phi);
   else if (theta) matrix = positional(kappa, ...theta);
   else if (phi) matrix = orientational(...phi);
-  else matrix = identity(dim + 1) as Matrix_;
+  else matrix = identity(dim + 1) as Matrix;
   if (reflect) matrix = multiply(matrix, reflect_(dim));
   return { kappa, dim, matrix };
 }
@@ -72,13 +70,13 @@ export function isValid({ matrix, dim, kappa }: Point): void {
     if (dim > 0) {
       if (
         !deepEqual(
-          dim === 1 ? Matrix([[matrix.get([0, 1])]]) : matrix.subset(index(0, range(1, dim + 1))),
-          zeros(1, dim) as Matrix_,
+          dim === 1 ? matrix_([[matrix.get([0, 1])]]) : matrix.subset(index(0, range(1, dim + 1))),
+          zeros(1, dim) as Matrix,
         )
       ) {
         throw new Error(`Invalid value: Fixed value is not 0s.`);
       }
-      const o = dim === 1 ? Matrix([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
+      const o = dim === 1 ? matrix_([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
       if (!isOrthogonal(o)) {
         throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
       }

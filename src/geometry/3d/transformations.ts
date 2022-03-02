@@ -1,5 +1,7 @@
-import { matrix, Matrix, multiply } from 'mathjs';
+import { matrix, multiply } from 'mathjs';
 import { cosine, sine } from '../trigonometry';
+
+import type { Matrix } from 'mathjs';
 
 import * as gen from '../transformations';
 
@@ -10,7 +12,7 @@ export function positional(kappa: number, ...theta: number[]): Matrix {
     multiply(
       matrix([
         [cosine(theta[0], kappa), -sine(theta[0], kappa, true), 0, 0],
-        [sine(theta[0], kappa), cosine(theta[0], kappa), 1, 0],
+        [sine(theta[0], kappa), cosine(theta[0], kappa), 0, 0],
         [0, 0, 1, 0],
         [0, 0, 0, 1],
       ]),

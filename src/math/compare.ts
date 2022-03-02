@@ -1,14 +1,15 @@
 import {
   add,
   create,
-  MathType,
-  Matrix,
-  ones,
   subtract,
   deepEqualDependencies,
   equalDependencies,
   largerDependencies,
 } from 'mathjs';
+
+import type {
+  MathType,
+  Matrix,} from 'mathjs';
 
 const {
   larger: larger_,
@@ -18,8 +19,17 @@ const {
 export function larger(a: MathType, b: MathType): boolean {
   return !!larger_(add(subtract(a, b), 1), 1);
 }
+export function smaller(a: MathType, b: MathType): boolean {
+  return larger(b, a);
+}
 export function equal(a: MathType, b: MathType): boolean {
   return !!equal_(add(subtract(a, b), 1), 1);
+}
+export function largerOrEqual(a: MathType, b: MathType): boolean {
+  return larger(a, b) || equal(a, b);
+}
+export function smallerOrEqual(a: MathType, b: MathType): boolean {
+  return smaller(a, b) || equal(a, b);
 }
 export function deepEqual(a: Matrix, b: Matrix): boolean {
   return !!(

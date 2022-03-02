@@ -1,10 +1,9 @@
-import { concat, identity, index, Matrix, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
-
-import type { Point } from '../functional';
-
+import { concat, identity, index, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
 import { arcsine } from './trigonometry';
-
 import { equal } from '../math/compare';
+
+import type { Matrix } from 'mathjs';
+import type { Point } from '../functional';
 
 export function embedded({ matrix, dim, kappa }: Point): Matrix {
   return multiply(multiply(matrix, concat(identity(1), zeros(dim, 1), 0)), kappa !== 0 ? 1 / kappa : 1);

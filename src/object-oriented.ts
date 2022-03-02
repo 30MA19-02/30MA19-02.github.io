@@ -1,9 +1,7 @@
-import { Matrix } from 'mathjs';
 import * as point from './functional';
 
+import type { Matrix } from 'mathjs';
 import type { Coordinate, Point as PointInterface } from './functional';
-
-import config from './config';
 
 export class Point implements PointInterface {
   public readonly dim!: number;
@@ -11,10 +9,8 @@ export class Point implements PointInterface {
   private _mat!: Matrix;
   constructor(object: PointInterface | Coordinate) {
     if (!('matrix' in object)) {
-      if (config.strict) {
-        if (!point.validateTheta(object)) throw new Error('Invalid argument. (Invalid theta)');
-        if (!point.validatePhi(object)) throw new Error('Invalid argument. (Invalid phi)');
-      }
+      // if (!point.validateTheta(object)) throw new Error('Invalid argument. (Invalid theta)');
+      // if (!point.validatePhi(object)) throw new Error('Invalid argument. (Invalid phi)');
       return new Point(point.point(object));
     }
     this.dim = object.dim;
@@ -31,7 +27,7 @@ export class Point implements PointInterface {
   }
 
   protected set matrix(value: Matrix) {
-    if (config.strict) point.isValid(this.object);
+    // point.isValid(this.object);
     this._mat = value;
   }
 
