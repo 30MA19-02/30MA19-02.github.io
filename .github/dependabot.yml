@@ -4,11 +4,18 @@
 # https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
 
 version: 2
+registries:
+  npm-github:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: ${{secrets.PAT_READ_PACKAGE}}
 updates:
   - package-ecosystem: 'npm' # See documentation for possible values
     directory: '/' # Location of package manifests
     schedule:
       interval: 'daily'
+    registries:
+      - npm-github
 
   - package-ecosystem: 'gitsubmodule' # See documentation for possible values
     directory: '/' # Location of package manifests
