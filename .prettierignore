@@ -128,3 +128,5 @@ dist
 
 # built module
 lib/
+
+.skiptest
