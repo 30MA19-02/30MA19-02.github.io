@@ -1,4 +1,4 @@
-import { concat, diag, identity, matrix, Matrix, multiply, zeros } from 'mathjs';
+import { matrix, Matrix, multiply } from 'mathjs';
 import { cosine, sine } from '../trigonometry';
 
 import * as gen from '../transformations';
@@ -48,7 +48,7 @@ export function orientational(...phi: number[][]): Matrix {
       matrix([
         [1, 0, 0, 0],
         [0, cosine(phi[0][0]), -sine(phi[0][0]), 0],
-        [0, sine(phi[0][0]), cosine(phi[0][0]), 1],
+        [0, sine(phi[0][0]), cosine(phi[0][0]), 0],
         [0, 0, 0, 1],
       ]),
       matrix([

@@ -18,7 +18,7 @@ export function coordinate({ matrix, dim, kappa }: Point): number[] {
   theta = theta.slice().reverse();
   const p = theta.pop()!;
   for (let i = 0; i < theta.length; i++) {
-    const cosine_ = sqrt(1 - (kappa > 0 ? 1 : -1) * square(theta[i])); // cosine(theta[i], this.kappa);
+    const cosine_ = sqrt(1 - (kappa === 0 ? 0 : kappa > 0 ? 1 : -1) * square(theta[i])); // cosine(theta[i], this.kappa);
     const scaler = equal(cosine_, 0) ? 0 : 1 / cosine_;
     for (let j = i + 1; j < theta.length; j++) {
       theta[j] *= scaler;

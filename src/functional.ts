@@ -86,6 +86,15 @@ export function isValid({ matrix, dim, kappa }: Point): void {
   }
 }
 
+export function validatePoint(p: Point): boolean {
+  try {
+    isValid(p);
+  } catch {
+    return false;
+  }
+  return true;
+}
+
 export { embedded as project, coordinate as theta } from './geometry/projections';
 
 export function operate(point: Point, transformations: Point): Point;

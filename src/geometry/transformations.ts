@@ -12,13 +12,13 @@ export function rotation(theta: number, kappa: number): Matrix {
 
 export function positional(kappa: number, ...theta: number[]): Matrix {
   const n = theta.length;
-  if(config.optimized&&!isTesting()){
+  if (config.optimized && !isTesting()) {
     switch (n) {
-      case 2:{
+      case 2: {
         const { positional } = require('./2d/transformations');
         return positional(kappa, ...theta);
       }
-      case 3:{
+      case 3: {
         const { positional } = require('./3d/transformations');
         return positional(kappa, ...theta);
       }
@@ -44,13 +44,13 @@ export function positional(kappa: number, ...theta: number[]): Matrix {
 }
 
 export function reflect(n: number): Matrix {
-  if(config.optimized&&!isTesting()){
+  if (config.optimized && !isTesting()) {
     switch (n) {
-      case 2:{
+      case 2: {
         const { reflect } = require('./2d/transformations');
         return reflect(n);
       }
-      case 3:{
+      case 3: {
         const { reflect } = require('./3d/transformations');
         return reflect(n);
       }
@@ -63,13 +63,13 @@ export function reflect(n: number): Matrix {
 
 export function orientational(...phi: number[][]): Matrix {
   const n = phi.length + 1;
-  if(config.optimized&&!isTesting()){
+  if (config.optimized && !isTesting()) {
     switch (n) {
-      case 2:{
+      case 2: {
         const { orientational } = require('./2d/transformations');
         return orientational(...phi);
       }
-      case 3:{
+      case 3: {
         const { orientational } = require('./3d/transformations');
         return orientational(...phi);
       }

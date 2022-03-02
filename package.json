@@ -8,10 +8,11 @@
     "lib/*"
   ],
   "scripts": {
-    "preversion": "npm test",
+    "preversion": "jest",
     "version": "npm run format && git add .",
     "build": "tsc",
-    "test": "jest",
+    "test": "jest --expand",
+    "testExport": "jest --json --outputFile coverage/result.json --coverage",
     "testWatch": "jest --watchAll",
     "format": "prettier --write .",
     "prepare": "npm run build"

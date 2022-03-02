@@ -1,7 +1,7 @@
 import * as std from '../../src/geometry/transformations';
 import * as opt from '../../src/geometry/2d/transformations';
 import * as rnd from '../../src/util/randomizer';
-import { deepEqual } from '../../src/math/compare';
+import '../extension';
 // Change attributes / method or others such that it is easy for you to use
 // The test must test the indicated property of the class
 // It will be used to do test-driven development for user-friendly interface later

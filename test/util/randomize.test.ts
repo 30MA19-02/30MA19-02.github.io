@@ -1,6 +1,7 @@
 import * as rnd from '../../src/util/randomizer';
 import { validateTheta, validatePhi } from '../../src/functional';
 import { randomInt } from 'mathjs';
+import '../extension';
 
 describe('Parameters randomizer: validity test', () => {
   const iter = 10;
@@ -16,13 +17,13 @@ describe('Parameters randomizer: validity test', () => {
   it('theta', () => {
     for (let _ = 0; _ < iter; _++) {
       const dim = randomInt(0, max_dim);
-      expect(validateTheta({ kappa: 0, theta: rnd.theta(dim), dim })).toBeTruthy();
+      expect({ kappa: 0, theta: rnd.theta(dim), dim }).toSatisfy(validateTheta);
     }
   });
   it('phi', () => {
     for (let _ = 0; _ < iter; _++) {
       const dim = randomInt(1, max_dim);
-      expect(validatePhi({ kappa: 0, phi: rnd.phi(dim), dim })).toBeTruthy();
+      expect({ kappa: 0, phi: rnd.phi(dim), dim }).toSatisfy(validatePhi);
     }
   });
 });
