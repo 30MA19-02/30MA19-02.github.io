@@ -76,7 +76,8 @@ export function isValid({ matrix, dim, kappa }: Point): void {
       ) {
         throw new Error(`Invalid value: Fixed value is not 0s.`);
       }
-      const o = dim === 1 ? matrix_([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
+      const o =
+        dim === 1 ? matrix_([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
       if (!isOrthogonal(o)) {
         throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
       }

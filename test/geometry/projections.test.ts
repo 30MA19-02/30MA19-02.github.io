@@ -2,7 +2,7 @@ import { flatten, square } from 'mathjs';
 import { point } from '../../src/functional';
 import { embedded, coordinate } from '../../src/geometry/projections';
 import * as rnd from '../../src/util/randomizer';
-import { dimList, kappaList, kappaRunner} from '../target';
+import { dimList, kappaList, kappaRunner } from '../target';
 import '../extension';
 
 describe('Projection validity test', () => {

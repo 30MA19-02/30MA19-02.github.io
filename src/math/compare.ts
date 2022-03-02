@@ -1,15 +1,6 @@
-import {
-  add,
-  create,
-  subtract,
-  deepEqualDependencies,
-  equalDependencies,
-  largerDependencies,
-} from 'mathjs';
+import { add, create, subtract, deepEqualDependencies, equalDependencies, largerDependencies } from 'mathjs';
 
-import type {
-  MathType,
-  Matrix,} from 'mathjs';
+import type { MathType, Matrix } from 'mathjs';
 
 const {
   larger: larger_,

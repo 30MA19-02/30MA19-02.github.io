@@ -156,5 +156,4 @@ describe('Functional module test', () => {
   });
 
   it.todo('Operation');
-
 });
