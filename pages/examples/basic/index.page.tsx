@@ -58,12 +58,6 @@ const OptionsProvider: FC = (props) => {
 };
 
 const App: NextPage = (prop) => {
-  const [segment, setSegment] = useState([24, 16]);
-  const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
-  const [dir, setDir] = useState(0);
-  const [kappa, setKappa] = useState(1);
-  const [vis, setVis] = useState([true, true]);
-  const [textureURL, setTextureURL] = useState(initTexture.src);
   return (
     <>
       <Head>
