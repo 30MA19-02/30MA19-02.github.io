@@ -21,11 +21,7 @@ const ImageInput: FC<property> = (prop) => {
       <label>{prop.name}</label>
       <input type={'file'} accept={'image/*'} minLength={1} maxLength={1} {...prop_}></input>
       <div>
-        {url ? (
-          <Image src={url} alt={'uploaded image'} width={prop.width} height={prop.height}></Image>
-        ) : (
-          <></>
-        )}
+        {url ? <Image src={url} alt={'uploaded image'} width={prop.width} height={prop.height}></Image> : <></>}
       </div>
     </>
   );

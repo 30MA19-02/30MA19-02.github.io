@@ -5,7 +5,7 @@ interface property extends InputHTMLAttributes<HTMLInputElement> {
   child: InputHTMLAttributes<HTMLInputElement>[];
 }
 
-const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind)=>(
+const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind) => (
   <>
     <Fragment key={ind}>
       <label>{prop.name ? prop.name : ''}</label>
@@ -39,7 +39,9 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
         onChange={handleChangeParent}
       />
       <br />
-      {prop.child.map((prop_, ind)=>checkbox({...prop_, checked: checked[ind], onChange:handleChangeChild(ind)}, ind))}
+      {prop.child.map((prop_, ind) =>
+        checkbox({ ...prop_, checked: checked[ind], onChange: handleChangeChild(ind) }, ind),
+      )}
     </>
   );
 };

@@ -14,16 +14,16 @@ export default class Point {
     const direction_mapper = (dir: number) => [[-dir * 2 * pi]];
     const dim = 2;
     if (p1 === undefined) {
-      this.point = new Point_({dim, kappa});
+      this.point = new Point_({ dim, kappa });
     } else if (p2 === undefined) {
       // dir = p1
-      this.point = new Point_({dim, kappa, phi:direction_mapper(p1)});
+      this.point = new Point_({ dim, kappa, phi: direction_mapper(p1) });
     } else if (p3 === undefined) {
       // lat = p1, lon = p2
-      this.point = new Point_({dim, kappa, theta:position_mapper(p1, p2)});
+      this.point = new Point_({ dim, kappa, theta: position_mapper(p1, p2) });
     } else {
       // lat = p1, lon = p2, dir = p3
-      this.point = new Point_({dim, kappa, theta:position_mapper(p1, p2), phi:direction_mapper(p3)});
+      this.point = new Point_({ dim, kappa, theta: position_mapper(p1, p2), phi: direction_mapper(p3) });
     }
   }
   get theta() {

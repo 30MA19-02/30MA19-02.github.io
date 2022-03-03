@@ -13,8 +13,8 @@ import type { Mesh, Vector3 } from 'three';
 import type { optionsInterface } from '../index.page';
 
 function Loader() {
-  const { progress } = useProgress()
-  return <Html center>{progress} % loaded</Html>
+  const { progress } = useProgress();
+  return <Html center>{progress} % loaded</Html>;
 }
 
 const Scene_: FC<optionsInterface> = (prop) => {
@@ -138,7 +138,7 @@ const Scene: FC = (prop) => {
   return (
     <>
       <Canvas style={{ width: '500px', height: '500px' }}>
-        <Suspense fallback={<Loader/>}>
+        <Suspense fallback={<Loader />}>
           <Scene_ {...options} />
         </Suspense>
       </Canvas>
