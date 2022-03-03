@@ -51,14 +51,14 @@ const Scene_: FC<optionsInterface> = (prop) => {
     () =>
       new ParametricGeometry(
         (u: number, v: number, target: Vector3) => {
-          let i = parseInt((u * options_.current.segment[0]).toString());
-          let j = parseInt((v * options_.current.segment[1]).toString());
+          let i = parseInt((u * options.segment[0]).toString());
+          let j = parseInt((v * options.segment[1]).toString());
           let p = operated[i][j];
           let pr = p.manifold;
           target.set(pr.x, pr.y, pr.z);
         },
-        options_.current.segment[0],
-        options_.current.segment[1],
+        options.segment[0],
+        options.segment[1],
       ),
     [operated],
   );
@@ -66,9 +66,9 @@ const Scene_: FC<optionsInterface> = (prop) => {
     () =>
       new ParametricGeometry(
         (u: number, v: number, target: Vector3) => {
-          let factor = options_.current.kappa === 0 ? 1 : 1 / options_.current.kappa;
-          let i = parseInt((u * options_.current.segment[0]).toString());
-          let j = parseInt((v * options_.current.segment[1]).toString());
+          let factor = options.kappa === 0 ? 1 : 1 / options.kappa;
+          let i = parseInt((u * options.segment[0]).toString());
+          let j = parseInt((v * options.segment[1]).toString());
           let p = operated[i][j];
           target.set(factor, p.projection.x, p.projection.y);
           // For poincare disk model
@@ -76,8 +76,8 @@ const Scene_: FC<optionsInterface> = (prop) => {
           // For poincare half plane model
           // target.set(-p.projection.y, p.projection.x, factor);
         },
-        options_.current.segment[0],
-        options_.current.segment[1],
+        options.segment[0],
+        options.segment[1],
       ),
     [operated],
   );
