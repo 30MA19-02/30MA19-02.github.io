@@ -4,13 +4,18 @@ import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeom
 import Point from '../script/point';
 import { pi } from 'mathjs';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { PerspectiveCamera, OrbitControls } from '@react-three/drei';
+import { PerspectiveCamera, OrbitControls, Html, useProgress } from '@react-three/drei';
 import { Color, TextureLoader } from 'three';
 import { DoubleSide, FrontSide, BackSide } from 'three';
 import { OptionsContext } from '../index.page';
 import type { FC } from 'react';
 import type { Mesh, Vector3 } from 'three';
 import type { optionsInterface } from '../index.page';
+
+function Loader() {
+  const { progress } = useProgress()
+  return <Html center>{progress} % loaded</Html>
+}
 
 const Scene_: FC<optionsInterface> = (prop) => {
   const options = prop as optionsInterface;
@@ -133,7 +138,7 @@ const Scene: FC = (prop) => {
   return (
     <>
       <Canvas style={{ width: '500px', height: '500px' }}>
-        <Suspense fallback={null}>
+        <Suspense fallback={<Loader/>}>
           <Scene_ {...options} />
         </Suspense>
       </Canvas>
