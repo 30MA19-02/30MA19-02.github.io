@@ -9,7 +9,8 @@
   },
   "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
   "scripts": {
-    "dev": "cross-env NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
+    "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "export": "next export -o build",
     "start": "next start",

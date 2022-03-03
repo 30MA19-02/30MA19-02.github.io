@@ -1,4 +1,4 @@
-import { useState, Provider, createContext } from 'react';
+import { useState, createContext, useEffect } from 'react';
 
 import type { Dispatch, FC, SetStateAction } from 'react';
 import type { NextPage } from 'next';
@@ -6,8 +6,6 @@ import type { NextPage } from 'next';
 import Input from './components/Form';
 import Scene from './components/Scene';
 import Head from 'next/head';
-
-import initTexture from '/public/image/world_map2.jpg';
 
 export interface optionsInterface {
   segment: number[];
@@ -34,7 +32,9 @@ const OptionsProvider: FC = (props) => {
   const [dir, setDir] = useState(0);
   const [kappa, setKappa] = useState(1);
   const [vis, setVis] = useState([true, true]);
-  const [textureURL, setTextureURL] = useState(initTexture.src);
+  const [textureURL, setTextureURL] = useState(
+    "https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg"
+  );
   return (
     <OptionsContext.Provider
       value={{

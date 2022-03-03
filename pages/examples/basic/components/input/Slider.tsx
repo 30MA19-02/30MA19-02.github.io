@@ -1,14 +1,14 @@
 import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
-  value: number;
+  defaultValue: number;
   min: number;
   max: number;
   step: number;
 }
 
 const InputSlider: FC<property> = (prop) => {
-  const [value, setValue] = useState<number>(prop.value);
+  const [value, setValue] = useState<number>(prop.defaultValue);
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.value === '') event.target.value = value.toString();
@@ -39,6 +39,6 @@ const InputSlider: FC<property> = (prop) => {
   );
 };
 
-InputSlider.defaultProps = { name: '', value: 30, min: 0, max: 100, step: 1 };
+InputSlider.defaultProps = { name: '', defaultValue: 30, min: 0, max: 100, step: 1 };
 
 export default InputSlider;

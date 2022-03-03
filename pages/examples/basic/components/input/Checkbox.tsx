@@ -1,17 +1,14 @@
 import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
-  checked?: boolean;
   child: InputHTMLAttributes<HTMLInputElement>[];
 }
 
 const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind) => (
-  <>
-    <Fragment key={ind}>
-      <label>{prop.name ? prop.name : ''}</label>
-      <input type={'checkbox'} checked={prop.checked} onChange={prop.onChange} />
-    </Fragment>
-  </>
+  <Fragment key={ind}>
+    <label>{prop.name ? prop.name : ''}</label>
+    <input {...{type:"checkbox",...prop}} />
+  </Fragment>
 );
 
 const IndeterminateCheckbox: FC<property> = (prop) => {
@@ -51,11 +48,11 @@ IndeterminateCheckbox.defaultProps = {
   child: [
     {
       name: 'Child 1',
-      checked: true,
+      defaultChecked: true,
     },
     {
       name: 'Child 2',
-      checked: false,
+      defaultChecked: false,
     },
   ],
 };

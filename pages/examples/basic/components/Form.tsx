@@ -2,7 +2,8 @@ import Checkbox from './input/Checkbox';
 import ImageInput from './input/Image';
 import Slider from './input/Slider';
 import { OptionsContext } from '../index.page';
-import { FC, ChangeEventHandler, useContext } from 'react';
+import { useContext } from 'react';
+import type { FC } from 'react';
 
 const AppInput: FC = (prop) => {
   const {
@@ -28,6 +29,7 @@ const AppInput: FC = (prop) => {
   const setVisAll = (vis: boolean) => setVis([vis, vis]);
   return (
     <form>
+      <br />
       <label>Segments</label>
       <br />
       <Slider
@@ -35,7 +37,7 @@ const AppInput: FC = (prop) => {
         min={2}
         max={32}
         step={1}
-        value={height}
+        defaultValue={height}
         onChange={(event) => setHeight(parseInt(event.target.value))}
       ></Slider>
       <br />
@@ -44,7 +46,7 @@ const AppInput: FC = (prop) => {
         min={3}
         max={24}
         step={1}
-        value={width}
+        defaultValue={width}
         onChange={(event) => setWidth(parseInt(event.target.value))}
       ></Slider>
       <br />
@@ -55,7 +57,7 @@ const AppInput: FC = (prop) => {
         min={-0.25}
         max={+0.25}
         step={0}
-        value={lat}
+        defaultValue={lat}
         onChange={(event) => setLat(parseFloat(event.target.value))}
       ></Slider>
       <br />
@@ -64,7 +66,7 @@ const AppInput: FC = (prop) => {
         min={-0.5}
         max={+0.5}
         step={0}
-        value={lon}
+        defaultValue={lon}
         onChange={(event) => setLon(parseFloat(event.target.value))}
       ></Slider>
       <br />
@@ -73,7 +75,7 @@ const AppInput: FC = (prop) => {
         min={-0.5}
         max={+0.5}
         step={0}
-        value={dir}
+        defaultValue={dir}
         onChange={(event) => setDir(parseFloat(event.target.value))}
       ></Slider>
       <br />
@@ -84,7 +86,7 @@ const AppInput: FC = (prop) => {
         min={-1}
         max={+1}
         step={0}
-        value={kappa}
+        defaultValue={kappa}
         onChange={(event) => setKappa(parseFloat(event.target.value))}
       ></Slider>
       <br />
@@ -93,8 +95,8 @@ const AppInput: FC = (prop) => {
       <Checkbox
         name={'Projections'}
         child={[
-          { name: 'Manifold', onChange: (event) => setVisman(event.target.checked), checked: visman },
-          { name: 'Projection', onChange: (event) => setVispro(event.target.checked), checked: vispro },
+          { name: 'Manifold', onChange: (event) => setVisman(event.target.checked), defaultChecked: visman },
+          { name: 'Projection', onChange: (event) => setVispro(event.target.checked), defaultChecked: vispro },
         ]}
         onChange={(event) => setVisAll(event.target.checked)}
       ></Checkbox>
@@ -105,7 +107,9 @@ const AppInput: FC = (prop) => {
         name={''}
         width={400}
         height={200}
-        onChange={(event) => setTextureURL(URL.createObjectURL(event.target.files![0]!))}
+        defaultValue={textureURL}
+        placeholder={"Upload a Texture"}
+        onChange={(event) => setTextureURL(event.target.value)}
       ></ImageInput>
     </form>
   );

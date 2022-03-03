@@ -6,6 +6,7 @@ const nextConfig = {
     return {
       '/': { page: '/examples/basic', dev: true },
       '/framework': { page: '/next', dev: true },
+      ...defaultPathMap
     };
   },
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
