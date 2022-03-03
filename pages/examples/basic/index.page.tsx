@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, Provider, createContext } from 'react';
 
+import type { Dispatch, FC, SetStateAction } from 'react';
 import type { NextPage } from 'next';
 
 import Input from './components/Form';
@@ -7,6 +8,45 @@ import Scene from './components/Scene';
 import Head from 'next/head';
 
 import initTexture from '/public/image/world_map2.jpg';
+
+
+export interface optionsInterface {
+  segment: number[];
+  pos: number[];
+  dir: number;
+  kappa: number;
+  vis: boolean[];
+  textureURL: string;
+}
+interface optionsContext extends optionsInterface {
+  setSegment: Dispatch<SetStateAction<number[]>>;
+  setPos: Dispatch<SetStateAction<number[]>>;
+  setDir: Dispatch<SetStateAction<number>>;
+  setKappa: Dispatch<SetStateAction<number>>;
+  setVis: Dispatch<SetStateAction<boolean[]>>;
+  setTextureURL: Dispatch<SetStateAction<string>>;
+}
+
+export const OptionsContext = createContext<optionsContext|null>(null);
+
+const OptionsProvider: FC = (props) => {
+  const [segment, setSegment] = useState([24, 16]);
+  const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
+  const [dir, setDir] = useState(0);
+  const [kappa, setKappa] = useState(1);
+  const [vis, setVis] = useState([true, true]);
+  const [textureURL, setTextureURL] = useState(initTexture.src);
+  return <OptionsContext.Provider value = {{
+    segment, setSegment,
+    pos, setPos,
+    dir, setDir,
+    kappa, setKappa,
+    vis, setVis,
+    textureURL, setTextureURL,
+  }}>
+    {props.children}
+  </OptionsContext.Provider>
+}
 
 const App: NextPage = (prop) => {
   const [segment, setSegment] = useState([24, 16]);
@@ -24,39 +64,11 @@ const App: NextPage = (prop) => {
         <meta name="theme-color" content="#000000" />
         <meta name="description" content="Documentation page for noneuclidjs." />
       </Head>
-      <Scene
-        width={segment[0]}
-        height={segment[1]}
-        lat={pos[0]}
-        lon={pos[1]}
-        dir={dir}
-        kappa={kappa}
-        visman={vis[0]}
-        vispro={vis[1]}
-        texture={textureURL}
-      >
-        <Input
-          width={segment[0]}
-          height={segment[1]}
-          lat={pos[0]}
-          lon={pos[1]}
-          dir={dir}
-          kappa={kappa}
-          visman={vis[0]}
-          vispro={vis[1]}
-          texture={textureURL}
-          onChangeWidth={(event) => setSegment([parseInt(event.target.value), segment[1]])}
-          onChangeHeight={(event) => setSegment([segment[0], parseInt(event.target.value)])}
-          onChangeLat={(event) => setPos([parseFloat(event.target.value), pos[1]])}
-          onChangeLon={(event) => setPos([pos[0], parseFloat(event.target.value)])}
-          onChangeDir={(event) => setDir(parseFloat(event.target.value))}
-          onChangeKappa={(event) => setKappa(parseFloat(event.target.value))}
-          onChangeVis={(event) => setVis([event.target.checked, event.target.checked])}
-          onChangeVisMan={(event) => setVis([event.target.checked, vis[1]])}
-          onChangeVisPro={(event) => setVis([vis[0], event.target.checked])}
-          onChangeTexture={(event) => setTextureURL(URL.createObjectURL(event.target.files![0]!))}
-        />
+      <OptionsProvider>
+      <Scene>
+        <Input/>
       </Scene>
+      </OptionsProvider>
     </>
   );
 };

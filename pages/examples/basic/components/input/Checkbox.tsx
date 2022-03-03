@@ -4,6 +4,16 @@ interface property extends InputHTMLAttributes<HTMLInputElement> {
   checked?: boolean;
   child: InputHTMLAttributes<HTMLInputElement>[];
 }
+
+const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind)=>(
+  <>
+    <Fragment key={ind}>
+      <label>{prop.name ? prop.name : ''}</label>
+      <input type={'checkbox'} checked={prop.checked} onChange={prop.onChange} />
+    </Fragment>
+  </>
+);
+
 const IndeterminateCheckbox: FC<property> = (prop) => {
   const [checked, setChecked] = useState(prop.child.map((_) => (_.checked ? _.checked : false)));
 
@@ -19,17 +29,6 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
     }
   };
 
-  const children = (
-    <>
-      {prop.child.map((prop_, ind) => (
-        <Fragment key={ind}>
-          <label>{prop_.name ? prop_.name : ''}</label>
-          <input type={'checkbox'} checked={checked[ind]} onChange={handleChangeChild(ind)} />
-        </Fragment>
-      ))}
-    </>
-  );
-
   return (
     <>
       <label>{prop.name ? prop.name : ''}</label>
@@ -40,7 +39,7 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
         onChange={handleChangeParent}
       />
       <br />
-      {children}
+      {prop.child.map((prop_, ind)=>checkbox({...prop_, checked: checked[ind], onChange:handleChangeChild(ind)}, ind))}
     </>
   );
 };
