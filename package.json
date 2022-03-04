@@ -19,12 +19,14 @@
   },
   "dependencies": {
     "@30ma19-02/noneuclid": "^4.0.2",
+    "@mdx-js/react": "1.6.22",
     "@react-three/drei": "^8.11.1",
     "@react-three/fiber": "^7.0.26",
     "mathjs": "^10.2.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "theme-ui": "^0.13.1",
     "three": "^0.138.2"
   },
   "devDependencies": {
