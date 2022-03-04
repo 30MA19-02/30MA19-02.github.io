@@ -7,10 +7,10 @@ import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { PerspectiveCamera, OrbitControls, Html, useProgress } from '@react-three/drei';
 import { Color, TextureLoader } from 'three';
 import { DoubleSide, FrontSide, BackSide } from 'three';
-import { OptionsContext } from '../index.page';
+import { OptionsContext } from './Options';
 import type { FC } from 'react';
 import type { Mesh, Vector3 } from 'three';
-import type { optionsInterface } from '../index.page';
+import type { optionsInterface } from './Options';
 
 function Loader() {
   const { progress } = useProgress();
@@ -102,7 +102,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
   }, [options.kappa]);
   return (
     <>
-      <color attach="background" args={[0, 0, 0]} />
+      {/* <color attach="background" args={[0, 0, 0]} /> */}
       <PerspectiveCamera fov={75} aspect={size.width / size.height} near={0.1} far={1000}>
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} />
         <mesh ref={dot}>

@@ -1,7 +1,7 @@
 import Checkbox from './input/Checkbox';
 import ImageUpload from './input/ImageUpload';
 import Slider from './input/Slider';
-import { OptionsContext, textureGallery } from '../index.page';
+import { OptionsContext, textureGallery } from './Options';
 import { useContext } from 'react';
 import type { FC } from 'react';
 
@@ -30,7 +30,6 @@ const AppInput: FC = (prop) => {
 
   return (
     <form>
-      <br />
       <label>Segments</label>
       <br />
       <Slider

@@ -1,11 +1,6 @@
-import { useState, createContext, useEffect } from 'react';
+import { useState, createContext } from 'react';
 
 import type { Dispatch, FC, SetStateAction } from 'react';
-import type { NextPage } from 'next';
-
-import Input from './components/Form';
-import Scene from './components/Scene';
-import Head from 'next/head';
 
 export interface optionsInterface {
   segment: number[];
@@ -32,7 +27,7 @@ export const textureGallery = [
   "https://upload.wikimedia.org/wikipedia/commons/f/fd/UV_checker_Map_byValle.jpg",
 ];
 
-const OptionsProvider: FC = (props) => {
+export const OptionsProvider: FC = (props) => {
   const [segment, setSegment] = useState([24, 16]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
@@ -60,23 +55,3 @@ const OptionsProvider: FC = (props) => {
     </OptionsContext.Provider>
   );
 };
-
-const App: NextPage = (prop) => {
-  return (
-    <>
-      <Head>
-        <title>Basic Example | Noneuclidjs</title>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="description" content="Documentation page for noneuclidjs." />
-      </Head>
-      <OptionsProvider>
-        <Scene>
-          <Input />
-        </Scene>
-      </OptionsProvider>
-    </>
-  );
-};
-export default App;
