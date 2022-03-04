@@ -33,7 +33,7 @@
     "remark-code-import": "^1.1.0",
     "remark-math": "^5.1.1",
     "theme-ui": "^0.13.1",
-    "three": "^0.138.2"
+    "three": "^0.138.3"
   },
   "devDependencies": {
     "@types/mdx": "^2.0.1",
