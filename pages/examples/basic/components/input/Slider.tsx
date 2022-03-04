@@ -25,7 +25,7 @@ const InputSlider: FC<property> = (prop) => {
     }
   };
 
-  let { type: _, ...prop_ } = prop;
+  let { type, defaultValue, ...prop_ } = prop;
   prop_.value = value;
   prop_.onChange = onChange;
   if (prop_.step === 0) prop_.step = 1e-18;

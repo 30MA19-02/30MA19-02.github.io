@@ -6,7 +6,7 @@ const nextConfig = {
     return {
       '/': { page: '/examples/basic', dev: true },
       '/framework': { page: '/next', dev: true },
-      ...defaultPathMap
+      ...defaultPathMap,
     };
   },
   pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js', 'page.mdx', 'page.md'],
@@ -18,12 +18,12 @@ const nextConfig = {
 
 const withTM = require('next-transpile-modules')(['three']);
 const withMDX = require('@next/mdx')({
-  extension: /\.mdx?$/,
+  extension: /\.(md|mdx)?$/,
   options: {
-    // remarkPlugins: ['remark-math'].map((plugin)=>import(plugin)),
-    // rehypePlugins: ['rehype-mathjax'].map((plugin)=>import(plugin)),
+    remarkPlugins: [import('remark-math'), import('remark-code-import').then((module) => module.codeImport)],
+    rehypePlugins: [import('rehype-mathjax')],
     // If you use `MDXProvider`, uncomment the following line.
     // providerImportSource: "@mdx-js/react",
   },
-})
+});
 module.exports = withMDX(withTM(nextConfig));

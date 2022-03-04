@@ -12,7 +12,7 @@ const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind) => (
 );
 
 const IndeterminateCheckbox: FC<property> = (prop) => {
-  const [checked, setChecked] = useState(prop.child.map((_) => (_.checked ? _.checked : false)));
+  const [checked, setChecked] = useState(prop.child.map((_) => (_.defaultChecked as boolean)));
 
   const handleChangeParent: ChangeEventHandler<HTMLInputElement> = (event) => {
     setChecked(checked.map((_) => event.target.checked));
@@ -36,8 +36,11 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
         onChange={handleChangeParent}
       />
       <br />
-      {prop.child.map((prop_, ind) =>
-        checkbox({ ...prop_, checked: checked[ind], onChange: handleChangeChild(ind) }, ind),
+      {prop.child.map((prop, ind) =>
+        {
+          const {onChange, defaultChecked, ...prop_} = prop;
+          return checkbox({ ...prop_, checked: checked[ind], onChange: handleChangeChild(ind) }, ind);
+        },
       )}
     </>
   );
