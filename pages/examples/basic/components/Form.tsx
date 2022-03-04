@@ -1,7 +1,7 @@
 import Checkbox from './input/Checkbox';
-import ImageInput from './input/Image';
+import ImageUpload from './input/ImageUpload';
 import Slider from './input/Slider';
-import { OptionsContext } from '../index.page';
+import { OptionsContext, textureGallery } from '../index.page';
 import { useContext } from 'react';
 import type { FC } from 'react';
 
@@ -27,6 +27,7 @@ const AppInput: FC = (prop) => {
   const setVisman = (visman: boolean) => setVis([visman, vispro]);
   const setVispro = (vispro: boolean) => setVis([visman, vispro]);
   const setVisAll = (vis: boolean) => setVis([vis, vis]);
+
   return (
     <form>
       <br />
@@ -103,14 +104,14 @@ const AppInput: FC = (prop) => {
       <br />
       <label>Texture selection</label>
       <br />
-      <ImageInput
-        name={''}
+      <ImageUpload
         width={400}
         height={200}
         defaultValue={textureURL}
+        imageGallery={textureGallery}
         placeholder={"Upload a Texture"}
-        onChange={(event) => setTextureURL(event.target.value)}
-      ></ImageInput>
+        changed={(url) => setTextureURL(url)}
+      ></ImageUpload>
     </form>
   );
 };

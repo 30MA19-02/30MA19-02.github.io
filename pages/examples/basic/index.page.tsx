@@ -26,15 +26,19 @@ interface optionsContext extends optionsInterface {
 
 export const OptionsContext = createContext<optionsContext | null>(null);
 
+export const textureGallery = [
+  "https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/e/eb/26X26_Alphabet_Letters_Color_Coded.jpg",
+  "https://upload.wikimedia.org/wikipedia/commons/f/fd/UV_checker_Map_byValle.jpg",
+];
+
 const OptionsProvider: FC = (props) => {
   const [segment, setSegment] = useState([24, 16]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
   const [kappa, setKappa] = useState(1);
   const [vis, setVis] = useState([true, true]);
-  const [textureURL, setTextureURL] = useState(
-    "https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg"
-  );
+  const [textureURL, setTextureURL] = useState<string>(textureGallery[0]);
   return (
     <OptionsContext.Provider
       value={{
