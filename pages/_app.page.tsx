@@ -3,7 +3,8 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from "theme-ui";
 import { deep as theme } from '@theme-ui/presets'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps, router }: AppProps) {
+  if (router.pathname === '/next') return <Component {...pageProps} />;
   return (
     <ThemeProvider theme={theme}>
       <Component {...pageProps} />
