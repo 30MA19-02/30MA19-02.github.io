@@ -1,14 +1,16 @@
-import type { Theme } from 'theme-ui'
+import { merge } from 'theme-ui';
+import { deep } from '@theme-ui/presets';
+import type { Theme } from 'theme-ui';
 
-export const theme: Theme = {
-  fonts: {
-    body: 'system-ui, sans-serif',
-    heading: '"Avenir Next", sans-serif',
-    monospace: 'Menlo, monospace',
+const theme: Theme = merge(deep, {
+  space: {
+    padding: '4ch',
   },
-  colors: {
-    text: '#000',
-    background: '#fff',
-    primary: '#33e',
+  styles: {
+    p: {
+      width: 'clamp(45ch, 75%, 75ch)',
+    },
   },
-}
+});
+
+export default theme;
