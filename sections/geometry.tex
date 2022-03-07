@@ -8,7 +8,7 @@
 \begin{definition}\label{M:Embedding}
     Let $N=\left(Q,g\right)$ be a $n$-dimension Riemannian manifold
     on position parameter space with such inner product $g$ that
-    the map ${\psi_0}^{-1}$
+    the map $f={\psi_0}^{-1}$
     is an isometric embedding to $\left(n+1\right)$-manifold
     with the metric of $g=\diag{\left(\sign{k},1,\dots,1\right)}$.
 \end{definition}
@@ -225,158 +225,158 @@
     \end{align*}
 \end{proof}
 \subsection{Curvature}
-\begin{remark}
-    Since the manifold is not embedded in $E^{n+1}$, it is meaningless to define the following properties which are limited only to the regular (hyper)surface.
-\end{remark}
-\begin{lemma}\label{M:Normal}
-    Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
-    the unit normal vector in position vector space can be calculated as follows
+\begin{lemma}\label{M:Christoffel}
+    The Christoffel symbols of the manifold
+    at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
+    is
     \begin{equation*}
-        \nu\left(\tensor{\theta}{}\right)
-        = \hat{k\tensor{p}{}}
-        \text{.}
+        \tensor{\Gamma}{^l_i_j}= \begin{cases}
+            -k\tan_k^\ast\tensor{\theta}{^j} & \text{$l=i<j$} \\
+            -k\tan_k^\ast\tensor{\theta}{^i} & \text{$l=j<i$} \\
+            -k\tan_k^\ast\tensor{\theta}{^l}\prod_{i<a\le l}{\cos_k^2\tensor{\theta}{^a}} & \text{$i=j<l$} \\
+            0 & \text{otherwise} \\
+        \end{cases}
     \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{M:Normal}]
-    Let define the normal vector as a set of the vector whose inner product with any tangent vector is zero.
-
+\begin{proof}[\proofof{M:Christoffel}]
     \begin{align*}
-        0
-         & \defeq \inner{\nu}{\frac{\partial}{\partial \tensor{\theta}{^i}}}     \\
-         & = \nu^T g \frac{\partial}{\partial \tensor{\theta}{^i}}          \\
-         & = \nu^T \diag\diag{\left(\sign{k},1,\dots,1\right)}
-        \begin{pmatrix}
-            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}         \\
-            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
-            0                                                      \\
-        \end{pmatrix}
-        \frac{\partial}{\partial \tensor{p}{^j}}                            \\
-         & = \nu^T
-        \begin{pmatrix}
-            -\sign{k}k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^1}           \\
-            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}           \\
-            k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
-            0                                                                                              \\
-        \end{pmatrix}
-        \frac{\partial}{\partial \tensor{p}{^j}}                            \\
-        & = \nu^T
-        \begin{pmatrix}
-            -k\tan_k\tensor{\theta}{^i}\tensor{p}{^1}           \\
-            -k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}           \\
-           k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}} \\
-           0                                                                                              \\
-       \end{pmatrix}
-       \frac{\partial}{\partial \tensor{p}{^j}}                            \\
-        0
-         & =
-        -\tensor{\nu}{^1}k\tan_k\tensor{\theta}{^i}\tensor{p}{^1}
-        +\sum_{1<j\le i}{\left(-\tensor{\nu}{^j}k\tan_k^\ast\tensor{\theta}{^i}\tensor{p}{^j}\right)}
-        +\tensor{\nu}{^{i+1}}k\frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}}
-    \end{align*}
-    \begin{align*}
-        \frac{1}{\tan_k\tensor{\theta}{^i}}\tensor{p}{^{i+1}}\tensor{\nu}{^{i+1}}
-         & =
-         \tan_k\tensor{\theta}{^i}\tensor{p}{^1}\tensor{\nu}{^1}
-        +\tan_k^\ast\tensor{\theta}{^i}\sum_{1<j\le i}{\left(\tensor{p}{^j}\tensor{\nu}{^j}\right)}                                                            \\
-        \tensor{\nu}{^{i+1}}
-         & =
-         \frac{\tan_k\tensor{\theta}{^i}\tan_k\tensor{\theta}{^i}}{\tensor{p}{^{i+1}}}\tensor{p}{^1}\tensor{\nu}{^1}
-        +\frac{\tan_k\tensor{\theta}{^i}\tan_k^\ast\tensor{\theta}{^i}}{\tensor{p}{^{i+1}}}\sum_{1<j\le i}{\tensor{p}{^j}\tensor{\nu}{^j}} \\
-        \tensor{\nu}{^i}
-         & =
-         \frac{\tan_k\tensor{\theta}{^{i-1}}\tan_k\tensor{\theta}{^{i-1}}}{\tensor{p}{^{i}}}\tensor{p}{^1}\tensor{\nu}{^1}
-        +\frac{\tan_k\tensor{\theta}{^{i-1}}\tan_k^\ast\tensor{\theta}{^{i-1}}}{\tensor{p}{^i}}\sum_{1<j<i}{\tensor{p}{^j}\tensor{\nu}{^j}} \\
-        & =
-        \tan_k^2\tensor{\theta}{^{i-1}}
-        \left(
-            \frac{\prod_{l}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}\prod_{i\le l}\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^1}
-            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}\prod_{i\le l}\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^j}}
-        \right) \\
-        & =
-        \tan_k^2\tensor{\theta}{^{i-1}}
-        \left(
-            \frac{\prod_{l<i}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}}\tensor{\nu}{^1}
-            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l<i}\cos_k\tensor{\theta}{^l}}{\sin_k\tensor{\theta}{^{i-1}}}\tensor{\nu}{^j}}
-        \right) \\
-        & =
-        \tan_k\tensor{\theta}{^{i-1}}
-        \left(
-            \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^1}
-            +\sign{k}\sum_{1<j<i}{\sin_k\tensor{\theta}{^{j-1}}\prod_{j\le l<i-1}{\cos_k\tensor{\theta}{^l}}\tensor{\nu}{^j}}
-        \right) \\
-        & =
-        \tan_k\tensor{\theta}{^{i-1}}
-        \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}
-        \left(
-            \tensor{\nu}{^1}
-            +\sign{k}\sum_{1<j<i}{\frac{\sin_k\tensor{\theta}{^{j-1}}}{\prod_{l<j}{\cos_k\tensor{\theta}{^l}}}\tensor{\nu}{^j}}
-        \right) \\
-        & =
-        \tan_k\tensor{\theta}{^{i-1}}
-        \prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}
-        \left(
-            \tensor{\nu}{^1}
-            +\sign{k}\sum_{1<j<i}{
-            \tan_k^2\tensor{\theta}{^{j-1}}
-            \frac{\tensor{\nu}{^j}}{\tan_k\tensor{\theta}{^{j-1}}\prod_{l<{j-1}}{\cos_k\tensor{\theta}{^l}}}
-            }
-        \right) \\
-        \tensor{\upsilon}{^i}
-        & \defeq
-        \frac{\tensor{\nu}{^i}}{\tensor{\nu}{^1}\tan_k\tensor{\theta}{^{i-1}}\prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}}} \\
+        \tensor{g}{_i_j_{,m}}
         &=
-        1
-        +\sign{k}\sum_{1<j<i}{
-        \tan_k^2\tensor{\theta}{^{j-1}}
-        \tensor{\upsilon}{^j}
-        } \\
-        &= \frac{1}{\prod_{j<i-1}\cos_k^2\tensor{\theta}{^j}} \\
-        \tensor{\nu}{^i}
-        &=
-        \tensor{\upsilon}{^i}
-        \tensor{\nu}{^1}\tan_k\tensor{\theta}{^{i-1}}\prod_{l<{i-1}}{\cos_k\tensor{\theta}{^l}} \\
-        &=
-        \frac{\sin_k\tensor{\theta}{^{i-1}}}{\prod_{j<i}\cos_k\tensor{\theta}{^j}}
-        \tensor{\nu}{^1}
-    \end{align*}
-    Without loss of generality, let $\tensor{\nu}{^1}=k\tensor{p}{^1}$.
-    \begin{equation*}
-        \tensor{\nu}{^i} = k\tensor{p}{^i} \qedhere
-    \end{equation*}
-\end{proof}
-\begin{remark}
-    It can be proved that $\norm{k\tensor{p}{^i}}=\inner{k\tensor{p}{^i}}{k\tensor{p}{^i}}=1$, hence, $\hat{k\tensor{p}{}}=k\tensor{p}{}$
-\end{remark}
-\begin{lemma}\label{M:ShapeOperator}
-    Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
-    the shape operator at the point can be calculated as follows
-    \begin{equation*}
-        L = 
-    \end{equation*}
-\end{lemma}
-\begin{proof}[\proofof{M:ShapeOperator}]
-    From \cref{Manifold:Hypersurface},
-    \begin{align*}
-        L
-        & = - D\nu \circ \left(D{{\psi_0}^{-1}}\right)^{-1} \\
-        & = - D\nu \\
-        \tensor{L}{^i_j}
-        & = - \frac{\partial \tensor{\nu}{^i}}{\partial \tensor{p}{^j}} \\
-        & = - \frac{\partial k\tensor{p}{^i}}{\partial \tensor{p}{^j}} \\
-        & = \begin{cases}
-            - k & \text{$i=j$,} \\
+        \frac{\partial\tensor{g}{_i_j}}{\partial\tensor{\theta}{^m}} \\
+        &= \begin{cases}
+            \frac{partial}{\partial\tensor{\theta}{^m}} \prod_{i<a}{\cos_k^2\tensor{\theta}{^a}} & \text{$i=j$} \\
+            \frac{partial}{\partial\tensor{\theta}{^m}} 0 & \text{$i\ne j$} \\
+        \end{cases} \\
+        &= \begin{cases}
+            -2k\tan_k^\ast\tensor{\theta}{^m}\prod_{i<a}{\cos_k^2\tensor{\theta}{^a}} & \text{$i=j<m$} \\
             0 & \text{otherwise} \\
         \end{cases} \\
-        L &= \diag{-k,\dots,-k}
+        &= \begin{cases}
+            -2k\tan_k^\ast\tensor{\theta}{^m}\tensor{g}{_i_i} & \text{$i=j<m$} \\
+            0 & \text{otherwise} \\
+        \end{cases}
+    \end{align*}
+    \begin{align*}
+        \tensor{g}{}&=\diag\left(\tensor{g}{_i_i}\right) \\
+        {\tensor{g}{}}^{-1}&=\diag\left({\tensor{g}{_i_i}}^{-1}\right) \\
+        \tensor{g}{^i^j}&=\begin{cases}
+            {\tensor{g}{_i_i}}^{-1} & \text{$i=j$} \\
+            0 & \text{$i\ne j$} \\
+        \end{cases}
+    \end{align*}
+    \begin{align*}
+        \tensor{\Gamma}{^l_i_j}
+        &=
+        \frac{1}{2}
+        \sum_{m}\left(
+            \tensor{g}{^l^m}
+            \left(
+                \tensor{g}{_m_i_{,j}}
+                + \tensor{g}{_m_j_{,i}}
+                - \tensor{g}{_i_j_{,m}}
+            \right)
+        \right) \\
+        &=
+        \frac{1}{2}
+        {\tensor{g}{_l_l}}^{-1}
+        \left(
+            \tensor{g}{_l_i_{,j}}
+            + \tensor{g}{_l_j_{,i}}
+            - \tensor{g}{_i_j_{,l}}
+        \right) \\
+        &= \begin{cases}
+            -k\tan_k^\ast\tensor{\theta}{^j} & \text{$l=i<j$} \\
+            -k\tan_k^\ast\tensor{\theta}{^i} & \text{$l=j<i$} \\
+            -k\tan_k^\ast\tensor{\theta}{^l}\frac{\tensor{g}{_i_i}}{\tensor{g}{_l_l}} & \text{$i=j<l$} \\
+            0 & \text{otherwise} \\
+        \end{cases} \\
+        &= \begin{cases}
+            -k\tan_k^\ast\tensor{\theta}{^j} & \text{$l=i<j$} \\
+            -k\tan_k^\ast\tensor{\theta}{^i} & \text{$l=j<i$} \\
+            -k\tan_k^\ast\tensor{\theta}{^l}\prod_{i<a\le l}{\cos_k^2\tensor{\theta}{^a}} & \text{$i=j<l$} \\
+            0 & \text{otherwise} \\
+        \end{cases}
     \end{align*}
 \end{proof}
-\begin{lemma}\label{Model:PrincipalCurvature}
-
+\begin{lemma}\label{M:CurvatureTensor}
+    The curvature tensor of the manifold
+    at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
+    is
+    \begin{equation*}
+        \tensor{R}{^s_i_j_l}=
+    \end{equation*}
 \end{lemma}
-\begin{proof}[\proofof{Model:PrincipalCurvature}]
+\begin{proof}[\proofof{M:CurvatureTensor}]
     \begin{align*}
-        0
-        & = \det{L(p)-\lambda I}
+        \tensor{R}{^s_i_j_l}
+        &=
+        \frac{\partial}{\partial\tensor{u}{^l}}\tensor{\Gamma}{^s_i_j}
+        - \frac{\partial}{\partial\tensor{u}{^j}}\tensor{\Gamma}{^s_i_l}
+        + \sum_{r}\left(\tensor{\Gamma}{^r_i_j}\tensor{\Gamma}{^s_r_l}-\tensor{\Gamma}{^r_i_l}\tensor{\Gamma}{^s_r_j}\right)
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{M:SectionalCurvature}
+    The sectional curvature of the manifold
+    at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
+    along the tangent vector $\tensor{u}{}$ and $\tensor{v}{}$
+    is
+    \begin{equation*}
+        K\left(\tensor{u}{},\tensor{v}{}\right)=\sign{k}k^2
+    \end{equation*}
+\end{lemma}
+\begin{proof}[\proofof{M:SectionalCurvature}]
+    \begin{align*}
+        K\left(\tensor{u}{},\tensor{v}{}\right)
+        &=
+        \frac{
+            \inner{R\left(\tensor{u}{},\tensor{v}{}\right)\tensor{v}{}}{\tensor{u}{}}
+        }{
+            \inner{\tensor{u}{}}{\tensor{u}{}}
+            \inner{\tensor{v}{}}{\tensor{v}{}}
+            -\inner{\tensor{u}{}}{\tensor{v}{}}^2
+        } \\
+        &=
+        \frac{
+            \inner{
+                \contr{\left(\contr^2{\left(\tensor{R}{}\otimes\tensor{v}{}\otimes\tensor{u}{}\right)}\otimes\tensor{v}{}\right)}
+            }{\tensor{u}{}}
+        }{
+            \inner{\tensor{u}{}}{\tensor{u}{}}
+            \inner{\tensor{v}{}}{\tensor{v}{}}
+            -\inner{\tensor{u}{}}{\tensor{v}{}}^2
+        } \\
+        &=
+        \frac{
+            \contr^2{\left(\tensor{g}{}\otimes\tensor{u}{}\otimes\contr^3\left(\tensor{R}{}\otimes\tensor{v}{}\otimes\tensor{u}{}\otimes\tensor{v}{}\right)\right)}
+        }{
+            \contr^2{\left(\tensor{g}{}\otimes\tensor{u}{}\otimes\tensor{u}{}\right)}
+            \contr^2{\left(\tensor{g}{}\otimes\tensor{v}{}\otimes\tensor{v}{}\right)}
+            -\contr^2{\left(\tensor{g}{}\otimes\tensor{u}{}\otimes\tensor{v}{}\right)}^2
+        } \\
+        &=
+        \frac{
+            \sum_{i,j,a,b,c}{\left(\tensor{g}{_i_j}\tensor{u}{^j}\tensor{R}{^i_c_a_b}\tensor{v}{^b}\tensor{u}{^a}\tensor{v}{^c}\right)}
+        }{
+            \sum_{i,j}\left(\tensor{g}{_i_j}\tensor{u}{^j}\tensor{u}{^i}\right)
+            \sum_{i,j}\left(\tensor{g}{_i_j}\tensor{v}{^j}\tensor{v}{^i}\right)
+            -\left(\sum_{i,j}\left(\tensor{g}{_i_j}\tensor{v}{^j}\tensor{u}{^i}\right)\right)^2
+        } \\
+        &=
+        \frac{
+            \sum_{i,a,b,c}{\left(\tensor{g}{_i_i}\tensor{u}{^i}\tensor{R}{^i_c_a_b}\tensor{v}{^b}\tensor{u}{^a}\tensor{v}{^c}\right)}
+        }{
+            \sum_{i}\left(\tensor{g}{_i_i}\tensor{u}{^i}\tensor{u}{^i}\right)
+            \sum_{i}\left(\tensor{g}{_i_i}\tensor{v}{^i}\tensor{v}{^i}\right)
+            -\left(\sum_{i}\left(\tensor{g}{_i_i}\tensor{v}{^i}\tensor{u}{^i}\right)\right)^2
+        } \\
+        &=
+        \frac{
+            \sum_{i,a,b,c}{\left(\tensor{g}{_i_i}\tensor{u}{^i}\tensor{R}{^i_c_a_b}\tensor{v}{^b}\tensor{u}{^a}\tensor{v}{^c}\right)}
+        }{
+            \sum_{i}\left(\tensor{g}{_i_i}\tensor{u}{^i}\tensor{u}{^i}\right)
+            \sum_{i}\left(\tensor{g}{_i_i}\tensor{v}{^i}\tensor{v}{^i}\right)
+            -\left(\sum_{i}\left(\tensor{g}{_i_i}\tensor{v}{^i}\tensor{u}{^i}\right)\right)^2
+        } \\
     \end{align*}
 \end{proof}
 \paragraph{CurvatureParameter}
