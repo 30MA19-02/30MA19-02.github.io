@@ -73,7 +73,7 @@
     \end{align*}
 \end{proof}
 \begin{lemma}\label{M:MetricTensor}
-    The metric tensor of $N$ is
+    The metric tensor of $N$ at $\tensor{\theta}{}$is
     \begin{align*}
         \tensor{g}{_a_b} & =
         \begin{cases}
@@ -225,7 +225,9 @@
     \end{align*}
 \end{proof}
 \subsection{Curvature}
-\subsubsection{Curvature}
+\begin{remark}
+    Since the manifold is not embedded in $E^{n+1}$, it is meaningless to define the following properties which are limited only to the regular (hyper)surface.
+\end{remark}
 \begin{lemma}\label{M:Normal}
     Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
     the unit normal vector in position vector space can be calculated as follows
@@ -347,9 +349,9 @@
 \end{remark}
 \begin{lemma}\label{M:ShapeOperator}
     Given a position parameter $\tensor{p}{}={\psi_0}^{-1}\left(\tensor{\theta}{}\right)$,
-    the shape operator can be calculated as follows
+    the shape operator at the point can be calculated as follows
     \begin{equation*}
-        L\left(\tensor{\theta}{}\right) = 
+        L = 
     \end{equation*}
 \end{lemma}
 \begin{proof}[\proofof{M:ShapeOperator}]
@@ -357,6 +359,15 @@
     \begin{align*}
         L
         & = - D\nu \circ \left(D{{\psi_0}^{-1}}\right)^{-1} \\
+        & = - D\nu \\
+        \tensor{L}{^i_j}
+        & = - \frac{\partial \tensor{\nu}{^i}}{\partial \tensor{p}{^j}} \\
+        & = - \frac{\partial k\tensor{p}{^i}}{\partial \tensor{p}{^j}} \\
+        & = \begin{cases}
+            - k & \text{$i=j$,} \\
+            0 & \text{otherwise} \\
+        \end{cases} \\
+        L &= \diag{-k,\dots,-k}
     \end{align*}
 \end{proof}
 \begin{lemma}\label{Model:PrincipalCurvature}
