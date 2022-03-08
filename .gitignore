@@ -276,4 +276,5 @@ TSWLatexianTemp*
 *.lpz
 
 # Visual Studio Code
+.vscode
 *.code-workspace
