@@ -1,7 +1,7 @@
 interface Contents {
   [name: string]: string;
 }
-const example_list: string[] = [
+export const example_list: string[] = [
   "basic",
 ]
 const examples: Contents = Object.fromEntries(example_list.map(
