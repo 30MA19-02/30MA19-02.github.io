@@ -36,7 +36,7 @@ jobs:
           npm ci
           npm run build
           npm run export
-          touch ./build/.nojekyll
+          touch ./noneuclidjs-docs/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
