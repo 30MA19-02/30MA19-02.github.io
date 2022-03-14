@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.NODE_ENV === 'production' ? '.' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
+  publicRuntimeConfig: {
+    basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
+  },
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
-      '/': { page: '/examples/basic', dev: true },
       '/framework': { page: '/next', dev: true },
       ...defaultPathMap,
     };
@@ -20,7 +22,7 @@ const withTM = require('next-transpile-modules')(['three']);
 const withMDX = require('@next/mdx')({
   extension: /\.(md|mdx)?$/,
   options: {
-    remarkPlugins: [import('remark-math'), import('remark-code-import').then((module) => module.codeImport), import('remark-mdx-frontmatter')],
+    remarkPlugins: [import('remark-math'), import('remark-code-import').then((module) => module.codeImport), import('remark-mdx-frontmatter').then((module)=>module.remarkMdxFrontmatter)],
     rehypePlugins: [import('rehype-mathjax'), import('rehype-highlight')],
     // If you use `MDXProvider`, uncomment the following line.
     providerImportSource: "@mdx-js/react",

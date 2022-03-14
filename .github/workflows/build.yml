@@ -42,7 +42,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.2.5
         with:
           branch: gh-pages
-          folder: build
+          folder: noneuclidjs-docs
           clean: true
           commit-message: 'Build `gh-pages` from `next`.'
         if: github.event_name == 'push'
