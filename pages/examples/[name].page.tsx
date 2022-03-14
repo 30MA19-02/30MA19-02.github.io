@@ -6,13 +6,15 @@ import path from 'node:path';
 import { ThemeProvider } from 'theme-ui';
 import theme from '../../styles/theme';
 import type { ParsedUrlQuery } from 'node:querystring';
-import contents from "./index";
+import { example_list, example_path } from "./index";
+import { loader } from "./examples";
 import dynamic from 'next/dynamic';
 
 interface IProps {
-  meta: { [name: string]: string };
+  data: { [name: string]: string };
   content: string;
   name: string;
+  relpath: string;
 }
 interface IParams extends ParsedUrlQuery {
   name: string;
@@ -20,20 +22,22 @@ interface IParams extends ParsedUrlQuery {
 
 export async function getStaticPaths() {
   return {
-    paths: Object.keys(contents).map(name => ({ params: { name } })),
+    paths: example_list.map(name => ({ params: { name } })),
     fallback: false,
   };
 }
 export const getStaticProps: GetStaticProps<IProps, IParams> = async ({ params }) => {
   const { name } = params!;
-  const directory = path.join(process.cwd(), './pages/examples', contents[name]);
+  const relpath = example_path[name];
+  const directory = path.join(process.cwd(), './pages/examples', relpath);
   const fileContents = await fs.readFile(directory, 'utf8');
   const { data, content } = matter(fileContents);
   return {
     props: {
-      meta: data,
+      data,
       content,
       name,
+      relpath
     },
   };
 };
@@ -45,12 +49,12 @@ const Post: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = (props) =
       </code>
     </>
   );
-  const Content = dynamic(()=>import(contents[props.name])) ?? FallbackContent;
+  const Content = dynamic(()=>loader(props.name), {loading: FallbackContent, ssr: false});
   return (
     <>
       <Head>
-        <title>{props.meta.title}</title>
-        <meta name="description" content={props.meta.description} />
+        <title>{props.data.title}</title>
+        <meta name="description" content={props.data.description} />
       </Head>
       <ThemeProvider theme={theme}>
         <main>
