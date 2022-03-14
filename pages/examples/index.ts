@@ -1,7 +1,10 @@
-import { MDXProps } from "mdx/types";
-import basic from "./basic/index.mdx";
-type Content = (props: MDXProps) => JSX.Element;
-const examples: { [name: string] : Content; } = {
-  "basic": basic,
-};
+interface Contents {
+  [name: string]: string;
+}
+const example_list: string[] = [
+  "basic",
+]
+const examples: Contents = Object.fromEntries(example_list.map(
+  name => [name, `./${name}/index.mdx`]
+));
 export default examples;

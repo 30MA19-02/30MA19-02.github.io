@@ -9,7 +9,7 @@ const Post: NextPage = (props) => {
   return (
     <>
       <Head>
-        <meta httpEquiv="refresh" content={`0; url=${publicRuntimeConfig.basePath}/examples/basic`}/>
+        <meta httpEquiv="refresh" content={`0; url=${publicRuntimeConfig.basePath}/examples`}/>
       </Head>
       <ThemeProvider theme={theme}>
         <main>
