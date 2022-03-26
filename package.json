@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@30ma19-02/noneuclid": "^4.0.2",
-    "@mdx-js/loader": "^2.0.0",
+    "@mdx-js/loader": "^2.1.0",
     "@mdx-js/react": "^2.1.0",
     "@next/mdx": "^12.1.0",
     "@react-three/drei": "^8.16.5",
