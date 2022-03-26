@@ -43,7 +43,7 @@ const Post: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ posts,
       <ul>
         {posts.map((post) => (
           <li key={post.filePath}>
-            <Link as={`/${post.filePath.replace(/\.mdx?$/, '')}`} href={`/[...name]`}>
+            <Link as={`/${post.filePath.replace(/\.mdx?$/, '').replace(path.sep, '/')}`} href={`/[...name]`}>
               <a>{post.data.title}</a>
             </Link>
           </li>

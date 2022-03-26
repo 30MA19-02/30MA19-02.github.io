@@ -1,16 +1,16 @@
+import fs from 'fs';
 import matter from 'gray-matter';
 import type { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next';
-import Head from 'next/head';
-import fs from 'fs';
-import path from 'node:path';
-import { ThemeProvider } from 'theme-ui';
-import theme from '../styles/theme';
-import type { ParsedUrlQuery } from 'node:querystring';
-import { postFilePaths, POSTS_PATH } from '../utils/mdxUtils';
-import { MDXRemote } from 'next-mdx-remote';
 import type { MDXRemoteSerializeResult } from 'next-mdx-remote';
+import { MDXRemote } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
+import Head from 'next/head';
+import type { ParsedUrlQuery } from 'node:querystring';
+import path from 'path';
+import { ThemeProvider } from 'theme-ui';
 import components from '../components';
+import theme from '../styles/theme';
+import { postFilePaths, POSTS_PATH } from '../utils/mdxUtils';
 
 interface IParams extends ParsedUrlQuery {
   name: string[];
@@ -25,7 +25,7 @@ export async function getStaticPaths() {
     // Remove file extensions for page paths
     .map((path) => path.replace(/\.mdx?$/, ''))
     // Map the path into the static paths object required by Next.js
-    .map((name) => ({ params: { name: name.split('\\') } }));
+    .map((name) => ({ params: { name: name.split(path.sep) } }));
 
   return {
     paths,
