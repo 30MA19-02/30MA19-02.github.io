@@ -33,7 +33,7 @@ jobs:
       - name: Build gh-pages
         run: |
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
-          npm i
+          npm i -f
           npm run export
           touch noneuclidjs-docs/.nojekyll
 
