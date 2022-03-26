@@ -15,7 +15,6 @@ interface IProps {
     data: { [key: string]: any };
     filePath: string;
   }[];
-  p: string;
 }
 export const getStaticProps: GetStaticProps<IProps, IParams> = () => {
   const posts = postFilePaths.map((filePath) => {
@@ -29,11 +28,10 @@ export const getStaticProps: GetStaticProps<IProps, IParams> = () => {
     };
   });
 
-  return { props: { posts, p: postFilePaths.toString() } };
+  return { props: { posts } };
 };
 
-const Post: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ posts, p }) => {
-  console.log(p);
+const Post: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ posts }) => {
   return (
     <>
       <h1>Home Page</h1>
