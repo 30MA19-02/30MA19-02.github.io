@@ -5,7 +5,6 @@ const nextConfig = {
   publicRuntimeConfig: {
     basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
   },
-  swcMinify: false,
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
       ...defaultPathMap,
