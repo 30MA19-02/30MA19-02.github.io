@@ -15,7 +15,6 @@ const nextConfig = {
     loader: 'imgix',
     path: '',
   },
-  swcMinify: false,
 };
 
 const withTM = require('next-transpile-modules')(['three']);
