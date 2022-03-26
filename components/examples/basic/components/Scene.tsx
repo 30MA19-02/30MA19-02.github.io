@@ -137,7 +137,9 @@ const Scene: FC = (prop) => {
   const options = useContext(OptionsContext)! as optionsInterface;
   return (
     <>
-      <Canvas style={{ margin: 'auto', width: '80vw', height: '50vh', border: '.5mm solid var(--theme-ui-colors-primary)'}}>
+      <Canvas
+        style={{ margin: 'auto', width: '80vw', height: '50vh', border: '.5mm solid var(--theme-ui-colors-primary)' }}
+      >
         <Suspense fallback={<Loader />}>
           <Scene_ {...options} />
         </Suspense>

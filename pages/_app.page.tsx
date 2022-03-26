@@ -1,15 +1,17 @@
-import '../styles/globals.css';
+import { ThemeProvider } from 'theme-ui';
 import theme from '../styles/theme';
+import '../styles/globals.css';
 import type { AppProps } from 'next/app';
-import type { Theme } from 'theme-ui';
-import type { ReactNode } from 'react';
 
-export interface Iprops {
-  theme: Theme;
-  children?: ReactNode | undefined;
-}
-
-export default function MyApp({ Component, pageProps }: AppProps) {
-  let props: Iprops = { theme, ...pageProps };
-  return <Component {...props} />;
+export default function MyApp({ Component, pageProps, router }: AppProps) {
+  if (router.asPath.split('/', 2)[1] == 'framework') return <Component {...pageProps} />;
+  return (
+    <>
+      <ThemeProvider theme={theme}>
+        <main>
+          <Component {...pageProps} />
+        </main>
+      </ThemeProvider>
+    </>
+  );
 }

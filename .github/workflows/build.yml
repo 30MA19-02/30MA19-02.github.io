@@ -34,15 +34,14 @@ jobs:
         run: |
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
           npm ci
-          npm run build
           npm run export
-          touch ./noneuclidjs-docs/.nojekyll
+          touch noneuclidjs-docs/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.2.5
+        if: github.event_name == 'push'
         with:
           branch: gh-pages
           folder: noneuclidjs-docs
           clean: true
-          commit-message: 'Build `gh-pages` from `next`.'
-        if: github.event_name == 'push'
+          commit-message: 'Deploy Next.js to gh-pages'

@@ -102,7 +102,11 @@ const ImageUploadCard: FC<property> = (props) => {
     return (
       <>
         <div>
-          {selectedFile ? <Image src={selectedFile} alt={'Selected Image'} width={props.width} height={props.height} /> : <>{props.children}</>}
+          {selectedFile ? (
+            <Image src={selectedFile} alt={'Selected Image'} width={props.width} height={props.height} />
+          ) : (
+            <>{props.children}</>
+          )}
         </div>
       </>
     );

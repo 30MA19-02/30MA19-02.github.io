@@ -108,7 +108,7 @@ const AppInput: FC = (prop) => {
         height={200}
         defaultValue={textureURL}
         imageGallery={textureGallery}
-        placeholder={"Upload a Texture"}
+        placeholder={'Upload a Texture'}
         changed={(url) => setTextureURL(url)}
       ></ImageUpload>
     </form>

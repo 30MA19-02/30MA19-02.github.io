@@ -1,7 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../../styles/next/Home.module.css';
+import styles from '../../../styles/next/Home.module.css';
+
+const vercel_logo =
+  'https://raw.githubusercontent.com/vercel/next.js/canary/packages/create-next-app/templates/typescript/public/vercel.svg';
 
 const Home: NextPage = () => {
   return (
@@ -55,7 +58,7 @@ const Home: NextPage = () => {
         >
           Powered by{' '}
           <span className={styles.logo}>
-            {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
+            <Image src={vercel_logo} alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>

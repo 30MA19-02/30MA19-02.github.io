@@ -22,9 +22,9 @@ interface optionsContext extends optionsInterface {
 export const OptionsContext = createContext<optionsContext | null>(null);
 
 export const textureGallery = [
-  "https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/e/eb/26X26_Alphabet_Letters_Color_Coded.jpg",
-  "https://upload.wikimedia.org/wikipedia/commons/f/fd/UV_checker_Map_byValle.jpg",
+  'https://upload.wikimedia.org/wikipedia/commons/8/83/Equirectangular_projection_SW.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/e/eb/26X26_Alphabet_Letters_Color_Coded.jpg',
+  'https://upload.wikimedia.org/wikipedia/commons/f/fd/UV_checker_Map_byValle.jpg',
 ];
 
 export const OptionsProvider: FC = (props) => {
