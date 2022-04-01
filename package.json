@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@30ma19-02/noneuclid": "^4.0.2",
-    "@mdx-js/loader": "^2.1.0",
+    "@mdx-js/loader": "^2.1.1",
     "@mdx-js/react": "^1.6.22",
     "@next/mdx": "^12.1.1",
     "@react-three/drei": "^8.19.2",
@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "@types/mdx": "^2.0.1",
-    "@types/node": "17.0.21",
+    "@types/node": "17.0.23",
     "@types/react": "17.0.43",
     "@types/three": "^0.138.0",
     "cross-env": "^7.0.3",
