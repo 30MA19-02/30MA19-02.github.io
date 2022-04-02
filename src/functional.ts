@@ -1,22 +1,19 @@
-import { identity, index, matrix as matrix_, multiply, range, zeros } from 'mathjs';
 import { point as point_, reflect as reflect_, orientational, positional } from './geometry/transformations';
-import { equal, deepEqual, larger } from './math/compare';
-import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';
-
-import type { Matrix } from 'mathjs';
+import { Matrix } from './math/matrix';
+import Decimal from 'decimal.js';
 
 export interface Point {
   readonly dim: number;
-  readonly kappa: number;
+  readonly kappa: Decimal;
   readonly matrix: Matrix;
 }
 
 export interface Coordinate {
   readonly dim: number;
-  readonly kappa: number;
+  readonly kappa: Decimal | number;
   readonly reflect?: boolean;
-  readonly theta?: number[];
-  readonly phi?: number[][];
+  readonly theta?: (Decimal | number)[];
+  readonly phi?: (Decimal | number)[][];
 }
 
 export function validateTheta({ theta, dim }: Coordinate): boolean {
@@ -27,58 +24,58 @@ export function validatePhi({ phi, dim }: Coordinate): boolean {
 }
 
 export function point({ dim, kappa, reflect, theta, phi }: Coordinate): Point {
+  kappa = new Decimal(kappa);
+  theta = theta?.map((_) => new Decimal(_));
+  phi = phi?.map((_) => _.map((_) => new Decimal(_)));
   if (!Number.isInteger(dim) || dim < 0) {
     throw new Error(`Dimension must be a positive integer (Recieved ${dim}).`);
   }
-  if (!Number.isFinite(kappa)) {
-    throw new Error(`Curvature parameter must be a finite number (Recieved ${kappa}).`);
+  if (!kappa.isFinite()) {
+    throw new Error(`Curvature parameter must be a finite number (Recieved ${kappa.valueOf()}).`);
   }
   if (dim === 0) {
-    if (!larger(kappa, 0))
+    if (!kappa.greaterThan(0))
       throw new Error(
-        `Zero dimensional manifold is only avaliable for spherical geometry (Recieved ${kappa}, expected to be positive).`,
+        `Zero dimensional manifold is only avaliable for spherical geometry (Recieved ${kappa.valueOf()}, expected to be positive).`,
       );
-    kappa = 1; // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
+    kappa = new Decimal(1); // In zero dimensional manifold, distance is undefined and hence the curvature is also undefined.
   }
   let matrix: Matrix;
-  if (theta && phi) matrix = point_(kappa, theta, ...phi);
-  else if (theta) matrix = positional(kappa, ...theta);
-  else if (phi) matrix = orientational(...phi);
-  else matrix = identity(dim + 1) as Matrix;
-  if (reflect) matrix = multiply(matrix, reflect_(dim));
+  if (theta && phi) matrix = point_(kappa, theta as Decimal[], ...(phi as Decimal[][]));
+  else if (theta) matrix = positional(kappa, ...(theta as Decimal[]));
+  else if (phi) matrix = orientational(...(phi as Decimal[][]));
+  else matrix = Matrix.identity(dim + 1) as Matrix;
+  if (reflect) matrix = matrix.mul(reflect_(dim));
   return { kappa, dim, matrix };
 }
 
 export function isValid({ matrix, dim, kappa }: Point): void {
-  if (!(isSquare(matrix) && matrix.size()[0] === dim + 1)) {
+  if (!(matrix.isSquare() && matrix.size[0] === dim + 1)) {
     throw new Error(
-      `Invalid dimension: Not an square matrix of dimension ${dim + 1} (Recieved matrix of size ${matrix.size()}).`,
+      `Invalid dimension: Not an square matrix of dimension ${dim + 1} (Recieved matrix of size ${matrix.size[0]}x${
+        matrix.size[1]
+      }).`,
     );
   }
-  if (kappa > 0) {
-    if (!isOrthogonal(matrix)) {
+  if (kappa.greaterThan(0)) {
+    if (!matrix.isOrthogonal()) {
       throw new Error(`Invalid value: Not an orthogonal matrix.`);
     }
-  } else if (kappa < 0) {
-    if (!isOrthochronusIndefiniteOrthogonal(matrix, 1, dim)) {
+  }
+  if (kappa.lessThan(0)) {
+    if (!matrix.isOrthochronusIndefiniteOrthogonal(1, dim)) {
       throw new Error(`Invalid value: Not an orthochronous indefinite orthogonal matrix.`);
     }
-  } else {
-    if (!equal(matrix.get([0, 0]), 1)) {
-      throw new Error(`Invalid value: Fixed value is not 1.`);
+  }
+  if (kappa.isZero()) {
+    if (!matrix.value[0][0].equals(1)) {
+      throw new Error(`Invalid value: Fixed value is ${matrix.value[0][0].valueOf()}, expected to be 1.`);
     }
-    if (dim > 0) {
-      if (
-        !deepEqual(
-          dim === 1 ? matrix_([[matrix.get([0, 1])]]) : matrix.subset(index(0, range(1, dim + 1))),
-          zeros(1, dim) as Matrix,
-        )
-      ) {
+    if (dim !== 0) {
+      if (!Matrix.zeros(1, dim).equals(new Matrix([matrix.value[0].slice(1)]))) {
         throw new Error(`Invalid value: Fixed value is not 0s.`);
       }
-      const o =
-        dim === 1 ? matrix_([[matrix.get([1, 1])]]) : matrix.subset(index(range(1, dim + 1), range(1, dim + 1)));
-      if (!isOrthogonal(o)) {
+      if (!new Matrix(matrix.value.slice(1).map((_) => _.slice(1))).isOrthogonal()) {
         throw new Error(`Invalid value: Not an extension of orthogonal matrix.`);
       }
     }
@@ -103,10 +100,10 @@ export function operate({ matrix, dim, kappa }: Point, { matrix: matrix_, dim: d
       `Points in space with different dimension cannot be operated by one another (Recieved ${dim} and ${dim_}).`,
     );
   }
-  if (!equal(kappa, kappa_)) {
+  if (!kappa.equals(kappa_)) {
     throw new Error(
-      `Points in space with different curvature cannot be operated by one another (Recieved ${kappa} and ${kappa_}).`,
+      `Points in space with different curvature cannot be operated by one another (Recieved ${kappa.valueOf()} and ${kappa_.valueOf()}).`,
     );
   }
-  return { dim, kappa, matrix: multiply(matrix_, matrix) };
+  return { dim, kappa, matrix: matrix_.mul(matrix) };
 }

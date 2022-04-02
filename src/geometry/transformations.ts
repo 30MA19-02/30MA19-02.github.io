@@ -1,6 +1,7 @@
-import type { Matrix } from 'mathjs';
+import type { Decimal } from 'decimal.js';
+import type { Matrix } from '../math/matrix';
 
-export function positional(kappa: number, ...theta: number[]): Matrix {
+export function positional(kappa: Decimal, ...theta: Decimal[]): Matrix {
   const n = theta.length;
   switch (n) {
     case 2: {
@@ -35,7 +36,7 @@ export function reflect(n: number): Matrix {
   }
 }
 
-export function orientational(...phi: number[][]): Matrix {
+export function orientational(...phi: Decimal[][]): Matrix {
   const n = phi.length + 1;
   switch (n) {
     case 2: {

@@ -1,37 +1,33 @@
-import { concat, identity, index, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
-import { arcsine } from './trigonometry';
-import { equal } from '../math/compare';
+import { asin } from './trigonometry';
 
-import type { Matrix } from 'mathjs';
+import { Matrix } from '../math/matrix';
 import type { Point } from '../functional';
+import Decimal from 'decimal.js';
 
 export function embedded({ matrix, dim, kappa }: Point): Matrix {
-  return multiply(multiply(matrix, concat(identity(1), zeros(dim, 1), 0)), kappa !== 0 ? 1 / kappa : 1);
+  return matrix
+    .mul(Matrix.block(Matrix.identity(1), Matrix.zeros(0, 0), Matrix.zeros(dim, 1), Matrix.zeros(0, 0)))
+    .mulScalar(kappa.isZero() ? new Decimal(1) : new Decimal(1).div(kappa));
 }
 
-export function coordinate({ matrix, dim, kappa }: Point): number[] {
-  let theta: number[] = matrix
-    .subset(index(range(0, dim + 1), 0))
-    .toArray()
-    .flat() as number[];
+export function coordinate({ matrix, dim, kappa }: Point): Decimal[] {
+  let theta: Decimal[] = matrix.value.map((_) => _[0]);
   theta = theta.slice().reverse();
   const p = theta.pop()!;
   for (let i = 0; i < theta.length; i++) {
-    const cosine_ = sqrt(1 - (kappa === 0 ? 0 : kappa > 0 ? 1 : -1) * square(theta[i])); // cosine(theta[i], this.kappa);
-    const scaler = equal(cosine_, 0) ? 0 : 1 / cosine_;
+    const cosine_ = new Decimal(1).sub(theta[i].mul(theta[i]).mul(Decimal.sign(kappa))).sqrt(); // cosine(theta[i], this.kappa);
+    const scaler = cosine_.isZero() ? new Decimal(0) : new Decimal(1).div(cosine_);
     for (let j = i + 1; j < theta.length; j++) {
-      theta[j] *= scaler;
+      theta[j] = theta[j].mul(scaler);
     }
-    theta[i] = arcsine(theta[i], kappa);
+    theta[i] = asin(theta[i], kappa);
   }
   theta = theta.reverse();
-  if (theta.length > 0 && kappa > 0 && p < 0) {
-    theta[0] *= -1;
-    if (theta[0] > 0) {
-      theta[0] -= pi / kappa;
-    } else {
-      theta[0] += pi / kappa;
-    }
+  if (theta.length > 0 && kappa.isPositive() && p.isNegative()) {
+    theta[0] = theta[0].negated();
+    theta[0] = theta[0].isPositive()
+      ? theta[0].sub(Decimal.acos(1).div(kappa))
+      : theta[0].add(Decimal.acos(1).div(kappa));
   }
   return theta;
 }

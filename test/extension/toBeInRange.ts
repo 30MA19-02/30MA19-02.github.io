@@ -1,10 +1,8 @@
+import Decimal from 'decimal.js';
 import * as utils from 'jest-matcher-utils';
-import { smallerOrEqual, largerOrEqual } from '../../src/math/compare';
-
-import type { MathType } from 'mathjs';
 
 interface CustomMatchers<R = unknown> {
-  toBeInRange<E extends MathType>(min: E, max: E): R;
+  toBeInRange<E extends Decimal>(min: E, max: E): R;
 }
 
 declare global {
@@ -31,8 +29,8 @@ const failMessage = (received: any, min: any, max: any) => () =>
   'to be between ' +
   `${utils.printExpected(min)} and ${utils.printExpected(max)}`;
 
-export default function toBeInRange<E extends MathType>(received: E, min: E, max: E) {
-  const pass = smallerOrEqual(received, max) && largerOrEqual(received, min);
+export default function toBeInRange<E extends Decimal>(received: E, min: E, max: E) {
+  const pass = received.lessThanOrEqualTo(max) && received.greaterThanOrEqualTo(min);
   return {
     message: (pass ? passMessage : failMessage)(received, min, max),
     pass,

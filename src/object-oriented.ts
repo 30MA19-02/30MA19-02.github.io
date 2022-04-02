@@ -1,11 +1,12 @@
 import * as point from './functional';
 
-import type { Matrix } from 'mathjs';
+import type { Matrix } from './math/matrix';
 import type { Coordinate, Point as PointInterface } from './functional';
+import Decimal from 'decimal.js';
 
 export class Point implements PointInterface {
   public readonly dim!: number;
-  public readonly kappa!: number;
+  public readonly kappa!: Decimal;
   private _mat!: Matrix;
   constructor(object: PointInterface | Coordinate) {
     if (!('matrix' in object)) {
@@ -14,7 +15,7 @@ export class Point implements PointInterface {
       return new Point(point.point(object));
     }
     this.dim = object.dim;
-    this.kappa = object.kappa;
+    this.kappa = new Decimal(object.kappa);
     this.matrix = object.matrix;
   }
 
@@ -36,7 +37,7 @@ export class Point implements PointInterface {
   }
 
   public get theta(): number[] {
-    return point.theta(this.object);
+    return point.theta(this.object).map((_) => _.toNumber());
   }
 
   public operate({ object: other }: Point): Point {

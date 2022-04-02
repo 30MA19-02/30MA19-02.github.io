@@ -1,11 +1,9 @@
 import * as utils from 'jest-matcher-utils';
-import { deepEqual } from '../../src/math/compare';
-import { matrix } from 'mathjs';
 
-import type { Matrix } from 'mathjs';
+import Decimal from 'decimal.js';
 
 interface CustomMatchers<R = unknown> {
-  toBeAllClose<E extends any[] | Matrix>(value: E): R;
+  toBeEqual<E extends Decimal | number>(value: E): R;
 }
 
 declare global {
@@ -17,28 +15,27 @@ declare global {
 }
 
 const passMessage = (received: any, expected: any) => () =>
-  utils.matcherHint('.not.toBeAllClose', 'received', '') +
+  utils.matcherHint('.not.toBeEqual', 'received', '') +
   '\n\n' +
   'Expected \n' +
   `  ${utils.printReceived(received)}\n` +
-  'to not be close to\n' +
+  'to not be\n' +
   `  ${utils.printExpected(expected)}`;
 
 const failMessage = (received: any, expected: any) => () =>
-  utils.matcherHint('.toBeAllClose', 'received', '') +
+  utils.matcherHint('.toBeEqual', 'received', '') +
   '\n\n' +
   'Expected \n' +
   `  ${utils.printReceived(received)}\n` +
-  'to be close to\n' +
+  'to be\n' +
   `  ${utils.printExpected(expected)}\n`;
 
-export default function toBeAllClose<E extends any[] | Matrix>(received: E, expected: E) {
-  const [received_, expected_] = [matrix(received), matrix(expected)];
-  const pass = deepEqual(received_, expected_);
+export default function toBeEqual<E extends Decimal>(received: E, expected: E | number) {
+  const pass = received.equals(expected) || received.sub(expected).abs().lessThan(1e-5);
   return {
-    message: (pass ? passMessage : failMessage)(received_.toArray(), expected_.toArray()),
+    message: (pass ? passMessage : failMessage)(received.valueOf(), new Decimal(expected).valueOf()),
     pass,
   };
 }
 
-expect.extend({ toBeAllClose });
+expect.extend({ toBeEqual });
