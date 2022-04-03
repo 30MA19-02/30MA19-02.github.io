@@ -31,7 +31,7 @@ const failMessage = (received: any, expected: any) => () =>
   `  ${utils.printExpected(expected)}\n`;
 
 export default function toBeEqual<E extends Decimal>(received: E, expected: E | number) {
-  const pass = received.equals(expected) || received.sub(expected).abs().lessThan(1e-5);
+  const pass = received.equals(expected);
   return {
     message: (pass ? passMessage : failMessage)(received.valueOf(), new Decimal(expected).valueOf()),
     pass,

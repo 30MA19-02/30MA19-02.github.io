@@ -187,7 +187,7 @@ export function equals(A: Matrix, B: Matrix): boolean {
   return (
     A.size[0] == B.size[0] &&
     A.size[1] == B.size[1] &&
-    A.value.every((col, i) => col.every((a, j) => a.equals(B.value[i][j]) || a.sub(B.value[i][j]).abs().lessThan(1e-5)))
+    A.value.every((col, i) => col.every((a, j) => a.equals(B.value[i][j])))
   );
 }
 

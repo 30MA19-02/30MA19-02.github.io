@@ -32,7 +32,7 @@ const failMessage = (received: any, expected: any) => () =>
 export default function toBeAllEqual<E extends Decimal[]>(received: E, expected: E | number[]) {
   const pass =
     received.length == expected.length &&
-    received.every((_, i) => _.equals(expected[i]) || _.sub(expected[i]).abs().lessThan(1e-5));
+    received.every((_, i) => _.equals(expected[i]));
   return {
     message: (pass ? passMessage : failMessage)(
       received.map((_) => _.valueOf()),
