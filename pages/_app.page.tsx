@@ -1,6 +1,7 @@
 import { ThemeProvider } from 'theme-ui';
 import theme from '../styles/theme';
 import '../styles/globals.css';
+import 'katex/dist/katex.min.css';
 import type { AppProps } from 'next/app';
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
