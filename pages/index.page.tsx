@@ -14,6 +14,11 @@ const Post: NextPage = () => {
               <a>Basic example</a>
             </Link>
           </li>
+          <li>
+            <Link href={`/examples/raytracing`}>
+              <a>Not So Basic example</a>
+            </Link>
+          </li>
       </ul>
     </>
   );
