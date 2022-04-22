@@ -37,7 +37,7 @@
     "remark-math": "^5.1.1",
     "remark-mdx-frontmatter": "^1.1.1",
     "theme-ui": "^0.14.2",
-    "three": "^0.139.0"
+    "three": "^0.139.2"
   },
   "devDependencies": {
     "@types/mdx": "^2.0.1",
