@@ -144,7 +144,7 @@ const Scene: FC = (prop) => {
           <Scene_ {...options} />
         </Suspense>
       </Canvas>
-      {prop.children}
+      {prop.children??<></>}
     </>
   );
 };
