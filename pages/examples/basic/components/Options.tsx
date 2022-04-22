@@ -51,7 +51,6 @@ export const OptionsProvider: FC = (props) => {
         setTextureURL,
       }}
     >
-      {props.children??<></>}
     </OptionsContext.Provider>
   );
 };

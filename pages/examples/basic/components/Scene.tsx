@@ -8,7 +8,7 @@ import { PerspectiveCamera, OrbitControls, Html, useProgress } from '@react-thre
 import { Color, TextureLoader } from 'three';
 import { DoubleSide, FrontSide, BackSide } from 'three';
 import { OptionsContext } from './Options';
-import type { FC } from 'react';
+import type { RefObject, FC } from 'react';
 import type { Mesh, Vector3 } from 'three';
 import type { optionsInterface } from './Options';
 
@@ -144,7 +144,6 @@ const Scene: FC = (prop) => {
           <Scene_ {...options} />
         </Suspense>
       </Canvas>
-      {prop.children??<></>}
     </>
   );
 };
