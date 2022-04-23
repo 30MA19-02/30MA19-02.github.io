@@ -6,9 +6,6 @@ import type { optionsInterface } from './Options';
 
 const Scene: FC = (prop) => {
   const options = useContext(OptionsContext)! as optionsInterface;
-  return (
-    <>
-    </>
-  );
+  return <></>;
 };
 export default Scene;

@@ -17,7 +17,7 @@ export const OptionsContext = createContext<optionsContext | null>(null);
 
 export const OptionsProvider: FC = (props) => {
   const [pos, setPos] = useState([0, 0, 0]);
-  const [dir, setDir] = useState([0, 0 ]);
+  const [dir, setDir] = useState([0, 0]);
   const [kappa, setKappa] = useState(0);
   return (
     <OptionsContext.Provider
@@ -29,7 +29,6 @@ export const OptionsProvider: FC = (props) => {
         kappa,
         setKappa,
       }}
-    >
-    </OptionsContext.Provider>
+    ></OptionsContext.Provider>
   );
 };

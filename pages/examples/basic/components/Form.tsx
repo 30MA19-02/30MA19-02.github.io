@@ -4,6 +4,8 @@ import Slider from './input/Slider';
 import { OptionsContext, textureGallery } from './Options';
 import { useContext } from 'react';
 import type { FC } from 'react';
+import { projectionType } from '../script/point';
+import { Box, Flex, Label, Select } from 'theme-ui';
 
 const AppInput: FC = (prop) => {
   const {
@@ -19,6 +21,8 @@ const AppInput: FC = (prop) => {
     setVis,
     textureURL,
     setTextureURL,
+    proj,
+    setProj,
   } = useContext(OptionsContext)!;
   const setWidth = (width: number) => setSegment([width, height]);
   const setHeight = (height: number) => setSegment([width, height]);
@@ -29,9 +33,13 @@ const AppInput: FC = (prop) => {
   const setVisAll = (vis: boolean) => setVis([vis, vis]);
 
   return (
-    <form>
-      <label>Segments</label>
-      <br />
+    <Flex
+      as={'form'}
+      onSubmit={(e) => e.preventDefault()}
+      onReset={(e) => e.preventDefault()}
+    >
+      <Box>
+      <Label>Segments</Label>
       <Slider
         name={'height'}
         min={2}
@@ -40,7 +48,6 @@ const AppInput: FC = (prop) => {
         defaultValue={height}
         onChange={(event) => setHeight(parseInt(event.target.value))}
       ></Slider>
-      <br />
       <Slider
         name={'width'}
         min={3}
@@ -49,60 +56,61 @@ const AppInput: FC = (prop) => {
         defaultValue={width}
         onChange={(event) => setWidth(parseInt(event.target.value))}
       ></Slider>
-      <br />
-      <label>Position</label>
-      <br />
-      <Slider
-        name={'latitude'}
-        min={-0.25}
-        max={+0.25}
-        step={0}
-        defaultValue={lat}
-        onChange={(event) => setLat(parseFloat(event.target.value))}
-      ></Slider>
-      <br />
-      <Slider
-        name={'lontitude'}
-        min={-0.5}
-        max={+0.5}
-        step={0}
-        defaultValue={lon}
-        onChange={(event) => setLon(parseFloat(event.target.value))}
-      ></Slider>
-      <br />
-      <Slider
-        name={'direction'}
-        min={-0.5}
-        max={+0.5}
-        step={0}
-        defaultValue={dir}
-        onChange={(event) => setDir(parseFloat(event.target.value))}
-      ></Slider>
-      <br />
-      <label>Curvature</label>
-      <br />
-      <Slider
-        name={'kappa'}
-        min={-1}
-        max={+1}
-        step={0}
-        defaultValue={kappa}
-        onChange={(event) => setKappa(parseFloat(event.target.value))}
-      ></Slider>
-      <br />
-      <label>Visibility</label>
-      <br />
-      <Checkbox
-        name={'Projections'}
-        child={[
-          { name: 'Manifold', onChange: (event) => setVisman(event.target.checked), defaultChecked: visman },
-          { name: 'Projection', onChange: (event) => setVispro(event.target.checked), defaultChecked: vispro },
-        ]}
-        onChange={(event) => setVisAll(event.target.checked)}
-      ></Checkbox>
-      <br />
-      <label>Texture selection</label>
-      <br />
+        <Label>Position</Label>
+        <Slider
+          name={'latitude'}
+          min={-0.25}
+          max={+0.25}
+          step={0}
+          defaultValue={lat}
+          onChange={(event) => setLat(parseFloat(event.target.value))}
+        ></Slider>
+        <Slider
+          name={'lontitude'}
+          min={-0.5}
+          max={+0.5}
+          step={0}
+          defaultValue={lon}
+          onChange={(event) => setLon(parseFloat(event.target.value))}
+        ></Slider>
+        <Slider
+          name={'direction'}
+          min={-0.5}
+          max={+0.5}
+          step={0}
+          defaultValue={dir}
+          onChange={(event) => setDir(parseFloat(event.target.value))}
+        ></Slider>
+        <Label>Curvature</Label>
+        <Slider
+          name={'kappa'}
+          min={-1}
+          max={+1}
+          step={0}
+          defaultValue={kappa}
+          onChange={(event) => setKappa(parseFloat(event.target.value))}
+        ></Slider>
+      </Box>
+      <Box>
+        <Label>Projection type</Label>
+        <Select name={'type'} onChange={(event) => setProj(event.target.value as projectionType)} defaultValue={'equirectangular'}>
+          <option value={'equirectangular'}>Equirectangular</option>
+          <option value={'orthographic'}>Orthographic</option>
+          <option value={'gnomonic'}>Gnomonic</option>
+          <option value={'stereographic'}>Stereographic</option>
+          <option value={'halfplane'}>Half plane</option>
+          <option value={'hemisphere'}>Hemisphere</option>
+        </Select>
+        <Label>Visibility</Label>
+        <Checkbox
+          name={'Projections'}
+          child={[
+            { name: 'Manifold', onChange: (event) => setVisman(event.target.checked), defaultChecked: visman },
+            { name: 'Projection', onChange: (event) => setVispro(event.target.checked), defaultChecked: vispro },
+          ]}
+          onChange={(event) => setVisAll(event.target.checked)}
+        ></Checkbox>
+      <Label>Texture selection</Label>
       <ImageUpload
         width={400}
         height={200}
@@ -110,8 +118,9 @@ const AppInput: FC = (prop) => {
         imageGallery={textureGallery}
         placeholder={'Upload a Texture'}
         changed={(url) => setTextureURL(url)}
-      ></ImageUpload>
-    </form>
+      />
+      </Box>
+    </Flex>
   );
 };
 export default AppInput;

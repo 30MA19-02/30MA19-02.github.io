@@ -3,8 +3,17 @@ import { Point as Point_ } from '@30ma19-02/noneuclid';
 import { Vector2, Vector3 } from 'three';
 import * as projection from './projection';
 
+export const enum projectionType {
+  equirectangular = 'equirectangular',
+  orthographic = 'orthographic',
+  gnomonic = 'gnomonic',
+  stereographic = 'stereographic',
+  halfplane = 'halfplane',
+  hemishere = 'hemisphere',
+}
 export default class Point {
   protected point: InstanceType<typeof Point_>;
+
   constructor(kappa: number);
   constructor(kappa: number, dir: number);
   constructor(kappa: number, lat: number, lon: number);
@@ -32,30 +41,21 @@ export default class Point {
   get kappa() {
     return this.point.kappa;
   }
+  get factor() {
+    return this.kappa === 0 ? 1 : 1 / this.kappa;
+  }
   get manifold() {
     let pr = this.point.project;
     return new Vector3(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
   }
-  get hemi() {
-    return projection.hemi(this);
-  }
-  get projection() {
-    const enum projectionType {
-      equirectangular,
-      orthographic,
-      gnomonic,
-      stereographic,
-      halfplane,
-    }
-    const projection_type: projectionType = projectionType.equirectangular;
+  projection(projection_type: projectionType) {
     switch (projection_type as projectionType) {
       case projectionType.equirectangular: {
         let proj = projection
           .equirectangular(this.operate(new Point(this.kappa, -0.25)))
           .rotateAround(new Vector2(), -0.5 * pi);
         // Remove border
-        // console.log(proj);
-        return proj;
+        return new Vector3(this.factor, proj.x, proj.y);
       }
 
       case projectionType.orthographic: {
@@ -63,29 +63,33 @@ export default class Point {
         // let proj = projection.klein(this);
         // Remove overlapping
         if (this.kappa > 0 && this.manifold.x < 0) {
-          return new Vector2().setScalar(1 / 0);
+          return new Vector3().setScalar(1 / 0);
         }
-        return proj;
+        return new Vector3(this.factor, proj.x, proj.y);
       }
 
       case projectionType.gnomonic: {
         let proj = projection.gnomonic(this);
         // let proj = projection.gans(this);
         // Autoremove overlapping
-        return proj;
+        return new Vector3(this.factor, proj.x, proj.y);
       }
 
       case projectionType.stereographic: {
         let proj = projection.stereographic(this);
         // let proj = projection.poincare(this).multiplyScalar(2);
         // Remove infinite
-        return proj;
+        return new Vector3(0, proj.x, proj.y);
       }
 
       case projectionType.halfplane: {
         let proj = projection.halfplane(this);
         // Autoreplce Euclidean
-        return proj;
+        return new Vector3(-proj.y, proj.x, this.factor);
+      }
+
+      case projectionType.hemishere: {
+        return projection.hemi(this);
       }
 
       default:

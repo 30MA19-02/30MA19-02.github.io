@@ -1,6 +1,7 @@
 import { useState, createContext } from 'react';
 
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { projectionType } from '../script/point';
 
 export interface optionsInterface {
   segment: number[];
@@ -9,6 +10,7 @@ export interface optionsInterface {
   kappa: number;
   vis: boolean[];
   textureURL: string;
+  proj: projectionType;
 }
 interface optionsContext extends optionsInterface {
   setSegment: Dispatch<SetStateAction<number[]>>;
@@ -17,6 +19,7 @@ interface optionsContext extends optionsInterface {
   setKappa: Dispatch<SetStateAction<number>>;
   setVis: Dispatch<SetStateAction<boolean[]>>;
   setTextureURL: Dispatch<SetStateAction<string>>;
+  setProj: Dispatch<SetStateAction<projectionType>>;
 }
 
 export const OptionsContext = createContext<optionsContext | null>(null);
@@ -34,6 +37,7 @@ export const OptionsProvider: FC = (props) => {
   const [kappa, setKappa] = useState(1);
   const [vis, setVis] = useState([true, true]);
   const [textureURL, setTextureURL] = useState<string>(textureGallery[0]);
+  const [proj, setProj] = useState<projectionType>(projectionType.equirectangular);
   return (
     <OptionsContext.Provider
       value={{
@@ -49,8 +53,11 @@ export const OptionsProvider: FC = (props) => {
         setVis,
         textureURL,
         setTextureURL,
+        proj,
+        setProj,
       }}
     >
+      {props.children}
     </OptionsContext.Provider>
   );
 };

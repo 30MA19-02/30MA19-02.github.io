@@ -8,18 +8,17 @@ import { PerspectiveCamera, OrbitControls, Html, useProgress } from '@react-thre
 import { Color, TextureLoader } from 'three';
 import { DoubleSide, FrontSide, BackSide } from 'three';
 import { OptionsContext } from './Options';
-import type { RefObject, FC } from 'react';
+import type { FC } from 'react';
 import type { Mesh, Vector3 } from 'three';
 import type { optionsInterface } from './Options';
 
-function Loader() {
+const Loading: FC = (prop) => {
   const { progress } = useProgress();
   return <Html center>{progress} % loaded</Html>;
 }
 
 const Scene_: FC<optionsInterface> = (prop) => {
   const options = prop as optionsInterface;
-  const options_ = useRef<optionsInterface>(options);
 
   const size = useThree((state) => state.size);
   const scene = useThree((state) => state.scene);
@@ -27,8 +26,9 @@ const Scene_: FC<optionsInterface> = (prop) => {
   const texture = useLoader(TextureLoader, options.textureURL);
   const dot = useRef<Mesh>(null!);
 
+  const factor = useMemo(() => (options.kappa === 0 ? 1 : 1 / options.kappa), [options.kappa]);
+
   const points = useMemo(() => {
-    let factor = options.kappa === 0 ? 1 : 1 / options.kappa;
     return new Array(options.segment[0] + 1).fill(0).map((_: any, i: number) => {
       let u = i / options.segment[0];
       return new Array(options.segment[1] + 1).fill(0).map((_: any, j: number) => {
@@ -40,7 +40,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
         return p;
       });
     });
-  }, [options.kappa, options.segment]);
+  }, [factor, options.segment]);
   const operator = useMemo(
     () => new Point(options.kappa, -options.pos[0], -options.pos[1]).operate(new Point(options.kappa, -options.dir)),
     [options.kappa, options.pos, options.dir],
@@ -66,20 +66,16 @@ const Scene_: FC<optionsInterface> = (prop) => {
     () =>
       new ParametricGeometry(
         (u: number, v: number, target: Vector3) => {
-          let factor = options.kappa === 0 ? 1 : 1 / options.kappa;
           let i = parseInt((u * options.segment[0]).toString());
           let j = parseInt((v * options.segment[1]).toString());
           let p = operated[i][j];
-          target.set(factor, p.projection.x, p.projection.y);
-          // For poincare disk model
-          // target.set(0, p.projection.x, p.projection.y);
-          // For poincare half plane model
-          // target.set(-p.projection.y, p.projection.x, factor);
+          let pr = p.projection(options.proj);
+          target.set(pr.x, pr.y, pr.z);
         },
         options.segment[0],
         options.segment[1],
       ),
-    [operated],
+    [options.proj, operated],
   );
 
   useEffect(() => {
@@ -97,9 +93,8 @@ const Scene_: FC<optionsInterface> = (prop) => {
     scene.rotateY(+pi / 2);
   }, 1);
   useEffect(() => {
-    let factor = options.kappa === 0 ? 1 : 1 / options.kappa;
     dot.current.position.set(+factor, 0, 0);
-  }, [options.kappa]);
+  }, [factor]);
   return (
     <>
       {/* <color attach="background" args={[0, 0, 0]} /> */}
@@ -137,10 +132,8 @@ const Scene: FC = (prop) => {
   const options = useContext(OptionsContext)! as optionsInterface;
   return (
     <>
-      <Canvas
-        style={{ margin: 'auto', width: '80vw', height: '50vh', border: '.5mm solid var(--theme-ui-colors-primary)' }}
-      >
-        <Suspense fallback={<Loader />}>
+      <Canvas>
+        <Suspense fallback={<Loading />}>
           <Scene_ {...options} />
         </Suspense>
       </Canvas>

@@ -1,4 +1,5 @@
 import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from 'react';
+import { Flex, Input, Label, Slider } from 'theme-ui';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   defaultValue: number;
@@ -32,9 +33,11 @@ const InputSlider: FC<property> = (prop) => {
 
   return (
     <>
-      <label>{prop.name}</label>
-      <input type={'range'} {...prop_}></input>
-      <input type={'number'} {...prop_}></input>
+      <Label>{prop.name}</Label>
+      <Flex mb={2}>
+        <Slider {...prop_}/>
+        <Input type={'number'} {...prop_}/>
+      </Flex>
     </>
   );
 };

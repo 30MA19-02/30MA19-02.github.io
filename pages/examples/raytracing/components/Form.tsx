@@ -12,9 +12,6 @@ const AppInput: FC = (prop) => {
     setKappa,
   } = useContext(OptionsContext)!;
 
-  return (
-    <form>
-    </form>
-  );
+  return <form></form>;
 };
 export default AppInput;

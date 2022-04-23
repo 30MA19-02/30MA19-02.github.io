@@ -1,6 +1,6 @@
 // imports the React Javascript Library
 import { createRef, useState } from 'react';
-import Image from 'next/image';
+import { AspectImage, Field, Button, Card, Grid, Box, Input } from 'theme-ui';
 import type { ChangeEventHandler, FC, InputHTMLAttributes, MouseEventHandler } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
@@ -46,15 +46,15 @@ const ImageUploadCard: FC<property> = (props) => {
     };
     return (
       <>
-        <input
+        <Input
           accept="image/*"
           id="contained-button-file"
           type="file"
           onChange={handleUploadClick}
           placeholder={props.placeholder}
         />
-        <button onClick={handleSearchClick}>Search</button>
-        <button onClick={handleGalleryClick}>Gallery</button>
+        <Button type="button" onClick={handleSearchClick}>Search</Button>
+        <Button type="button" onClick={handleGalleryClick}>Gallery</Button>
       </>
     );
   };
@@ -65,11 +65,11 @@ const ImageUploadCard: FC<property> = (props) => {
     };
     const input = createRef<HTMLInputElement>();
     return (
-      <div>
-        <input type={'url'} placeholder="Image URL" ref={input} />
-        <button onClick={(event) => handleImageSearch(input.current!.value)}>Search</button>
-        <button onClick={handleSeachClose}>Close</button>
-      </div>
+      <>
+        <Field type={'url'} label={'Image URL'} ref={input} />
+        <Button type="button" onClick={(event) => handleImageSearch(input.current!.value)}>Search</Button>
+        <Button type="button" onClick={handleSeachClose}>Close</Button>
+      </>
     );
   };
   const renderGalleryState = () => {
@@ -77,37 +77,39 @@ const ImageUploadCard: FC<property> = (props) => {
     const handleGalleryClose: MouseEventHandler<HTMLButtonElement> = (event) => {
       setMainState('initial');
     };
-    const listItems = props.imageGallery!.map((url, ind) => (
-      <li key={ind}>
-        <a
-          onClick={(event) => handleAvatarClick(url)}
-          style={{
-            padding: '5px 5px 5px 5px',
-            cursor: 'pointer',
-          }}
-        >
-          <Image src={url} alt={`Default ${ind}`} width={100} height={100} />
-        </a>
-      </li>
-    ));
 
     return (
       <>
-        <ul>{listItems}</ul>
-        <button onClick={handleGalleryClose}>Close</button>
+        <Card>
+          <Grid gap={2} columns={[2]}>
+          {
+            props.imageGallery!.map((url, ind) => (
+              <Box
+              key={ind}
+              onClick={(event) => handleAvatarClick(url)}
+              >
+                <AspectImage src={url} alt={`Default ${ind}`} ratio={2/1} />
+              </Box>
+            ))
+          }
+          </Grid>
+        </Card>
+        <Button onClick={handleGalleryClose}>Close</Button>
       </>
     );
   };
   const renderPreview = () => {
     return (
       <>
-        <div>
+        <>
           {selectedFile ? (
-            <Image src={selectedFile} alt={'Selected Image'} width={props.width} height={props.height} />
+            <Card>
+              <AspectImage src={selectedFile} alt={'Selected Image'} ratio={2/1} />
+            </Card>
           ) : (
             <>{props.children}</>
           )}
-        </div>
+        </>
       </>
     );
   };
@@ -123,8 +125,6 @@ const ImageUploadCard: FC<property> = (props) => {
 
 ImageUploadCard.defaultProps = {
   imageGallery: [],
-  width: 100,
-  height: 100,
 };
 
 export default ImageUploadCard;
