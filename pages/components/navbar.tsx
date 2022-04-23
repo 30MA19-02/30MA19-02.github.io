@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import type { FC } from 'react';
 import { Flex, NavLink } from 'theme-ui';
 
@@ -25,9 +26,11 @@ const Scene: FC = (prop) => {
       {
         navLinks.map((link, index) => {
           return (
-            <NavLink href={link.path} key={index} p={2}>
-              {link.name}
-            </NavLink>
+            <Link href={link.path} key={index} passHref>
+              <NavLink p={2}>
+                {link.name}
+              </NavLink>
+            </Link>
           );
         })
       }

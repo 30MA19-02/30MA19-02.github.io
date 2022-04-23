@@ -1,4 +1,5 @@
-import { Link } from 'theme-ui';
+import { Link as TLink } from 'theme-ui';
+import Link from 'next/link';
 import type { NextPage } from 'next';
 
 const Post: NextPage = () => {
@@ -8,13 +9,17 @@ const Post: NextPage = () => {
       <p>Click the link below to navigate to pages.</p>
       <ul>
         <li>
-          <Link href={`/examples/basic`}>
-            Basic example
+          <Link href={`/examples/basic`} passHref>
+            <TLink>
+              Basic example
+            </TLink>
           </Link>
         </li>
         <li>
-          <Link href={`/examples/raytracing`}>
-            Not So Basic example
+          <Link href={`/examples/raytracing`} passHref>
+            <TLink>
+              Not So Basic example
+            </TLink>
           </Link>
         </li>
       </ul>
