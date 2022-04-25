@@ -8,7 +8,7 @@
     "lib/*"
   ],
   "scripts": {
-    "preversion": "node -e \"if(!require('fs').existsSync('.skiptest')) process.exit( -1)\" || jest",
+    "preversion": "jest || node -e \"if(!require('fs').existsSync('.skiptest')) process.exit( -1)\"",
     "version": "npm run format && git add .",
     "build": "tsc",
     "test": "jest --expand",
