@@ -23,7 +23,7 @@
     "@mdx-js/react": "^1.6.22",
     "@react-three/drei": "^8.20.2",
     "@react-three/fiber": "^7.0.27",
-    "@theme-ui/presets": "^0.14.3",
+    "@theme-ui/presets": "^0.14.4",
     "katex": "^0.15.3",
     "mathjs": "^10.5.0",
     "next": "^12.1.5",
