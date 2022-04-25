@@ -6,14 +6,13 @@ import '../extension';
 // The test must test the indicated property of the class
 // It will be used to do test-driven development for user-friendly interface later
 describe('2D optimization: validity test', () => {
-  const max_theta = 5;
   const max_kappa = 2;
   const iter = 10;
   const dim = 2;
   it('positional', () => {
     for (let _ = 0; _ < iter; _++) {
       const kappa = rnd.range(-max_kappa, max_kappa);
-      const theta = rnd.theta(dim, -max_theta);
+      const theta = rnd.theta(dim);
       expect(opt.positional(kappa, ...theta)).toBeAllClose(std.positional(kappa, ...theta));
     }
   });
