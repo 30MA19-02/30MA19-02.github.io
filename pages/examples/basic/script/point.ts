@@ -1,15 +1,8 @@
 import { Point as Point_ } from '@30ma19-02/noneuclid';
 import { pi } from 'mathjs';
-import { Vector2, Vector3 } from 'three';
+import { Vector3 } from 'three';
+import projectionType from './projection';
 
-export const enum projectionType {
-  equirectangular = 'equirectangular',
-  orthographic = 'orthographic',
-  gnomonic = 'gnomonic',
-  stereographic = 'stereographic',
-  halfplane = 'halfplane',
-  hemishere = 'hemisphere',
-}
 export default class Point {
   protected point: InstanceType<typeof Point_>;
 
@@ -47,69 +40,55 @@ export default class Point {
     let pr = this.point.project;
     return new Vector3(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
   }
-  async projection(projection_type: projectionType) {
-    switch (projection_type as projectionType) {
-      case projectionType.equirectangular: {
-        const projection = (await import('./projection/equirectangular')).default;
-        const proj = (await projection(this.operate(new Point(this.kappa, -0.25)))).rotateAround(
-          new Vector2(),
-          -0.5 * pi,
-        );
-        // Remove border
-        return new Vector3(this.factor, proj.x, proj.y);
-      }
+  // async projection(projection_type: projectionType) {
+  //   switch (projection_type as projectionType) {
+  //     case projectionType.equirectangular: {
+  //       const projection = (await import('./projection/equirectangular')).default;
+  //       // Remove border
+  //       return projection(this);
+  //     }
 
-      case projectionType.orthographic: {
-        const projection =
-          this.kappa >= 0
-            ? (await import('./projection/orthographic')).default
-            : (await import('./projection/klein')).default;
-        const proj = await projection(this);
-        // Remove overlapping
-        if (this.kappa > 0 && this.manifold.x < 0) {
-          return new Vector3().setScalar(1 / 0);
-        }
-        return new Vector3(this.factor, proj.x, proj.y);
-      }
+  //     case projectionType.orthographic: {
+  //       const projection =
+  //         this.kappa >= 0
+  //           ? (await import('./projection/orthographic')).default
+  //           : (await import('./projection/klein')).default;
+  //       // Remove overlapping
+  //       return projection(this);
+  //     }
 
-      case projectionType.gnomonic: {
-        const projection =
-          this.kappa >= 0
-            ? (await import('./projection/gnomonic')).default
-            : (await import('./projection/gans')).default;
-        const proj = await projection(this);
-        // Autoremove overlapping
-        return new Vector3(this.factor, proj.x, proj.y);
-      }
+  //     case projectionType.gnomonic: {
+  //       const projection =
+  //         this.kappa >= 0
+  //           ? (await import('./projection/gnomonic')).default
+  //           : (await import('./projection/gans')).default;
+  //       return projection(this);
+  //     }
 
-      case projectionType.stereographic: {
-        if (this.kappa >= 0) {
-          const projection = (await import('./projection/stereographic')).default;
-          const proj = await projection(this);
-          return new Vector3(0, proj.x, proj.y);
-        }
-        const projection = (await import('./projection/poincare')).default;
-        const proj = (await projection(this)).multiplyScalar(2);
-        // Remove infinite
-        return new Vector3(0, proj.x, proj.y);
-      }
+  //     case projectionType.stereographic: {
+  //       const projection =
+  //         this.kappa >= 0
+  //           ? (await import('./projection/stereographic')).default
+  //           : (await import('./projection/poincare')).default;
+  //       // Remove infinite
+  //       return projection(this);
+  //     }
 
-      case projectionType.halfplane: {
-        const projection = (await import('./projection/halfplane')).default;
-        let proj = await projection(this);
-        // Autoreplce Euclidean
-        return new Vector3(-proj.y, proj.x, this.factor);
-      }
+  //     case projectionType.halfplane: {
+  //       const projection = (await import('./projection/halfplane')).default;
+  //       // Autoreplce Euclidean
+  //       return projection(this);
+  //     }
 
-      case projectionType.hemishere: {
-        const projection = (await import('./projection/hemi')).default;
-        return await projection(this);
-      }
+  //     case projectionType.hemishere: {
+  //       const projection = (await import('./projection/hemi')).default;
+  //       return await projection(this);
+  //     }
 
-      default:
-        throw new RangeError('Invalid projection type');
-    }
-  }
+  //     default:
+  //       throw new RangeError('Invalid projection type');
+  //   }
+  // }
   operate(other: Point): Point {
     let point = new Point(this.kappa);
     point.point = this.point.operate(other.point);
