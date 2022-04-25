@@ -1,6 +1,5 @@
-import { useState, createContext } from 'react';
-
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { createContext, useState } from 'react';
 
 export interface optionsInterface {
   pos: number[];
@@ -29,6 +28,8 @@ export const OptionsProvider: FC = (props) => {
         kappa,
         setKappa,
       }}
-    ></OptionsContext.Provider>
+    >
+      {props.children}
+    </OptionsContext.Provider>
   );
 };

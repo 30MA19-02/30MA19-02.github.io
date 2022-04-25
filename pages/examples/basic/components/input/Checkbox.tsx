@@ -1,44 +1,50 @@
-import { ChangeEventHandler, FC, Fragment, InputHTMLAttributes, useState } from 'react';
+import { ChangeEventHandler, FC, InputHTMLAttributes, useMemo, useState } from 'react';
 import { Box, Switch } from 'theme-ui';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   child: InputHTMLAttributes<HTMLInputElement>[];
 }
-
-const checkbox: FC<InputHTMLAttributes<HTMLInputElement>> = (prop, ind) => (
-  <Fragment key={ind}>
-    <Switch {...{ label: prop.name ? prop.name : '', ...prop }} />
-  </Fragment>
-);
-
 const IndeterminateCheckbox: FC<property> = (prop) => {
   const [checked, setChecked] = useState(prop.child.map((_) => _.defaultChecked as boolean));
 
   const handleChangeParent: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setChecked(checked.map((_) => event.target.checked));
-    prop.onChange?.call(undefined, event);
+    setChecked((checked) => checked.map((_) => event.target.checked));
+    prop.onChange?.(event);
   };
 
   const handleChangeChild: (index: number) => ChangeEventHandler<HTMLInputElement> = (index) => (event) => {
-    setChecked(checked.map((_, ind) => (ind === index ? event.target.checked : _)));
-    if (prop.child[index].onChange) {
-      prop.child[index].onChange!(event);
-    }
+    setChecked((checked) => checked.map((_, ind) => (ind === index ? event.target.checked : _)));
+    prop.child[index].onChange?.(event);
   };
+
+  const prop_ = useMemo(() => {
+    let { defaultValue, onChange, checked, ...prop_ } = prop;
+    prop_.child.map((prop) => {
+      let { defaultValue, onChange, checked, ...prop_ } = prop;
+      return prop_;
+    });
+    return prop_;
+  }, [prop]);
 
   return (
     <>
       <Switch
-        label={prop.name ? prop.name : ''}
+        label={prop.name ?? ''}
         checked={checked.every((_) => _)}
         // indeterminate={checked.some((_) => _) && checked.some((_) => !_)}
         onChange={handleChangeParent}
+        {...prop_}
       />
       <Box px={40}>
-        {prop.child.map((prop, ind) => {
-          const { onChange, defaultChecked, ...prop_ } = prop;
-          return checkbox({ ...prop_, checked: checked[ind], onChange: handleChangeChild(ind) }, ind);
-        })}
+        {prop.child.map((prop, ind) => (
+          <Switch
+            key={ind}
+            label={prop.name ?? ''}
+            checked={checked[ind]}
+            onChange={handleChangeChild(ind)}
+            {...prop_.child[ind]}
+          />
+        ))}
       </Box>
     </>
   );

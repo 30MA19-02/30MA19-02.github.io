@@ -1,6 +1,6 @@
-import { OptionsContext } from './Options';
-import { useContext } from 'react';
 import type { FC } from 'react';
+import { useContext } from 'react';
+import { OptionsContext } from './Options';
 
 const AppInput: FC = (prop) => {
   const {

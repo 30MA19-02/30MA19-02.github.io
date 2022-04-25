@@ -1,6 +1,5 @@
-import { useState, createContext } from 'react';
-
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { createContext, useState } from 'react';
 import { projectionType } from '../script/point';
 
 export interface optionsInterface {

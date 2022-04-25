@@ -4,37 +4,31 @@ import { Flex, NavLink } from 'theme-ui';
 
 const navLinks = [
   {
-    name: "Home", 
-    path: "/" 
+    name: 'Home',
+    path: '/',
   },
   {
-    name: "Examples",
-    path: "/examples",
+    name: 'Examples',
+    path: '/examples',
   },
   {
-    name: "Framework",
-    path: "/framework",
+    name: 'Framework',
+    path: '/framework',
   },
 ];
 
 const Scene: FC = (prop) => {
   return (
     <>
-    <Flex
-      as="nav"
-    >
-      {
-        navLinks.map((link, index) => {
+      <Flex as="nav">
+        {navLinks.map((link, index) => {
           return (
             <Link href={link.path} key={index} passHref>
-              <NavLink p={2}>
-                {link.name}
-              </NavLink>
+              <NavLink p={2}>{link.name}</NavLink>
             </Link>
           );
-        })
-      }
-    </Flex>
+        })}
+      </Flex>
     </>
   );
 };

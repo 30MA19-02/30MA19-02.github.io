@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FC, InputHTMLAttributes, useState } from 'react';
+import { ChangeEventHandler, FC, InputHTMLAttributes, useMemo, useState } from 'react';
 import { Flex, Input, Label, Slider } from 'theme-ui';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
@@ -13,7 +13,7 @@ const InputSlider: FC<property> = (prop) => {
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.value === '') event.target.value = value.toString();
-    prop.onChange?.call(undefined, event);
+    prop.onChange?.(event);
     setValue(parseFloat(event.target.value));
     handleBlur();
   };
@@ -26,17 +26,17 @@ const InputSlider: FC<property> = (prop) => {
     }
   };
 
-  let { type, defaultValue, ...prop_ } = prop;
-  prop_.value = value;
-  prop_.onChange = onChange;
-  if (prop_.step === 0) prop_.step = 1e-18;
+  const prop_ = useMemo(() => {
+    let { type, defaultValue, step, value, onChange, ...prop_ } = prop;
+    return prop_;
+  }, [prop]);
 
   return (
     <>
       <Label>{prop.name}</Label>
       <Flex mb={2}>
-        <Slider {...prop_}/>
-        <Input type={'number'} {...prop_}/>
+        <Slider value={value} onChange={onChange} step={prop.step || 1e-18} {...prop_} />
+        <Input type={'number'} value={value} onChange={onChange} step={prop.step || 1e-18} {...prop_} />
       </Flex>
     </>
   );

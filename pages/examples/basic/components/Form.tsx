@@ -1,11 +1,11 @@
+import type { FC } from 'react';
+import { useCallback, useContext } from 'react';
+import { Box, Grid, Label, Select } from 'theme-ui';
+import { projectionType } from '../script/point';
 import Checkbox from './input/Checkbox';
 import ImageUpload from './input/ImageUpload';
 import Slider from './input/Slider';
 import { OptionsContext, textureGallery } from './Options';
-import { useContext } from 'react';
-import type { FC } from 'react';
-import { projectionType } from '../script/point';
-import { Box, Flex, Label, Select } from 'theme-ui';
 
 const AppInput: FC = (prop) => {
   const {
@@ -24,38 +24,36 @@ const AppInput: FC = (prop) => {
     proj,
     setProj,
   } = useContext(OptionsContext)!;
-  const setWidth = (width: number) => setSegment([width, height]);
-  const setHeight = (height: number) => setSegment([width, height]);
-  const setLat = (lat: number) => setPos([lat, lon]);
-  const setLon = (lon: number) => setPos([lat, lon]);
-  const setVisman = (visman: boolean) => setVis([visman, vispro]);
-  const setVispro = (vispro: boolean) => setVis([visman, vispro]);
-  const setVisAll = (vis: boolean) => setVis([vis, vis]);
+  const setWidth = useCallback((width: number) => setSegment(([_, height]) => [width, height]), [setSegment]),
+    setHeight = useCallback((height: number) => setSegment(([width, _]) => [width, height]), [setSegment]),
+    setLat = useCallback((lat: number) => setPos(([_, lon]) => [lat, lon]), [setPos]),
+    setLon = useCallback((lon: number) => setPos(([lat, _]) => [lat, lon]), [setPos]),
+    setVisman = useCallback((visman: boolean) => setVis(([_, vispro]) => [visman, vispro]), [setVis]),
+    setVispro = useCallback((vispro: boolean) => setVis(([visman, _]) => [visman, vispro]), [setVis]),
+    setVisAll = useCallback((vis: boolean) => setVis((_) => [vis, vis]), [setVis]);
 
   return (
-    <Flex
-      as={'form'}
-      onSubmit={(e) => e.preventDefault()}
-      onReset={(e) => e.preventDefault()}
-    >
+    <Grid as={'form'} onSubmit={(e) => e.preventDefault()} onReset={(e) => e.preventDefault()}>
       <Box>
-      <Label>Segments</Label>
-      <Slider
-        name={'height'}
-        min={2}
-        max={32}
-        step={1}
-        defaultValue={height}
-        onChange={(event) => setHeight(parseInt(event.target.value))}
-      ></Slider>
-      <Slider
-        name={'width'}
-        min={3}
-        max={24}
-        step={1}
-        defaultValue={width}
-        onChange={(event) => setWidth(parseInt(event.target.value))}
-      ></Slider>
+        <Label>Segments</Label>
+        <Slider
+          name={'height'}
+          min={2}
+          max={32}
+          step={1}
+          defaultValue={height}
+          onChange={(event) => setHeight(parseInt(event.target.value))}
+        ></Slider>
+        <Slider
+          name={'width'}
+          min={3}
+          max={24}
+          step={1}
+          defaultValue={width}
+          onChange={(event) => setWidth(parseInt(event.target.value))}
+        ></Slider>
+      </Box>
+      <Box>
         <Label>Position</Label>
         <Slider
           name={'latitude'}
@@ -81,6 +79,8 @@ const AppInput: FC = (prop) => {
           defaultValue={dir}
           onChange={(event) => setDir(parseFloat(event.target.value))}
         ></Slider>
+      </Box>
+      <Box>
         <Label>Curvature</Label>
         <Slider
           name={'kappa'}
@@ -93,7 +93,11 @@ const AppInput: FC = (prop) => {
       </Box>
       <Box>
         <Label>Projection type</Label>
-        <Select name={'type'} onChange={(event) => setProj(event.target.value as projectionType)} defaultValue={'equirectangular'}>
+        <Select
+          name={'type'}
+          onChange={(event) => setProj(event.target.value as projectionType)}
+          defaultValue={'equirectangular'}
+        >
           <option value={'equirectangular'}>Equirectangular</option>
           <option value={'orthographic'}>Orthographic</option>
           <option value={'gnomonic'}>Gnomonic</option>
@@ -101,6 +105,8 @@ const AppInput: FC = (prop) => {
           <option value={'halfplane'}>Half plane</option>
           <option value={'hemisphere'}>Hemisphere</option>
         </Select>
+      </Box>
+      <Box>
         <Label>Visibility</Label>
         <Checkbox
           name={'Projections'}
@@ -110,17 +116,19 @@ const AppInput: FC = (prop) => {
           ]}
           onChange={(event) => setVisAll(event.target.checked)}
         ></Checkbox>
-      <Label>Texture selection</Label>
-      <ImageUpload
-        width={400}
-        height={200}
-        defaultValue={textureURL}
-        imageGallery={textureGallery}
-        placeholder={'Upload a Texture'}
-        changed={(url) => setTextureURL(url)}
-      />
       </Box>
-    </Flex>
+      <Box>
+        <Label>Texture selection</Label>
+        <ImageUpload
+          width={400}
+          height={200}
+          defaultValue={textureURL}
+          imageGallery={textureGallery}
+          placeholder={'Upload a Texture'}
+          changed={(url) => setTextureURL(url)}
+        />
+      </Box>
+    </Grid>
   );
 };
 export default AppInput;

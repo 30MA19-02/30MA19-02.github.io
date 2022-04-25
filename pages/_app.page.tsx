@@ -11,8 +11,8 @@ export default function MyApp({ Component, pageProps, router }: AppProps) {
     <>
       <ThemeProvider theme={theme}>
         <BaseStyles>
-          <header style={{position:'sticky', top:'0', zIndex:'100'}}>
-            <NavBar/>
+          <header style={{ position: 'sticky', top: '0', zIndex: '100' }}>
+            <NavBar />
           </header>
           <main>
             <Component {...pageProps} />

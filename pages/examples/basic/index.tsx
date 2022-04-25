@@ -1,16 +1,16 @@
-import { OptionsProvider } from './components/Options';
-import Input from './components/Form';
-import Scene from './components/Scene';
+import TeX from '@matejmazur/react-katex';
 import type { FC } from 'react';
 import { AspectRatio, Box, Flex, Heading, Paragraph } from 'theme-ui';
-import TeX from '@matejmazur/react-katex';
+import Input from './components/Form';
+import { OptionsProvider } from './components/Options';
+import Scene from './components/Scene';
 
 const app: FC = (props) => {
   return (
     <>
       <OptionsProvider>
         <AspectRatio
-          ratio={16/9}
+          ratio={16 / 9}
           sx={{
             border: '.5mm solid var(--theme-ui-colors-primary)',
             background: 'var(--theme-ui-colors-background)',

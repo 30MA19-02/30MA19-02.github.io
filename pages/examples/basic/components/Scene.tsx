@@ -1,21 +1,18 @@
+import { Html, OrbitControls, PerspectiveCamera, useProgress } from '@react-three/drei';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
+import type { FC } from 'react';
 import { Suspense, useContext, useEffect, useMemo, useRef } from 'react';
-
+import type { Mesh, Vector3 } from 'three';
+import { BackSide, Color, DoubleSide, FrontSide, TextureLoader } from 'three';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import Point from '../script/point';
-import { pi } from 'mathjs';
-import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { PerspectiveCamera, OrbitControls, Html, useProgress } from '@react-three/drei';
-import { Color, TextureLoader } from 'three';
-import { DoubleSide, FrontSide, BackSide } from 'three';
-import { OptionsContext } from './Options';
-import type { FC } from 'react';
-import type { Mesh, Vector3 } from 'three';
 import type { optionsInterface } from './Options';
+import { OptionsContext } from './Options';
 
 const Loading: FC = (prop) => {
   const { progress } = useProgress();
   return <Html center>{progress} % loaded</Html>;
-}
+};
 
 const Scene_: FC<optionsInterface> = (prop) => {
   const options = prop as optionsInterface;
@@ -70,7 +67,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
           let j = parseInt((v * options.segment[1]).toString());
           let p = operated[i][j];
           let pr = p.projection(options.proj);
-          target.set(pr.x, pr.y, pr.z);
+          pr.then((pr) => target.set(pr.x, pr.y, pr.z));
         },
         options.segment[0],
         options.segment[1],
@@ -82,7 +79,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
     camera.position.setZ(3);
   }, []);
   useFrame((event) => {
-    scene.rotateY(-pi / 2);
+    scene.rotateY(-Math.PI / 2);
     scene.translateX(-dot.current.position.x);
     scene.translateY(-dot.current.position.y);
     scene.translateZ(-dot.current.position.z);
@@ -90,7 +87,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
     scene.translateX(+dot.current.position.x);
     scene.translateY(+dot.current.position.y);
     scene.translateZ(+dot.current.position.z);
-    scene.rotateY(+pi / 2);
+    scene.rotateY(+Math.PI / 2);
   }, 1);
   useEffect(() => {
     dot.current.position.set(+factor, 0, 0);
