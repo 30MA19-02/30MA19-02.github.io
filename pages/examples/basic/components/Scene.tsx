@@ -1,12 +1,10 @@
 import { Html, OrbitControls, PerspectiveCamera, useProgress } from '@react-three/drei';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
-import { FC, useCallback } from 'react';
-import { Suspense, useContext, useEffect, useMemo, useRef } from 'react';
+import { FC, Suspense, useContext, useEffect, useMemo, useRef } from 'react';
 import type { Mesh, Vector3 } from 'three';
 import { BackSide, Color, DoubleSide, FrontSide, TextureLoader } from 'three';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import Point from '../script/point';
-import { projectionType } from '../script/projection';
 import type { optionsInterface } from './Options';
 import { OptionsContext } from './Options';
 
@@ -24,56 +22,16 @@ const Scene_: FC<optionsInterface> = (prop) => {
   const texture = useLoader(TextureLoader, options.textureURL);
   const dot = useRef<Mesh>(null!);
 
-  const projector = useCallback(
-    async (point: Point) => {
-      const sph = point.kappa >= 0;
-      switch (options.proj) {
-        case projectionType.equirectangular:
-          // Remove border
-          return (await import('../script/projection/equirectangular')).default(point);
-
-        case projectionType.orthographic:
-          // Remove overlapxping
-          return sph
-            ? (await import('../script/projection/orthographic')).default(point)
-            : (await import('../script/projection/klein')).default(point);
-
-        case projectionType.gnomonic:
-          return sph
-            ? (await import('../script/projection/gnomonic')).default(point)
-            : (await import('../script/projection/gans')).default(point);
-
-        case projectionType.stereographic:
-          // Remove infinitex
-          return sph
-            ? (await import('../script/projection/stereographic')).default(point)
-            : (await import('../script/projection/poincare')).default(point);
-
-        case projectionType.halfplane:
-          // Autoreplce Euclideanr
-          return (await import('../script/projection/halfplane')).default(point);
-
-        case projectionType.hemishere:
-          return (await import('../script/projection/hemi')).default(point);
-
-        default:
-          throw new RangeError('Invalid projection type');
-      }
-    },
-    [options.proj],
-  );
-
   const factor = useMemo(() => (options.kappa === 0 ? 1 : 1 / options.kappa), [options.kappa]);
 
   const points = useMemo(() => {
     return new Array(options.segment[0] + 1).fill(0).map((_: any, i: number) => {
-      let u = i / options.segment[0];
+      const u = i / options.segment[0];
       return new Array(options.segment[1] + 1).fill(0).map((_: any, j: number) => {
-        let v = j / options.segment[1];
-        let x = -Math.abs(factor) * (0.5 - u);
-        let y = Math.abs(factor) * 0.5 * (0.5 - v);
-        let p = new Point(options.kappa, x, y);
-        p = p.operate(new Point(options.kappa, 0.25));
+        const v = j / options.segment[1];
+        const x = -Math.abs(factor) * (0.5 - u);
+        const y = Math.abs(factor) * 0.5 * (0.5 - v);
+        const p = new Point(options.kappa, x, y).operate(new Point(options.kappa, 0.25));
         return p;
       });
     });
@@ -88,10 +46,10 @@ const Scene_: FC<optionsInterface> = (prop) => {
     () =>
       new ParametricGeometry(
         (u: number, v: number, target: Vector3) => {
-          let i = parseInt((u * options.segment[0]).toString());
-          let j = parseInt((v * options.segment[1]).toString());
-          let p = operated[i][j];
-          let pr = p.manifold;
+          const i = parseInt((u * options.segment[0]).toString());
+          const j = parseInt((v * options.segment[1]).toString());
+          const p = operated[i][j];
+          const pr = p.manifold;
           target.set(pr.x, pr.y, pr.z);
         },
         options.segment[0],
@@ -103,11 +61,11 @@ const Scene_: FC<optionsInterface> = (prop) => {
     () =>
       new ParametricGeometry(
         (u: number, v: number, target: Vector3) => {
-          let i = parseInt((u * options.segment[0]).toString());
-          let j = parseInt((v * options.segment[1]).toString());
-          let p = operated[i][j];
-          let pr = projector(p);
-          pr.then((pr) => target.set(pr.x, pr.y, pr.z));
+          const i = parseInt((u * options.segment[0]).toString());
+          const j = parseInt((v * options.segment[1]).toString());
+          const p = operated[i][j];
+          const pr = p.projection(options.proj);
+          target.set(pr.x, pr.y, pr.z);
         },
         options.segment[0],
         options.segment[1],

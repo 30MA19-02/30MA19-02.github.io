@@ -1,7 +1,7 @@
 import { Point as Point_ } from '@30ma19-02/noneuclid';
 import { pi } from 'mathjs';
 import { Vector3 } from 'three';
-import projectionType from './projection';
+import * as projector from './projection';
 
 export default class Point {
   protected point: InstanceType<typeof Point_>;
@@ -40,55 +40,55 @@ export default class Point {
     let pr = this.point.project;
     return new Vector3(pr.get([0, 0]), pr.get([1, 0]), pr.get([2, 0]));
   }
-  // async projection(projection_type: projectionType) {
-  //   switch (projection_type as projectionType) {
-  //     case projectionType.equirectangular: {
-  //       const projection = (await import('./projection/equirectangular')).default;
-  //       // Remove border
-  //       return projection(this);
-  //     }
+  projection(projection_type: projector.projectionType) {
+    switch (projection_type as projector.projectionType) {
+      case projector.projectionType.equirectangular: {
+        const projection = projector.equirectangular;
+        // Remove border
+        return projection(this);
+      }
 
-  //     case projectionType.orthographic: {
-  //       const projection =
-  //         this.kappa >= 0
-  //           ? (await import('./projection/orthographic')).default
-  //           : (await import('./projection/klein')).default;
-  //       // Remove overlapping
-  //       return projection(this);
-  //     }
+      case projector.projectionType.orthographic: {
+        const projection =
+          this.kappa >= 0
+            ? projector.orthographic
+            : projector.klein;
+        // Remove overlapping
+        return projection(this);
+      }
 
-  //     case projectionType.gnomonic: {
-  //       const projection =
-  //         this.kappa >= 0
-  //           ? (await import('./projection/gnomonic')).default
-  //           : (await import('./projection/gans')).default;
-  //       return projection(this);
-  //     }
+      case projector.projectionType.gnomonic: {
+        const projection =
+          this.kappa >= 0
+            ? projector.gnomonic
+            : projector.gans;
+        return projection(this);
+      }
 
-  //     case projectionType.stereographic: {
-  //       const projection =
-  //         this.kappa >= 0
-  //           ? (await import('./projection/stereographic')).default
-  //           : (await import('./projection/poincare')).default;
-  //       // Remove infinite
-  //       return projection(this);
-  //     }
+      case projector.projectionType.stereographic: {
+        const projection =
+          this.kappa >= 0
+            ? projector.stereographic
+            : projector.poincare;
+        // Remove infinite
+        return projection(this);
+      }
 
-  //     case projectionType.halfplane: {
-  //       const projection = (await import('./projection/halfplane')).default;
-  //       // Autoreplce Euclidean
-  //       return projection(this);
-  //     }
+      case projector.projectionType.halfplane: {
+        const projection = projector.halfplane;
+        // Autoreplce Euclidean
+        return projection(this);
+      }
 
-  //     case projectionType.hemishere: {
-  //       const projection = (await import('./projection/hemi')).default;
-  //       return await projection(this);
-  //     }
+      case projector.projectionType.hemishere: {
+        const projection = projector.hemi;
+        return projection(this);
+      }
 
-  //     default:
-  //       throw new RangeError('Invalid projection type');
-  //   }
-  // }
+      default:
+        throw new RangeError('Invalid projection type');
+    }
+  }
   operate(other: Point): Point {
     let point = new Point(this.kappa);
     point.point = this.point.operate(other.point);

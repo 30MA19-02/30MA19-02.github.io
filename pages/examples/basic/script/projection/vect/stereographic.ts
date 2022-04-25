@@ -1,6 +1,6 @@
+import azimuthal from './azimuthal';
 import type { Vector3 } from 'three';
 
-export default async function stereographic(vector: Vector3) {
-  const azimuthal = (await import('./azimuthal')).default;
-  return await azimuthal(vector, -1);
+export default function stereographic(vector: Vector3) {
+  return azimuthal(vector, -1);
 }
