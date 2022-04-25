@@ -1,7 +1,7 @@
 import type { FC } from 'react';
 import { useCallback, useContext } from 'react';
 import { Box, Grid, Label, Select } from 'theme-ui';
-import { projectionType } from '../script/point';
+import { projectionType } from '../script/projection';
 import Checkbox from './input/Checkbox';
 import ImageUpload from './input/ImageUpload';
 import Slider from './input/Slider';

@@ -1,6 +1,6 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
 import { createContext, useState } from 'react';
-import { projectionType } from '../script/point';
+import { projectionType } from '../script/projection';
 
 export interface optionsInterface {
   segment: number[];
