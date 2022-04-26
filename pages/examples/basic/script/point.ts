@@ -49,27 +49,18 @@ export default class Point {
       }
 
       case projector.projectionType.orthographic: {
-        const projection =
-          this.kappa >= 0
-            ? projector.orthographic
-            : projector.klein;
+        const projection = this.kappa >= 0 ? projector.orthographic : projector.klein;
         // Remove overlapping
         return projection(this);
       }
 
       case projector.projectionType.gnomonic: {
-        const projection =
-          this.kappa >= 0
-            ? projector.gnomonic
-            : projector.gans;
+        const projection = this.kappa >= 0 ? projector.gnomonic : projector.gans;
         return projection(this);
       }
 
       case projector.projectionType.stereographic: {
-        const projection =
-          this.kappa >= 0
-            ? projector.stereographic
-            : projector.poincare;
+        const projection = this.kappa >= 0 ? projector.stereographic : projector.poincare;
         // Remove infinite
         return projection(this);
       }

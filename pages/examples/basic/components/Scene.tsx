@@ -127,7 +127,7 @@ const Scene: FC = (prop) => {
   const options = useContext(OptionsContext)! as optionsInterface;
   return (
     <>
-      <Canvas>
+      <Canvas frameloop={'demand'}>
         <Suspense fallback={<Loading />}>
           <Scene_ {...options} />
         </Suspense>

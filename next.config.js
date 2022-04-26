@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const path = require('path');
+
 const nextConfig = {
   reactStrictMode: true,
   basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
@@ -14,6 +17,13 @@ const nextConfig = {
   images: {
     loader: 'imgix',
     path: '',
+  },
+  webpack: (config, options) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      three$: path.resolve('./utils/three.ts'),
+    };
+    return config;
   },
 };
 
