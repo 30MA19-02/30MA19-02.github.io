@@ -8,12 +8,12 @@
     "lib/*"
   ],
   "scripts": {
-    "preversion": "cross-env SKIP='true' jest && npm run format",
-    "version": "npm run build && git add .",
-    "postversion": "npm run format && git add .",
+    "preversion": "npm run validate && npm run format",
+    "version": "npm build && git add .",
     "prebuild": "rimraf lib",
     "build": "tsc",
-    "test": "jest --expand",
+    "test": "jest --expand --verbose",
+    "validate": "cross-env SKIP='true' jest --silent",
     "testExport": "jest --json --outputFile coverage/result.json --coverage",
     "testWatch": "jest --watchAll",
     "format": "prettier --write .",
