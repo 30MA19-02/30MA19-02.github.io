@@ -1,6 +1,6 @@
-import * as t2d from './2d/transformations'
-import * as t3d from './3d/transformations'
-import * as tnd from './general/transformations'
+import * as t2d from './2d/transformations';
+import * as t3d from './3d/transformations';
+import * as tnd from './general/transformations';
 import type { Matrix } from 'mathjs';
 
 export function positional(kappa: number, ...theta: number[]): Matrix {
