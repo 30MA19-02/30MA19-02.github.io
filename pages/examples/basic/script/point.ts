@@ -1,5 +1,4 @@
 import { Point as Point_ } from '@30ma19-02/noneuclid';
-import { pi } from 'mathjs';
 import { Vector3 } from 'three';
 import * as projector from './projection';
 
@@ -11,8 +10,8 @@ export default class Point {
   constructor(kappa: number, lat: number, lon: number);
   constructor(kappa: number, lat: number, lon: number, dir: number);
   constructor(kappa: number, p1?: number, p2?: number, p3?: number) {
-    const position_mapper = (lat: number, lon: number) => [lat * 2 * pi, -lon * 2 * pi];
-    const direction_mapper = (dir: number) => [[-dir * 2 * pi]];
+    const position_mapper = (lat: number, lon: number) => [lat * 2 * Math.PI, -lon * 2 * Math.PI];
+    const direction_mapper = (dir: number) => [[-dir * 2 * Math.PI]];
     const dim = 2;
     if (p1 === undefined) {
       this.point = new Point_({ dim, kappa });
