@@ -18,13 +18,6 @@ const nextConfig = {
     loader: 'imgix',
     path: '',
   },
-  webpack: (config, options) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      three$: path.resolve('./utils/three.ts'),
-    };
-    return config;
-  },
 };
 
 const withTM = require('next-transpile-modules')(['three']);
