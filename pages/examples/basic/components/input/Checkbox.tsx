@@ -19,7 +19,7 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
 
   const prop_ = useMemo(() => {
     let { defaultValue, onChange, checked, ...prop_ } = prop;
-    prop_.child.map((prop) => {
+    prop_.child = prop_.child.map((prop) => {
       let { defaultValue, onChange, checked, ...prop_ } = prop;
       return prop_;
     });
