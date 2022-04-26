@@ -2,16 +2,30 @@
   "name": "@30ma19-02/noneuclid",
   "version": "4.0.3",
   "description": "30MA19-02",
-  "main": "lib/index.js",
-  "types": "lib/index.d.js",
+  "main": "lib/cjs",
+  "module": "lib/esm",
+  "types": "lib/types/index.d.js",
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
-    "lib/*"
+    "lib",
+    "src",
+    "test",
+    "jest.config.ts",
+    "tsconfig.*.json",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "preversion": "npm run validate && npm run format",
-    "version": "npm build && git add .",
+    "version": "npm run build && git add .",
     "prebuild": "rimraf lib",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
     "test": "jest --expand --verbose",
     "validate": "cross-env SKIP='true' jest --silent",
     "testExport": "jest --json --outputFile coverage/result.json --coverage",
@@ -45,7 +59,9 @@
     "typescript": "^4.6.3"
   },
   "directories": {
-    "test": "test"
+    "src": "./src",
+    "test": "./test",
+    "lib": "./lib"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
