@@ -1,4 +1,4 @@
-import { identity, index, matrix as matrix_, multiply, range, zeros } from 'mathjs';
+import { identity, index, matrix as matrix_, multiply, range, zeros } from './math/math';
 import { point as point_, reflect as reflect_, orientational, positional } from './geometry/transformations';
 import { equal, deepEqual, larger } from './math/compare';
 import { isOrthochronusIndefiniteOrthogonal, isOrthogonal, isSquare } from './math/matrix';

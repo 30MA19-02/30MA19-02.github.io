@@ -1,12 +1,7 @@
-import { add, create, subtract, deepEqualDependencies, equalDependencies, largerDependencies } from 'mathjs';
+import { add, subtract, larger as larger_, equal as equal_, deepEqual as deepEqual_ } from './math';
 
 import type { MathType, Matrix } from 'mathjs';
 
-const {
-  larger: larger_,
-  equal: equal_,
-  deepEqual: deepEqual_,
-} = create({ largerDependencies, equalDependencies, deepEqualDependencies }, { epsilon: 1e-12 });
 export function larger(a: MathType, b: MathType): boolean {
   return !!larger_(add(subtract(a, b), 1), 1);
 }

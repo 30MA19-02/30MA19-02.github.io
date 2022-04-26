@@ -1,6 +1,6 @@
 import * as utils from 'jest-matcher-utils';
 import { deepEqual } from '../../src/math/compare';
-import { matrix } from 'mathjs';
+import { abs, subtract, matrix } from '../../src/math/math';
 
 import type { Matrix } from 'mathjs';
 
@@ -19,18 +19,22 @@ declare global {
 const passMessage = (received: any, expected: any) => () =>
   utils.matcherHint('.not.toBeAllClose', 'received', '') +
   '\n\n' +
-  'Expected \n' +
+  'Expected:\n' +
+  `  ${utils.printExpected(expected)}\n` +
+  'Received:\n' +
   `  ${utils.printReceived(received)}\n` +
-  'to not be close to\n' +
-  `  ${utils.printExpected(expected)}`;
+  'Difference:\n' +
+  `  ${utils.printReceived(abs(subtract(received, expected)))}`;
 
 const failMessage = (received: any, expected: any) => () =>
   utils.matcherHint('.toBeAllClose', 'received', '') +
   '\n\n' +
-  'Expected \n' +
+  'Expected:\n' +
+  `  ${utils.printExpected(expected)}\n` +
+  'Received:\n' +
   `  ${utils.printReceived(received)}\n` +
-  'to be close to\n' +
-  `  ${utils.printExpected(expected)}\n`;
+  'Difference:\n' +
+  `  ${utils.printReceived(abs(subtract(received, expected)))}`;
 
 export default function toBeAllClose<E extends any[] | Matrix>(received: E, expected: E) {
   const [received_, expected_] = [matrix(received), matrix(expected)];

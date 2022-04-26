@@ -8,8 +8,10 @@
     "lib/*"
   ],
   "scripts": {
-    "preversion": "jest || node -e \"if(!require('fs').existsSync('.skiptest')) process.exit( -1)\"",
-    "version": "npm run format && git add .",
+    "preversion": "cross-env SKIP='true' jest && npm run format",
+    "version": "npm run build && git add .",
+    "postversion": "npm run format && git add .",
+    "prebuild": "rimraf lib",
     "build": "tsc",
     "test": "jest --expand",
     "testExport": "jest --json --outputFile coverage/result.json --coverage",
@@ -34,9 +36,10 @@
     "@babel/preset-env": "^7.16.11",
     "@types/jest": "^27.4.1",
     "babel-jest": "^27.5.1",
-    "fs": "^0.0.1-security",
+    "cross-env": "^7.0.3",
     "jest": "^27.5.1",
     "prettier": "^2.6.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.3"

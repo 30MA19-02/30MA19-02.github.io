@@ -1,4 +1,4 @@
-import { concat, identity, index, multiply, pi, range, sqrt, square, zeros } from 'mathjs';
+import { concat, identity, index, multiply, pi, range, sqrt, square, zeros } from '../math/math';
 import { arcsine } from './trigonometry';
 import { equal } from '../math/compare';
 

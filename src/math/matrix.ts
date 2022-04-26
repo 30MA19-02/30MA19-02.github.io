@@ -1,4 +1,4 @@
-import { multiply, transpose, identity, det, diag, index, range } from 'mathjs';
+import { multiply, transpose, identity, det, diag, index, range } from './math';
 import { deepEqual, larger } from './compare';
 
 import type { Matrix } from 'mathjs';

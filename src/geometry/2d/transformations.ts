@@ -1,9 +1,8 @@
-import { matrix, multiply } from 'mathjs';
+import { matrix, multiply } from '../../math/math';
 import { cosine, sine } from '../trigonometry';
+import * as gen from '../transformations';
 
 import type { Matrix } from 'mathjs';
-
-import * as gen from '../transformations';
 
 export function positional(kappa: number, ...theta: number[]): Matrix {
   const n = theta.length;

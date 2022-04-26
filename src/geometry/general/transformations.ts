@@ -1,4 +1,4 @@
-import { concat, diag, identity, matrix, multiply, zeros } from 'mathjs';
+import { concat, diag, identity, matrix, multiply, zeros } from '../../math/math';
 import { cosine, sine } from '../trigonometry';
 import type { Matrix } from 'mathjs';
 
