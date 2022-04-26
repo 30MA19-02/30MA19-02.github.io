@@ -12,7 +12,7 @@ const kappaList: [name: string, kappa: number][] = [
 const skip = process.env.SKIP === 'true';
 
 export function kappaRunner(
-  runner: (kappa: number) => ()=>void,
+  runner: (kappa: number) => () => void,
 ): (str: TemplateStringsArray, name: string, dim: number) => void;
 export function kappaRunner(
   runner_bounded: (kappa: number) => () => void,
@@ -53,7 +53,7 @@ export function kdRunner(
 ) {
   return (str: TemplateStringsArray, _name: string, _dim: number) => {
     dimList.forEach((dim) => {
-      ((skip&&dim>3)?it.skip:it).each(kappaList)(`${str[0]}%s (kappa=%p)${str[1]}${dim}${str[2]}`, (_, kappa) =>
+      (skip && dim > 3 ? it.skip : it).each(kappaList)(`${str[0]}%s (kappa=%p)${str[1]}${dim}${str[2]}`, (_, kappa) =>
         (kappa === 0 ? runner_euclidean : kappa > 0 ? runner : runner_hyperbolic)(kappa, dim)(),
       );
     });

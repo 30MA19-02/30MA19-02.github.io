@@ -1,6 +1,6 @@
 {
   "name": "@30ma19-02/noneuclid",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "30MA19-02",
   "main": "lib/index.js",
   "types": "lib/index.d.js",
