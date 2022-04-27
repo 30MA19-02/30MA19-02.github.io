@@ -1,6 +1,6 @@
-import { Link as TLink } from 'theme-ui';
-import Link from 'next/link';
 import type { NextPage } from 'next';
+import Link from 'next/link';
+import { Link as TLink } from 'theme-ui';
 
 const Post: NextPage = () => {
   return (

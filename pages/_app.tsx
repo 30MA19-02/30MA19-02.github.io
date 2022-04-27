@@ -1,9 +1,9 @@
-import { BaseStyles, ThemeProvider } from 'theme-ui';
-import theme from '../styles/theme';
-import '../styles/globals.css';
+import NavBar from '@/components/navbar';
 import 'katex/dist/katex.min.css';
 import type { AppProps } from 'next/app';
-import NavBar from '@/components/navbar';
+import { BaseStyles, ThemeProvider } from 'theme-ui';
+import '../styles/globals.css';
+import theme from '../styles/theme';
 
 export default function MyApp({ Component, pageProps, router }: AppProps) {
   if (router.asPath.split('/', 2)[1] == 'framework') return <Component {...pageProps} />;

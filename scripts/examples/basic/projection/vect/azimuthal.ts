@@ -1,5 +1,5 @@
-import { Vector2 } from 'three';
 import type { Vector3 } from 'three';
+import { Vector2 } from 'three';
 
 export default function azimuthal(vector: Vector3, source: number) {
   if (source > vector.x) return new Vector2().setScalar(1 / 0);

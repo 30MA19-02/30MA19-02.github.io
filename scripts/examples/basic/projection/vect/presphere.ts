@@ -1,5 +1,5 @@
-import azimuthal from './azimuthal';
 import { Vector3 } from 'three';
+import azimuthal from './azimuthal';
 
 export default function presphere(vector: Vector3, source: number) {
   const azi_ = azimuthal(vector, source),
