@@ -17,11 +17,6 @@ updates:
     registries:
       - npm-github
 
-  - package-ecosystem: 'gitsubmodule' # See documentation for possible values
-    directory: '/' # Location of package manifests
-    schedule:
-      interval: 'daily'
-
   - package-ecosystem: 'github-actions' # See documentation for possible values
     directory: '/' # Location of package manifests
     schedule:
