@@ -13,7 +13,7 @@ const nextConfig = {
       ...defaultPathMap,
     };
   },
-  pageExtensions: ['page.tsx', 'page.ts', 'page.jsx', 'page.js'],
+  pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
   images: {
     loader: 'imgix',
     path: '',
