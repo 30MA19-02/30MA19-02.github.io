@@ -1,10 +1,10 @@
-import type { FC } from 'react';
-import { useCallback, useContext } from 'react';
-import { Box, Grid, Label, Select } from 'theme-ui';
-import { projectionType } from '@/scripts/examples/basic/projection';
 import Checkbox from '@/components/inputs/Checkbox';
 import ImageUpload from '@/components/inputs/ImageUpload';
 import Slider from '@/components/inputs/Slider';
+import { projectionType } from '@/scripts/examples/basic/projection';
+import type { FC } from 'react';
+import { useCallback, useContext } from 'react';
+import { Box, Grid, Label, Select } from 'theme-ui';
 import { OptionsContext, textureGallery } from './Options';
 
 const AppInput: FC = (prop) => {

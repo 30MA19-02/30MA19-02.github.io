@@ -1,6 +1,6 @@
-import { merge } from 'theme-ui';
 import { deep } from '@theme-ui/presets';
 import type { Theme } from 'theme-ui';
+import { merge } from 'theme-ui';
 
 const theme: Theme = merge(deep, {
   space: {

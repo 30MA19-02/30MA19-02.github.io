@@ -1,7 +1,7 @@
+import styles from '@/styles/next/Home.module.css';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from '../../../styles/next/Home.module.css';
 
 const vercel_logo =
   'https://raw.githubusercontent.com/vercel/next.js/canary/packages/create-next-app/templates/typescript/public/vercel.svg';
