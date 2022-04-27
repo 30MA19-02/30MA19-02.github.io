@@ -15,8 +15,8 @@ const Initial: FC<property> = (props) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
 
-      reader.onloadend = async function (event: ProgressEvent<FileReader>) {
-        await props.changed?.(reader.result as string);
+      reader.onloadend = function (event: ProgressEvent<FileReader>) {
+        props.changed?.(reader.result as string);
       }.bind(this);
     },
     [props],
