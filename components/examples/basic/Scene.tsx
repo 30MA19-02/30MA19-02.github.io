@@ -4,7 +4,7 @@ import { FC, Suspense, useContext, useEffect, useMemo, useRef } from 'react';
 import type { Mesh, Vector3 } from 'three';
 import { BackSide, Color, DoubleSide, FrontSide, TextureLoader } from 'three';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
-import Point from '../script/point';
+import Point from '@/scripts/examples/basic/point';
 import type { optionsInterface } from './Options';
 import { OptionsContext } from './Options';
 

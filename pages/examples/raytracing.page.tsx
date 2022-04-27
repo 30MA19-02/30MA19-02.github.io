@@ -1,12 +1,17 @@
-import type { FC } from 'react';
+import Input from '@/components/examples/raytracing/Form';
+import { OptionsProvider } from '@/components/examples/raytracing/Options';
+import Scene from '@/components/examples/raytracing/Scene';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import { AspectRatio, Box, Flex, Heading, Paragraph } from 'theme-ui';
-import Input from './components/Form';
-import { OptionsProvider } from './components/Options';
-import Scene from './components/Scene';
 
-const app: FC = (props) => {
+const Post: NextPage = (props) => {
   return (
     <>
+      <Head>
+        <title>{'Not So Basic example'}</title>
+        <meta name="description" content={'Documentation page for noneuclidjs.'} />
+      </Head>
       <OptionsProvider>
         <AspectRatio
           ratio={16 / 9}
@@ -41,4 +46,5 @@ const app: FC = (props) => {
     </>
   );
 };
-export default app;
+
+export default Post;
