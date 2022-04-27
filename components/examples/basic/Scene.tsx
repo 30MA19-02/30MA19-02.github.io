@@ -1,8 +1,8 @@
 import Point from '@/scripts/examples/basic/point';
-import { Html, OrbitControls, PerspectiveCamera, useProgress } from '@react-three/drei';
+import { Html, OrbitControls, PerspectiveCamera, Stats, useProgress } from '@react-three/drei';
 import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import { FC, Suspense, useContext, useEffect, useMemo, useRef } from 'react';
-import type { Mesh, Vector3 } from 'three';
+import { Euler, Mesh, Vector3 } from 'three';
 import { BackSide, Color, DoubleSide, FrontSide, TextureLoader } from 'three';
 import { ParametricGeometry } from 'three/examples/jsm/geometries/ParametricGeometry';
 import type { optionsInterface } from './Options';
@@ -17,10 +17,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
   const options = prop as optionsInterface;
 
   const size = useThree((state) => state.size);
-  const scene = useThree((state) => state.scene);
-  const camera = useThree((state) => state.camera);
   const texture = useLoader(TextureLoader, options.textureURL);
-  const dot = useRef<Mesh>(null!);
 
   const factor = useMemo(() => (options.kappa === 0 ? 1 : 1 / options.kappa), [options.kappa]);
 
@@ -73,29 +70,12 @@ const Scene_: FC<optionsInterface> = (prop) => {
     [options.proj, operated],
   );
 
-  useEffect(() => {
-    camera.position.setZ(3);
-  }, []);
-  useFrame((event) => {
-    scene.rotateY(-Math.PI / 2);
-    scene.translateX(-dot.current.position.x);
-    scene.translateY(-dot.current.position.y);
-    scene.translateZ(-dot.current.position.z);
-    event.gl.render(scene, camera);
-    scene.translateX(+dot.current.position.x);
-    scene.translateY(+dot.current.position.y);
-    scene.translateZ(+dot.current.position.z);
-    scene.rotateY(+Math.PI / 2);
-  }, 1);
-  useEffect(() => {
-    dot.current.position.set(+factor, 0, 0);
-  }, [factor]);
   return (
     <>
       {/* <color attach="background" args={[0, 0, 0]} /> */}
-      <PerspectiveCamera fov={75} aspect={size.width / size.height} near={0.1} far={1000}>
+      <PerspectiveCamera aspect={size.width / size.height} position={new Vector3(0, 0, -factor)} rotation={new Euler(0, -Math.PI/2, 0)} attachArray attachObject>
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} />
-        <mesh ref={dot}>
+        <mesh position={new Vector3(factor, 0, 0)}>
           <sphereGeometry args={[0.01]} />
           <meshBasicMaterial color={new Color(0xffff00)} />
         </mesh>
@@ -127,9 +107,10 @@ const Scene: FC = (prop) => {
   const options = useContext(OptionsContext)! as optionsInterface;
   return (
     <>
-      <Canvas frameloop={'demand'}>
+      <Canvas frameloop={'always'}>
         <Suspense fallback={<Loading />}>
           <Scene_ {...options} />
+          <Stats />
         </Suspense>
       </Canvas>
     </>

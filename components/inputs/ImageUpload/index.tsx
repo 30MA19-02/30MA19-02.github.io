@@ -47,20 +47,21 @@ const ImageUploadCard: FC<property> = (props) => {
           setMainState,
         }}
       >
-        {() => {
-          switch (mainState) {
-            case 'initial':
-              return <Initial changed={upload} placeholder={props.placeholder} />;
-            case 'search':
-              return <Search changed={upload} />;
-            case 'gallery':
-              return <Gallery changed={upload} imageGallery={props.imageGallery} />;
-            default:
-              setMainState('initial');
-              return <></>;
-              break;
-          }
-        }}
+        {
+          (() => {
+            switch (mainState) {
+              case 'initial':
+                return <Initial changed={upload} placeholder={props.placeholder} />;
+              case 'search':
+                return <Search changed={upload} />;
+              case 'gallery':
+                return <Gallery changed={upload} imageGallery={props.imageGallery} />;
+              default:
+                setMainState('initial');
+                return <></>;
+            }
+          })()
+        }
       </OptionsContext.Provider>
       {selectedFile ? <Preview src={selectedFile} /> : <></>}
     </div>
