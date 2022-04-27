@@ -1,5 +1,9 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction, ReactNode } from 'react';
 import { createContext, useState } from 'react';
+
+interface Iprops {
+  children?: ReactNode
+}
 
 export interface optionsInterface {
   pos: number[];
@@ -14,7 +18,7 @@ interface optionsContext extends optionsInterface {
 
 export const OptionsContext = createContext<optionsContext | null>(null);
 
-export const OptionsProvider: FC = (props) => {
+export const OptionsProvider: FC<Iprops> = (props) => {
   const [pos, setPos] = useState([0, 0, 0]);
   const [dir, setDir] = useState([0, 0]);
   const [kappa, setKappa] = useState(0);
@@ -29,7 +33,7 @@ export const OptionsProvider: FC = (props) => {
         setKappa,
       }}
     >
-      {props.children}
+      {props.children??<></>}
     </OptionsContext.Provider>
   );
 };

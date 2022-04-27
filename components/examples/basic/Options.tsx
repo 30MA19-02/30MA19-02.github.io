@@ -1,6 +1,10 @@
 import { projectionType } from '@/scripts/examples/basic/projection';
-import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction, ReactNode } from 'react';
 import { createContext, useState } from 'react';
+
+interface Iprops {
+  children?: ReactNode
+}
 
 export interface optionsInterface {
   segment: number[];
@@ -29,7 +33,7 @@ export const textureGallery = [
   'https://upload.wikimedia.org/wikipedia/commons/f/fd/UV_checker_Map_byValle.jpg',
 ];
 
-export const OptionsProvider: FC = (props) => {
+export const OptionsProvider: FC<Iprops> = (props) => {
   const [segment, setSegment] = useState([24, 16]);
   const [pos, setPos] = useState([0.03815754722, 0.27923107222]);
   const [dir, setDir] = useState(0);
@@ -56,7 +60,7 @@ export const OptionsProvider: FC = (props) => {
         setProj,
       }}
     >
-      {props.children}
+      {props.children??<></>}
     </OptionsContext.Provider>
   );
 };
