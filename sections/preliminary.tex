@@ -1,404 +1,448 @@
 % !TeX root = ../main.tex
-
 \documentclass[../main.tex]{subfiles}
-
 \begin{document}
-
 \section{Preliminary}
-
 \subsection{Tensor}
-
 \begin{equation}\label{Tensor:Sum}
-    \tensor{\left(A+B\right)}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
-    =
-    \tensor{A}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
-    +
-    \tensor{B}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
+\tensor{\left(A+B\right)}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
+=
+\tensor{A}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
++
+\tensor{B}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
 \end{equation}
 \begin{equation}\label{Tensor:Product:Scalar}
-    \tensor{\left(\alpha A\right)}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
-    =
-    \alpha
-    \tensor{A}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
+\tensor{\left(\alpha A\right)}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
+=
+\alpha
+\tensor{A}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
 \end{equation}
 \begin{equation}\label{Tensor:Product:Tensor}
-    \tensor{\left(A\otimes B\right)}{
-        ^{i_1}^{\dots}^{i_l}^{i_{l+1}}^{\dots}^{i_{l+n}}
-            _{j_1}_{\dots}_{j_k}_{j_{k+1}}_{\dots}_{j_{k+m}}
-    }
-    =
-    \tensor{A}{
-        ^{i_1}^{\dots}^{i_l}
-            _{j_1}_{\dots}_{j_k}
-    }
-    \tensor{B}{
-        ^{i_{l+1}}^{\dots}^{i_{l+n}}
-            _{j_{k+1}}_{\dots}_{j_{k+m}}
-    }
+\tensor{\left(A\otimes B\right)}{
+^{i_1}^{\dots}^{i_l}^{i_{l+1}}^{\dots}^{i_{l+n}}
+_{j_1}_{\dots}_{j_k}_{j_{k+1}}_{\dots}_{j_{k+m}}
+}
+=
+\tensor{A}{
+^{i_1}^{\dots}^{i_l}
+_{j_1}_{\dots}_{j_k}
+}
+\tensor{B}{
+^{i_{l+1}}^{\dots}^{i_{l+n}}
+_{j_{k+1}}_{\dots}_{j_{k+m}}
+}
 \end{equation}
 \begin{equation}\label{Tensor:Contraction}
-    \tensor{\left(\contr{\tensor{T}{}}\right)}{
-        ^{i_1}^{\dots}^{i_n}
-            _{j_1}_{\dots}_{j_m}
-    }
-    =
-    \sum_a{\tensor{T}{
-    ^{i_1}^{\dots}^{i_n}^a
-    _a_{j_1}_{\dots}_{j_m}
-    }}
+\tensor{\left(\contr{\tensor{T}{}}\right)}{
+^{i_1}^{\dots}^{i_n}
+_{j_1}_{\dots}_{j_m}
+}
+=
+\sum_a{\tensor{T}{
+^{i_1}^{\dots}^{i_n}^a
+_a_{j_1}_{\dots}_{j_m}
+}}
 \end{equation}
 \begin{equation}\label{Matrix:Product}
-    \tensor{\left(AB\right)}{^i_j}
-    =\contr{\left(A\otimes B\right)}
-    =\sum_k\tensor{A}{^i_k}\tensor{B}{^k_j}
+\tensor{\left(AB\right)}{^i_j}
+=\contr{\left(A\otimes B\right)}
+=\sum_k\tensor{A}{^i_k}\tensor{B}{^k_j}
 \end{equation}
 \begin{equation}\label{Matrix:Product:Block}
-    \left(\begin{bmatrix}
-        A_{11} & A_{12} \\
-        A_{21} & A_{22} \\
-    \end{bmatrix}
-    \begin{bmatrix}
-        B_{11} & B_{12} \\
-        B_{21} & B_{22} \\
-    \end{bmatrix}\right)_{ij}
-    =
-    \sum_k A_{ik} B_{kj}
+\left(\begin{bmatrix}
+A_{11}&A_{12} \\
+A_{21}&A_{22} \\
+\end{bmatrix}
+\begin{bmatrix}
+B_{11}&B_{12} \\
+B_{21}&B_{22} \\
+\end{bmatrix}\right)_{ij}
+=
+\sum_k A_{ik} B_{kj}
 \end{equation}
 \begin{equation}\label{Matrix:Identity}
-    IA = A = AI
+IA = A = AI
 \end{equation}
 \begin{equation}\label{Matrix:Identity:Value}
-    I_n=\diag{\left(1,1,\dots,1\right)}
+I_n=\diag{\left(1,1,\dots,1\right)}
 \end{equation}
 \begin{equation}\label{Matrix:Identity:Block}
-    I_{a+b}=
-    \begin{bmatrix}
-        I_a           & 0_{a\times b} \\
-        0_{b\times a} & I_b           \\
-    \end{bmatrix}
+I_{a+b}=
+\begin{bmatrix}
+I_a&0_{a\times b} \\
+0_{b\times a}&I_b           \\
+\end{bmatrix}
 \end{equation}
 \begin{equation}\label{Matrix:Permutation:Square}
-    T_{a,b} T_{a,b}= I
+T_{a,b} T_{a,b}= I
 \end{equation}
-
 \subsection{Differential}
 \begin{equation}
-    J_xF = \left(\left.\frac{\partial F_i}{\partial x_j}\right|_x\right)_{i,j}
+J_xF = \left(\left.\frac{\partial F_i}{\partial x_j}\right|_x\right)_{i,j}
 \end{equation}
 \begin{equation}
-    \left.Df\right|_x
-    : T_x\R^k\to T_{f(x)}\R^n
-    = \left(x,v\right) \mapsto \left(f(x),J_xf(v)\right)
+\left.Df\right|_x
+: T_x\R^k\to T_{f(x)}\R^n
+= \left(x,v\right) \mapsto \left(f(x),J_xf(v)\right)
 \end{equation}
-
 \subsection{Group}
-
 \begin{definition}[Lie group {\autocite[][Chapter~7]{lee_2013}}]\label{Group:Lie}
-    A \textit{Lie group} is a smooth manifold $G$ (without boundary)
-    that is also a group in the algebraic sense,
-    with the property that
-    the multiplication map $m:G\times G\to G$
-    and the inversion map $i:G\to G$, given by
-    \begin{equation*}
-        m\left(g,h\right)=gh\text{,}
-        \quad\quad
-        i\left(g\right)=g^{-1}
-    \end{equation*}
-    are both smooth.
+A \textit{Lie group} is a smooth manifold $G$ (without boundary)
+that is also a group in the algebraic sense,
+with the property that
+the multiplication map $m\colon G\times G\to G$
+and the inversion map $i\colon G\to G$, given by
+\begin{equation*}
+m\left(g,h\right)=gh\text{,}
+\quad\quad
+i\left(g\right)=g^{-1}
+\end{equation*}
+are both smooth.
 \end{definition}
-
 \begin{proposition}[Lie group {\autocite[][Chapter~7]{lee_2013}}]\label{Group:Lie:Assertion}
-    If $G$ is a smooth manifold with a group structure such that the map $G\times G\to G$ given by $\left(g,h\right)\mapsto gh^{-1}$ is smooth, then $G$ is a Lie group.
+If $G$ is a smooth manifold with a group structure such that the map $G\times G\to G$ given by $\left(g,h\right)\mapsto gh^{-1}$ is smooth, then $G$ is a Lie group.
 \end{proposition}
-
 \begin{definition}[Semidirect product]\label{Group:SemidirectProduct}
-    Suppose $H$ and $N$ are groups,
-    and $\theta:H\times N\to N$ is a smooth left action of $H$ on $N$.
-    It is said to be an \textit{action by automorphisms}
-    if for each $h\in H$, the map $\theta_h:N\to N$ is a group automorphism of $N$ (i.e., an isomorphism from $N$ to itself).
-    Given such action, we define a new group $N\rtimes_\theta H$,
-    called a \textit{semidirect product} of $H$ and $N$, as follows.
-    $N\rtimes_\theta H$ is just the Cartesian product $N\times H$;
-    but the group multiplication is defined by
-    $$\left(n,h\right)\left(n^\prime,h^\prime\right)=\left(n\theta_h\left(n^\prime\right),hh^\prime\right)\text{.}$$
+Suppose $H$ and $N$ are groups,
+and $\theta\colon H\times N\to N$ is a smooth left action of $H$ on $N$.
+It is said to be an \textit{action by automorphisms}
+if for each $h\in H$, the map $\theta_h\colon N\to N$ is a group automorphism of $N$ (i.e., an isomorphism from $N$ to itself).
+Given such action, we define a new group $N\rtimes_\theta H$,
+called a \textit{semidirect product} of $H$ and $N$, as follows.
+$N\rtimes_\theta H$ is just the Cartesian product $N\times H$;
+but the group multiplication is defined by
+$$\left(n,h\right)\left(n^\prime,h^\prime\right)=\left(n\theta_h\left(n^\prime\right),hh^\prime\right)\text{.}$$
 \end{definition}
-
 \begin{definition}\label{OrthogonalGroup}
-    An orthogonal group $O\left(n\right)$ is a group of orthogonal matrix $M$ where $M^{-1}=M^T$ with matrix multiplication.
+An orthogonal group $O\left(n\right)$ is a group of orthogonal matrix $M$ where $M^{-1}=M^T$ with matrix multiplication.
 \end{definition}
 \begin{definition}\label{SpecialOrthogonalGroup}
-    An special orthogonal group $SO\left(n\right)$ is a subgroup of the orthogonal group $O\left(n\right)$ whose element $M$ have the property that $\det{M}=1$.
+An special orthogonal group $SO\left(n\right)$ is a subgroup of the orthogonal group $O\left(n\right)$ whose element $M$ have the property that $\det{M}=1$.
 \end{definition}
 \begin{definition}\label{IndefiniteOrthogonalGroup}
-    An indefinite orthogonal group $O\left(m,n\right)$ is a group of indefinite orthogonal matrix $M$ where $M^{-1}=gM^Tg$ for $g=\diag{\left(-1,\dots,-1,1,\dots,1\right)}$ with matrix multiplication.
+An indefinite orthogonal group $O\left(m,n\right)$ is a group of indefinite orthogonal matrix $M$ where $M^{-1}=gM^Tg$ for $g=\diag{\left(-1,\dots,-1,1,\dots,1\right)}$ with matrix multiplication.
 \end{definition}
 \begin{definition}\label{OrthochronusIndefiniteOrthogonalGroup}
-    An orthochronus indefinite orthogonal group $O^+\left(m,n\right)$ is a subgroup of the indefinite orthogonal group $O\left(m,n\right)$ whose element $M$ have the property that $\tensor{M}{^1_1}>0$.
+An orthochronus indefinite orthogonal group $O^{+}\left(m,n\right)$ is a subgroup of the indefinite orthogonal group $O\left(m,n\right)$ whose element $M$ have the property that $\tensor{M}{^1_1}>0$.
 \end{definition}
 \begin{definition}\label{SpecialOrthochronusIndefiniteOrthogonalGroup}
-    An special orthochronus indefinite orthogonal group $SO^+\left(m,n\right)$ is a subgroup of the orthochronus indefinite orthogonal group $O^+\left(m,n\right)$ whose element $M$ have the property that $\det{M}=1$.
+An special orthochronus indefinite orthogonal group $SO^{+}\left(m,n\right)$ is a subgroup of the orthochronus indefinite orthogonal group $O^{+}\left(m,n\right)$ whose element $M$ have the property that $\det{M}=1$.
 \end{definition}
 \begin{definition}\label{TranslationGroup}
-    An translation group $T\left(n\right)$ is a group of vectors in $\R^n$ with vector addition.
+An translation group $T\left(n\right)$ is a group of vectors in $\R^n$ with vector addition.
 \end{definition}
 \begin{definition}\label{EuclideanGroup}
-    An euclidean group $E\left(n\right)$ is a semidirect product of orthogonal group $O\left(n\right)$ extended by translation group $T\left(n\right)$.
+An euclidean group $E\left(n\right)$ is a semidirect product of orthogonal group $O\left(n\right)$ extended by translation group $T\left(n\right)$.
 \end{definition}
-
-\begin{definition}\label{KleinGeometry}
-    A \textit{Klein geometry} is a pair $\left(G, H\right)$
-    where $G$ is a Lie group
-    and $H$ is a closed Lie subgroup of $G$
-    such that the (left) coset space $$X\defeq G / H$$ is connected.
-\end{definition}
-\begin{example}\label{KleinGeometryExample}
-    KleinGeometryExamples (I)
-\end{example}
-
 \subsection{Manifold}
-
 \begin{definition}[Abstract differentiable manifold {\autocite[][Chapter~5A]{kuhnelwolfgang_2006}}]\label{Manifold}
-    A \textit{$k$-dimensional differentiable manifold} (briefly: a $k$-manifold)
-    is a set $M$ together with a family $\left(M_i\right)_{i\in I}$ of subsets such that
-    \begin{APAenumerate}
-        \item $M=\bigcup_{i\in I} M_i$ (union),
-        \item for every $i\in I$ there is an injective map $\varphi_i:M_i\to\R^k$ so that $\phi_i\left(M_i\right)$ is open in $\R^k$, and
-        \item for $M_i\cap M_j\ne\emptyset$, $\varphi_i\left(M_i\cap M_j\right)$ is open in $\R^k$.
-    \end{APAenumerate}
+A \textit{$k$-dimensional differentiable manifold} (briefly: a $k$-manifold)
+is a set $M$ together with a family $\left(M_i\right)_{i\in I}$ of subsets such that
+\begin{APAenumerate}
+\item $M=\bigcup_{i\in I} M_i$ (union),
+\item for every $i\in I$ there is an injective map $\varphi_i\colon M_i\to\R^k$ so that $\phi_i\left(M_i\right)$ is open in $\R^k$, and
+\item for $M_i\cap M_j\ne\emptyset$, $\varphi_i\left(M_i\cap M_j\right)$ is open in $\R^k$.
+\end{APAenumerate}
 \end{definition}
-
 \begin{definition}[Structures on a manifold {\autocite[][Chapter~5A]{kuhnelwolfgang_2006}}]\label{Manifold:Extended}
-    Given a $k$-dimensional differentiable manifold,
-    one gets additional structure
-    by replacing aditional requirements on the transformation functions $\varphi_j\circ\varphi_i^{-1}$,
-    which belong to the atlas of the manifold;
-    if all $\varphi_j\circ\varphi_i^{-1}$ are (left-hand side),
-    then one speaks of (right-hand side) as follows:
-    \begin{center}
-        \begin{tabular}{ r c l }
-            continuous                & $\leftrightarrow$ & topological manifold                                 \\
-            differentiable            & $\leftrightarrow$ & differentiable manifold                              \\
-            $C^1$-differentiable      & $\leftrightarrow$ & $C^1$-manifold                                       \\
-            $C^r$-differentiable      & $\leftrightarrow$ & $C^r$-manifold                                       \\
-            $C^\infty$-differentiable & $\leftrightarrow$ & $C^\infty$-manifold                                  \\
-            real analytic             & $\leftrightarrow$ & real analytic manifold                               \\
-            complex analytic          & $\leftrightarrow$ & complex analytic manifold of dimension $\frac{k}{2}$ \\
-            affine                    & $\leftrightarrow$ & affine manifold                                      \\
-            projective                & $\leftrightarrow$ & projective manifold                                  \\
-            conformal                 & $\leftrightarrow$ & manifold with a conformal structure                  \\
-            orienatation-preserving   & $\leftrightarrow$ & orientable manifold                                  \\
-        \end{tabular}
-    \end{center}
+Given a $k$-dimensional differentiable manifold,
+one gets additional structure
+by replacing aditional requirements on the transformation functions $\varphi_j\circ\varphi_i^{-1}$,
+which belong to the atlas of the manifold;
+if all $\varphi_j\circ\varphi_i^{-1}$ are (left-hand side),
+then one speaks of (right-hand side) as follows:
+\begin{center}
+\begin{tabular}{ r c l }
+continuous&$\leftrightarrow$&topological manifold                                 \\
+differentiable&$\leftrightarrow$&differentiable manifold                              \\
+$C^1$-differentiable&$\leftrightarrow$&$C^1$-manifold                                       \\
+$C^r$-differentiable&$\leftrightarrow$&$C^r$-manifold                                       \\
+$C^\infty$-differentiable&$\leftrightarrow$&$C^\infty$-manifold                                  \\
+real analytic&$\leftrightarrow$&real analytic manifold                               \\
+complex analytic&$\leftrightarrow$&complex analytic manifold of dimension $\frac{k}{2}$ \\
+affine&$\leftrightarrow$&affine manifold                                      \\
+projective&$\leftrightarrow$&projective manifold                                  \\
+conformal&$\leftrightarrow$&manifold with a conformal structure                  \\
+orienatation-preserving&$\leftrightarrow$&orientable manifold                                  \\
+\end{tabular}
+\end{center}
 \end{definition}
-
 \begin{definition}[Tangent vector {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:TangentVector}
-    A \textit{tangent vector} $X$ at $p$
-    is a derivation (derivative operator) defined on the set of \textit{germs of functions}
-    $$\mathcal{F}_p\left(M\right)\defeq\set{f:M\to\R|f\text{ differentiable}}/\sim\text{,}$$
-    where the equivalence relation $\sim$ is defined by
-    declaring $f\sim f^\ast$ if and only if
-    $f$ and $f^\ast$ coincide in a neighborhood of $p$.
-    The value $X\left(f\right)$ is also referred to as the \textit{directional derivative} of $f$ in the direction $X$.
-
-    This definition means more precisely the following.
-    $X$ is a map $X:\mathcal{F}_p\left(M\right)\to\R$
-    with the two following properties:
-    \begin{APAenumerate}
-        \item $X\left(\alpha f+\beta g\right)=\alpha X\left(f\right)+\beta\left(g\right)$, $f,g\in\mathcal{F}_p\left(M\right)$ (\textit{$\R$-linearity});
-        \item $X\left(f\cdot g\right)=X\left(f\right)\cdot g\left(p\right)+f\left(p\right)\cdot X\left(g\right)$ for $f,g\in\mathcal{F}_p\left(M\right)$ (\textit{product rule}).
-    \end{APAenumerate}
-    (For this to make sense, both $f$ and $g$ have to be defined in a neighborhood of $p$.)
-
-    Briefly: \textit{tangent vectors are derivations acting on scalar functions.}
+A \textit{tangent vector} $X$ at $p$
+is a derivation (derivative operator) defined on the set of \textit{germs of functions}
+$$\mathcal{F}_p\left(M\right)\coloneqq\Set{f\colon M\to\R|f\text{ differentiable}}/\sim\text{,}$$
+where the equivalence relation $\sim$ is defined by
+declaring $f\sim f^\ast$ if and only if
+$f$ and $f^\ast$ coincide in a neighborhood of $p$.
+The value $X\left(f\right)$ is also referred to as the \textit{directional derivative} of $f$ in the direction $X$.
+This definition means more precisely the following.
+$X$ is a map $X\colon\mathcal{F}_p\left(M\right)\to\R$
+with the two following properties:
+\begin{APAenumerate}
+\item $X\left(\alpha f+\beta g\right)=\alpha X\left(f\right)+\beta\left(g\right)$, $f,g\in\mathcal{F}_p\left(M\right)$ (\textit{$\R$-linearity});
+\item $X\left(f\cdot g\right)=X\left(f\right)\cdot g\left(p\right)+f\left(p\right)\cdot X\left(g\right)$ for $f,g\in\mathcal{F}_p\left(M\right)$ (\textit{product rule}).
+\end{APAenumerate}
+(For this to make sense, both $f$ and $g$ have to be defined in a neighborhood of $p$.)
+Briefly: \textit{tangent vectors are derivations acting on scalar functions.}
 \end{definition}
-
 \begin{corollary}[Tangent space {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:TangentSpace}
-    The \textit{tangent space} $T_pM$ of $M$ at $p$
-    is defined in all cases as
-    the set of all tangent vectors at the point $p$.
-    By definition $T_pM$ and $T_qM$ are disjoint if $p\ne q$.
+The \textit{tangent space} $T_pM$ of $M$ at $p$
+is defined in all cases as
+the set of all tangent vectors at the point $p$.
+By definition $T_pM$ and $T_qM$ are disjoint if $p\ne q$.
 \end{corollary}
-
-\begin{definition}[Derivative {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:Derivative}
-    Let $F:M\to N$ be a differentiable map,
-    and let $p$, $q$ be two fixed point with $F\left(p\right)=q$.
-    Then the \textit{derivative} or the $\textit{differential}$ of $F$ at $p$ is defined as the map
-    $$\left.DF\right|_p:T_pM\to T_qN$$
-    whose value at $X\in T_pM$ is given by
-    $\left(\left.DF\right|_p\left(X\right)\right)\left(f\right)=X\left(f\circ F\right)$
-    for every $f\in \mathcal{F}_q\left(N\right)$
-    (which automatically implies the relation $f\circ F\in\mathcal{F}_p\left(M\right)$).
-\end{definition}
-
-\begin{lemma}[Chain rule {\autocite[][Chapter~5B]{kuhnelwolfgang_2006}}]\label{Manifold:ChainRule}
-    For the derivative as defined in this manner, one has the \textit{chain rule} in the form
-    $$\left.D\left(G\circ F\right)\right|_p=\left.DG\right|_{F\left(p\right)}\circ\left.DF\right|_p$$
-    for every composition $M\xrightarrow{F}N\xrightarrow{G}Q$ of maps, or, more briefly, $D\left(G\circ F\right)=DG\circ DF$.
-\end{lemma}
-
 \begin{definition}[Riemannian metric {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}]\label{Manifold:RiemannianMetric}
-    A \textit{Riemannian metric} $g$ on $M$
-    is an association $p\mapsto g_p\in L^2\left(T_pM;\R\right)$
-    such that the following conditins are satisfied:
-    \begin{APAenumerate}
-        \item $g_p\left(X,Y\right)=g_p\left(Y,X\right)$ for all $X$, $Y$, \hfill (\textit{symmetry})
-        \item $g_p\left(X,X\right)>0$ for all $X\ne0$, \hfill (\textit{positive definiteness})
-        \item The coefficient $\tensor{g}{_i_j}$ in every local representation (i.e., in every chart) $$g_p=\sum_{i,j}\tensor{g}{_i_j}\left(p\right)\cdot \left.d\tensor{x}{^i}\right|_p \otimes\left.d\tensor{x}{^j}\right|_p$$ are differentiable functions. \hfill (\textit{differentiability})
-    \end{APAenumerate}
+A \textit{Riemannian metric} $g$ on $M$
+is an association $p\mapsto g_p\in L^2\left(T_pM;\R\right)$
+such that the following conditins are satisfied:
+\begin{APAenumerate}
+\item $g_p\left(X,Y\right)=g_p\left(Y,X\right)$ for all $X$, $Y$, \hfill (\textit{symmetry})
+\item $g_p\left(X,X\right)>0$ for all $X\ne0$, \hfill (\textit{positive definiteness})
+\item The coefficient $\tensor{g}{_i_j}$ in every local representation (i.e., in every chart) $$g_p=\sum_{i,j}\tensor{g}{_i_j}\left(p\right)\cdot \left.d\tensor{x}{^i}\right|_p \otimes\left.d\tensor{x}{^j}\right|_p$$ are differentiable functions. \hfill (\textit{differentiability})
+\end{APAenumerate}
 \end{definition}
-
 \begin{remark}\label{Manifold:Riemannian}
-    The pair $\left(M,g\right)$ is then called \textit{Riemannian manifold}.
-    One also refers to the Riemannian metric as the \textit{metric tensor}.
-    In local coordinates the metric tensor is given by the matrix ($\tensor{g}{_i_j}$) of functions.
-    In Ricci calculus this is simply written as $\tensor{g}{_i_j}$.
-        {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
+The pair $\left(M,g\right)$ is then called \textit{Riemannian manifold}.
+One also refers to the Riemannian metric as the \textit{metric tensor}.
+In local coordinates the metric tensor is given by the matrix ($\tensor{g}{_i_j}$) of functions.
+In Ricci calculus this is simply written as $\tensor{g}{_i_j}$.
+{\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
 \end{remark}
-
 \begin{remark}\label{Manifold:InnerProduct}
-    A Riemannian metric $g$ defines at every point $p$
-    an \textit{inner product} $g_p$ on the tangent space $T_pM$,
-    and therefore the notation $\inner{X}{Y}$ instead of $g_p\left(X,Y\right)$ is also used.
-    The notions of angles and lengths are determined by this inner product,
-    just as these notions are determined by the first fundamental form on surface elements.
-    The length or norm of vector $X$ is given by $\norm{X}\defeq\sqrt{g\left(X,X\right)}$,
-    and the angle $\beta$ between two tangent vectors $X$ and $Y$
-    can be defined by the validity of the equation $\cos\beta\cdot\norm{X}\cdot\norm{Y}=g\left(X,Y\right)$.
-        {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
+A Riemannian metric $g$ defines at every point $p$
+an \textit{inner product} $g_p$ on the tangent space $T_pM$,
+and therefore the notation $\inner{X}{Y}$ instead of $g_p\left(X,Y\right)$ is also used.
+The notions of angles and lengths are determined by this inner product,
+just as these notions are determined by the first fundamental form on surface elements.
+The length or norm of vector $X$ is given by $\norm{X}\coloneqq\sqrt{g\left(X,X\right)}$,
+and the angle $\beta$ between two tangent vectors $X$ and $Y$
+can be defined by the validity of the equation $\cos\beta\cdot\norm{X}\cdot\norm{Y}=g\left(X,Y\right)$.
+{\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}
 \end{remark}
-
 \subsection{Curvature}
+\begin{definition}[The Lie bracket {\autocite[][Chapter~5D]{kuhnelwolfgang_2006}}]\label{Manifold:LieBracket}
+Let $X$, $Y$ be (differentiable) vector fields on $M$,
+and let $f\colon M\to\R$ be a differentiable function.
+Through the relation
+\begin{equation*}
+\left[X,Y\right]\left(f\right)
+\coloneqq
+X\left(Y\left(f\right)\right)
+- Y\left(X\left(f\right)\right)
+\end{equation*}
+we define a vector field $\left[X,Y\right]$,
+which is referred to as the \textit{Lie bracket} of $X$, $Y$
+(also called the \textit{Lie derivative} $\mathcal{L}_XY$ of $Y$ in the direction $X$).
+At a point $p\in M$ we have $\left[X,Y\right]_p\left(f\right)=X_p\left(Yf\right)-Y_p\left(Xf\right)$.
+\end{definition}
+\begin{lemma}[Properties of the Lie bracket {\autocite[][Chapter~5D]{kuhnelwolfgang_2006}}]\label{Manifold:LieBracket:Property}
+Let $X$, $Y$, $Z$ be vector fields,
+let $\alpha$, $\beta$ be real constants,
+and let $f, h\colon M\to\R$ be differentiable functions.
+Then the Lie bracket has the following properties:
+\begin{APAenumerate}
+\item $\left[\alpha X+\beta Y, Z\right]=\alpha\left[X,Z\right]+\beta\left[Y,Z\right]$;
+\item $\left[X,Y\right]=-\left[Y,X\right]$;
+\item $\left[fX,hY\right]=f\cdot h\cdot\left[X,Y\right]+f\cdot\left(Xh\right)\cdot Y-h\cdot\left(Yf\right)\cdot X$;
+\item $\left[X,\left[Y,Z\right]\right]+\left[Y,\left[Z,X\right]\right]+\left[Z,\left[X,Y\right]\right] = 0$; (\textit{Jacobi identity})
+\item $\left[\frac{\partial}{\partial\tensor{x}{^i}}, \frac{\partial}{\partial\tensor{x}{^j}}\right]=0$ for every chart with coordinates ($\tensor{x}{^1},\dots,\tensor{x}{^n}$);
+\item $\left[\sum_i\tensor{\xi}{^i}\frac{\partial}{\partial\tensor{x}{^i}},\sum_j\tensor{\eta}{^j}\frac{\partial}{\partial\tensor{x}{^j}}\right]=\sum_{i,j}\left(\tensor{\xi}{^i}\frac{\partial\tensor{\eta}{^j}}{\partial\tensor{x}{^i}}-\tensor{\eta}{^i}\frac{\partial\tensor{\xi}{^j}}{\partial\tensor{x}{^i}}\right)\frac{\partial}{\partial\tensor{x}{^j}}$ (\textit{representation in local coordinates}).
+\end{APAenumerate}
+\end{lemma}
+\begin{definition}[Riemannian connection {\autocite[][Chapter~5D]{kuhnelwolfgang_2006}}]\label{Manifold:Connection}
+A \textit{Riemannian connection} $\nabla$ (pronounced "nabla")
+on a Riemannian manifold $\left(M,g\right)$ is a map
+$$\left(X,Y\right)\mapsto\nabla_XY\text{,}$$
+which associates to two given differentiable vector fields $X$, $Y$
+a third differentiable vector field $\nabla_XY$,
+such that the following conditions are satisfied: ($f\colon M\to\R$ denotes a differentiable function):
+\begin{APAenumerate}
+\item $\nabla_{X_1+X_2}Y=\nabla_{X_1}Y+\nabla_{X_2}Y$; (\textit{additivity in the subscript})
+\item $\nabla_{fX}Y=f\cdot\nabla_{X}Y$; (\textit{linearity in the subscript})
+\item $\nabla_X\left(Y_1+Y_2\right)=\nabla_XY_1+\nabla_XY_2$; (\textit{additivity in the argument})
+\item $\nabla_X\left(fY\right)=f\cdot\nabla_XY+\left(X\left(f\right)\right)\cdot Y$; (\textit{product rule in the argument})
+\item $X\left(g\left(Y,Z\right)\right)=g\left(\nabla_XY,Z\right)+g\left(Y,\nabla_XZ\right)$; (\textit{compatibility with the metric})
+\item $\nabla_XY-\nabla_YX-\left[X,Y\right]=0$. (\textit{symmetry or torsion-freeness})
+\end{APAenumerate}
+\end{definition}
+\begin{remark}
+We get the following expression for $\nabla_XY$, in local coordinates, provided $X=\sum_i\tensor{\xi}{^i}\frac{\partial}{\partial\tensor{x}{^i}}$ and $Y=\sum_j\tensor{\eta}{^j}\frac{\partial}{\partial\tensor{x}{^j}}$:
+\begin{equation*}
+\nabla_XY=\sum_k\left(\sum_i\tensor{\xi}{^i}\frac{\partial\tensor{\eta}{^k}}{\partial\tensor{x}{^i}}+\sum_{i,j}\tensor{\Gamma}{^k_i_j}\tensor{\xi}{^i}\tensor{\eta}{^j}\right)\frac{\partial}{\partial\tensor{x}{^k}}\text{.}
+\end{equation*}
+Especially for $X=\frac{\partial}{\partial\tensor{x}{^i}}$ we obtain
+\begin{equation*}
+\nabla_XY=\sum_k\left(\frac{\partial\tensor{\eta}{^k}}{\partial\tensor{x}{^i}}+\sum_j\tensor{\Gamma}{^k_i_j}\tensor{\eta}{^j}\right)\frac{\partial}{\partial\tensor{x}{^k}}\text{.}
+\end{equation*}
+Consequently, in Ricci calculus the notation for this formular is
+\begin{equation*}
+\nabla_i\tensor{\eta}{^k}=\frac{\partial\tensor{\eta}{^k}}{\partial\tensor{x}{^i}}+\tensor{\Gamma}{^k_i_j}\tensor{\eta}{^j}\text{.}
+\end{equation*}
+\end{remark}
 \begin{definition}[Christoffel symbols {\autocite[][Chapter~4A]{kuhnelwolfgang_2006}}]\label{Manifold:ChristoffelSymbol}
-
-    \begin{APAenumerate}
-        \item The quantities $\partial_k\tensor{\Gamma}{_i_j}$ defined by the expressions
-        \begin{equation*}
-            \partial_k\tensor{\Gamma}{_i_j}
-            \defeq
-            \inner{\nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}}{\frac{\partial f}{\partial\tensor{u}{^k}}}
-        \end{equation*}
-        are called the \textit{Christoffel symbols of the first kind}.
-        \item The quantities $\tensor{\Gamma}{^k_i_j}$ defined by the expressions
-        \begin{equation*}
-            \nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}
-            =
-            \sum_k{\tensor{\Gamma}{^k_i_j}\frac{\partial f}{\partial\tensor{u}{^k}}}
-        \end{equation*}
-        are called the \textit{Christoffel symbols of the second kind}.
-        \item By definition one has $\partial_k\tensor{\Gamma}{_i_j}=\partial_k\tensor{\Gamma}{_j_i}$, $\tensor{\Gamma}{^k_i_j}=\tensor{\Gamma}{^k_j_i}$
-        as well as $\partial_k\tensor{\Gamma}{_i_j}=\sum_{m}\tensor{\Gamma}{^m_i_j}\tensor{g}{_m_k}$.
-    \end{APAenumerate}
-\end{definition}
-\begin{definition}[Gauss map {\autocite[][Chapter~3B]{kuhnelwolfgang_2006}}]\label{Curvature:Gauss}
-    For a surface element $f:U\to\R^{3}$, the \textit{Gauss map}
-    \begin{equation*}
-        \nu:U\to S^2
-    \end{equation*}
-    is defined by the formula
-    \begin{equation*}
-        \nu(u_1, u_2)
-        \defeq
-        \frac
-        {\frac{\partial f}{\partial u_1}\times\frac{\partial f}{\partial u_2}}
-        {\norm{\frac{\partial f}{\partial u_1}\times\frac{\partial f}{\partial u_2}}}
-        \text{.}
-    \end{equation*}
-\end{definition}
-\begin{definition}[Weingarten map, shape operator {\autocite[][Chapter~3B]{kuhnelwolfgang_2006}}]\label{Curvature:ShapeOperator}
-    Let $f:U\to\R^{3}$ be a surface element with Gauss map $\nu:U\to S^2\subset\R^3$.
-    \begin{APAenumerate}
-        \item For every $u\in U$ the image plane of the bilinear map
-        \begin{equation*}
-            \left.D\nu\right|_u:T_uU\to T_{\nu(u)}\R^3
-        \end{equation*}
-        is parallel to the tangent plane $T_uf$.
-        By canonically identifying $T_{\nu(u)}\R^3\cong\R^3\cong T_{f(u)}\R^3$
-        we may therefore view $D\nu$ at every point as the map
-        \begin{equation*}
-            \left.D\nu\right|_u:T_uU\to T_uf \text{.}
-        \end{equation*}
-        Moreover, by restricting to the image,
-        we may view the map $\left.Df\right|)u$ as a linear isomorphism
-        \begin{equation*}
-            \left.Df\right|_u:T_uU\to T_uf \text{.}
-        \end{equation*}
-        In this sense
-        the inverse mapping $\left(\left.Df\right|_u\right)^{-1}$ is well-defined
-        and is also an isomorphism
-        \item The map $L\defeq -D\nu\circ\left(Df\right)^{-1}$ defined pointwise by
-        \begin{equation*}
-            L_u
-            \defeq -\left(\left.D\nu\right|_u\right)\circ\left(\left.Df\right|_u\right)^{-1}
-            : T_uf\to T_uf
-        \end{equation*}
-        is called the \textit{Weingarten map} or the \textit{shape operator} of $f$.
-        Obviously, for every parameter $u$ this is a linear endomorphism of the tangent plane at the corresponding point $f(u)$.
-        \item $L$ is independent of the parameterization $f$ (up to the choice of the sign of the unit normal vector $\nu$),
-        and it is self-adjoint with respect to the first fundamental form $I$.
-    \end{APAenumerate}
-\end{definition}
-\begin{definition}[Hypersurface element {\autocite[][Chapter~3F]{kuhnelwolfgang_2006}}]\label{Manifold:Hypersurface}
-    $f:U\to\R^{n+1}$ is called a \textit{regular hypersurface element},
-    if $U\subset\R^n$ is open and $f$ is a ($C^2-$) immersion.
-    The parameter $u=\left(u_1,\dots,u_n\right)$ is associated with the point $f(u)$
-    with $n+1$ coordinates $f(u)=\left(f_1(u),\dots,f_{n+1}(u)\right)$.
-    The \textit{tangent hyperplane} $T_uf$ is the is defined to be the image of $T_uU$ under the map $\left.Df\right|_u$.
-    Similarly, one defines
-    \begin{APAitemize}
-        \item the \textit{Gauss map} $\nu:U\to S^n$ by the unit normal vector $\nu(u)$,
-        which is perpendicular to $T_uf$
-        (
-        but note: in $\R^{n+1}$ for $n\ge3$ there is no bilinear vector product of tangent vectors;
-        still one can formally define $\nu$ as an $n$-linear vector product
-        ),
-        \item the \textit{Weingarten map} $L=-D\nu\circ\left(Df\right)^{-1}$,
-        \item the \text{first, second, and third fundamental forms}
-        \begin{align*}
-            I   & = \left(\tensor{g}{_i_j}\right)_{i,j=1,\dots,n} & = \left(\inner{\frac{\partial f}{\partial u_i}}{\frac{\partial f}{\partial u_j}}\right)\text{,}     \\
-            II  & = \left(\tensor{h}{_i_j}\right)_{i,j=1,\dots,n} & = \left(\inner{\frac{\partial^2 f}{\partial u_i\partial u_j}}{\nu}\right)\text{,}                   \\
-            III & = \left(\tensor{e}{_i_j}\right)_{i,j=1,\dots,n} & = \left(\inner{\frac{\partial \nu}{\partial u_i}}{\frac{\partial \nu}{\partial u_j}}\right)\text{.} \\
-        \end{align*}
-    \end{APAitemize}
+\;\newline
+\begin{APAenumerate}
+\item The quantities $\partial_k\tensor{\Gamma}{_i_j}$ defined by the expressions
+\begin{equation*}
+\partial_k\tensor{\Gamma}{_i_j}
+\coloneqq
+\inner{\nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}}{\frac{\partial f}{\partial\tensor{u}{^k}}}
+\end{equation*}
+are called the \textit{Christoffel symbols of the first kind}.
+\item The quantities $\tensor{\Gamma}{^k_i_j}$ defined by the expressions
+\begin{equation*}
+\nabla_{\frac{\partial f}{\partial\tensor{u}{^i}}}\frac{\partial f}{\partial\tensor{u}{^j}}
+=
+\sum_k{\tensor{\Gamma}{^k_i_j}\frac{\partial f}{\partial\tensor{u}{^k}}}
+\end{equation*}
+are called the \textit{Christoffel symbols of the second kind}.
+\item By definition one has $\partial_k\tensor{\Gamma}{_i_j}=\partial_k\tensor{\Gamma}{_j_i}$, $\tensor{\Gamma}{^k_i_j}=\tensor{\Gamma}{^k_j_i}$
+as well as $\partial_k\tensor{\Gamma}{_i_j}=\sum_{m}\tensor{\Gamma}{^m_i_j}\tensor{g}{_m_k}$.
+\end{APAenumerate}
 \end{definition}
 \begin{definition}[Curvature tensor {\autocite[][Chapter~4C]{kuhnelwolfgang_2006}}]\label{Manifold:CurvatureTensor}
-    \begin{equation*}
-        R\left(X,Y\right)Z
-        \defeq
-        \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{\lie{X}{Y}}Z
-    \end{equation*}
-    is a tensor field, which is called the \textit{curvature tensor} of the surface.
+\begin{equation*}
+R\left(X,Y\right)Z
+\coloneqq
+\nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{\lie{X}{Y}}Z
+\end{equation*}
+is a tensor field, which is called the \textit{curvature tensor} of the surface.
 \end{definition}
 \begin{remark}[Curvature tensor {\autocite[][Chapter~4C]{kuhnelwolfgang_2006}}]\label{Manifold:CurvatureTensor:ChristoffelSymbol}
-    The left-hand side of the Gauss equation is called the \textit{curvature tensor}
-    and is in general expressed in the form
-    \begin{equation*}
-        \tensor{R}{^s_i_k_j}
-        \defeq
-        \frac{\partial}{\partial\tensor{u}{^k}}\tensor{\Gamma}{^s_i_j}
-        - \frac{\partial}{\partial\tensor{u}{^j}}\tensor{\Gamma}{^s_i_k}
-        + \sum_{r}\left(\tensor{\Gamma}{^r_i_j}\tensor{\Gamma}{^s_r_k}-\tensor{\Gamma}{^r_i_k}\tensor{\Gamma}{^s_r_j}\right) \text{.}
-    \end{equation*}
+The left-hand side of the Gauss equation is called the \textit{curvature tensor}
+and is in general expressed in the form
+\begin{equation*}
+\tensor{R}{^s_i_k_j}
+\coloneqq
+\frac{\partial}{\partial\tensor{u}{^k}}\tensor{\Gamma}{^s_i_j}
+- \frac{\partial}{\partial\tensor{u}{^j}}\tensor{\Gamma}{^s_i_k}
++ \sum_{r}\left(\tensor{\Gamma}{^r_i_j}\tensor{\Gamma}{^s_r_k}-\tensor{\Gamma}{^r_i_k}\tensor{\Gamma}{^s_r_j}\right) \text{.}
+\end{equation*}
 \end{remark}
-
-\begin{example}\label{ShapeOperator}
-    $$S\left(v\right)=\pm\nabla_v n$$
-\end{example}
-\begin{example}\label{PrincipalCurvature}
-    Eigenvalue of second fundamental form (or shape operator)
-\end{example}
+\begin{definition}[ {\autocite[][Chapter~6B]{kuhnelwolfgang_2006}}]
+With respect to a given Riemannian metric $\inner{}{}$,
+the \textit{standard curvature tensor} $\tensor{{R_1}}{}$ is defined by the relation
+$R_1\left(X,Y\right)Z\coloneqq\inner{Y}{Z}X-\inner{X}{Z}Y$.
+We then set
+\begin{align*}
+\kappa_1\left(X,Y\right)
+\coloneqq\inner{R_1\left(X,Y\right)Y}{X}
+=\inner{X}{X}\inner{Y}{Y}-\inner{X}{Y}^2\text{,}\\
+\kappa\left(X,Y\right)
+\coloneqq\inner{R\left(X,Y\right)Y}{X}\text{.}
+\end{align*}
+Let $\sigma\subset T_pM$ be a two-dimensional subspace, spanned by $X$, $Y$.
+Then the quantity
+\begin{equation*}
+K_\sigma
+\coloneqq
+\frac{\kappa\left(X,Y\right)}{\kappa_1\left(X,Y\right)}
+\end{equation*}
+is called the \textit{sectional curvature} of the Riemannian manifold with respect to the plane $\sigma$.
+\end{definition}
+\begin{definition}[Space of constant curvature {\autocite[][Chapter~6B]{kuhnelwolfgang_2006}}]\label{Manifold:Spaceform}
+If on a Riemannian manifold $K_\sigma$ is constant
+or, equalently,
+if $R=K\cdot R_1$ with $K\in\R$,
+the manifold is called a \textit{space of constant curvature}.
+\end{definition}
+\begin{remark}
+By \textit{scaling} one means the process of
+replacing a metric $g$ by $\tilde{g}]\coloneqq\lambda^2g$, where $\lambda\ne0$ is a constant.
+In this case one has $\tilde{R_1}\left(X,Y\right)Z=\lambda^2R_1\left(X,Y\right)Z$.
+On the other hand we have
+$\tilde{\tensor{\Gamma}{^k_i_j}}=\tensor{\Gamma}{^k_i_j}$,
+$\tilde{\nabla}_XY=\nabla_XY$ and, consequently,
+$\tilde{R}\left(X,Y\right)Z=R\left(X,Y\right)Z$
+as well as $\tilde{K}=K\lambda^{-2}$.
+Hence in \cref{Manifold:Spaceform} there are (up to scaling) only three possible curvature tensor with constant curvature:
+\begin{align*}
+R=R_1&\text{(with $K=1$),}\\
+R=0&\text{(with $K=0$),}\\
+R=R_{-1}\coloneqq-R_1&\text{(with $K=-1$).}
+\end{align*}
+Model spaces for these are the sphere $S^n$, the euclidean space $E^n$ and the hyperbolic space $H^n$
+\end{remark}
+\subsection{Space of Constant Curvature}
+\begin{definition}(Pseudo-Euclidean space $\R^n_k$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})
+The so-called \textit{pseudo-Euclidean} metric (or pseudo-Euclidean inner product)
+\begin{equation*}
+g\left(X,X\right)
+=\inner{X}{X}_k
+=-\sum_{i=1}^{k}x_i^2+\sum_{i=k+1}^{n}x_i^2
+\end{equation*}
+for a vector $X$ with components $s_1,\dots,x_n$,
+where $0\le k\le n$ is a fixed number which is called the \textit{index} or the \textit{signature} of the inner produce.
+The pair $\left(\R^n,g\right)$ is then called a \textit{pesudo-Euclidean space}
+and is denoted by $\R^n_k$ or $E^n_k$.
+In particular, $E^n=R^n_0$ is the usual Euclidean space.
+\end{definition}
+\begin{definition}(The sphere $S^n$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})
+The sphere with its spherical metric is most easily defined as a hypersurface in Euclidean space with the associated first fundamental form, that is,
+\begin{equation*}
+S^n\coloneqq\Set{X\in\R^{n+1}|\inner{X}{X}=\sum_ix_i^2=1}\text{.}
+\end{equation*}
+The Gauss equation then implies the sectional curvature to be $K_\sigma=+1$ at every point $p$ and every plane $\sigma\subseteq T_pS^n$.
+\end{definition}
+\begin{definition}(Hyperbolic space $H^n$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})
+We defined the $n$-dimensional \textit{hyperbolic space} $H^n$
+as the component of $\Set{X\in\R^{n+1}_1|\inner{X}{X}_1=-1}$
+which contains the point $\left(+1,0,\dots,0\right)$,
+that is, the upper component of the two-sheeted hyperboloid.
+The sectional curvature of hyperbolic space defined in this manner is constant: $K=-1$.
+\end{definition}
+\begin{definition}(Symmetries of the space $E^n$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})\label{Group:Euclidean}
+The group $E\left(n\right)$ of Euclidean motions
+(the so-called \textit{Euclidean group})
+acts on $E^n$.
+This group contains in particular all transpations
+(these form a subgroup which is isomorphic to $\R^n$, in fact a normal subgroup of $E\left(n\right)$)
+as well as the rotation group $O\left(n\right)$,
+consisting of symmetries which leave a point invariant.
+In fact, $E\left(n\right)$ is a semi-direct product of these two subgroups.
+\end{definition}
+\begin{definition}(Symmetries of the space $S^n$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})\label{Group:Sphere}
+The \textit{orthogonal group}
+\begin{equation*}
+O\left(n+1\right)
+=
+\Set{A\colon\R^{n+1}\to\R^{n+1}|\text{$A$ preserves the Euclidean inner product}}
+\end{equation*}
+acts on the sphere $S^n$.
+Here, $A$ denotes a linear map.
+As is well-known, $A\in O\left(n+1\right)$ holds if and only if $A^T=A^{-1}$.
+As a matter of fact, the orthogonal group acts on the entire space $\R^{n+1}$,
+but we can consider its action when restricted to the sphere and denote the group in the same way.
+\end{definition}
+\begin{definition}(Symmetries of the space $H^n$ {\autocite[][Chapter~7A]{kuhnelwolfgang_2006}})\label{Group:Hyperbolic}
+The \textit{Lorentz group}
+\begin{equation*}
+O\left(n,1\right)
+=
+\Set{A\colon\R^{n+1}_1\to\R^{n+1}_1|\text{$A$ preserves the pseudo-Euclidean inner product}}
+\end{equation*}
+acts on \textit{Lorentz space} or on \textit{Minkovski space} $\R^{n+1}_1$
+and preserves the set $\tilde{H}=\Set{X|\inner{X}{X}_1=-1}$.
+The "positive" part of this set,
+\begin{equation*}
+O_{+}\left(n,1\right)
+=
+\Set{A\colon O\left(n,1\right)|\text{$A$ preserves $\tilde{H}\cap\Set{x_0>0}$}}
+\end{equation*}
+then acts on hyperbolic space $H^n$ and preserves its metric.
+\end{definition}
 \end{document}

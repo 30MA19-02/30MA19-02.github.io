@@ -1,25 +1,22 @@
 % !TeX root = ../main.tex
-
 \documentclass[../main.tex]{subfiles}
-
 \begin{document}
 \section{The Model}
 \stepcounter{Counter}
 \begin{ModelGroupElement}
-    For any parameter $\kappa, n$,
-    \begin{align*}
-        \elements                   & \defeq M                                    \\
-        \groupoperation{\elements}  & \defeq \cdot                                \\
-        \charts{\elements}          & \defeq \tensor{X}{}\mapsto\tensor{\theta}{} \\
-        \innerprod{\elements}       & \defeq g                                    \\
-        \points{\elements}          & \equiv R                                    \\
-        \transformations{\elements} & \equiv M                                    \\
-    \end{align*}
-    for injective smooth function $K:\kappa \mapsto k = \sign{\kappa}\sqrt{\abs{\kappa}}\in\R\to\R$.
+For any parameter $\kappa, n$,
+\begin{align*}
+\elements&\coloneqq M\\
+\groupoperation{\elements}&\coloneqq\cdot\\
+\charts{\elements}&\coloneqq\tensor{X}{}\mapsto\tensor{\theta}{}\\
+\innerprod{\elements}&\coloneqq g\\
+\points{\elements}&\equiv R\\
+\transformations{\elements}&\equiv M\\
+\end{align*}
+for injective smooth function $K\colon \kappa\mapsto \lambda=\sign{\kappa}\sqrt{\abs{\kappa}}\in\R\to\R$.
 \end{ModelGroupElement}
 \begin{ModelGroupAssertion}
 \end{ModelGroupAssertion}
 \begin{ModelCurvatureAssertion}
 \end{ModelCurvatureAssertion}
-
 \end{document}

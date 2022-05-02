@@ -1,690 +1,734 @@
 % !TeX root = ../main.tex
-
 \documentclass[../main.tex]{subfiles}
-
 \begin{document}
 \section{Model Foundation}
 \subsection{Trigonometry}
 \begin{definition}\label{M:Trigonometry}
-    \textit{Generalized trigonometric functions} $f_k:\R\to\R$ and $f_k^\ast:\R\to\R$ are defined as
-    \begin{align*}
-        f_k\left(\theta\right)      & \defeq
-        \begin{cases}
-            g\left(k\theta\right) & \text{if $k\geq0$,} \\
-            h\left(k\theta\right) & \text{otherwise,}   \\
-        \end{cases} \\
-        f_k^\ast\left(\theta\right) & \defeq
-        \begin{cases}
-            g\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            h\left(-k\theta\right) & \text{otherwise,}   \\
-        \end{cases}
-    \end{align*}
-    where $g$ (resp. $h$) are the associated trigonometric (resp. hyperbolic) function.
+\textit{Generalized trigonometric functions} $f_\lambda\colon \R\to\R$ and $f_\lambda^\ast:\R\to\R$ are defined as
+\begin{align*}
+f_\lambda\left(\theta\right)&\coloneqq
+\begin{cases}
+g\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+h\left(\lambda\theta\right)&\text{otherwise,}\\
+\end{cases}\\
+f_\lambda^\ast\left(\theta\right)&\coloneqq
+\begin{cases}
+g\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+h\left(-\lambda\theta\right)&\text{otherwise,}\\
+\end{cases}
+\end{align*}
+where $g$ (resp. $h$) are the associated trigonometric (resp. hyperbolic) function.
 \end{definition}
 \begin{example}[Generalized sine functions]\label{M:Trigonometry:Sine}
-    \begin{align*}
-        \sin_k{\theta}      & \defeq
-        \begin{cases}
-            \sin\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            \sinh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases}                               \\
-        \sin_k^\ast{\theta} & \defeq
-        \begin{cases}
-            \sin\left(k\theta\right)   & \text{if $k\geq0$,} \\
-            \sinh\left(-k\theta\right) & \text{otherwise.}   \\
-        \end{cases}                              \\
-                            & =
-        \begin{cases}
-            \sin\left(k\theta\right)   & \text{if $k\geq0$,} \\
-            -\sinh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases}                              \\
-                            & = \begin{cases}
-                                    \sin\left(\abs{k}\theta\right)  & \text{if $k\geq0$,} \\
-                                    \sinh\left(\abs{k}\theta\right) & \text{otherwise.}   \\
-                                \end{cases}
-    \end{align*}
-    (see \cref{TrigonometrySinePlotted})
+\begin{align*}
+\sin_\lambda{\theta}
+&\coloneqq
+\begin{cases}
+\sin\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+\sinh\left(\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+\sin_\lambda^\ast{\theta}
+&\coloneqq
+\begin{cases}
+\sin\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+\sinh\left(-\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+&=
+\begin{cases}
+\sin\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+-\sinh\left(\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+&=\begin{cases}
+\sin\left(\abs{\lambda}\theta\right)&\text{if $\lambda\geq0$,}\\
+\sinh\left(\abs{\lambda}\theta\right)&\text{otherwise.}\\
+\end{cases}
+\end{align*}
+(see\cref{TrigonometrySinePlotted})
 \end{example}
 \begin{example}[Generalized cosine functions]\label{M:Trigonometry:Cosine}
-    \begin{align*}
-        \cos_k{\theta}      & \defeq
-        \begin{cases}
-            \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
-            \cosh\left(k\theta\right) & \text{otherwise.}   \\
-        \end{cases}                         \\
-        \cos_k^\ast{\theta} & \defeq
-        \begin{cases}
-            \cos\left(k\theta\right)   & \text{if $k\geq0$,} \\
-            \cosh\left(-k\theta\right) & \text{otherwise.}   \\
-        \end{cases}                        \\
-                            & = \begin{cases}
-                                    \cos\left(k\theta\right)  & \text{if $k\geq0$,} \\
-                                    \cosh\left(k\theta\right) & \text{otherwise.}   \\
-                                \end{cases} \\
-                            & = \cos_k{\theta}
-    \end{align*}
-    (see \cref{TrigonometryCosinePlotted})
+\begin{align*}
+\cos_\lambda{\theta}
+&\coloneqq
+\begin{cases}
+\cos\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+\cosh\left(\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+\cos_\lambda^\ast{\theta}
+&\coloneqq
+\begin{cases}
+\cos\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+\cosh\left(-\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+&=\begin{cases}
+\cos\left(\lambda\theta\right)&\text{if $\lambda\geq0$,}\\
+\cosh\left(\lambda\theta\right)&\text{otherwise.}\\
+\end{cases}\\
+&=\cos_\lambda{\theta}
+\end{align*}
+(see\cref{TrigonometryCosinePlotted})
 \end{example}
 \begin{theorem}[Pythagorean's identity equivalence]\label{M:Trigonometry:Pythagorean}
-    \begin{equation*}
-        \cos_k^2{\theta} +\sign{k}\sin_k^2{\theta} = 1
-    \end{equation*}
+\begin{align*}
+\cos_\lambda^2{\theta}+\sign{\lambda}\sin_\lambda^2{\theta}&=1\\
+\sec_\lambda^2{\theta}-\sign{\lambda}\tan_\lambda^2{\theta}&=1\\
+\end{align*}
 \end{theorem}
 \begin{proof}[\proofof{M:Trigonometry:Pythagorean}]
-    Proof by exhaustion.
+Proof by exhaustion.
 \end{proof}
 \begin{proposition}[Generalized trigonometric functions of sum of arguments]\label{M:Trigonometry:Sum}
-    \begin{align*}
-        \sin_k\left(\theta+\phi\right)
-         & = \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}           \\
-        \sin_k^\ast\left(\theta+\phi\right)
-         & = \sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi} \\
-        \cos_k\left(\theta+\phi\right)
-         & = \cos_k{\theta}\cos_k{\phi}-\sign{k}\sin_k{\theta}\sin_k{\phi}   \\
-         & = \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi}      \\
-         & = \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}
-    \end{align*}
+\begin{align*}
+\sin_\lambda\left(\theta+\phi\right)
+&=\sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}\\
+\sin_\lambda^\ast\left(\theta+\phi\right)
+&=\sin_\lambda^\ast{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda^\ast{\phi}\\
+\cos_\lambda\left(\theta+\phi\right)
+&=\cos_\lambda{\theta}\cos_\lambda{\phi}-\sign{\lambda}\sin_\lambda{\theta}\sin_\lambda{\phi}\\
+&=\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda^\ast{\theta}\sin_\lambda{\phi}\\
+&=\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda{\theta}\sin_\lambda^\ast{\phi}
+\end{align*}
 \end{proposition}
 \begin{proof}[\proofof{M:Trigonometry:Sum}]
-    Proof by exhaustion.
+Proof by exhaustion.
 \end{proof}
 \begin{proposition}[Derivative of generalized trigonometric functions]\label{M:Trigonometry:Derivative}
-    \begin{align*}
-        {\sin_k}^\prime{\theta}      & = k\cos_k{\theta}       \\
-        {\sin_k^\ast}^\prime{\theta} & = \abs{k}\cos_k{\theta} \\
-        {\cos_k}^\prime{\theta}      & = -k\sin_k^\ast{\theta}
-    \end{align*}
+\begin{align*}
+{\sin_\lambda}^\prime{\theta}&=\lambda\cos_\lambda{\theta}\\
+{\sin_\lambda^\ast}^\prime{\theta}&=\abs{\lambda}\cos_\lambda{\theta}\\
+{\cos_\lambda}^\prime{\theta}&=-\lambda\sin_\lambda^\ast{\theta}\\
+{\tan_\lambda}^\prime{\theta}&=\lambda\sec_\lambda^2{\theta}\\
+{\tan_\lambda^\ast}^\prime{\theta}&=\abs{\lambda}\sec_\lambda^2{\theta}
+\end{align*}
 \end{proposition}
 \begin{proof}[\proofof{M:Trigonometry:Derivative}]
-    Proof by exhaustion.
+Proof by exhaustion.
 \end{proof}
 \subsection{Matrices}
 \begin{definition}\label{M:Rotation}
-    \textit{Generalized rotation matrix} is defined as
-    \begin{align*}
-        R_k\left(\theta\right) & \defeq
-        \begin{bmatrix}
-            \cos_k{\theta} & -\sin_k^\ast{\theta} \\
-            \sin_k{\theta} & \cos_k{\theta}       \\
-        \end{bmatrix}\text{,}
-    \end{align*}
-    where $\theta\in\R$.
+\textit{Generalized rotation matrix} is defined as
+\begin{align*}
+R_\lambda\left(\theta\right)&\coloneqq
+\begin{bmatrix}
+\cos_\lambda{\theta}&-\sin_\lambda^\ast{\theta}\\
+\sin_\lambda{\theta}&\cos_\lambda{\theta}\\
+\end{bmatrix}\text{,}
+\end{align*}
+where $\theta\in\R$.
 \end{definition}
 \begin{corollary}[Generalized rotation matrix at zero]\label{M:Rotation:Identity}
-    \begin{equation*}
-        R_k\left(0\right)
-        =
-        I_2
-    \end{equation*}
+\begin{equation*}
+R_\lambda\left(0\right)
+=
+I_2
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Identity}]
-    Obvious
+Obvious
 \end{proof}
 \begin{corollary}[Generalized rotation matrix of sum of arguments]\label{M:Rotation:Sum}
-    \begin{equation*}
-        R_k\left(\theta\right)R_k\left(\phi\right)=R_k\left(\theta+\phi\right)
-    \end{equation*}
+\begin{equation*}
+R_\lambda\left(\theta\right)R_\lambda\left(\phi\right)=R_\lambda\left(\theta+\phi\right)
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Sum}]
-    \begin{align*}
-        R_k\left(\theta\right)R_k\left(\phi\right)
-         & =\begin{bmatrix}
-                \cos_k{\theta} & -\sin_k^\ast{\theta} \\
-                \sin_k{\theta} & \cos_k{\theta}       \\
-            \end{bmatrix}\begin{bmatrix}
-                             \cos_k{\phi} & -\sin_k^\ast{\phi} \\
-                             \sin_k{\phi} & \cos_k{\phi}       \\
-                         \end{bmatrix}                                                       & \text{(\cref{M:Rotation})}              \\
-         & =\begin{bmatrix}
-                \cos_k{\theta}\cos_k{\phi}+\left(-\sin_k^\ast{\theta}\right)\sin_k{\phi} &
-                \cos_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\left(-\sin_k^\ast{\theta}\right)\cos_k{\phi} \\
-                \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}                    &
-                \sin_k{\theta}\left(-\sin_k^\ast{\phi}\right)+\cos_k{\theta}\cos_k{\phi}                    \\
-            \end{bmatrix} & \text{(\cref{Matrix:Product})}                                \\
-         & =\begin{bmatrix}
-                \cos_k{\theta}\cos_k{\phi}-\sin_k^\ast{\theta}\sin_k{\phi} &
-                -\left(\sin_k^\ast{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k^\ast{\phi}\right) \\
-                \sin_k{\theta}\cos_k{\phi}+\cos_k{\theta}\sin_k{\phi}      &
-                \cos_k{\theta}\cos_k{\phi}-\sin_k{\theta}\sin_k^\ast{\phi}                    \\
-            \end{bmatrix}               & \text{(simplify)}                                              \\
-         & =\begin{bmatrix}
-                \cos_k{\theta+\phi} & -\sin_k^\ast{\theta+\phi} \\
-                \sin_k{\theta+\phi} & \cos_k{\theta+\phi}       \\
-            \end{bmatrix}                                             & \text{(\cref{M:Trigonometry:Sum})}                             \\
-         & = R_k\left(\theta+\phi\right)                                                                  & \text{(\cref{M:Rotation})} \\
-        R_k\left(\theta\right)R_k\left(\phi\right)
-         & = R_k\left(\theta+\phi\right)                                                                  & \qedhere
-    \end{align*}
+\begin{align*}
+R_\lambda\left(\theta\right)R_\lambda\left(\phi\right)
+&=\begin{bmatrix}
+\cos_\lambda{\theta}&-\sin_\lambda^\ast{\theta}\\
+\sin_\lambda{\theta}&\cos_\lambda{\theta}\\
+\end{bmatrix}
+\begin{bmatrix}
+\cos_\lambda{\phi}&-\sin_\lambda^\ast{\phi}\\
+\sin_\lambda{\phi}&\cos_\lambda{\phi}\\
+\end{bmatrix}
+&\text{(\cref{M:Rotation})}\\
+&=\begin{bmatrix}
+\cos_\lambda{\theta}\cos_\lambda{\phi}+\left(-\sin_\lambda^\ast{\theta}\right)\sin_\lambda{\phi}&
+\cos_\lambda{\theta}\left(-\sin_\lambda^\ast{\phi}\right)+\left(-\sin_\lambda^\ast{\theta}\right)\cos_\lambda{\phi}\\
+\sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}&
+\sin_\lambda{\theta}\left(-\sin_\lambda^\ast{\phi}\right)+\cos_\lambda{\theta}\cos_\lambda{\phi}\\
+\end{bmatrix}
+&\text{(\cref{Matrix:Product})}\\
+&=\begin{bmatrix}
+\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda^\ast{\theta}\sin_\lambda{\phi}&
+-\left(\sin_\lambda^\ast{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda^\ast{\phi}\right)\\
+\sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}&
+\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda{\theta}\sin_\lambda^\ast{\phi}\\
+\end{bmatrix}
+&\text{(simplify)}\\
+&=\begin{bmatrix}
+\cos_\lambda{\theta+\phi}&-\sin_\lambda^\ast{\theta+\phi}\\
+\sin_\lambda{\theta+\phi}&\cos_\lambda{\theta+\phi}\\
+\end{bmatrix}
+&\text{(\cref{M:Trigonometry:Sum})}\\
+&=R_\lambda\left(\theta+\phi\right)
+&\text{(\cref{M:Rotation})}\\
+R_\lambda\left(\theta\right)
+R_\lambda\left(\phi\right)
+&=R_\lambda\left(\theta+\phi\right)
+&\qedhere
+\end{align*}
 \end{proof}
 \begin{corollary}[Inverse of generalized rotation matrix]\label{M:Rotation:Inverse}
-    \begin{equation*}
-        R_k\left(\theta\right)^{-1} = R_k\left(-\theta\right)
-    \end{equation*}
+\begin{equation*}
+R_\lambda\left(\theta\right)^{-1}=R_\lambda\left(-\theta\right)
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Rotation:Inverse}]
-    \begin{align*}
-        R_k\left(\theta\right)R_k\left(-\theta\right)
-         & = R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})}      \\
-         & = I_2               & \text{(\cref{M:Rotation:Identity})} \\
-        R_k\left(-\theta\right)R_k\left(\theta\right)
-         & = R_k\left(0\right) & \text{(\cref{M:Rotation:Sum})}      \\
-         & = I_2               & \text{(\cref{M:Rotation:Identity})}
-    \end{align*}
-    \begin{equation*}
-        R_k\left(\theta\right)R_k\left(-\theta\right)
-        = R_k\left(-\theta\right)R_k\left(\theta\right)
-        = I_2
-    \end{equation*}
-    \begin{equation*}
-        {R_k\left(\theta\right)}^{-1}
-        =
-        R_k\left(-\theta\right)
-        \qedhere
-    \end{equation*}
+\begin{align*}
+R_\lambda\left(\theta\right)
+R_\lambda\left(-\theta\right)
+&=R_\lambda\left(0\right)&\text{(\cref{M:Rotation:Sum})}\\
+&=I_2&\text{(\cref{M:Rotation:Identity})}\\
+R_\lambda\left(-\theta\right)
+R_\lambda\left(\theta\right)
+&=R_\lambda\left(0\right)&\text{(\cref{M:Rotation:Sum})}\\
+&=I_2&\text{(\cref{M:Rotation:Identity})}
+\end{align*}
+\begin{equation*}
+R_\lambda\left(\theta\right)R_\lambda\left(-\theta\right)
+=R_\lambda\left(-\theta\right)R_\lambda\left(\theta\right)
+=I_2
+\end{equation*}
+\begin{equation*}
+{R_\lambda\left(\theta\right)}^{-1}
+=
+R_\lambda\left(-\theta\right)
+\qedhere
+\end{equation*}
 \end{proof}
 \begin{definition}\label{M:Position}
-    \textit{Position matrix} is defined recursively as
-    \begin{align*}
-        P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) & \defeq
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1} \text{,}                                                                                    \\
-        P_{k,0}                                                                          & \defeq I_1\text{,}
-    \end{align*}
-    where $\theta=\left\{\tensor{\theta}{^i}\right\}\in\R^n$ for $i\in\range{1}{n}$.
+\textit{Position matrix} is defined recursively as
+\begin{align*}
+P_{\lambda,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)
+&\coloneqq
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}\text{,}\\
+P_{\lambda,0}
+\lambda&\coloneqq I_1\text{,}
+\end{align*}
+where $\theta=\left\{\tensor{\theta}{^i}\right\}\in\R^n$ for $i\in\range{1}{n}$.
 \end{definition}
 \begin{definition}\label{M:Position:Set}
-    Let $P\left(n,k\right)$ be set of position matrices.
+Let $P\left(n,\lambda\right)$ be set of position matrices.
 \end{definition}
 \begin{corollary}[Position matrix at zero]\label{M:Position:Set:Identity}
-    \begin{equation*}
-        P_{k,n}
-        \left(0_{n}\right)
-        =
-        I_{n+1}
-    \end{equation*}
+\begin{equation*}
+P_{\lambda,n}
+\left(0_{n}\right)
+=
+I_{n+1}
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Position:Set:Identity}]
-    Prove by mathematical induction on $n$,
-    Let
-    \begin{equation}\label{M:Position:Set:Identity:Proof:Induction}
-        P_{k,n-1}\left(0_{n-1}\right)=I_n
-    \end{equation}
-    \begin{align*}
-        P_{k, n}\left(0_{n}\right)
-                   & =
-        \begin{bmatrix}
-            P_{k,n-1}\left(0_{n-1}\right) & 0_{n\times 1} \\
-            0_{1\times n}                 & 1             \\
-        \end{bmatrix}
-        T_{2, n+1}
-        \begin{bmatrix}
-            R_{k}\left(0\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2, n+1} & \text{(\cref{M:Position})}                              \\
-                   & =
-        \begin{bmatrix}
-            I_{n}         & 0_{n\times 1} \\
-            0_{1\times n} & 1             \\
-        \end{bmatrix}
-        T_{2, n+1}
-        \begin{bmatrix}
-            R_{k}\left(0\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2, n+1} & \text{(\cref{M:Position:Set:Identity:Proof:Induction})} \\
-                   & =
-        \begin{bmatrix}
-            I_{n}         & 0_{n\times 1} \\
-            0_{1\times n} & 1             \\
-        \end{bmatrix}
-        T_{2, n+1}
-        \begin{bmatrix}
-            I_{2}              & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}} & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2, n+1} & \text{(\cref{M:Rotation:Identity})}                     \\
-                   & =
-        I_{n+1}
-        T_{2, n+1}
-        I_{n+1}
-        T_{2, n+1} & \text{(\cref{Matrix:Identity:Block})}                   \\
-                   & =
-        T_{2, n+1}
-        T_{2, n+1} & \text{(\cref{Matrix:Identity})}                         \\
-                   & =
-        I_{n+1}    & \text{(\cref{Matrix:Permutation:Square})}
-    \end{align*}
-    \begin{equation*}
-        P_{k,n}
-        \left(0_{n}\right)
-        =
-        I_{n+1}
-        \qedhere
-    \end{equation*}
+Prove by mathematical induction on $n$,
+Let
+\begin{equation}\label{M:Position:Set:Identity:Proof:Induction}
+P_{\lambda,n-1}\left(0_{n-1}\right)=I_n
+\end{equation}
+\begin{align*}
+P_{\lambda, n}\left(0_{n}\right)
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(0_{n-1}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2, n+1}
+\begin{bmatrix}
+R_{\lambda}\left(0\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2, n+1}
+&\text{(\cref{M:Position})}\\
+&=
+\begin{bmatrix}
+I_{n}&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2, n+1}
+\begin{bmatrix}
+R_{\lambda}\left(0\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2, n+1}
+&\text{(\cref{M:Position:Set:Identity:Proof:Induction})}\\
+&=
+\begin{bmatrix}
+I_{n}&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2, n+1}
+\begin{bmatrix}
+I_{2}&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2, n+1}
+&\text{(\cref{M:Rotation:Identity})}\\
+&=
+I_{n+1}
+T_{2, n+1}
+I_{n+1}
+T_{2, n+1}
+&\text{(\cref{Matrix:Identity:Block})}\\
+&=
+T_{2, n+1}
+T_{2, n+1}
+&\text{(\cref{Matrix:Identity})}\\
+&=
+I_{n+1}
+&\text{(\cref{Matrix:Permutation:Square})}
+\end{align*}
+\begin{equation*}
+P_{\lambda,n}
+\left(0_{n}\right)
+=
+I_{n+1}
+\qedhere
+\end{equation*}
 \end{proof}
 \begin{definition}\label{M:Orientation}
-    \textit{Orientation matrix} is defined as
-    \begin{align*}
-        Q^\pm_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) & \defeq
-        \begin{bmatrix}
-            1             & 0_{1\times n}                                                 \\
-            0_{n\times 1} & X^\pm_{+1,n-1}\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) \\
-        \end{bmatrix}\text{,}   \\
-        Q^\pm_0                                                & \defeq \pm I_1\text{,}
-    \end{align*}
-    where $\phi_m\in\R^m \text{for } m\in\range{1}{n-1}$.
+\textit{Orientation matrix} is defined as
+\begin{align*}
+Q^{\pm}_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)
+&\coloneqq
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&X^{\pm}_{+1,n-1}\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)\\
+\end{bmatrix}\text{,}\\
+Q^{\pm}_0
+&\coloneqq\pm I_1\text{,}
+\end{align*}
+where $\phi_m\in\R^m\text{for } m\in\range{1}{n-1}$.
 \end{definition}
 \begin{definition}\label{M:Orientation:Set}
-    Let $Q\left(n\right)$ be set of orientation matrices.
+Let $Q\left(n\right)$ be set of orientation matrices.
 \end{definition}
 \begin{corollary}[Orientation matrix at zero]\label{M:Orientation:Set:Identity}
-    \begin{equation*}
-        Q^{+}_{n}
-        \left(0_{n-1}, 0_{n-2}, \dots\right)
-        =
-        I_{n+1}
-    \end{equation*}
+\begin{equation*}
+Q^{+}_{n}
+\left(0_{n-1}, 0_{n-2},\dots\right)
+=
+I_{n+1}
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Orientation:Set:Identity}]
-    Prove by mathematical induction on $n$,
-    Let
-    \begin{equation}\label{M:Orientation:Set:Identity:Proof:Induction}
-        Q^+_{n-1}\left(0_{n-2}, 0_{n-3}, \dots\right)=I_n
-    \end{equation}
-    \begin{align*}
-        Q^+_n\left(0_{n-1}, 0_{n-2}, \dots\right)
-                                                                                                       & =
-        \begin{bmatrix}
-            1             & 0_{1\times n}                                    \\
-            0_{n\times 1} & X^\pm_{+1,n-1}\left(0_{n-1},0_{n-2},\dots\right) \\
-        \end{bmatrix}                            & \text{(\cref{M:Orientation})}                                                               \\
-                                                                                                       & =
-        \begin{bmatrix}
-            1             & 0_{1\times n}                                                               \\
-            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right)Q^+_{n-1}\left(0_{n-2}, 0_{n-3}, \dots\right) \\
-        \end{bmatrix} & \text{(\cref{M:Point})}                                            \\
-                                                                                                       & =
-        \begin{bmatrix}
-            1             & 0_{1\times n}                      \\
-            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) I_n \\
-        \end{bmatrix}                                          & \text{(\cref{M:Orientation:Set:Identity:Proof:Induction})}                    \\
-                                                                                                       & =
-        \begin{bmatrix}
-            1             & 0_{1\times n}                  \\
-            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) \\
-        \end{bmatrix}                                              & \text{(\cref{Matrix:Identity})}                                           \\
-                                                                                                       & =
-        \begin{bmatrix}
-            1             & 0_{1\times n} \\
-            0_{n\times 1} & I_{n}         \\
-        \end{bmatrix}                                                               & \text{(\cref{M:Position:Set:Identity})}                  \\
-                                                                                                       & =
-        I_{n+1}                                                                                        & \text{(\cref{Matrix:Identity:Block})}
-    \end{align*}
-    \begin{equation*}
-        Q^+_n
-        \left(0_{n-1}, 0_{n-2}, \dots\right)
-        =
-        I_{n+1}
-        \qedhere
-    \end{equation*}
+Prove by mathematical induction on $n$,
+Let
+\begin{equation}\label{M:Orientation:Set:Identity:Proof:Induction}
+Q^{+}_{n-1}\left(0_{n-2}, 0_{n-3},\dots\right)=I_n
+\end{equation}
+\begin{align*}
+Q^{+}_n\left(0_{n-1}, 0_{n-2},\dots\right)
+&=
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&X^{\pm}_{+1,n-1}\left(0_{n-1},0_{n-2},\dots\right)\\
+\end{bmatrix}
+&\text{(\cref{M:Orientation})}\\
+&=
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&P_{+1,n-1}\left(0_{n-1}\right)Q^{+}_{n-1}\left(0_{n-2}, 0_{n-3},\dots\right)\\
+\end{bmatrix}
+&\text{(\cref{M:Point})}\\
+&=
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&P_{+1,n-1}\left(0_{n-1}\right) I_n\\
+\end{bmatrix}
+&\text{(\cref{M:Orientation:Set:Identity:Proof:Induction})}\\
+&=
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&P_{+1,n-1}\left(0_{n-1}\right)\\
+\end{bmatrix}
+&\text{(\cref{Matrix:Identity})}\\
+&=
+\begin{bmatrix}
+1&0_{1\times n}\\
+0_{n\times 1}&I_{n}\\
+\end{bmatrix}
+&\text{(\cref{M:Position:Set:Identity})}\\
+&=
+I_{n+1}
+&\text{(\cref{Matrix:Identity:Block})}
+\end{align*}
+\begin{equation*}
+Q^{+}_n
+\left(0_{n-1}, 0_{n-2},\dots\right)
+=
+I_{n+1}
+\qedhere
+\end{equation*}
 \end{proof}
 \begin{definition}\label{M:Point}
-    \textit{Point matrix} is defined as
-    \begin{align*}
-        X^\pm_{k,n}\left(\theta,\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) & \defeq
-        P_{k,n}\left(\theta\right)
-        Q^\pm_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)\text{,}
-    \end{align*}
-    where $\theta\in\R^n$ and $\phi_m\in\R^m \text{for } m\in\range{1}{n-1}$.
+\textit{Point matrix} is defined as
+\begin{align*}
+X^{\pm}_{\lambda,n}\left(\theta,\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)&\coloneqq
+P_{\lambda,n}\left(\theta\right)
+Q^{\pm}_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)\text{,}
+\end{align*}
+where $\theta\in\R^n$ and $\phi_m\in\R^m\text{for } m\in\range{1}{n-1}$.
 \end{definition}
 \begin{definition}\label{M:Point:Set}
-    Let $X\left(n,k\right)$ be set of point matrices.
+Let $X\left(n,\lambda\right)$ be set of point matrices.
 \end{definition}
 \begin{corollary}[Position matrix as subset of point matrix]\label{M:Point:Position}
-    \begin{equation*}
-        P\left(k,n\right)\subset X\left(k,n\right)
-    \end{equation*}
+\begin{equation*}
+P\left(\lambda,n\right)\subset X\left(\lambda,n\right)
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Point:Position}]
-    \begin{align*}
-        \forall{P \in P\left(k,n\right)}
-        \forall{Q\in Q\left(n\right)},
-                                  &
-        P Q \in X\left(k,n\right) & \text{(\cref{M:Point})}                    \\
-        \implies                  &
-        P I \in X\left(k,n\right) & \text{(\cref{M:Orientation:Set:Identity})} \\
-        \implies                  &
-        P \in X\left(k,n\right)   & \text{(\cref{Matrix:Identity})}
-    \end{align*}
-    \begin{equation*}
-        P\left(k,n\right)\subset X\left(k,n\right) \qedhere
-    \end{equation*}
+\begin{align*}
+\forall{P\in P\left(\lambda,n\right)}
+\forall{Q\in Q\left(n\right)},
+&P Q\in X\left(\lambda,n\right)
+&\text{(\cref{M:Point})}\\
+\implies
+&P I\in X\left(\lambda,n\right)
+&\text{(\cref{M:Orientation:Set:Identity})}\\
+\implies
+&P\in X\left(\lambda,n\right)
+&\text{(\cref{Matrix:Identity})}
+\end{align*}
+\begin{equation*}
+P\left(\lambda,n\right)\subset X\left(\lambda,n\right)\qedhere
+\end{equation*}
 \end{proof}
 \begin{corollary}[Point matrix at zero]\label{M:Point:Set:Identity}
-    \begin{equation*}
-        X^{+}_{k,n}
-        \left(0_{n}, 0_{n-1}, \dots\right)
-        =
-        I_{n+1}
-    \end{equation*}
+\begin{equation*}
+X^{+}_{\lambda,n}
+\left(0_{n}, 0_{n-1},\dots\right)
+=
+I_{n+1}
+\end{equation*}
 \end{corollary}
 \begin{proof}[\proofof{M:Point:Set:Identity}]
-    It can be implied from \cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
+It can be implied from\cref{M:Position:Set:Identity,M:Orientation:Set:Identity}.
 \end{proof}
 \subsection{Group structure}
 \begin{proposition}
-    Group of position matrix with multiplication is a subgroup of an orthogonal group for $k>0$.
-    \begin{equation*}
-        \left(P\left(n, k\right),\cdot\right)\cong O\left(n+1\right)
-    \end{equation*}
+Group of position matrix with multiplication is a subgroup of an orthogonal group for $\lambda>0$.
+\begin{equation*}
+\left(P\left(n,\lambda\right),\cdot\right)\cong O\left(n+1\right)
+\end{equation*}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        P&=P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) \\
-        &\defeq
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1} && \text{(\cref{M:Position})} \\
-        P^T
-        &=
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}^T
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}^T && \text{(Transpose of product)} \\
-        &=
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(Transpose of block)} \\
-        &=
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(Transpose of permutation matrix)} \\
-        PP^T
-        &=
-        \left(\begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}\right)\\
-        &\left(T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}\right) && \text{(Equation above)} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}\\
-        &
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{()} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}\\
-        &
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}\\
-        &
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{()} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{()} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
-        &= I_{n+1} && \text{(mathematical induction)}
-    \end{align*}
+\begin{align*}
+P&=P_{\lambda,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)\\
+&\coloneqq
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}
+&&\text{(\cref{M:Position})}\\
+P^T
+&=
+T_{2,n+1}^T
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}^T
+T_{2,n+1}^T
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}^T
+&&\text{(Transpose of product)}\\
+&=
+T_{2,n+1}^T
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}^T
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{(Transpose of block)}\\
+&=
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{(Transpose of permutation matrix)}\\
+PP^T
+&=
+\left(\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}\right)\\
+&\left(T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}\right)
+&&\text{(equation above)}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}\\
+&
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{()}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}\\
+&
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}&&\text{(\cref{Matrix:Product:Block})}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}\\
+&
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{()}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}&&\text{()}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}&&\text{(\cref{Matrix:Product:Block})}\\
+&=I_{n+1}&&\text{(mathematical induction)}
+\end{align*}
 \end{proof}
 \begin{proposition}
-    Group of position matrix with multiplication is a subgroup of an $\left(1,n\right)$-orthochronus indefinite orthogonal group for $k<0$.
-    \begin{equation*}
-        \left(P\left(n, k\right),\cdot\right)\cong O^+\left(1,n\right)
-    \end{equation*}
+Group of position matrix with multiplication is a subgroup of an $\left(1,n\right)$-orthochronus indefinite orthogonal group for $\lambda<0$.
+\begin{equation*}
+\left(P\left(n,\lambda\right),\cdot\right)\cong O_+\left(n,1\right)
+\end{equation*}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        P&=P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right) \\
-        &\defeq
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1} && \text{(\cref{M:Position})} \\
-        P^T
-        &=
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}^T
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}^T && \text{(Transpose of product)} \\
-        &=
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}^T
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(Transpose of block)} \\
-        &=
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right)^T & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix} && \text{(Transpose of permutation matrix)} \\
-        g
-        &= \diag{-1,1,\dots,1} \\
-        gPgP^T
-        &= I_{n+1} && \text{(mathematical induction)}
-    \end{align*}
-    \begin{align*}
-        \tensor{P}{^1_1} &> 0
-    \end{align*}
+\begin{align*}
+P
+&=P_{\lambda,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)\\
+&\coloneqq
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}&&\text{(\cref{M:Position})}\\
+P^T
+&=
+T_{2,n+1}^T
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}^T
+T_{2,n+1}^T
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}^T&&\text{(Transpose of product)}\\
+&=
+T_{2,n+1}^T
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}^T
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{(Transpose of block)}\\
+&=
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)^T&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)^T&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+&&\text{(Transpose of permutation matrix)}\\
+g
+&=\diag{-1,1,\dots,1}\\
+gPgP^T
+&=I_{n+1}&&\text{(mathematical induction)}
+\end{align*}
+\begin{align*}
+\tensor{P}{^1_1}&> 0
+\end{align*}
 \end{proof}
 \begin{proposition}
-    Group of position matrix with multiplication is isomorphic to translation group for $k\to0$.
-    \begin{equation*}
-        \left(P\left(n, k\right),\cdot\right)\cong E\left(n\right)
-    \end{equation*}
+Group of position matrix with multiplication is isomorphic to translation group for $\lambda\to0$.
+\begin{equation*}
+\left(P\left(n,\lambda\right),\cdot\right)\cong E\left(n\right)
+\end{equation*}
 \end{proposition}
 \begin{proof}
-    \begin{align*}
-        R_k\left(\theta\right)
-        &\defeq\begin{bmatrix}
-            \cos_k\left(\theta\right) & -\sin_k^\ast\left(\theta\right) \\
-            \sin_k\left(\theta\right) & \cos_k\left(\theta\right) \\
-        \end{bmatrix} && \text{(\cref{M:Rotation})} \\
-        &\to\begin{bmatrix}
-            1 & 0 \\
-            k\theta & 1 \\
-        \end{bmatrix} && \text{(Limits of the functions)} \\
-        P_{k,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)
-        &\defeq
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            R_k\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1} && \text{(\cref{M:Position})} \\
-        &\to
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        T_{2,n+1}
-        \begin{bmatrix}
-            \begin{matrix*}1&0\\k\tensor{\theta}{^n}&0\\\end{matrix*} & 0_{{2}\times{n-1}} \\
-            0_{{n-1}\times{2}}                  & {I}_{n-1}          \\
-        \end{bmatrix}
-        T_{2,n+1} && \text{(Equation above)} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
-            0_{1\times n}                                                                              & 1             \\
-        \end{bmatrix}
-        \begin{bmatrix}
-            {I}_{n} & 0_{n \times1}          \\
-            \begin{matrix*}k\tensor{\theta}{^n} & 0_{1\times n-1}\end{matrix*} & 1 \\
-        \end{bmatrix} && \text{(property of permutation matrix)} \\
-        &=
-        \begin{bmatrix}
-            P_{k,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n \times1}          \\
-            \begin{matrix*}k\tensor{\theta}{^n} & 0_{1\times n-1}\end{matrix*} & 1 \\
-        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})} \\
-        P_{k,n}\left(\tensor{\theta}{}\right)
-        &\to
-        \begin{bmatrix}
-            1 & 0_{n \times1}          \\
-            k\tensor{\theta}{} & I_n \\
-        \end{bmatrix} && \text{(mathematical induction)} \\
-        P_{k,n}\left(\tensor{\theta}{}\right) P_{k,n}\left(\tensor{\phi}{}\right)
-        &\to
-        \begin{bmatrix}
-            1 & 0_{n \times1}          \\
-            k\tensor{\theta}{} & I_n \\
-        \end{bmatrix}\begin{bmatrix}
-            1 & 0_{n \times1}          \\
-            k\tensor{\phi}{} & I_n \\
-        \end{bmatrix} && \text{(Equation above)} \\
-        &=
-        \begin{bmatrix}
-            1 & 0_{n \times1}          \\
-            k\tensor{\theta}{}+k\tensor{\phi}{} & I_n \\
-        \end{bmatrix} && \text{(\cref{Matrix:Product:Block})}
-    \end{align*}
+\begin{align*}
+R_\lambda\left(\theta\right)
+&\coloneqq\begin{bmatrix}
+\cos_\lambda\left(\theta\right)&-\sin_\lambda^\ast\left(\theta\right)\\
+\sin_\lambda\left(\theta\right)&\cos_\lambda\left(\theta\right)\\
+\end{bmatrix}&&\text{(\cref{M:Rotation})}\\
+&\to\begin{bmatrix}
+1&0\\
+\lambda\theta&1\\
+\end{bmatrix}&&\text{(Limits of the functions)}\\
+P_{\lambda,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)
+&\coloneqq
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+R_\lambda\left(\tensor{\theta}{^n}\right)&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}&&\text{(\cref{M:Position})}\\
+&\to
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+T_{2,n+1}
+\begin{bmatrix}
+\begin{matrix*}1&0\\
+\lambda\tensor{\theta}{^n}&0\\
+\end{matrix*}&0_{{2}\times{n-1}}\\
+0_{{n-1}\times{2}}&{I}_{n-1}\\
+\end{bmatrix}
+T_{2,n+1}&&\text{(equation above)}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times 1}\\
+0_{1\times n}&1\\
+\end{bmatrix}
+\begin{bmatrix}
+{I}_{n}&0_{n\times1}\\
+\begin{matrix*}\lambda\tensor{\theta}{^n}&0_{1\times n-1}\end{matrix*}&1\\
+\end{bmatrix}&&\text{(property of permutation matrix)}\\
+&=
+\begin{bmatrix}
+P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1_{n}},\dots,\tensor{\theta}{^{n-1}}\right\}\right)&0_{n\times1}\\
+\begin{matrix*}\lambda\tensor{\theta}{^n}&0_{1\times n-1}\end{matrix*}&1\\
+\end{bmatrix}&&\text{(\cref{Matrix:Product:Block})}\\
+P_{\lambda,n}\left(\tensor{\theta}{}\right)
+&\to
+\begin{bmatrix}
+1&0_{n\times1}\\
+\lambda\tensor{\theta}{}&I_n\\
+\end{bmatrix}&&\text{(mathematical induction)}\\
+P_{\lambda,n}\left(\tensor{\theta}{}\right) P_{\lambda,n}\left(\tensor{\phi}{}\right)
+&\to
+\begin{bmatrix}
+1&0_{n\times1}\\
+\lambda\tensor{\theta}{}&I_n\\
+\end{bmatrix}\begin{bmatrix}
+1&0_{n\times1}\\
+\lambda\tensor{\phi}{}&I_n\\
+\end{bmatrix}&&\text{(equation above)}\\
+&=
+\begin{bmatrix}
+1&0_{n\times1}\\
+\lambda\tensor{\theta}{}+\lambda\tensor{\phi}{}&I_n\\
+\end{bmatrix}&&\text{(\cref{Matrix:Product:Block})}
+\end{align*}
 \end{proof}
 \begin{proposition}
-    Group of orienatation with multiplication is isomorphic to orthogonal group.
-    \begin{equation*}
-        \left(Q\left(n\right),\cdot\right)\cong O\left(n\right)
-    \end{equation*}
+Group of orienatation with multiplication is isomorphic to orthogonal group.
+\begin{equation*}
+\left(Q\left(n\right),\cdot\right)\cong O\left(n\right)
+\end{equation*}
 \end{proposition}
 \begin{proposition}
-    Group of point with multiplication is isomorphic to orthogonal group for $k>0$.
-    \begin{equation*}
-        \left(X\left(n\right),\cdot\right)\cong O\left(n\right)
-    \end{equation*}
+Group of point with multiplication is isomorphic to orthogonal group for $\lambda>0$.
+\begin{equation*}
+\left(X\left(n\right),\cdot\right)\cong O\left(n\right)
+\end{equation*}
 \end{proposition}
 \begin{proposition}
-    Group of point with multiplication is isomorphic to $\left(1,n\right)$-orthochronus indefinite orthogonal group for $k<0$.
-    \begin{equation*}
-        \left(X\left(n\right),\cdot\right)\cong O^+\left(1, n\right)
-    \end{equation*}
+Group of point with multiplication is isomorphic to $\left(1,n\right)$-orthochronus indefinite orthogonal group for $\lambda<0$.
+\begin{equation*}
+\left(X\left(n\right),\cdot\right)\cong O_+\left(n,1\right)
+\end{equation*}
 \end{proposition}
 \begin{proposition}
-    Group of point with multiplication is isomorphic to Euclidean group for $k\to0$.
-    \begin{equation*}
-        \left(X\left(n\right),\cdot\right)\cong E\left(n\right)
-    \end{equation*}
+Group of point with multiplication is isomorphic to Euclidean group for $\lambda\to0$.
+\begin{equation*}
+\left(X\left(n\right),\cdot\right)\cong E\left(n\right)
+\end{equation*}
 \end{proposition}
-
 \end{document}
