@@ -33,11 +33,11 @@
         \end{abstractclass}
 
         \umlnote (note) at (5, -3) {
-            Position is $\varphi$ \\
-            Point is $\varphi^{-1}$ \\
-            Transform is $\otimes$ \\
-            Inverse is $\cdot^{-1}$ \\
-            Distance is $d$ \\
+            Position is \(\varphi\) \\
+            Point is \(\varphi^{-1}\) \\
+            Transform is \(\otimes\) \\
+            Inverse is \(\cdot^{-1}\) \\
+            Distance is \(d\) \\
         };
         \umlnote (note) at (5, -6) {
             Methods in AbstractPoint are called from model.
@@ -65,7 +65,7 @@
             \operation{+ Inverse() : Point}
             \operation{+ Distance(other : Point) : Length}
         \end{class}
-        \draw[umlcd style dashed line, ->] (Model) --node[above, sloped, black]{$<<$instantiate$>>$}(Point);
+        \draw[umlcd style dashed line, ->] (Model) --node[above, sloped, black]{\(<<\)instantiate\(>>\)}(Point);
     \end{package}
 \end{tikzpicture}
 \end{document}

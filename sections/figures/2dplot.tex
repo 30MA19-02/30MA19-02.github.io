@@ -11,8 +11,8 @@
             },
     ]
     \begin{axis}[
-            xlabel = $k$,
-            ylabel = $f_k\left(1\right)$,
+            xlabel = \(k\),
+            ylabel = \(f_k\left(1\right)\),
             domain = -pi:+2*pi,
             ymin = -2,
             ymax = +2,
@@ -31,11 +31,11 @@
         \addplot[
             color=red,
             thick
-        ]{sine(x)}node[above]{$\sin_k{1}$};
+        ]{sine(x)}node[above]{\(\sin_k{1}\)};
         \addplot[
             color=blue,
             thick
-        ]{cosine(x)}node[above]{$\cos_k{1}$};
+        ]{cosine(x)}node[above]{\(\cos_k{1}\)};
     \end{axis}
 \end{tikzpicture}
 \end{document}

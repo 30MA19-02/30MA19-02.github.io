@@ -4,22 +4,22 @@
 \section{Geometric properties}
 \subsection{Embedding}
 \begin{definition}\label{M:Embedding}
-Let $N=\left(Q,g\right)$ be a $n$-dimension Riemannian manifold
-on position parameter space with such inner product $g$ that
-the map $f={\psi_0}^{-1}$
-is an isometric embedding to $\left(n+1\right)$-manifold
-with the metric of $g=\diag{\left(\sign{\lambda},1,\dots,1\right)}$.
+Let \(N=\left(Q,g\right)\) be a \(n\)-dimension Riemannian manifold
+on position parameter space with such inner product \(g\) that
+the map \(f={\psi_0}^{-1}\)
+is an isometric embedding to \(\left(n+1\right)\)-manifold
+with the metric of \(g=\diag{\left(\sign{\lambda},1,\dots,1\right)}\).
 \end{definition}
 \begin{lemma}\label{M:Tangent:Basis}
-Position parameter $\tensor{\theta}{^i}$ is associated to the following vector in position vector space.
-\begin{equation*}
+Position parameter \(\tensor{\theta}{^i}\) is associated to the following vector in position vector space.
+\[
 \frac{\partial}{\partial\tensor{\theta}{^i}}=
 \begin{pmatrix}
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^i}\tensor{p}{^j}\\
 \lambda\frac{1}{\tan_\lambda\tensor{\theta}{^i}}\tensor{p}{^{i+1}}\\
 0
 \end{pmatrix}\frac{\partial}{\partial\tensor{p}{^j}}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:Tangent:Basis}]
 \begin{align*}
@@ -70,14 +70,14 @@ Position parameter $\tensor{\theta}{^i}$ is associated to the following vector i
 \end{align*}
 \end{proof}
 \begin{lemma}\label{M:MetricTensor}
-The metric tensor of $N$ at $\tensor{\theta}{}$is
-\begin{equation*}
+The metric tensor of \(N\) at \(\tensor{\theta}{}\)is
+\[
 \tensor{g}{_a_b}=
 \begin{cases}
-\prod_{a<j}{\cos_\lambda^2\tensor{\theta}{^j}}&\text{if $a=b$,}\\
+\prod_{a<j}{\cos_\lambda^2\tensor{\theta}{^j}}&\text{if \(a=b\),}\\
 0&\text{otherwise.}\\
 \end{cases}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:MetricTensor}]
 \begin{align*}
@@ -97,7 +97,7 @@ The metric tensor of $N$ at $\tensor{\theta}{}$is
 \frac{\partial{\tensor{p}{^l}}}{\partial{\tensor{\theta}{^b}}}
 }
 \end{align*}
-If $a<b$,
+If \(a<b\),
 \begin{align*}
 \tensor{g}{_a_b}
 &=\left(
@@ -150,8 +150,8 @@ If $a<b$,
 \tensor{g}{_a_b}
 &=0\text{.}
 \end{align*}
-If $a>b$, $\tensor{g}{_a_b}=\tensor{g}{_b_a}=0$.
-If $a=b$,
+If \(a>b\), \(\tensor{g}{_a_b}=\tensor{g}{_b_a}=0\).
+If \(a=b\),
 \begin{align*}
 \tensor{g}{_a_a}
 &=
@@ -232,30 +232,30 @@ If $a=b$,
 \subsection{Curvature}
 \begin{lemma}\label{M:Christoffel}
 The Christoffel symbols of the manifold
-at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
+at the point \(\tensor{p}{}=f\left(\tensor{\theta}{}\right)\)
 is
-\begin{equation*}
+\[
 \tensor{\Gamma}{^a_b_c}=\begin{cases}
--\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{$a=b<c$}\\
--\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{$a=c<b$}\\
-+\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<a$}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{\(a=b<c\)}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{\(a=c<b\)}\\
++\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<a\)}\\
 0&\text{otherwise}\\
 \end{cases}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:Christoffel}]
 \begin{align*}
 \tensor{g}{_a_b_{,c}}
 &=\begin{cases}
-\frac{\partial}{\partial\tensor{\theta}{^c}}\prod_{a<i}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$a=b$}\\
+\frac{\partial}{\partial\tensor{\theta}{^c}}\prod_{a<i}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(a=b\)}\\
 \frac{\partial}{\partial\tensor{\theta}{^c}}0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
--2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$a=b<c$}\\
+-2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(a=b<c\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
--2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\tensor{g}{_a_a}&\text{$a=b<c$}\\
+-2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\tensor{g}{_a_a}&\text{\(a=b<c\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 \tensor{g}{}
@@ -264,7 +264,7 @@ is
 &=\diag\left({\tensor{g}{_a_a}}^{-1}\right)\\
 \tensor{g}{^a^b}
 &=\begin{cases}
-{\tensor{g}{_a_b}}^{-1}&\text{$a=b$}\\
+{\tensor{g}{_a_b}}^{-1}&\text{\(a=b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 \tensor{\Gamma}{^a_b_c}
@@ -287,67 +287,67 @@ is
 -\tensor{g}{_b_c_{,a}}
 \right)\\
 &=\begin{cases}
-\frac{1}{2}\tensor{g}{^a^a}\left(-2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\tensor{g}{_a_a}\right)&\text{$a=b<c$}\\
-\frac{1}{2}\tensor{g}{^a^a}\left(-2\lambda\tan_\lambda^\ast\tensor{\theta}{^b}\tensor{g}{_a_a}\right)&\text{$a=c<b$}\\
-\frac{1}{2}\tensor{g}{^a^a}\left(+2\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\tensor{g}{_b_b}\right)&\text{$b=c<a$}\\
+\frac{1}{2}\tensor{g}{^a^a}\left(-2\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\tensor{g}{_a_a}\right)&\text{\(a=b<c\)}\\
+\frac{1}{2}\tensor{g}{^a^a}\left(-2\lambda\tan_\lambda^\ast\tensor{\theta}{^b}\tensor{g}{_a_a}\right)&\text{\(a=c<b\)}\\
+\frac{1}{2}\tensor{g}{^a^a}\left(+2\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\tensor{g}{_b_b}\right)&\text{\(b=c<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
--\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{$a=b<c$}\\
--\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{$a=c<b$}\\
-+\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\frac{\tensor{g}{_b_b}}{\tensor{g}{_a_a}}&\text{$b=c<a$}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{\(a=b<c\)}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{\(a=c<b\)}\\
++\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\frac{\tensor{g}{_b_b}}{\tensor{g}{_a_a}}&\text{\(b=c<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
--\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{$a=b<c$}\\
--\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{$a=c<b$}\\
-+\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<a$}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^c}&\text{\(a=b<c\)}\\
+-\lambda\tan_\lambda^\ast\tensor{\theta}{^b}&\text{\(a=c<b\)}\\
++\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\qedhere
 \end{align*}
 \end{proof}
 \begin{lemma}\label{M:CurvatureTensor}
 The curvature tensor of the manifold
-at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
+at the point \(\tensor{p}{}=f\left(\tensor{\theta}{}\right)\)
 is
-\begin{equation*}
+\[
 \tensor{R}{^a_b_c_d}
 =
 \begin{cases}
-+\sign{\lambda}\lambda^2\tensor{g}{_b_b}&\text{$a=c\ne b=d$}\\
--\sign{\lambda}\lambda^2\tensor{g}{_b_b}&\text{$a=d\ne b=c$}\\
++\sign{\lambda}\lambda^2\tensor{g}{_b_b}&\text{\(a=c\ne b=d\)}\\
+-\sign{\lambda}\lambda^2\tensor{g}{_b_b}&\text{\(a=d\ne b=c\)}\\
 0&\text{otherwise}\\
 \end{cases}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:CurvatureTensor}]
 \begin{align*}
 \tensor{\Gamma}{^a_b_c_{,d}}
 &=\begin{cases}
-\frac{\partial}{\partial\tensor{u}{^d}}\left[-\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\right]&\text{$a=b<c$}\\
-\frac{\partial}{\partial\tensor{u}{^d}}\left[-\lambda\tan_\lambda^\ast\tensor{\theta}{^b}\right]&\text{$a=c<b$}\\
-\frac{\partial}{\partial\tensor{u}{^d}}\left[+\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}\right]&\text{$b=c<a$}\\
+\frac{\partial}{\partial\tensor{u}{^d}}\left[-\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\right]&\text{\(a=b<c\)}\\
+\frac{\partial}{\partial\tensor{u}{^d}}\left[-\lambda\tan_\lambda^\ast\tensor{\theta}{^b}\right]&\text{\(a=c<b\)}\\
+\frac{\partial}{\partial\tensor{u}{^d}}\left[+\lambda\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}\right]&\text{\(b=c<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
--\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^c}&\text{$a=b<c=d$}\\
--\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^b}&\text{$a=c<b=d$}\\
-+\lambda^2\left(1-\sign{\lambda}\tan_\lambda^2\tensor{\theta}{^a}\right)\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<a=d$}\\
--2\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<d<a$}\\
+-\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^c}&\text{\(a=b<c=d\)}\\
+-\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^b}&\text{\(a=c<b=d\)}\\
++\lambda^2\left(1-\sign{\lambda}\tan_\lambda^2\tensor{\theta}{^a}\right)\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<a=d\)}\\
+-2\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<d<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 \sum_{i}\left[\tensor{\Gamma}{^i_a_b}\tensor{\Gamma}{^c_i_d}\right]
 &=\begin{cases}
-\tensor{\Gamma}{^c_a_a}\tensor{\Gamma}{^c_c_d}&\text{$a=b<c<d$}\\
-\sum_{i>c}\left[\tensor{\Gamma}{^i_a_a}\tensor{\Gamma}{^c_i_c}\right]&\text{$a=b<c=d$}\\
-\tensor{\Gamma}{^d_a_a}\tensor{\Gamma}{^c_d_d}&\text{$a=b<d<c$}\\
-\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^a_a_d}&\text{$a=c<b,d$}\\
-\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^c_a_a}&\text{$a=d<b,c$}\\
-\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^b_b_d}&\text{$b=c<a,d$}\\
-\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^c_b_b}&\text{$b=d<a,c$}\\
-\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^c_a_c}&\text{$c=d<a<b$}\\
-\sum_{i>a}\left[\tensor{\Gamma}{^i_a_a}\tensor{\Gamma}{^c_i_c}\right]&\text{$c=d<a=b$}\\
-\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^c_b_c}&\text{$c=d<b<a$}\\
+\tensor{\Gamma}{^c_a_a}\tensor{\Gamma}{^c_c_d}&\text{\(a=b<c<d\)}\\
+\sum_{i>c}\left[\tensor{\Gamma}{^i_a_a}\tensor{\Gamma}{^c_i_c}\right]&\text{\(a=b<c=d\)}\\
+\tensor{\Gamma}{^d_a_a}\tensor{\Gamma}{^c_d_d}&\text{\(a=b<d<c\)}\\
+\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^a_a_d}&\text{\(a=c<b,d\)}\\
+\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^c_a_a}&\text{\(a=d<b,c\)}\\
+\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^b_b_d}&\text{\(b=c<a,d\)}\\
+\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^c_b_b}&\text{\(b=d<a,c\)}\\
+\tensor{\Gamma}{^a_a_b}\tensor{\Gamma}{^c_a_c}&\text{\(c=d<a<b\)}\\
+\sum_{i>a}\left[\tensor{\Gamma}{^i_a_a}\tensor{\Gamma}{^c_i_c}\right]&\text{\(c=d<a=b\)}\\
+\tensor{\Gamma}{^b_a_b}\tensor{\Gamma}{^c_b_c}&\text{\(c=d<b<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
@@ -357,7 +357,7 @@ is
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^d}
 \right)
-&\text{$a=b<c<d$}\\
+&\text{\(a=b<c<d\)}\\
 \sum_{j>c}
 \left[
 \left(
@@ -367,49 +367,49 @@ is
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^j}
 \right)
 \right]
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 \left(
 +\lambda\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le d}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \left(
 +\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{d<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=b<d<c$}\\
+&\text{\(a=b<d<c\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^b}
 \right)
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^d}
 \right)
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^b}
 \right)
 \left(
 +\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=d<b,c$}\\
+&\text{\(a=d<b,c\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^a}
 \right)
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^d}
 \right)
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^a}
 \right)
 \left(
 +\lambda\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^b}
 \right)
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^a}
 \right)
-&\text{$c=d<a<b$}\\
+&\text{\(c=d<a<b\)}\\
 \sum_{j>a}
 \left[
 \left(
@@ -419,241 +419,241 @@ is
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^j}
 \right)
 \right]
-&\text{$c=d<a=b$}\\
+&\text{\(c=d<a=b\)}\\
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^a}
 \right)
 \left(
 -\lambda\tan_\lambda^\ast\tensor{\theta}{^b}
 \right)
-&\text{$c=d<b<a$}\\
+&\text{\(c=d<b<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c<d$}\\
+&\text{\(a=b<c<d\)}\\
 -\lambda^2
 \sum_{j>c}
 \left[
 \tan_\lambda^2\tensor{\theta}{^j}\prod_{a<i\le j}\cos_\lambda^2\tensor{\theta}{^i}
 \right]
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<d<c$}\\
+&\text{\(a=b<d<c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=d<b,c$}\\
+&\text{\(a=d<b,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<a<b$}\\
+&\text{\(c=d<a<b\)}\\
 -\lambda^2
 \sum_{j>a}
 \left[
 \tan_\lambda^2\tensor{\theta}{^j}\prod_{a<i\le j}\cos_\lambda^2\tensor{\theta}{^i}
 \right]
-&\text{$c=d<a=b$}\\
+&\text{\(c=d<a=b\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<b<a$}\\
+&\text{\(c=d<b<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c<d$}\\
+&\text{\(a=b<c<d\)}\\
 -\lambda^2
 \sum_{j>c}
 \left[
 \sin_\lambda^2\tensor{\theta}{^j}\prod_{c<i<j}\cos_\lambda^2\tensor{\theta}{^i}
 \right]
 \prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<d<c$}\\
+&\text{\(a=b<d<c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=d<b,c$}\\
+&\text{\(a=d<b,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<a<b$}\\
+&\text{\(c=d<a<b\)}\\
 -\lambda^2
 \sum_{j>a}
 \left[
 \sin_\lambda^2\tensor{\theta}{^j}\prod_{a<i<j}\cos_\lambda^2\tensor{\theta}{^i}
 \right]
-&\text{$c=d<a=b$}\\
+&\text{\(c=d<a=b\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<b<a$}\\
+&\text{\(c=d<b<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c<d$}\\
+&\text{\(a=b<c<d\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{c<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<d<c$}\\
+&\text{\(a=b<d<c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=d<b,c$}\\
+&\text{\(a=d<b,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<a<b$}\\
+&\text{\(c=d<a<b\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$c=d<a=b$}\\
+&\text{\(c=d<a=b\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<b<a$}\\
+&\text{\(c=d<b<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c<d$}\\
+&\text{\(a=b<c<d\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{c<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=b<d<c$}\\
+&\text{\(a=b<d<c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{a<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=d<b,c$}\\
+&\text{\(a=d<b,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le c}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}
-&\text{$c=d<a\ne b$}\\
+&\text{\(c=d<a\ne b\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$c=d<a=b$}\\
+&\text{\(c=d<a=b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 \tensor{\Gamma}{^a_b_c_{,d}}
 +\sum_{i}\left[\tensor{\Gamma}{^i_b_c}\tensor{\Gamma}{^a_i_d}\right]
 &=\begin{cases}
--\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^c}&\text{$a=b<c=d$}\\
--\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^b}&\text{$a=c<b=d$}\\
-+\lambda^2\left(1-\sign{\lambda}\tan_\lambda^2\tensor{\theta}{^a}\right)\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<a=d$}\\
--2\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{$b=c<d<a$}\\
+-\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^c}&\text{\(a=b<c=d\)}\\
+-\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^b}&\text{\(a=c<b=d\)}\\
++\lambda^2\left(1-\sign{\lambda}\tan_\lambda^2\tensor{\theta}{^a}\right)\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<a=d\)}\\
+-2\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}&\text{\(b=c<d<a\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &+\begin{cases}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=b<c,d$}\\
+&\text{\(a=b<c,d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b,d$}\\
+&\text{\(a=c<b,d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}
-&\text{$a=d<b\ne c$}\\
+&\text{\(a=d<b\ne c\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a<d$}\\
+&\text{\(b=c<a<d\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a=d$}\\
+&\text{\(b=c<a=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<d<a$}\\
+&\text{\(b=c<d<a\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{c<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$c=d<a,b$}\\
+&\text{\(c=d<a,b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=b<c\ne d$}\\
+&\text{\(a=b<c\ne d\)}\\
 -\sign{\lambda}\lambda^2\sec_\lambda^2\tensor{\theta}{^c}
 +\lambda^2\tan_\lambda^2\tensor{\theta}{^c}
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b\ne d$}\\
+&\text{\(a=c<b\ne d\)}\\
 -\sign{\lambda}\lambda^2\sec^2_\lambda\tensor{\theta}{^b}
 +\lambda^2\tan_\lambda^2\tensor{\theta}{^b}
-&\text{$a=c<b=d$}\\
+&\text{\(a=c<b=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}
-&\text{$a=d<b\ne c$}\\
+&\text{\(a=d<b\ne c\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a<d$}\\
+&\text{\(b=c<a<d\)}\\
 +\lambda^2\left(1-\sign{\lambda}\tan_\lambda^2\tensor{\theta}{^a}\right)\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a=d$}\\
+&\text{\(b=c<a=d\)}\\
 -2\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<d<a$}\\
+&\text{\(b=c<d<a\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{c<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$c=d<a,b$}\\
+&\text{\(c=d<a,b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=b<c\ne d$}\\
+&\text{\(a=b<c\ne d\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b\ne d$}\\
+&\text{\(a=c<b\ne d\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=c<b=d$}\\
+&\text{\(a=c<b=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}
-&\text{$a=d<b\ne c$}\\
+&\text{\(a=d<b\ne c\)}\\
 -\lambda^2
 \left(
 1-\sign{\lambda}\prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a<d$}\\
+&\text{\(b=c<a<d\)}\\
 +\sign{\lambda}\lambda^2
 \left(
 -\tan_\lambda^2\tensor{\theta}{^a}
 +\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
-&\text{$b=c<a=d$}\\
+&\text{\(b=c<a=d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
-&\text{$b=c<d<a$}\\
+&\text{\(b=c<d<a\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{c<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$c=d<a,b$}\\
+&\text{\(c=d<a,b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 \tensor{R}{^a_b_c_d}
@@ -674,104 +674,104 @@ is
 &=-
 \begin{cases}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=b<c\ne d$}\\
+&\text{\(a=b<c\ne d\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b\ne d$}\\
+&\text{\(a=c<b\ne d\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=c<b=d$}\\
+&\text{\(a=c<b=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}
-&\text{$a=d<b\ne c$}\\
+&\text{\(a=d<b\ne c\)}\\
 -\lambda^2
 \left(
 1
 -\sign{\lambda}\prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a<d$}\\
+&\text{\(b=c<a<d\)}\\
 +\sign{\lambda}\lambda^2
 \left(
 -\tan_\lambda^2\tensor{\theta}{^a}
 +\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a=d$}\\
+&\text{\(b=c<a=d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^d}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
-&\text{$b=c<d<a$}\\
+&\text{\(b=c<d<a\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a,c$}\\
+&\text{\(b=d<a,c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^b}\prod_{c<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$c=d<a,b$}\\
+&\text{\(c=d<a,b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &+\begin{cases}
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^c}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=b<c\ne d$}\\
+&\text{\(a=b<c\ne d\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=b<c=d$}\\
+&\text{\(a=b<c=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^d}
-&\text{$a=c<b\ne d$}\\
+&\text{\(a=c<b\ne d\)}\\
 -\lambda^2
 \left(
 1
 -\sign{\lambda}\prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
-&\text{$a=c<b=d$}\\
+&\text{\(a=c<b=d\)}\\
 +\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^c}
-&\text{$a=d<b\ne c$}\\
+&\text{\(a=d<b\ne c\)}\\
 -\sign{\lambda}\lambda^2
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^d}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a,d$}\\
+&\text{\(b=c<a,d\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a<c$}\\
+&\text{\(b=d<a<c\)}\\
 +\sign{\lambda}\lambda^2
 \left(
 -\tan_\lambda^2\tensor{\theta}{^a}
 +\prod_{a<i}\cos_\lambda^2\tensor{\theta}{^i}
 \right)
 \prod_{b<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a=c$}\\
+&\text{\(b=d<a=c\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^a}\tan_\lambda^\ast\tensor{\theta}{^c}\prod_{b<i\le a}{\cos_\lambda^2\tensor{\theta}{^i}}
-&\text{$b=d<c<a$}\\
+&\text{\(b=d<c<a\)}\\
 -\lambda^2\tan_\lambda^\ast\tensor{\theta}{^b}\tan_\lambda^\ast\tensor{\theta}{^a}\prod_{c<i\le a}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$c=d<a,b$}\\
+&\text{\(c=d<a,b\)}\\
 0&\text{otherwise}\\
 \end{cases}\\
 &=\begin{cases}
 +\sign{\lambda}\lambda^2
 \prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=c<b=d$}\\
+&\text{\(a=c<b=d\)}\\
 -\sign{\lambda}\lambda^2
 \prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$a=d<b=c$}\\
+&\text{\(a=d<b=c\)}\\
 -\sign{\lambda}\lambda^2
 \prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=c<a=d$}\\
+&\text{\(b=c<a=d\)}\\
 +\sign{\lambda}\lambda^2
 \prod_{b<i}\cos_\lambda^2\tensor{\theta}{^i}
-&\text{$b=d<a=c$}\\
+&\text{\(b=d<a=c\)}\\
 0&\text{otherwise}\\
 \end{cases} \\
 &=\begin{cases}
 +\sign{\lambda}\lambda^2\tensor{g}{_b_b}
-&\text{$a=c\ne b=d$}\\
+&\text{\(a=c\ne b=d\)}\\
 -\sign{\lambda}\lambda^2\tensor{g}{_b_b}
-&\text{$a=d\ne b=c$}\\
+&\text{\(a=d\ne b=c\)}\\
 0&\text{otherwise}\\
 \end{cases}\qedhere
 \end{align*}
 \end{proof}
 \begin{lemma}\label{M:SectionalCurvature}
 The sectional curvature of the manifold
-at the point $\tensor{p}{}=f\left(\tensor{\theta}{}\right)$
-along the tangent vector $\tensor{u}{}$ and $\tensor{v}{}$
+at the point \(\tensor{p}{}=f\left(\tensor{\theta}{}\right)\)
+along the tangent vector \(\tensor{u}{}\) and \(\tensor{v}{}\)
 is
-\begin{equation*}
+\[
 K\left(\tensor{u}{},\tensor{v}{}\right)=\sign{\lambda}\lambda^2
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:SectionalCurvature}]
 \begin{align*}
@@ -919,6 +919,6 @@ K\left(\tensor{u}{},\tensor{v}{}\right)
 \end{align*}
 \end{proof}
 \paragraph{CurvatureParameter}
-It can be seen that $\operatorname{sec}\left(p\right)=\kappa=\sign{\lambda}\lambda^2$.
-Hence, when provided $\kappa$, $\lambda$ can be determined and used to evaluate the model.
+It can be seen that \(\operatorname{sec}\left(p\right)=\kappa=\sign{\lambda}\lambda^2\).
+Hence, when provided \(\kappa\), \(\lambda\) can be determined and used to evaluate the model.
 \end{document}

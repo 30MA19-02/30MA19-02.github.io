@@ -3,22 +3,22 @@
 \begin{document}
 \section{Model Parametrization}
 \begin{definition}\label{M:Parameter}
-For any point matrix $\tensor{X^\pm_{\lambda,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}$,
-$n$-dimensional vector $\tensor{\theta}{}$
+For any point matrix \(\tensor{X^\pm_{\lambda,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}\),
+\(n\)-dimensional vector \(\tensor{\theta}{}\)
 is defined as\textit{position parameter}.
 \end{definition}
 \begin{definition}\label{M:Vector}
-For point matrix $\tensor{X}{}$,
-$\left(n+1\right)$-dimensional column vector $\tensor{p}{}\coloneqq\frac{1}{\lambda}\tensor{X}{}\cdot\tensor{e}{^1}=\frac{1}{\lambda}\tensor{X}{_1}$
+For point matrix \(\tensor{X}{}\),
+\(\left(n+1\right)\)-dimensional column vector \(\tensor{p}{}\coloneqq\frac{1}{\lambda}\tensor{X}{}\cdot\tensor{e}{^1}=\frac{1}{\lambda}\tensor{X}{_1}\)
 is defined as\textit{position vector}.
 \end{definition}
 \begin{definition}\label{M:Vector:Set}
-$P^\ast\left(\lambda,n\right)$ is a set of position vectors.
+\(P^\ast\left(\lambda,n\right)\) is a set of position vectors.
 \end{definition}
 \begin{lemma}\label{M:Vector:Position}
-For point matrix $X=PO$
-where $P$ and $O$ are position and orientation matrix respectively,
-$\tensor{p}{}=\frac{1}{\lambda}\tensor{X}{_1}=\frac{1}{\lambda}\tensor{P}{_1}$.
+For point matrix \(X=PO\)
+where \(P\) and \(O\) are position and orientation matrix respectively,
+\(\tensor{p}{}=\frac{1}{\lambda}\tensor{X}{_1}=\frac{1}{\lambda}\tensor{P}{_1}\).
 \end{lemma}
 \begin{proof}[\proofof{M:Vector:Position}]
 \begin{align*}
@@ -31,8 +31,8 @@ $\tensor{p}{}=\frac{1}{\lambda}\tensor{X}{_1}=\frac{1}{\lambda}\tensor{P}{_1}$.
 \end{align*}
 \end{proof}
 \begin{lemma}\label{M:Vector:Value}
-Given position parameter $\tensor{\theta}{}$, position vector can be evaluated as the following.
-\begin{equation*}
+Given position parameter \(\tensor{\theta}{}\), position vector can be evaluated as the following.
+\[
 \psi_0^{-1}\colon\tensor{\theta}{}\mapsto\tensor{p}{}
 =\frac{1}{\lambda}
 \begin{pmatrix}
@@ -40,13 +40,13 @@ Given position parameter $\tensor{\theta}{}$, position vector can be evaluated a
 \sin_\lambda{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{\theta}{^j}}}\\
 \sin_\lambda{{\tensor{\theta}{^n}}}\\
 \end{pmatrix}\text{.}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:Vector:Value}]
 Simplify \cref{M:Vector:Position,M:Position}.
 \end{proof}
 \begin{lemma}\label{M:Parameter:Value}
-Given position vector $\tensor{p}{}$, position parameter can be calculated as the following.
+Given position vector \(\tensor{p}{}\), position parameter can be calculated as the following.
 \begin{align*}
 \psi_0
 &\colon\tensor{p}{}\mapsto\tensor{\theta}{}
@@ -58,11 +58,11 @@ Given position vector $\tensor{p}{}$, position parameter can be calculated as th
 \end{pmatrix}\\
 &\in
 \begin{cases}
-P\to\left(-\frac{\pi}{\lambda},\frac{\pi}{\lambda}\right]\times\left[-\frac{1}{2}\frac{\pi}{\lambda},\frac{1}{2}\frac{\pi}{\lambda}\right]^{n-1}&\text{if $\lambda>0$}\\
-P\to\R^{n}&\text{if $\lambda\le0$}\\
+P\to\left(-\frac{\pi}{\lambda},\frac{\pi}{\lambda}\right]\times\left[-\frac{1}{2}\frac{\pi}{\lambda},\frac{1}{2}\frac{\pi}{\lambda}\right]^{n-1}&\text{if \(\lambda>0\)}\\
+P\to\R^{n}&\text{if \(\lambda\le0\)}\\
 \end{cases}
 \end{align*}
-where $\cos_\lambda\left(\arcsin_\lambda^{\pm}\left(x\right)\right) =\pm\cos_\lambda\left(\arcsin_\lambda\left(x\right)\right)$.
+where \(\cos_\lambda\left(\arcsin_\lambda^{\pm}\left(x\right)\right) =\pm\cos_\lambda\left(\arcsin_\lambda\left(x\right)\right)\).
 \end{lemma}
 \begin{proof}[\proofof{M:Parameter:Value}]
 From \cref{M:Vector:Value},
@@ -93,7 +93,7 @@ From \cref{M:Vector:Value},
 \end{align*}
 \end{proof}
 \begin{lemma}\label{M:CoordinateChart}
-\begin{equation*}
+\[
 \Psi=\Set{\psi|
 \psi^{-1}
 \in S^n\to P
@@ -101,23 +101,23 @@ From \cref{M:Vector:Value},
 \text{ for }
 \tensor{x}{}\in\R^n
 }
-\end{equation*} is a coordinate chart of a $C^\infty$ differential structure on $P$
-for\begin{equation*}
+\] is a coordinate chart of a \(C^\infty\) differential structure on \(P\)
+for\[
 S=
 \begin{cases}
-\left(-\frac{1}{2}\frac{\pi}{\lambda},+\frac{1}{2}\frac{\pi}{\lambda}\right)&\text{$\lambda>0$}\\
-\R&\text{$\lambda\le0$}
+\left(-\frac{1}{2}\frac{\pi}{\lambda},+\frac{1}{2}\frac{\pi}{\lambda}\right)&\text{\(\lambda>0\)}\\
+\R&\text{\(\lambda\le0\)}
 \end{cases}
-\end{equation*}
+\]
 \end{lemma}
 \begin{proof}[\proofof{M:CoordinateChart}]
 From \cref{Manifold}, It is sufficient to shows that
 \begin{APAenumerate}
-\item $R_\psi$ is an open subset of real vector space (defined),
-\item $\bigcup_{\psi\in\Psi} D_\psi=P$ (obvious),
-\item transition map is in differentability class $C^\infty$.
+\item \(R_\psi\) is an open subset of real vector space (defined),
+\item \(\bigcup_{\psi\in\Psi} D_\psi=P\) (obvious),
+\item transition map is in differentability class \(C^\infty\).
 \end{APAenumerate}
-\begin{subproof}{$\bigcup_{\psi\in\Psi} D_\psi=P$}
+\begin{subproof}{\(\bigcup_{\psi\in\Psi} D_\psi=P\)}
 \begin{align*}
 M\in P
 &\implies\exists\theta_0, M=P_{\lambda,n}\left(\theta_0\right)\\
@@ -137,22 +137,22 @@ M\in\bigcup_{\psi\in\Psi} D_\psi
 \bigcup_{\psi\in\Psi} D_\psi&= P
 \end{align*}
 \end{subproof}
-\begin{subproof}{every transition map is in differentability class $C^\infty$}
-Consider $\psi_1,\psi_2\in\Psi$ and $x_1, x_2\in\R^n$ where
-\begin{equation*}
+\begin{subproof}{every transition map is in differentability class \(C^\infty\)}
+Consider \(\psi_1,\psi_2\in\Psi\) and \(x_1, x_2\in\R^n\) where
+\[
 \psi_i^{-1}
 \in S^n\to R
 \colon\tensor{\theta}{}\mapsto P\left(\tensor{\theta}{}+x_i\right)
 \text{.}
-\end{equation*}
-If $\psi_1^{-1}\left(\theta_1\right)=\psi_2^{-1}\left(\theta_2\right)$,
+\]
+If \(\psi_1^{-1}\left(\theta_1\right)=\psi_2^{-1}\left(\theta_2\right)\),
 \begin{align*}
 \psi_1^{-1}\left(\theta_1\right)
 &=\psi_2^{-1}\left(\theta_2\right)\\
 \psi_0^{-1}\left(\theta_1+x_1\right)
 &=\psi_0^{-1}\left(\theta_2+x_2\right)\\
 \psi_0^{-1}\left(\phi_1\right)
-&=\psi_0^{-1}\left(\phi_2\right)&\text{(Let $\phi_i =\theta_i+x_i$)}\\
+&=\psi_0^{-1}\left(\phi_2\right)&\text{(Let \(\phi_i =\theta_i+x_i\))}\\
 \frac{1}{\lambda}
 \begin{pmatrix}
 \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{{\phi_1}}{^j}}}\\
@@ -178,28 +178,28 @@ If $\psi_1^{-1}\left(\theta_1\right)=\psi_2^{-1}\left(\theta_2\right)$,
 \sin_\lambda{{\tensor{{\phi_2}}{^n}}}\\
 \end{pmatrix}
 \end{align*}
-If $\lambda\ge 0$, by mathematical induction, $\phi_1=m\frac{\pi}{\lambda}\pm\phi_2$.
-If $\lambda\le 0$, by mathematical induction, $\phi_1 =\phi_2$.
-Hence, the transition map $\tau_{1,2} =\psi_2\circ\psi_1^{-1}$
-is in the form of linear function $\theta\mapsto c\pm\theta$
-and is in differentability class $C^\infty$.
+If \(\lambda\ge 0\), by mathematical induction, \(\phi_1=m\frac{\pi}{\lambda}\pm\phi_2\).
+If \(\lambda\le 0\), by mathematical induction, \(\phi_1 =\phi_2\).
+Hence, the transition map \(\tau_{1,2} =\psi_2\circ\psi_1^{-1}\)
+is in the form of linear function \(\theta\mapsto c\pm\theta\)
+and is in differentability class \(C^\infty\).
 \end{subproof}
 \end{proof}
 \subsection{Locus of position vector}
 \begin{lemma}\label{SphericalLocus}
-For $\lambda>0$, $P$ is a $\left(n+1\right)$-sphere of radius $\abs{\lambda}^{-1}$.
+For \(\lambda>0\), \(P\) is a \(\left(n+1\right)\)-sphere of radius \(\abs{\lambda}^{-1}\).
 \end{lemma}
 \begin{proof}[\proofof{SphericalLocus}]
 Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
 \end{proof}
 \begin{lemma}\label{HyperbolicLocus}
-For $\lambda<0$, $P$ is a backward sheet of a two-sheeted $\left(n+1\right)$-hyperboloid of radius $\abs{\lambda}^{-1}$.
+For \(\lambda<0\), \(P\) is a backward sheet of a two-sheeted \(\left(n+1\right)\)-hyperboloid of radius \(\abs{\lambda}^{-1}\).
 \end{lemma}
 \begin{proof}[\proofof{HyperbolicLocus}]
 Simplify \cref{M:Vector:Value} using \cref{M:Trigonometry:Pythagorean}.
 \end{proof}
 \begin{lemma}\label{EuclideanLocus}
-For $\lambda\to0$, $P$ is a $n$-Euclidean plane at $\tensor{p}{^1}=\infty$.
+For \(\lambda\to0\), \(P\) is a \(n\)-Euclidean plane at \(\tensor{p}{^1}=\infty\).
 \end{lemma}
 \begin{proof}[\proofof{EuclideanLocus}]
 Using limits.
