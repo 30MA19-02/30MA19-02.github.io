@@ -28,9 +28,19 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
+      
+      - name: Build page
+        run: |
+          mkdir -p build/pdfs
+          mv main.pdf build/pdfs
+          cat > build/index.html <<EOL
+          <meta http-equiv="refresh" content="0; url=https://github.com/30MA19-02/proof/blob/gh-pages/build/pdfs/main.pdf">
+          EOL
+          touch build/.nojekyll
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
         with:
-          commit_message: 'generate'
-          # commit_options: '--amend --no-edit'
-          push_options: '--force-with-lease'
+          branch: gh-pages
+          folder: build
+          single-commit: yes
