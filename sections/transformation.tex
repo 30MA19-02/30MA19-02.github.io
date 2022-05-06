@@ -1,0 +1,50 @@
+% !TeX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\section{Geometric transformation}
+\begin{lemma}\label{M:transform:distance}
+For any point \(p,q\in N\)
+and element \(X\in X\left(n,\lambda\right)\),
+\[
+\norm{\left(Xp\right)\left(Xq\right)}=\norm{pq}\text{.}
+\]
+\end{lemma}
+\begin{proof}[\proofof{M:transform:distance}]
+If \(\lambda>0\),
+\begin{align*}
+X^{-1}&=X^T\\
+&=X^TI\\
+I&=X^TIX\\
+g&=X^TgX\text{.}
+\end{align*}
+If \(\lambda\to 0\),
+\begin{align*}
+X&\to I\\
+X^T
+&\to I^T\\
+&=I\\
+g&=g\\
+g&=IgI\\
+g&\to X^TgX\text{.}
+\end{align*}
+If \(\lambda<0\),
+\begin{align*}
+X^{-1}&=gX^Tg\\
+I&=gX^TgX\\
+g^{-1}&=X^TgX\\
+g&=X^TgX\text{.}
+\end{align*}
+\begin{align*}
+\norm{pq}
+&=\sqrt{g\left(q-p,q-p\right)}\\
+&=\sqrt{\left(q-p\right)^Tg\left(q-p\right)}\\
+\norm{\left(Xp\right)\left(Xq\right)}
+&=\sqrt{g\left(Xq-Xp,Xq-Xp\right)}\\
+&=\sqrt{g\left(X\left(q-p\right),X\left(q-p\right)\right)}\\
+&=\sqrt{\left(X\left(q-p\right)\right)^Tg\left(X\left(q-p\right)\right)}\\
+&=\sqrt{\left(q-p\right)^TX^TgX\left(q-p\right)}\\
+&=\sqrt{\left(q-p\right)^Tg\left(q-p\right)}\\
+&=\norm{pq}\qedhere
+\end{align*}
+\end{proof}
+\end{document}
