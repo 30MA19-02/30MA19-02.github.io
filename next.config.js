@@ -4,10 +4,6 @@ const path = require('path');
 
 const nextConfig = {
   reactStrictMode: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
-  publicRuntimeConfig: {
-    basePath: process.env.NODE_ENV === 'production' ? '/noneuclidjs-docs' : '',
-  },
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {
       ...defaultPathMap,
