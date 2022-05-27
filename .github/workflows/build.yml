@@ -35,7 +35,7 @@ jobs:
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
           npm ci
           npm run export
-          touch noneuclidjs-docs/.nojekyll
+          touch docs/.nojekyll
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.3
