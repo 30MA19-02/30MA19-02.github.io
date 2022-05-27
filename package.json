@@ -12,7 +12,7 @@
     "dev": "next dev",
     "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "cross-env ANALYZE='true' next build",
-    "export": "npm run build && next export -o noneuclidjs-docs",
+    "export": "npm run build && next export -o docs",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write ."
