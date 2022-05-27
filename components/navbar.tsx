@@ -12,6 +12,10 @@ const navLinks = [
     path: '/examples',
   },
   {
+    name: 'Proof',
+    path: 'proof/pdfs/main.pdf',
+  },
+  {
     name: 'Framework',
     path: '/framework',
   },
