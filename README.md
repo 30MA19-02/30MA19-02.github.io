@@ -10,7 +10,7 @@ Implementation of Algebraic Model for Geometry on Manifold with Constant Intrins
 
 This project is part of the course in Mahidol Wittayanusorn School.
 
-[**Explore the docs »**](https://30ma19-02.github.io/docs)
+[**Explore the docs »**](https://30ma19-02.github.io/noneuclid)
 
 [View Demo](https://30ma19-02.github.io/)
 ·
