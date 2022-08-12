@@ -46,8 +46,13 @@
   "exclude": ["node_modules/**"],
   "compileOnSave": false,
   "typedocOptions": {
-    "entryPoints": ["."],
-    "entryPointStrategy": "packages",
+    "entryPoints": [
+      "src",
+      "src/lib",
+      "src/util",
+    ],
+    "exclude": ["src/test/**"],
+    "entryPointStrategy": "Resolve",
     "githubPages": true,
     "out": "build/docs",
     "json": "build/docs/typedoc.json"

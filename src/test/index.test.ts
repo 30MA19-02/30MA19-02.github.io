@@ -1,5 +1,5 @@
 import Manifold from '..';
-import Matrix from '../lib/Matrix';
+import { Matrix } from '../lib';
 import { random } from '../util';
 
 import { target } from './util';

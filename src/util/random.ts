@@ -1,9 +1,14 @@
 /**
+ * Random generator for number and parameter.
+ *
+ * Used to test the model's functionality
+ * @module
+ */
+/**
  * Returns uniformly distributed floating-point number in certain range.
  *
  * @param min - The lower bound (inclusive)
  * @param max - The upper bound (exclusive)
- * @returns Random floating-point number between `min` and `max`
  */
 export function range(min: number, max: number): number {
   return Math.random() * (max - min) + min;
@@ -11,15 +16,15 @@ export function range(min: number, max: number): number {
 /**
  * Returns random theta (positional parameter)
  *
- * @param dim - Dimension of the generated theta
- * @param maxTheta - Magnitude limit of each entry
+ * @param dim Dimension of the generated theta
+ * @param maxTheta Magnitude limit of each entry
  */
 export function theta(dim: number, maxTheta?: number): number[];
 /**
  * Returns random theta (positional parameter)
  *
- * @param dim - Dimension of the generated theta
- * @param lambda - Lambda parameter for the theta (only accept positive value)
+ * @param dim Dimension of the generated theta
+ * @param lambda Lambda parameter for the theta (only accept positive value)
  * @param constrained - True
  */
 export function theta(
@@ -45,9 +50,8 @@ export function theta(dim: number, lambda = 10, constrained = false): number[] {
 /**
  * Returns random phi (orientational parameter)
  *
- * @param dim - Dimension of the generated phi
- * @param constrained - Whether or not the parameter is bounded within the bijective domain
- * @returns
+ * @param dim Dimension of the generated phi
+ * @param constrained Whether or not the parameter is bounded within the bijective domain
  */
 export function phi(dim: number, constrained = false): number[][] {
   if (constrained)

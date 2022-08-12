@@ -63,8 +63,8 @@ Those objects can now perform any expected calculation including
 
 * transformed with another transformation via `point.transform(other)`,
 * evaluate inner product with other transformation via `point.inner_prod(other)`,
-* project into an $n+1$ dimensional space via `point.project`,
-* and embed into an $n$ dimensional space via `point.embed`.
+* project into an $n+1$-dimensional space via `point.project`,
+* and embed into an $n$-dimensional space via `point.embed`.
 
 _For more examples, please refer to the [Documentation](https://30ma19-02.github.io/docs)_
 

@@ -1,12 +1,36 @@
+/**
+ * {@inheritDoc Matrix}
+ * @module
+ */
+/**
+ * Matrix class.
+ *
+ * This class is used
+ * in the backend
+ * to calculate needed operation on square matrix.
+ * @internal
+ */
 export class Matrix {
   protected _matrix: number[][];
+  /**
+   * Create an null matrix.
+   */
   constructor() {
     this._matrix = [];
   }
-  // Attribute
+  /**
+   * Shape of the matrix
+   *
+   * @category Attribute
+   */
   public get dim(): number {
     return this._matrix.length;
   }
+  /**
+   * Entries of the matrix as array of numbers
+   *
+   * @category Attribute
+   */
   public get matrix(): number[][] {
     return new Array(this.dim)
       .fill(0)
@@ -22,7 +46,11 @@ export class Matrix {
         new Array(matrix.length).fill(0).map((_, j) => matrix[i][j])
       );
   }
-  // Property
+  /**
+   * Determinant of the matrix
+   *
+   * @category Property
+   */
   public get det(): number {
     if (this.dim === 0) {
       return 0;
@@ -67,7 +95,12 @@ export class Matrix {
     const det = matrix[rowIndices[this.dim - 1]][this.dim - 1];
     return negated ? -det : det;
   }
-  // Operation
+  /**
+   * Perform matrix addition
+   *
+   * @category Operation
+   * @param other Matrix to be added with this
+   */
   public add(other: this): Matrix {
     if (this.dim !== other.dim) {
       throw new RangeError();
@@ -82,6 +115,12 @@ export class Matrix {
         )
     );
   }
+  /**
+   * Perform matrix multiplication to the right of this matrix
+   *
+   * @category Operation
+   * @param other Matrix to be multiplied with this
+   */
   public multiply(other: this): Matrix {
     if (this.dim !== other.dim) {
       throw new RangeError();
@@ -97,6 +136,12 @@ export class Matrix {
       )
     );
   }
+  /**
+   * Perform scalar multiplication on the matrix
+   *
+   * @category Operation
+   * @param factor Scalar value to be multiplied with this
+   */
   public scale(factor: number): Matrix {
     return (this.constructor as typeof Matrix)._fromArray(
       new Array(this.dim)
@@ -106,6 +151,11 @@ export class Matrix {
         )
     );
   }
+  /**
+   * Returns the transpose of the matrix
+   *
+   * @category Operation
+   */
   public transpose(): Matrix {
     return (this.constructor as typeof Matrix)._fromArray(
       new Array(this.dim)
@@ -115,6 +165,12 @@ export class Matrix {
         )
     );
   }
+  /**
+   * Extends identity to the top-left of the matrix
+   *
+   * @category Operation
+   * @param count Number of rows/columns to be added (Defaulted to 1)
+   */
   public extend_first(count = 1): Matrix {
     return (this.constructor as typeof Matrix)._fromArray(
       new Array(this.dim + count)
@@ -132,6 +188,12 @@ export class Matrix {
         )
     );
   }
+  /**
+   * Extends identity to the bottom-right of the matrix
+   *
+   * @category Operation
+   * @param count Number of rows/columns to be added (Defaulted to 1)
+   */
   public extend_last(count = 1): Matrix {
     return (this.constructor as typeof Matrix)._fromArray(
       new Array(this.dim + count)
@@ -149,6 +211,15 @@ export class Matrix {
         )
     );
   }
+  /**
+   * Perform slice-like operation on rows and columns of the matrix
+   *
+   * @category Operation
+   * @param start_row Zero-based row index at which to start extraction.
+   * @param end_row The index of the first row to exclude from the returned matrix
+   * @param start_col Zero-based column index at which to start extraction.
+   * @param end_col The index of the first column to exclude from the returned matrix
+   */
   public slice(
     start_row: number,
     end_row: number,
@@ -164,11 +235,15 @@ export class Matrix {
         .map((_) => _.slice(start_col, end_col))
     );
   }
-  // Clone
+  /**
+   * Deep clone the matrix
+   */
   public clone(): Matrix {
     return this.slice(0, this.dim, 0, this.dim);
   }
-  // Representation
+  /**
+   * Returns a string representation of an object.
+   */
   public toString(): string {
     const matrix = this.matrix.map((arr) => arr.map((val) => val.toFixed(2)));
     const maxLen = matrix.reduce(
@@ -187,42 +262,80 @@ export class Matrix {
       )
       .join(',\n\t')}]`;
   }
-  // Construction
+  /**
+   * Create a matrix with the given entries without validation.
+   *
+   * @internal
+   * @param array Array of number
+   */
   protected static _fromArray(array: number[][]): Matrix {
     const matrix = new this();
     matrix._matrix = array;
     return matrix;
   }
+  /**
+   * Create a matrix with the given entries.
+   *
+   * @category Construction
+   * @param array Array of number
+   */
   static fromArray(array: number[][]): Matrix {
     const matrix = new this();
     matrix.matrix = array;
     return matrix;
   }
+  /**
+   * Create a diagonal matrix.
+   *
+   * @category Construction
+   * @param diag Diagonal entry of the matrix
+   */
   static fromDiag(diag: number[]): Matrix {
-    const matrix = new this();
-    matrix.matrix = new Array(diag.length)
-      .fill(0)
-      .map((_, i) =>
-        new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))
-      );
+    const matrix = this._fromArray(
+      new Array(diag.length)
+        .fill(0)
+        .map((_, i) =>
+          new Array(diag.length).fill(0).map((_, j) => (i === j ? diag[i] : 0))
+        )
+    );
     return matrix;
   }
-  // Template
+  /**
+   * Create a zero matrix
+   *
+   * @category Construction
+   * @param dim Dimension of the matrix
+   */
   static Zero(dim: number): Matrix {
     return this._fromArray(
       new Array(dim).fill(0).map(() => new Array(dim).fill(0).map(() => 0))
     );
   }
+  /**
+   * Create an identity matrix
+   *
+   * @category Construction
+   * @param dim Dimension of the matrix
+   */
   static Identity(dim: number): Matrix {
     return this.fromDiag(new Array(dim).fill(1));
   }
-  // Validation
+  /**
+   * Validate an array if compatible with the matrix
+   *
+   * @category Validation
+   * @param array Array of number
+   */
   static validateArray(array: number[][]) {
     if (array.some((_) => _.length !== array.length)) {
       throw new RangeError();
     }
   }
-  // Property
+  /**
+   * Determine if matrices is equal
+   *
+   * @category Comparison
+   */
   public static equal(left: Matrix, right: Matrix): boolean {
     return left._matrix.every((_, i) =>
       _.every(
@@ -234,6 +347,11 @@ export class Matrix {
       )
     );
   }
+  /**
+   * Determine if matrix is (`m`, `n`)-indefinite orthogonal
+   *
+   * @category Property
+   */
   public static isIndefiniteOrthogonal(
     matrix: Matrix,
     m: number,
@@ -248,6 +366,11 @@ export class Matrix {
       this.Identity(matrix.dim)
     );
   }
+  /**
+   * Determine if matrix is (`m`, `n`)-indefinite special orthogonal
+   *
+   * @category Property
+   */
   public static isIndefiniteSpecialOrthogonal(
     matrix: Matrix,
     m: number,
@@ -255,6 +378,11 @@ export class Matrix {
   ): boolean {
     return this.isIndefiniteOrthogonal(matrix, m, n) && matrix.det === 1;
   }
+  /**
+   * Determine if matrix is (`m`, `n`)-orthochronous indefinite orthogonal
+   *
+   * @category Property
+   */
   public static isOrthochronousIndefiniteOrthogonal(
     matrix: Matrix,
     m: number,
@@ -265,9 +393,19 @@ export class Matrix {
       matrix.slice(0, m, 0, m).det > 0
     );
   }
+  /**
+   * Determine if matrix is orthogonal
+   *
+   * @category Property
+   */
   public static isOrthogonal(matrix: Matrix): boolean {
     return this.isIndefiniteOrthogonal(matrix, matrix.dim, 0);
   }
+  /**
+   * Determine if matrix is special orthogonal
+   *
+   * @category Property
+   */
   public static isSpecialOrthogonal(matrix: Matrix): boolean {
     return this.isIndefiniteSpecialOrthogonal(matrix, matrix.dim, 0);
   }
