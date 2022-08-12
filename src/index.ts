@@ -1,2 +1,3 @@
-export { Point } from './object-oriented';
-export * as point from './functional';
+import Manifold from './lib/PointFactory';
+
+export default (dim: number, lambda: number) => new Manifold(dim, lambda);
