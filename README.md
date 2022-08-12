@@ -10,7 +10,7 @@ Implementation of Algebraic Model for Geometry on Manifold with Constant Intrins
 
 This project is part of the course in Mahidol Wittayanusorn School.
 
-[**Explore the docs »**](https://30ma19-02.github.io/noneuclid)
+[**Explore the docs »**][docs-url]
 
 [View Demo](https://30ma19-02.github.io/)
 ·
@@ -66,7 +66,7 @@ Those objects can now perform any expected calculation including
 * project into an $n+1$-dimensional space via `point.project`,
 * and embed into an $n$-dimensional space via `point.embed`.
 
-_For more examples, please refer to the [Documentation](https://30ma19-02.github.io/docs)_
+_For more examples, please refer to the [Documentation][docs-url]_
 
 ## Contributing
 
@@ -94,4 +94,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [issues-shield]: https://img.shields.io/github/issues/30MA19-02/noneuclid.svg?style=for-the-badge
 [issues-url]: https://github.com/30MA19-02/noneuclid/issues
 [license-shield]: https://img.shields.io/github/license/30MA19-02/noneuclid.svg?style=for-the-badge
-[license-url]: https://github.com/30MA19-02/noneuclid/blob/master/LICENSE.txt
+[license-url]: https://github.com/30MA19-02/noneuclid/blob/develop/LICENSE
+[docs-url]: https://30ma19-02.github.io/noneuclid
