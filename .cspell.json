@@ -1,0 +1,23 @@
+{
+  "version": "0.2",
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/master/cspell.schema.json",
+  "language": "en",
+  "words": [
+    "AMGM",
+    "bijective",
+    "CIC",
+    "Mahidol",
+    "noneuclid",
+    "orthochronous",
+    "pseudosphere",
+    "roadmap",
+    "Wittayanusorn"
+  ],
+  "flagWords": [],
+  "ignorePaths": [
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json",
+    "node_modules/**"
+  ]
+}
