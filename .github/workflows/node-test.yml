@@ -32,7 +32,7 @@ jobs:
       - run: npm run test:unit
 
   lint:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
@@ -45,7 +45,7 @@ jobs:
       - run: npm run test
 
   doc-test:
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
