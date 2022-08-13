@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: >-
+  The Development of Algebraic Model for Geometry on
+  Manifold with Constant Intrinsic Curvature
+message: >-
+  Please cite the model using the
+  metadata from this file.
+type: unpublished
+authors:
+  - family-names: Nonprasart
+    given-names: Hanchai
+    email: hanchai.non_g30@mwit.ac.th
+    affiliation: Mahidol Wittayanusorn School (MWIT)
+  - given-names: Sakepisit
+    family-names: Maysamat
+    email: sakepisit.may_g30@mwit.ac.th
+    affiliation: Mahidol Wittayanusorn School (MWIT)
+  - given-names: Amornvatcharapong
+    family-names: Amornsri
+    email: amornsri.amo@mwit.ac.th
+    affiliation: Mahidol Wittayanusorn School (MWIT)
+url: 'https://30ma19-02.github.io/'
