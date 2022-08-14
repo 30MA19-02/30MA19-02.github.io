@@ -3,9 +3,9 @@ name: Build LaTeX document
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ latex ]
   pull_request:
-    branches: [ main ]
+    branches: [ latex ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,19 +28,3 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           root_file: main.tex
-      
-      - name: Build page
-        run: |
-          mkdir -p build/pdfs
-          mv main.pdf build/pdfs
-          cat > build/index.html <<EOL
-          <meta http-equiv="refresh" content="0; url=https://30ma19-02.github.io/proof/pdfs/main.pdf">
-          EOL
-          touch build/.nojekyll
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.3
-        with:
-          branch: gh-pages
-          folder: build
-          single-commit: yes
