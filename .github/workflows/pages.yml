@@ -74,7 +74,7 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GPR_PRIVATE_READ_TOKEN }}
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
