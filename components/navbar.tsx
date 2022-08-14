@@ -13,7 +13,7 @@ const navLinks = [
   },
   {
     name: 'Proof',
-    path: '/proof,
+    path: '/AMGM-CIC',
   },
   {
     name: 'Documentation',
