@@ -13,11 +13,11 @@ const navLinks = [
   },
   {
     name: 'Proof',
-    path: 'proof/pdfs/main.pdf',
+    path: '/proof,
   },
   {
-    name: 'Framework',
-    path: '/framework',
+    name: 'Documentation',
+    path: '/noneuclid',
   },
 ];
 
