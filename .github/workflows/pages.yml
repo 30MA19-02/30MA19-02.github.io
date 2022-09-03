@@ -58,11 +58,11 @@ jobs:
           npm set "//npm.pkg.github.com/:_authToken" ${{ secrets.GITHUB_TOKEN }}
           npm ci
       - name: Static HTML export with Next.js
-        run: /
+        run: |
           npm run export --workspace=pages
           mv ./pages/docs ./out
       - name: Static HTML export with TSDocs
-        run: /
+        run: |
           npm run doc:ci --workspace=noneuclid
           mv ./noneuclid/build/docs ./out/noneuclid
       - name: Upload artifact
