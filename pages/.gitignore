@@ -14,7 +14,7 @@
 
 # production
 /build
-/noneuclidjs-docs
+/docs
 
 # misc
 .DS_Store

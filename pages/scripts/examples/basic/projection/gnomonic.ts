@@ -1,8 +1,11 @@
 import { Vector3 } from 'three';
-import type Point from '../point';
+import type { projectFunction } from '.';
 import gnomonic_ from './vect/gnomonic';
 
-export default function gnomonic(point: Point) {
-  const proj = gnomonic_(point.manifold.divideScalar(point.factor)).multiplyScalar(point.factor);
-  return new Vector3(point.factor, proj.x, proj.y);
+export const gnomonic: projectFunction = (f, p) => {
+  const factor = f.lambda === 0 ? 1 : 1 / f.lambda;
+  const proj = gnomonic_(new Vector3(...p.project).divideScalar(factor)).multiplyScalar(factor);
+  return new Vector3(factor, proj.x, proj.y);
 }
+
+export default gnomonic;

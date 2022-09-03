@@ -1,6 +1,6 @@
-import Manifold from '..';
-import { Matrix } from '../lib';
-import { random } from '../util';
+import Manifold from '../src';
+import { Matrix } from '../src/lib';
+import { random } from '../src/util';
 
 import { target } from './util';
 

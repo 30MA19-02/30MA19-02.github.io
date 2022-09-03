@@ -1,10 +1,13 @@
 import { Vector2, Vector3 } from 'three';
-import Point from '../point';
+import type { projectFunction } from '.';
 
-export default function equirectangular(point: Point) {
-  const proj = new Vector2(...point.operate(new Point(point.kappa, -0.25)).theta).rotateAround(
+export const equirectangular: projectFunction = (f, p) => {
+  const factor = f.lambda === 0 ? 1 : 1 / f.lambda;
+  const proj = new Vector2(...p.transform(f.Point.fromOrientation([[Math.PI / 2]])).embed).rotateAround(
     new Vector2(),
     -0.5 * Math.PI,
   );
-  return new Vector3(point.factor, proj.x, proj.y);
+  return new Vector3(factor, proj.x, proj.y);
 }
+
+export default equirectangular;

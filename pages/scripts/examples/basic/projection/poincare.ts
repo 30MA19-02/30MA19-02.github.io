@@ -1,10 +1,11 @@
 import { Vector3 } from 'three';
-import type Point from '../point';
+import type { projectFunction } from '.';
 import poincare_ from './vect/poincare';
 
-export default function poincare(point: Point) {
-  const proj = poincare_(point.manifold.divideScalar(point.factor), point.kappa === 0)
-    .multiplyScalar(point.factor)
-    .multiplyScalar(2);
+export const poincare: projectFunction = (f, p) => {
+  const factor = f.lambda === 0 ? 1 : 1 / f.lambda;
+  const proj = poincare_(new Vector3(...p.project).divideScalar(factor), f.lambda === 0).multiplyScalar(factor).multiplyScalar(2);
   return new Vector3(0, proj.x, proj.y);
 }
+
+export default poincare;

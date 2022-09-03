@@ -1,9 +1,12 @@
 import { Vector3 } from 'three';
-import type Point from '../point';
+import type { projectFunction } from '.';
 import orthographic_ from './vect/orthographic';
 
-export default function orthographic(point: Point) {
-  if (point.kappa > 0 && point.manifold.x < 0) return new Vector3().setScalar(1 / 0);
-  const proj = orthographic_(point.manifold.divideScalar(point.factor)).multiplyScalar(point.factor);
-  return new Vector3(point.factor, proj.x, proj.y);
+export const orthographic: projectFunction = (f, p) => {
+  if (f.lambda > 0 && p.project[0] < 0) return new Vector3().setScalar(1 / 0);
+  const factor = f.lambda === 0 ? 1 : 1 / f.lambda;
+  const proj = orthographic_(new Vector3(...p.project).divideScalar(factor)).multiplyScalar(factor);
+  return new Vector3(factor, proj.x, proj.y);
 }
+
+export default orthographic;

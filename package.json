@@ -1,0 +1,20 @@
+{
+  "name": "@30ma19-02/noneuclid",
+  "version": "0.0.0",
+  "description": "Implementation of Algebraic Model for Geometry on Manifold with Constant Intrinsic Curvature (AMGM w/ CIC)",
+  "private": true,
+  "author": "30MA19-02",
+  "license": "MITNFA",
+  "bugs": {
+    "url": "https://github.com/30MA19-02/noneuclidjs-docs/issues"
+  },
+  "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/30MA19-02/30MA19-02.github.io.git"
+  },
+  "workspaces": [
+    "noneuclid",
+    "pages"
+  ]
+}
