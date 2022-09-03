@@ -14,9 +14,9 @@ This project is part of the course in Mahidol Wittayanusorn School.
 
 [View Demo](https://30ma19-02.github.io/)
 ·
-[Report Bug](https://github.com/30MA19-02/noneuclid/issues)
+[Report Bug](https://github.com/30MA19-02/30MA19-02.github.io/issues)
 ·
-[Request Feature](https://github.com/30MA19-02/noneuclid/issues)
+[Request Feature](https://github.com/30MA19-02/30MA19-02.github.io/issues)
 
 ## Getting Started
 
@@ -85,14 +85,14 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-[contributors-shield]: https://img.shields.io/github/contributors/30MA19-02/noneuclid.svg?style=for-the-badge
-[contributors-url]: https://github.com/30MA19-02/noneuclid/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/30MA19-02/noneuclid.svg?style=for-the-badge
-[forks-url]: https://github.com/30MA19-02/noneuclid/network/members
-[stars-shield]: https://img.shields.io/github/stars/30MA19-02/noneuclid.svg?style=for-the-badge
-[stars-url]: https://github.com/30MA19-02/noneuclid/stargazers
-[issues-shield]: https://img.shields.io/github/issues/30MA19-02/noneuclid.svg?style=for-the-badge
-[issues-url]: https://github.com/30MA19-02/noneuclid/issues
-[license-shield]: https://img.shields.io/github/license/30MA19-02/noneuclid.svg?style=for-the-badge
-[license-url]: https://github.com/30MA19-02/noneuclid/blob/develop/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/30MA19-02/30MA19-02.github.io.svg?style=for-the-badge
+[contributors-url]: https://github.com/30MA19-02/30MA19-02.github.io/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/30MA19-02/30MA19-02.github.io.svg?style=for-the-badge
+[forks-url]: https://github.com/30MA19-02/30MA19-02.github.io/network/members
+[stars-shield]: https://img.shields.io/github/stars/30MA19-02/30MA19-02.github.io.svg?style=for-the-badge
+[stars-url]: https://github.com/30MA19-02/30MA19-02.github.io/stargazers
+[issues-shield]: https://img.shields.io/github/issues/30MA19-02/30MA19-02.github.io.svg?style=for-the-badge
+[issues-url]: https://github.com/30MA19-02/30MA19-02.github.io/issues
+[license-shield]: https://img.shields.io/github/license/30MA19-02/30MA19-02.github.io.svg?style=for-the-badge
+[license-url]: https://github.com/30MA19-02/30MA19-02.github.io/blob/develop/LICENSE
 [docs-url]: https://30ma19-02.github.io/noneuclid
