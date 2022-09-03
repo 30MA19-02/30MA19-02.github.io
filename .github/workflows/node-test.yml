@@ -17,7 +17,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [12.x, 14.x, 16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -26,9 +26,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
       - run: npm ci
-      - run: npm run build --workspace=noneuclid
       - run: npm run test:unit --workspace=noneuclid
 
   lint-noneuclid:
@@ -39,7 +37,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
       - run: npm ci
       - run: npm run test:lint --workspace=noneuclid
       - run: npm run test:prettier --workspace=noneuclid
@@ -53,7 +50,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
       - run: npm ci
       - run: npm run doc:ci --workspace=noneuclid
 
@@ -65,6 +61,5 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: 'npm'
       - run: npm ci
       - run: npm run lint --workspace=pages
