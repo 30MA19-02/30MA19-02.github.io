@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test-noneuclid:
+  test-noneuclid:
     runs-on: ubuntu-latest
 
     strategy:
@@ -27,7 +27,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
-      - run: npm run build --workspace=noneuclid
       - run: npm run test:unit --workspace=noneuclid
 
   lint-noneuclid:
