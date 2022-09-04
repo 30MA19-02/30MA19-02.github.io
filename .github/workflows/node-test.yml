@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-noneuclid:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,7 +29,7 @@ jobs:
       - run: npm ci
       - run: npm run test:unit --workspace=noneuclid
 
-  lint-noneuclid:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,7 +42,7 @@ jobs:
       - run: npm run test:prettier --workspace=noneuclid
       - run: npm run test:spelling --workspace=noneuclid
 
-  doc-test-noneuclid:
+  doc:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -52,14 +52,3 @@ jobs:
           node-version: 16.x
       - run: npm ci
       - run: npm run doc:ci --workspace=noneuclid
-
-  lint-pages:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-      - run: npm ci
-      - run: npm run lint --workspace=pages
