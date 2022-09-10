@@ -41,7 +41,7 @@
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/jest": "^29.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.36.2",
     "codecov": "^3.5.0",
     "cspell": "^6.8.1",
