@@ -1,6 +1,5 @@
 import type { ChangeEventHandler, FC, MouseEventHandler } from 'react';
 import { useCallback, useContext } from 'react';
-import { Button, Input } from 'theme-ui';
 import { OptionsContext } from '.';
 
 interface property {
@@ -11,13 +10,15 @@ const Initial: FC<property> = (props) => {
   const { setMainState } = useContext(OptionsContext)!;
   const handleUploadClick: ChangeEventHandler<HTMLInputElement> = useCallback(
     (event) => {
-      const file = event.target.files![0]!;
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+      const file = event.target.files?.[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-      reader.onloadend = function (event: ProgressEvent<FileReader>) {
-        props.changed?.(reader.result as string);
-      }.bind(this);
+        reader.onloadend = function (event: ProgressEvent<FileReader>) {
+          props.changed?.(reader.result as string);
+        }.bind(this);
+      }
     },
     [props],
   );
@@ -35,19 +36,19 @@ const Initial: FC<property> = (props) => {
   );
   return (
     <>
-      <Input
+      <input
         accept="image/*"
         id="contained-button-file"
         type="file"
         onChange={handleUploadClick}
         placeholder={props.placeholder}
       />
-      <Button type="button" onClick={handleSearchClick}>
+      <button type={'button'} onClick={handleSearchClick}>
         Search
-      </Button>
-      <Button type="button" onClick={handleGalleryClick}>
+      </button>
+      <button type={'button'} onClick={handleGalleryClick}>
         Gallery
-      </Button>
+      </button>
     </>
   );
 };

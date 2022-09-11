@@ -1,9 +1,9 @@
 import createManifold from '@30ma19-02/noneuclid';
 import type { Manifold, Point } from '@30ma19-02/noneuclid/build/main/lib';
-import { Html, Line, OrbitControls, PerspectiveCamera, Sphere, Stats, useProgress } from '@react-three/drei';
-import * as THREE from 'three';
+import { Html, OrbitControls, PerspectiveCamera, Stats, useProgress } from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import React from 'react';
+import * as THREE from 'three';
 
 const Loading: React.FC = (prop) => {
   const { progress } = useProgress();
@@ -48,7 +48,6 @@ const initializer: (param: InitializeParam) => State = ({ p, q }) => {
 
 const Scene_: React.FC = () => {
   const size = useThree((state) => state.size);
-  console.log(useThree((state) => state.camera));
 
   const poly = React.useCallback((param: InitializeParam) => {
     const state = initializer(param);
@@ -131,9 +130,9 @@ const Scene_: React.FC = () => {
   return (
     <>
       <color attach="background" args={[0, 0, 0]} />
-      {/* <PerspectiveCamera aspect={size.width / size.height} rotation={new THREE.Euler(0, Math.PI / 2, -Math.PI / 6)} position={new THREE.Vector3(0, 5, -7.5)}> */}
-      <PerspectiveCamera aspect={size.width / size.height}>
-        <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} />
+      <PerspectiveCamera aspect={size.width / size.height} rotation={new THREE.Euler(0, Math.PI / 2, -Math.PI / 6)} position={new THREE.Vector3(0, 5, -7.5)}>
+        {/* <PerspectiveCamera aspect={size.width / size.height}> */}
+        {/* <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} /> */}
         {new Array(25).fill(0).map((_, i) => poly({ p: 3, q: i + 2, cw, cf }))}
       </PerspectiveCamera>
     </>
@@ -143,7 +142,13 @@ const Scene_: React.FC = () => {
 const Scene: React.FC = (prop) => {
   return (
     <>
-      <Canvas frameloop={'demand'}>
+      <Canvas
+        frameloop={'demand'}
+        style={{
+          border: '.5mm solid',
+          aspectRatio: '1 / 1',
+        }}
+      >
         <React.Suspense fallback={<Loading />}>
           <Scene_ />
           <Stats />

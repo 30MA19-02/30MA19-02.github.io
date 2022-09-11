@@ -1,6 +1,6 @@
+import Image from 'next/image';
 import type { FC, MouseEventHandler } from 'react';
 import { useCallback, useContext } from 'react';
-import { AspectImage, Box, Button, Card, Grid } from 'theme-ui';
 import { OptionsContext } from '.';
 
 interface property {
@@ -18,16 +18,30 @@ const Gallery: FC<property> = (props) => {
 
   return (
     <>
-      <Card>
-        <Grid gap={2} columns={[2]}>
+      <div>
+        <div>
           {(props.imageGallery ?? []).map((url, ind) => (
-            <Box key={ind} onClick={(event) => props.changed?.(url)}>
-              <AspectImage src={url} alt={`Default ${ind}`} ratio={2 / 1} />
-            </Box>
+            <div
+              key={ind}
+              onClick={(event) => props.changed?.(url)}
+              style={{
+                aspectRatio: '2 / 1',
+              }}
+            >
+              <Image
+                alt={`Default ${ind}`}
+                src={url}
+                style={{
+                  objectFit: 'cover',
+                }}
+                width={'100%'}
+                height={'100%'}
+              />
+            </div>
           ))}
-        </Grid>
-      </Card>
-      <Button onClick={handleGalleryClose}>Close</Button>
+        </div>
+      </div>
+      <button type={'button'} onClick={handleGalleryClose}>Close</button>
     </>
   );
 };

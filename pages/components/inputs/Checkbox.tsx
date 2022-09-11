@@ -1,5 +1,4 @@
-import { ChangeEventHandler, FC, InputHTMLAttributes, useMemo, useState } from 'react';
-import { Box, Switch } from 'theme-ui';
+import React, { ChangeEventHandler, FC, InputHTMLAttributes, useMemo, useState } from 'react';
 
 interface property extends InputHTMLAttributes<HTMLInputElement> {
   child: InputHTMLAttributes<HTMLInputElement>[];
@@ -18,9 +17,9 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
   };
 
   const prop_ = useMemo(() => {
-    let { defaultValue, onChange, checked, ...prop_ } = prop;
+    let { defaultChecked, onChange, checked, ...prop_ } = prop;
     prop_.child = prop_.child.map((prop) => {
-      let { defaultValue, onChange, checked, ...prop_ } = prop;
+      let { defaultChecked, onChange, checked, ...prop_ } = prop;
       return prop_;
     });
     return prop_;
@@ -28,24 +27,27 @@ const IndeterminateCheckbox: FC<property> = (prop) => {
 
   return (
     <>
-      <Switch
-        label={prop.name ?? ''}
+      <label>{prop.name ?? ''}</label>
+      <input
+        type={'checkbox'}
         checked={checked.every((_) => _)}
         // indeterminate={checked.some((_) => _) && checked.some((_) => !_)}
         onChange={handleChangeParent}
         {...prop_}
       />
-      <Box px={40}>
+      <div>
         {prop.child.map((prop, ind) => (
-          <Switch
-            key={ind}
-            label={prop.name ?? ''}
-            checked={checked[ind]}
-            onChange={handleChangeChild(ind)}
-            {...prop_.child[ind]}
-          />
+          <React.Fragment key={ind}>
+            <label>{prop.name ?? ''}</label>
+            <input
+              type={'checkbox'}
+              checked={checked[ind]}
+              onChange={handleChangeChild(ind)}
+              {...prop_.child[ind]}
+            />
+          </React.Fragment>
         ))}
-      </Box>
+      </div>
     </>
   );
 };

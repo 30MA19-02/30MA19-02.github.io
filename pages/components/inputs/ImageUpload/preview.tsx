@@ -1,21 +1,35 @@
-import type { FC } from 'react';
-import type { AspectImageProps } from 'theme-ui';
-import { AspectImage, Card } from 'theme-ui';
+import type React from 'react';
+import Image from 'next/image';
+import type { ImageProps } from 'next/image';
 
-interface property extends AspectImageProps {}
-const Preview: FC<property> = (props) => {
+interface Property extends ImageProps {
+  ratio?: number;
+}
+
+const Preview: React.FC<Property> = (props = {
+  alt: 'Selected Image',
+  src: '',
+  ratio: 2 / 1,
+}) => {
   return (
     <>
-      <Card>
-        <AspectImage {...props} />
-      </Card>
+      <div
+        style={{
+          aspectRatio: '2 / 1',
+        }}
+      >
+        <Image
+          {...props}
+          alt={props.alt!}
+          style={{
+            objectFit: 'cover',
+          }}
+          width={'100%'}
+          height={'100%'}
+        />
+      </div>
     </>
   );
-};
-
-Preview.defaultProps = {
-  alt: 'Selected Image',
-  ratio: 2 / 1,
 };
 
 export default Preview;

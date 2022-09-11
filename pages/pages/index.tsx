@@ -1,10 +1,9 @@
 import type { NextPage } from 'next';
-import { Heading } from 'theme-ui';
 
 const Post: NextPage = () => {
   return (
     <>
-      <Heading as={'h1'}>Home Page</Heading>
+      <h1>Home Page</h1>
     </>
   );
 };

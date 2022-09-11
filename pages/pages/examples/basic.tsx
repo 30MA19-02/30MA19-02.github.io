@@ -4,7 +4,6 @@ import Scene from '@/components/examples/basic/Scene';
 import TeX from '@matejmazur/react-katex';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { AspectRatio, Box, Flex, Heading, Paragraph } from 'theme-ui';
 
 const Post: NextPage = (props) => {
   return (
@@ -13,42 +12,38 @@ const Post: NextPage = (props) => {
         <title>{'Basic example'}</title>
         <meta name="description" content={'Documentation page for noneuclidjs.'} />
       </Head>
-      <Box
-        sx={{
+      <div
+        style={{
           margin: 'auto',
           width: '80vw',
         }}
       >
         <OptionsProvider>
-          <AspectRatio
-            ratio={16 / 9}
-            sx={{
-              border: '.5mm solid var(--theme-ui-colors-primary)',
-              background: 'var(--theme-ui-colors-background)',
+          <Scene />
+          <div
+            style={{
+              display: 'flex',
             }}
           >
-            <Scene />
-          </AspectRatio>
-          <Flex>
-            <Box p={2}>
-              <Heading>Setting</Heading>
+            <div>
+              <h2>Setting</h2>
               <Input />
-            </Box>
-            <Box p={2}>
-              <Heading>Description</Heading>
-              <Heading as="h3">Segments</Heading>
-              <Paragraph>Number of subdivisions in latitude-like and lontitude-like dimension.</Paragraph>
-              <Heading as="h3">Position</Heading>
-              <Paragraph>Latitude, lontitude and up-direction of the origin relative to the manifold.</Paragraph>
-              <Heading as="h3">Curvature</Heading>
-              <Paragraph>
+            </div>
+            <div>
+              <h2>Description</h2>
+              <h3>Segments</h3>
+              <p>Number of subdivisions in latitude-like and lontitude-like dimension.</p>
+              <h3>Position</h3>
+              <p>Latitude, lontitude and up-direction of the origin relative to the manifold.</p>
+              <h3>Curvature</h3>
+              <p>
                 Parameter <code>kappa</code> indicating the curvature of such space, have the dimension of{' '}
                 <TeX>{String.raw`\textsf{L}^{-1}`}</TeX>.
-              </Paragraph>
-            </Box>
-          </Flex>
+              </p>
+            </div>
+          </div>
         </OptionsProvider>
-      </Box>
+      </div>
     </>
   );
 };

@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import type { FC } from 'react';
-import { Flex, NavLink } from 'theme-ui';
 
 const navLinks = [
   {
@@ -24,15 +23,19 @@ const navLinks = [
 const Scene: FC = (prop) => {
   return (
     <>
-      <Flex as="nav">
+      <nav
+        style={{
+          display: 'flex'
+        }}
+      >
         {navLinks.map((link, index) => {
           return (
             <Link href={link.path} key={index} passHref>
-              <NavLink p={2}>{link.name}</NavLink>
+              <a>{link.name}</a>
             </Link>
           );
         })}
-      </Flex>
+      </nav>
     </>
   );
 };

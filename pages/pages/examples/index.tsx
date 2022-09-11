@@ -1,6 +1,5 @@
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { Link as TLink } from 'theme-ui';
 
 const Post: NextPage = () => {
   return (
@@ -10,12 +9,12 @@ const Post: NextPage = () => {
       <ul>
         <li>
           <Link href={`/examples/basic`} passHref>
-            <TLink>Basic example</TLink>
+            <a>Basic example</a>
           </Link>
         </li>
         <li>
           <Link href={`/examples/etc`} passHref>
-            <TLink>ETC</TLink>
+            <a>ETC</a>
           </Link>
         </li>
       </ul>

@@ -1,6 +1,5 @@
 import type { FC, MouseEventHandler } from 'react';
 import { createRef, useCallback, useContext } from 'react';
-import { Button, Field } from 'theme-ui';
 import { OptionsContext } from '.';
 
 interface property {
@@ -17,13 +16,14 @@ const Search: FC<property> = (props) => {
   const input = createRef<HTMLInputElement>();
   return (
     <>
-      <Field type={'url'} label={'Image URL'} ref={input} />
-      <Button type="button" onClick={(event) => props.changed?.(input.current!.value)}>
+      <label>Image URL</label>
+      <input type={'url'} ref={input} />
+      <button type={'button'} onClick={(event) => props.changed?.(input.current!.value)}>
         Search
-      </Button>
-      <Button type="button" onClick={handleSeachClose}>
+      </button>
+      <button type={'submit'} onClick={handleSeachClose}>
         Close
-      </Button>
+      </button>
     </>
   );
 };

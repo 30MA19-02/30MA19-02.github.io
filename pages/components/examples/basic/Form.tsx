@@ -4,7 +4,6 @@ import Slider from '@/components/inputs/Slider';
 import { projectionType } from '@/scripts/examples/basic/projection';
 import type { FC } from 'react';
 import { useCallback, useContext } from 'react';
-import { Box, Grid, Label, Select } from 'theme-ui';
 import { OptionsContext, textureGallery } from './Options';
 
 const AppInput: FC = (prop) => {
@@ -33,9 +32,9 @@ const AppInput: FC = (prop) => {
     setVisAll = useCallback((vis: boolean) => setVis((_) => [vis, vis]), [setVis]);
 
   return (
-    <Grid as={'form'} onSubmit={(e) => e.preventDefault()} onReset={(e) => e.preventDefault()}>
-      <Box>
-        <Label>Segments</Label>
+    <form onSubmit={(e) => e.preventDefault()} onReset={(e) => e.preventDefault()}>
+      <div>
+        <label>Segments</label>
         <Slider
           name={'height'}
           min={2}
@@ -52,9 +51,9 @@ const AppInput: FC = (prop) => {
           defaultValue={width}
           onChange={(event) => setWidth(parseInt(event.target.value))}
         ></Slider>
-      </Box>
-      <Box>
-        <Label>Position</Label>
+      </div>
+      <div>
+        <label>Position</label>
         <Slider
           name={'latitude'}
           min={-0.25}
@@ -79,9 +78,9 @@ const AppInput: FC = (prop) => {
           defaultValue={dir}
           onChange={(event) => setDir(parseFloat(event.target.value))}
         ></Slider>
-      </Box>
-      <Box>
-        <Label>Curvature</Label>
+      </div>
+      <div>
+        <label>Curvature</label>
         <Slider
           name={'kappa'}
           min={-1}
@@ -90,10 +89,10 @@ const AppInput: FC = (prop) => {
           defaultValue={kappa}
           onChange={(event) => setKappa(parseFloat(event.target.value))}
         ></Slider>
-      </Box>
-      <Box>
-        <Label>Projection type</Label>
-        <Select
+      </div>
+      <div>
+        <label>Projection type</label>
+        <select
           name={'type'}
           onChange={(event) => setProj(event.target.value as projectionType)}
           defaultValue={'equirectangular'}
@@ -104,10 +103,10 @@ const AppInput: FC = (prop) => {
           <option value={'stereographic'}>Stereographic</option>
           <option value={'halfplane'}>Half plane</option>
           <option value={'hemisphere'}>Hemisphere</option>
-        </Select>
-      </Box>
-      <Box>
-        <Label>Visibility</Label>
+        </select>
+      </div>
+      <div>
+        <label>Visibility</label>
         <Checkbox
           name={'Projections'}
           child={[
@@ -116,9 +115,9 @@ const AppInput: FC = (prop) => {
           ]}
           onChange={(event) => setVisAll(event.target.checked)}
         ></Checkbox>
-      </Box>
-      <Box>
-        <Label>Texture selection</Label>
+      </div>
+      <div>
+        <label>Texture selection</label>
         <ImageUpload
           width={400}
           height={200}
@@ -127,8 +126,8 @@ const AppInput: FC = (prop) => {
           placeholder={'Upload a Texture'}
           changed={(url) => setTextureURL(url)}
         />
-      </Box>
-    </Grid>
+      </div>
+    </form>
   );
 };
 export default AppInput;
