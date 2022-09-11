@@ -23,10 +23,10 @@ const Scene_: FC<optionsInterface> = (prop) => {
     const manifold = Manifold(2, options.kappa);
     return [
       manifold,
-      (x: number, y: number) => manifold.Point.fromPosition([x * 2 * Math.PI, - y * 2 * Math.PI]),
+      (x: number, y: number) => manifold.Point.fromPosition([x * 2 * Math.PI, -y * 2 * Math.PI]),
       (a: number) => manifold.Point.fromOrientation([[-a * 2 * Math.PI]]),
-      manifold.lambda === 0 ? 1 : 1 / manifold.lambda
-    ]
+      manifold.lambda === 0 ? 1 : 1 / manifold.lambda,
+    ];
   }, [options.kappa]);
 
   const points = useMemo(() => {
@@ -42,12 +42,9 @@ const Scene_: FC<optionsInterface> = (prop) => {
       });
     });
   }, [pointFromPosition, pointFromOrientation, factor, options.segment]);
-  const operator = useMemo(
-    () => {
-      return pointFromPosition(- options.pos[0], - options.pos[1]).transform(pointFromOrientation(- options.dir));
-    },
-    [pointFromPosition, pointFromOrientation, options.pos, options.dir],
-  );
+  const operator = useMemo(() => {
+    return pointFromPosition(-options.pos[0], -options.pos[1]).transform(pointFromOrientation(-options.dir));
+  }, [pointFromPosition, pointFromOrientation, options.pos, options.dir]);
   const operated = useMemo(() => points.map((ps) => ps.map((p) => p.transform(operator))), [points, operator]);
 
   const manifold = useMemo(
@@ -84,7 +81,11 @@ const Scene_: FC<optionsInterface> = (prop) => {
   return (
     <>
       {/* <color attach="background" args={[0, 0, 0]} /> */}
-      <PerspectiveCamera aspect={size.width / size.height} position={new Vector3(0, 0, -factor)} rotation={new Euler(0, -Math.PI / 2, 0)}>
+      <PerspectiveCamera
+        aspect={size.width / size.height}
+        position={new Vector3(0, 0, -factor)}
+        rotation={new Euler(0, -Math.PI / 2, 0)}
+      >
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} />
         <mesh position={new Vector3(factor, 0, 0)}>
           <sphereGeometry args={[0.01]} />

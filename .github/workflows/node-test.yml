@@ -5,7 +5,12 @@ name: Build and Test
 
 on:
   push:
-    branches: '*'
+    branches: "*"
+    paths:
+      - .github/workflows/node-test.yml
+      - noneuclid/**
+      - package.json
+      - package-lock.json
   pull_request:
 
   # Allows you to run this workflow manually from the Actions tab
@@ -26,6 +31,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-
       - run: npm ci
       - run: npm run test:unit --workspace=noneuclid
 
@@ -37,6 +50,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-
       - run: npm ci
       - run: npm run test:lint --workspace=noneuclid
       - run: npm run test:prettier --workspace=noneuclid
@@ -50,5 +71,13 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}-
       - run: npm ci
       - run: npm run doc:ci --workspace=noneuclid

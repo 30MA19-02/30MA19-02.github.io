@@ -3,7 +3,7 @@ import type { Dispatch, FC, SetStateAction, ReactNode } from 'react';
 import { createContext, useState } from 'react';
 
 interface Iprops {
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export interface optionsInterface {
@@ -60,7 +60,7 @@ export const OptionsProvider: FC<Iprops> = (props) => {
         setProj,
       }}
     >
-      {props.children??<></>}
+      {props.children ?? <></>}
     </OptionsContext.Provider>
   );
 };

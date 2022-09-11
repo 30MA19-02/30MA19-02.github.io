@@ -8,6 +8,6 @@ export const equirectangular: projectFunction = (f, p) => {
     -0.5 * Math.PI,
   );
   return new Vector3(factor, proj.x, proj.y);
-}
+};
 
 export default equirectangular;

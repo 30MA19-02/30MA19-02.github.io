@@ -28,7 +28,7 @@ export const projector: (projection: projectionType) => projectFunction = (proje
         const projection = equirectangular;
         // Remove border
         return projection(f, p);
-      }
+      };
     }
 
     case projectionType.orthographic: {
@@ -36,21 +36,21 @@ export const projector: (projection: projectionType) => projectFunction = (proje
         const projection = f.lambda >= 0 ? orthographic : klein;
         // Remove overlapping
         return projection(f, p);
-      }
+      };
     }
 
     case projectionType.gnomonic: {
       return (f, p) => {
         const projection = f.lambda >= 0 ? gnomonic : gans;
         return projection(f, p);
-      }
+      };
     }
 
     case projectionType.stereographic: {
       return (f, p) => {
         const projection = f.lambda >= 0 ? stereographic : poincare;
         // Remove infinite
-        return projection(f, p)
+        return projection(f, p);
       };
     }
 
@@ -59,17 +59,17 @@ export const projector: (projection: projectionType) => projectFunction = (proje
         const projection = halfplane;
         // Autoreplce Euclidean
         return projection(f, p);
-      }
+      };
     }
 
     case projectionType.hemishere: {
       return (f, p) => {
         const projection = hemi;
         return projection(f, p);
-      }
+      };
     }
 
     default:
       throw new RangeError('Invalid projection type');
   }
-}
+};

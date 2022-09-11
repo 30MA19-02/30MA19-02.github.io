@@ -29,13 +29,13 @@ const Post: NextPage = (props) => {
       <h1>Description</h1>
       <h3>Work in Process</h3>
       <p>
-        To calculate the image, Beltrami–Klein / Gnomonic projection should be used. It map the geodesic into
-        straight line and thus will let the renderer work without much modification. Still, the distance should be
-        mapped to make it realistic.
+        To calculate the image, Beltrami–Klein / Gnomonic projection should be used. It map the geodesic into straight
+        line and thus will let the renderer work without much modification. Still, the distance should be mapped to make
+        it realistic.
       </p>
       <p>
-        The problem left is how to define shapes. Parametic curve can be used for sphere. Polyhedra, however, may
-        need extra work to calculate possible regular polyhedra.
+        The problem left is how to define shapes. Parametic curve can be used for sphere. Polyhedra, however, may need
+        extra work to calculate possible regular polyhedra.
       </p>
       <p>All those are just assumption so far and this project might even be terminated.</p>
     </>
