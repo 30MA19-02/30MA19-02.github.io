@@ -7,7 +7,7 @@ import { default as klein } from './klein';
 import { default as orthographic } from './orthographic';
 import { default as poincare } from './poincare';
 import { default as stereographic } from './stereographic';
-import Manifold from '@30ma19-02/noneuclid';
+import type { Manifold, Point } from '@30ma19-02/noneuclid/build/main/lib';
 import type { Vector3 } from 'three';
 
 export const enum projectionType {
@@ -19,7 +19,7 @@ export const enum projectionType {
   hemishere = 'hemisphere',
 }
 
-export type projectFunction = (f: ReturnType<typeof Manifold>, p: InstanceType<typeof f.Point>) => Vector3;
+export type projectFunction = (f: Manifold, p: Point) => Vector3;
 
 export const projector: (projection: projectionType) => projectFunction = (projection) => {
   switch (projection as projectionType) {

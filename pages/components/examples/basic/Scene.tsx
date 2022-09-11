@@ -84,7 +84,7 @@ const Scene_: FC<optionsInterface> = (prop) => {
   return (
     <>
       {/* <color attach="background" args={[0, 0, 0]} /> */}
-      <PerspectiveCamera aspect={size.width / size.height} position={new Vector3(0, 0, -factor)} rotation={new Euler(0, -Math.PI / 2, 0)} attachArray attachObject>
+      <PerspectiveCamera aspect={size.width / size.height} position={new Vector3(0, 0, -factor)} rotation={new Euler(0, -Math.PI / 2, 0)}>
         <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} enableDamping={false} />
         <mesh position={new Vector3(factor, 0, 0)}>
           <sphereGeometry args={[0.01]} />

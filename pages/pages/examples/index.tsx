@@ -14,8 +14,8 @@ const Post: NextPage = () => {
           </Link>
         </li>
         <li>
-          <Link href={`/examples/raytracing`} passHref>
-            <TLink>Not So Basic example</TLink>
+          <Link href={`/examples/etc`} passHref>
+            <TLink>ETC</TLink>
           </Link>
         </li>
       </ul>
