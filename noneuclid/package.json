@@ -44,7 +44,7 @@
     "@typescript-eslint/eslint-plugin": "^5.36.2",
     "@typescript-eslint/parser": "^5.37.0",
     "codecov": "^3.5.0",
-    "cspell": "^6.8.1",
+    "cspell": "^6.10.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
