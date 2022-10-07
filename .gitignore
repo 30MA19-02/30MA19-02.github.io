@@ -275,6 +275,5 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
-# Visual Studio Code
-.vscode
-*.code-workspace
+# Outdir
+dist

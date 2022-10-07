@@ -1,7 +1,10 @@
 % !TeX root = main.tex
-%!TeX spellcheck = en_US
-%!TeX encoding = utf8
-%!TeX program = pdflatex
+% !TeX spellcheck = en_US
+% !TeX encoding = utf8
+% !TeX program = pdflatex
+% !TEX options = -file-line-error -interaction=nonstopmode --shell-escape %DOC%
+% !BIB program = biblatex
+% !BIB options = %DOCFILE%
 
 % https://apastyle.apa.org/style-grammar-guidelines
 % https://www.ams.org/publications/authors/AMS-StyleGuide-online.pdf
@@ -16,7 +19,8 @@
 \usepackage{braket}
 \usepackage{hyperref}
 \usepackage[capitalise, sort&compress, noabbrev, nameinlink]{cleveref}
-
+\usepackage[mode=buildnew]{standalone}
+\usepackage{pgfplots}
 \usepackage{subfiles}
 
 \allowdisplaybreaks
@@ -24,6 +28,9 @@
 \Crefname{paragraph}{Paragraph}{Paragraphs}
 \crefname{subparagraph}{subparagraph}{subparagraphs}
 \Crefname{subparagraph}{Subparagraph}{Subparagraphs}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{external}
+\tikzexternalize
 
 
 \title{Prove of Constant Radius Model}
