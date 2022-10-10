@@ -6,14 +6,14 @@
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
+  "bugs": {
+    "url": "https://github.com/HanchaiN/30MA19-02/issues"
+  },
+  "homepage": "https://hanchain.github.io/30MA19-02",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/30MA19-02/noneuclid.git"
+    "url": "git+https://github.com/HanchaiN/30MA19-02.git"
   },
-  "bugs": {
-    "url": "https://github.com/30MA19-02/noneuclid/issues"
-  },
-  "homepage": "https://30ma19-02.github.io/",
   "license": "MITNFA",
   "keywords": [],
   "scripts": {

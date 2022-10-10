@@ -12,7 +12,7 @@ const navLinks = [
   },
   {
     name: 'Proof',
-    path: '/proof',
+    path: '/proof/main.pdf',
   },
   {
     name: 'Documentation',

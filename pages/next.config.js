@@ -3,6 +3,7 @@
 const path = require('path');
 
 const nextConfig = {
+  basePath: '/30MA19-02',
   reactStrictMode: true,
   exportPathMap: async function (defaultPathMap, { dev, dir, outDir, distDir, buildId }) {
     return {

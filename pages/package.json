@@ -5,9 +5,13 @@
   "author": "30MA19-02",
   "license": "MITNFA",
   "bugs": {
-    "url": "https://github.com/30MA19-02/noneuclidjs-docs/issues"
+    "url": "https://github.com/HanchaiN/30MA19-02/issues"
   },
-  "homepage": "https://30ma19-02.github.io/noneuclidjs-docs/",
+  "homepage": "https://hanchain.github.io/30MA19-02",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanchaiN/30MA19-02.git"
+  },
   "scripts": {
     "dev": "next dev",
     "debug": "cross-env NODE_OPTIONS='--inspect' next dev",
@@ -39,9 +43,5 @@
     "next-transpile-modules": "^9.0.0",
     "prettier": "^2.6.2",
     "typescript": "^4.8.3"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/30MA19-02/30MA19-02.github.io.git"
   }
 }
