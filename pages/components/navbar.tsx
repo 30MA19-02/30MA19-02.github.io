@@ -16,7 +16,7 @@ const navLinks = [
   },
   {
     name: 'Documentation',
-    path: '/noneuclid',
+    path: '/docs',
   },
 ];
 
