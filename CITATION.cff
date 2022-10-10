@@ -1,0 +1,51 @@
+cff-version: 1.2.0
+title: >-
+  The Development of Algebraic Model for Geometry on
+  Manifold with Constant Intrinsic Curvature
+message: >-
+  Please cite the model using the
+  metadata from this file.
+type: unpublished
+authors:
+  - given-names: Hanchai
+    family-names: Nonprasart
+    affiliation: Mahidol Wittayanusorn School (MWIT)
+  - given-names: Sakepisit
+    family-names: Maysamat
+    affiliation: Mahidol Wittayanusorn School (MWIT)
+  - given-names: Amornsri
+    family-names: Amornvatcharapong
+    affiliation: Mathematics and Computing Science Department, Mahidol Wittayanusorn School
+  - given-names: Teerapong
+    family-names: Suksumran
+    affiliation: Department of Mathematics Chiang Mai University
+repository-code: 'https://github.com/HanchaiN/30MA19-02.git'
+url: 'https://hanchain.github.io/30MA19-02'
+abstract: >-
+  High school geometry consists of Euclidean geometry
+  with no intrinsic curvature which can be
+  represented using vectors and matrices as can be
+  seen in linear algebra. In other geometries such as
+  spherical geometry which can be applied to
+  cartography, however, require a different model to
+  achieve the same task. We are therefore interested
+  in developing a united model
+  which describes geometric transformations on
+  constantly-curved manifold: spherical geometry,
+  Euclidean geometry, and hyperbolic geometry. The
+  model is defined as a class of group acting on
+  Riemannian manifold with constant sectional
+  curvature where the group action is an isometry,
+  translation, rotation, and reflection, on the
+  manifold. Additionally, the projection from points
+  in the developed model to points in the existing
+  model and, subsequently, software to visualize the
+  transformation on the manifold have been developed.
+keywords:
+  - Lie group
+  - isometric embedding
+  - sectional curvature
+  - non-Euclidean geometry
+  - spherical geomerty
+  - hyperbolic geometry
+license: MITNFA

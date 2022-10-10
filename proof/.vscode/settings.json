@@ -1,0 +1,44 @@
+{
+    "latex-workshop.bibtex-format.sort.enabled": true,
+    "latex-workshop.bibtex-format.trailingComma": true,
+    "latex-workshop.bibtex-fields.sort.enabled": true,
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "--shell-escape",
+                "%DOCFILE%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "biblatex",
+            "command": "biblatex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "biblatex",
+            "tools": [
+                "biblatex"
+            ]
+        },
+    ],
+    "latex-workshop.latex.outDir": "%DIR%/dist",
+}

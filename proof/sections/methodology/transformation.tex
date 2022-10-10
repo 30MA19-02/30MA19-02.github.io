@@ -1,0 +1,44 @@
+% !TeX root = ../../main.tex
+\documentclass[../methodology.tex]{subfiles}
+\begin{document}
+\subsection{Geometric transformation}
+\begin{lemma}\label{M:transform:distance}
+    For any tangent vector \(p,q\in T_p N\)
+    and point matrix \(X\),
+    \begin{equation*}
+        \left\langle Xp, Xq\right\rangle = \left\langle p, q\right\rangle
+        \text{.}
+    \end{equation*}
+    \[
+    \]
+\end{lemma}
+\begin{proof}[Proof of \cref{M:transform:distance}]
+    If \(\lambda>0\), it can be proved that \(X\) is orthogonal.
+    Therefore,
+    \begin{align*}
+        X^{-1} & =X^T           \\
+        X^{-1} & =X^TI          \\
+        I      & =X^TIX         \\
+        g      & =X^TgX\text{.}
+    \end{align*}
+    If \(\lambda<0\), it can be proved that \(X\) is \((1,n)\)-indefinite orthogonal.
+    Therefore,
+    \begin{align*}
+        X^{-1} & =gX^Tg         \\
+        I      & =gX^TgX        \\
+        g^{-1} & =X^TgX         \\
+        g      & =X^TgX\text{.}
+    \end{align*}
+    If \(\lambda\approx 0\), it can be proved that \(X\) is an identity and the same argument applies.
+    Since \(g=X^TgX\),
+    \begin{align*}
+        \left\langle Xp, Xq\right\rangle
+         & = \left(Xp\right)^Tg\left(Xq\right)      \\
+         & = p^TX^TgXq                              \\
+         & = p^Tgq                                  \\
+        \left\langle Xp, Xq\right\rangle
+         & = \left\langle p, q\right\rangle\text{.}
+        \qedhere
+    \end{align*}
+\end{proof}
+\end{document}

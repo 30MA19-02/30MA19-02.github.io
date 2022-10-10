@@ -1,0 +1,409 @@
+% !TeX root = ../../main.tex
+\documentclass[../methodology.tex]{subfiles}
+\begin{document}
+\subsection{Model Foundation}
+\subsubsection{Trigonometry}
+\begin{definition}\label{M:Trigonometry}
+    \textit{Generalized trigonometric functions} \(f_\lambda\colon \mathbb{R}\to\mathbb{R}\) and \(f_\lambda^\ast:\mathbb{R}\to\mathbb{R}\) are defined as
+    \begin{align*}
+        f_\lambda\left(\theta\right)      & \coloneqq
+        \begin{cases}
+            g\left(\lambda\theta\right) & \text{if \(\lambda\geq0\),} \\
+            h\left(\lambda\theta\right) & \text{otherwise,}           \\
+        \end{cases} \\
+        f_\lambda^\ast\left(\theta\right) & \coloneqq
+        \begin{cases}
+            g\left(\lambda\theta\right)  & \text{if \(\lambda\geq0\),} \\
+            h\left(-\lambda\theta\right) & \text{otherwise,}           \\
+        \end{cases}
+    \end{align*}
+    where \(g\) (resp. \(h\)) are the associated trigonometric (resp. hyperbolic) function.
+    (see \cref{TrigonometryPlotted})
+\end{definition}
+\begin{example}[Generalized sine functions]\label{M:Trigonometry:Sine}
+    \begin{align*}
+        \sin_\lambda{\theta}
+         & \coloneqq
+        \begin{cases}
+            \sin\left(\lambda\theta\right)  & \text{if \(\lambda\geq0\),} \\
+            \sinh\left(\lambda\theta\right) & \text{otherwise.}           \\
+        \end{cases}           \\
+        \sin_\lambda^\ast{\theta}
+         & \coloneqq
+        \begin{cases}
+            \sin\left(\lambda\theta\right)   & \text{if \(\lambda\geq0\),} \\
+            \sinh\left(-\lambda\theta\right) & \text{otherwise.}           \\
+        \end{cases}          \\
+         & =
+        \begin{cases}
+            \sin\left(\lambda\theta\right)   & \text{if \(\lambda\geq0\),} \\
+            -\sinh\left(\lambda\theta\right) & \text{otherwise.}           \\
+        \end{cases}          \\
+         & =\begin{cases}
+                \sin\left(\abs{\lambda}\theta\right)  & \text{if \(\lambda\geq0\),} \\
+                \sinh\left(\abs{\lambda}\theta\right) & \text{otherwise.}           \\
+            \end{cases}
+    \end{align*}
+    (see \cref{TrigonometrySinePlotted,TrigonometrySineVarPlotted})
+\end{example}
+\begin{example}[Generalized cosine functions]\label{M:Trigonometry:Cosine}
+    \begin{align*}
+        \cos_\lambda{\theta}
+         & \coloneqq
+        \begin{cases}
+            \cos\left(\lambda\theta\right)  & \text{if \(\lambda\geq0\),} \\
+            \cosh\left(\lambda\theta\right) & \text{otherwise.}           \\
+        \end{cases}     \\
+        \cos_\lambda^\ast{\theta}
+         & \coloneqq
+        \begin{cases}
+            \cos\left(\lambda\theta\right)   & \text{if \(\lambda\geq0\),} \\
+            \cosh\left(-\lambda\theta\right) & \text{otherwise.}           \\
+        \end{cases}    \\
+         & =\begin{cases}
+                \cos\left(\lambda\theta\right)  & \text{if \(\lambda\geq0\),} \\
+                \cosh\left(\lambda\theta\right) & \text{otherwise.}           \\
+            \end{cases} \\
+         & =\cos_\lambda{\theta}
+    \end{align*}
+    (see \cref{TrigonometryCosinePlotted})
+\end{example}
+\begin{theorem}[Pythagorean's identity equivalence]\label{M:Trigonometry:Pythagorean}
+    \begin{align*}
+        \cos_\lambda^2{\theta}+\sign{\lambda}\sin_\lambda^2{\theta} & =1 \\
+        \sec_\lambda^2{\theta}-\sign{\lambda}\tan_\lambda^2{\theta} & =1 \\
+    \end{align*}
+\end{theorem}
+\begin{proof}[Proof of \cref{M:Trigonometry:Pythagorean}]
+    Proof by exhaustion.
+\end{proof}
+\begin{proposition}[Generalized trigonometric functions of sum of arguments]\label{M:Trigonometry:Sum}
+    \begin{align*}
+        \sin_\lambda\left(\theta+\phi\right)
+         & =\sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}               \\
+        \sin_\lambda^\ast\left(\theta+\phi\right)
+         & =\sin_\lambda^\ast{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda^\ast{\phi}     \\
+        \cos_\lambda\left(\theta+\phi\right)
+         & =\cos_\lambda{\theta}\cos_\lambda{\phi}-\sign{\lambda}\sin_\lambda{\theta}\sin_\lambda{\phi} \\
+         & =\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda^\ast{\theta}\sin_\lambda{\phi}          \\
+         & =\cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda{\theta}\sin_\lambda^\ast{\phi}
+    \end{align*}
+\end{proposition}
+\begin{proof}[Proof of \cref{M:Trigonometry:Sum}]
+    Proof by exhaustion.
+\end{proof}
+\begin{proposition}[Derivative of generalized trigonometric functions]\label{M:Trigonometry:Derivative}
+    \begin{align*}
+        {\sin_\lambda}^\prime{\theta}      & =\lambda\cos_\lambda{\theta}         \\
+        {\sin_\lambda^\ast}^\prime{\theta} & =\abs{\lambda}\cos_\lambda{\theta}   \\
+        {\cos_\lambda}^\prime{\theta}      & =-\lambda\sin_\lambda^\ast{\theta}   \\
+        {\tan_\lambda}^\prime{\theta}      & =\lambda\sec_\lambda^2{\theta}       \\
+        {\tan_\lambda^\ast}^\prime{\theta} & =\abs{\lambda}\sec_\lambda^2{\theta}
+    \end{align*}
+\end{proposition}
+\begin{proof}[Proof of \cref{M:Trigonometry:Derivative}]
+    Proof by exhaustion.
+\end{proof}
+\subsubsection{Matrices}
+\begin{definition}\label{M:Rotation}
+    \textit{Generalized rotation matrix} is defined as
+    \begin{align*}
+        R_\lambda\left(\theta\right) & \coloneqq
+        \begin{bmatrix}
+            \cos_\lambda{\theta} & -\sin_\lambda^\ast{\theta} \\
+            \sin_\lambda{\theta} & \cos_\lambda{\theta}       \\
+        \end{bmatrix}\text{,}
+    \end{align*}
+    where \(\theta\in\mathbb{R}\).
+\end{definition}
+\begin{corollary}[Generalized rotation matrix at zero]\label{M:Rotation:Identity}
+    \[
+        R_\lambda\left(0\right)
+        =
+        I_2
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Rotation:Identity}]
+    Obvious
+\end{proof}
+\begin{corollary}[Generalized rotation matrix of sum of arguments]\label{M:Rotation:Sum}
+    \[
+        R_\lambda\left(\theta\right)R_\lambda\left(\phi\right)=R_\lambda\left(\theta+\phi\right)
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Rotation:Sum}]
+    \begin{align*}
+        R_\lambda\left(\theta\right)R_\lambda\left(\phi\right)
+         & =\begin{bmatrix}
+                \cos_\lambda{\theta} & -\sin_\lambda^\ast{\theta} \\
+                \sin_\lambda{\theta} & \cos_\lambda{\theta}       \\
+            \end{bmatrix}
+        \begin{bmatrix}
+            \cos_\lambda{\phi} & -\sin_\lambda^\ast{\phi} \\
+            \sin_\lambda{\phi} & \cos_\lambda{\phi}       \\
+        \end{bmatrix}                                                                           \\
+         & =\begin{bmatrix}
+                \cos_\lambda{\theta}\cos_\lambda{\phi}+\left(-\sin_\lambda^\ast{\theta}\right)\sin_\lambda{\phi} &
+                \cos_\lambda{\theta}\left(-\sin_\lambda^\ast{\phi}\right)+\left(-\sin_\lambda^\ast{\theta}\right)\cos_\lambda{\phi} \\
+                \sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}                    &
+                \sin_\lambda{\theta}\left(-\sin_\lambda^\ast{\phi}\right)+\cos_\lambda{\theta}\cos_\lambda{\phi}                    \\
+            \end{bmatrix} \\
+         & =\begin{bmatrix}
+                \cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda^\ast{\theta}\sin_\lambda{\phi} &
+                -\left(\sin_\lambda^\ast{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda^\ast{\phi}\right) \\
+                \sin_\lambda{\theta}\cos_\lambda{\phi}+\cos_\lambda{\theta}\sin_\lambda{\phi}      &
+                \cos_\lambda{\theta}\cos_\lambda{\phi}-\sin_\lambda{\theta}\sin_\lambda^\ast{\phi}                    \\
+            \end{bmatrix}               \\
+         & =\begin{bmatrix}
+                \cos_\lambda{\theta+\phi} & -\sin_\lambda^\ast{\theta+\phi} \\
+                \sin_\lambda{\theta+\phi} & \cos_\lambda{\theta+\phi}       \\
+            \end{bmatrix}                                                         \\
+         & =R_\lambda\left(\theta+\phi\right)                                                                                   \\
+        R_\lambda\left(\theta\right)
+        R_\lambda\left(\phi\right)
+         & =R_\lambda\left(\theta+\phi\right)
+         & \qedhere
+    \end{align*}
+\end{proof}
+\begin{corollary}[Inverse of generalized rotation matrix]\label{M:Rotation:Inverse}
+    \[
+        R_\lambda\left(\theta\right)^{-1}=R_\lambda\left(-\theta\right)
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Rotation:Inverse}]
+    \begin{align*}
+        R_\lambda\left(\theta\right)
+        R_\lambda\left(-\theta\right)
+         & =R_\lambda\left(0\right) \\
+         & =I_2                     \\
+        R_\lambda\left(-\theta\right)
+        R_\lambda\left(\theta\right)
+         & =R_\lambda\left(0\right) \\
+         & =I_2
+    \end{align*}
+    \[
+        R_\lambda\left(\theta\right)R_\lambda\left(-\theta\right)
+        =R_\lambda\left(-\theta\right)R_\lambda\left(\theta\right)
+        =I_2
+    \]
+    \[
+        {R_\lambda\left(\theta\right)}^{-1}
+        =
+        R_\lambda\left(-\theta\right)
+        \qedhere
+    \]
+\end{proof}
+\begin{definition}\label{M:Position}
+    \textit{Position matrix} is defined recursively as
+    \begin{align*}
+        P_{\lambda,n}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^n}\right\}\right)
+                      & \coloneqq
+        \begin{bmatrix}
+            P_{\lambda,n-1}\left(\left\{\tensor{\theta}{^1},\dots,\tensor{\theta}{^{n-1}}\right\}\right) & 0_{n\times 1} \\
+            0_{1\times n}                                                                                & 1             \\
+        \end{bmatrix}
+        T_{2,n+1}
+        \begin{bmatrix}
+            R_\lambda\left(\tensor{\theta}{^n}\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}                        & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2,n+1}\text{,}                     \\
+        P_{\lambda,0} & \coloneqq I_1\text{,}
+    \end{align*}
+    where \(\theta=\left\{\tensor{\theta}{^i}\right\}\in\mathbb{R}^n\) for \(i = 1, 2, \dots, n\).
+\end{definition}
+\begin{corollary}[Position matrix at zero]\label{M:Position:Identity}
+    \[
+        P_{\lambda,n}
+        \left(0_{n}\right)
+        =
+        I_{n+1}
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Position:Identity}]
+    Prove by mathematical induction on \(n\),
+    Let
+    \begin{equation}\label{M:Position:Set:Identity:Proof:Induction}
+        P_{\lambda,n-1}\left(0_{n-1}\right)=I_n
+    \end{equation}
+    \begin{align*}
+        P_{\lambda, n}\left(0_{n}\right)
+         & =
+        \begin{bmatrix}
+            P_{\lambda,n-1}\left(0_{n-1}\right) & 0_{n\times 1} \\
+            0_{1\times n}                       & 1             \\
+        \end{bmatrix}
+        T_{2, n+1}
+        \begin{bmatrix}
+            R_{\lambda}\left(0\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}        & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2, n+1} \\
+         & =
+        \begin{bmatrix}
+            I_{n}         & 0_{n\times 1} \\
+            0_{1\times n} & 1             \\
+        \end{bmatrix}
+        T_{2, n+1}
+        \begin{bmatrix}
+            R_{\lambda}\left(0\right) & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}}        & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2, n+1} \\
+         & =
+        \begin{bmatrix}
+            I_{n}         & 0_{n\times 1} \\
+            0_{1\times n} & 1             \\
+        \end{bmatrix}
+        T_{2, n+1}
+        \begin{bmatrix}
+            I_{2}              & 0_{{2}\times{n-1}} \\
+            0_{{n-1}\times{2}} & {I}_{n-1}          \\
+        \end{bmatrix}
+        T_{2, n+1} \\
+         & =
+        I_{n+1}
+        T_{2, n+1}
+        I_{n+1}
+        T_{2, n+1} \\
+         & =
+        T_{2, n+1}
+        T_{2, n+1} \\
+         & =
+        I_{n+1}
+    \end{align*}
+    \[
+        P_{\lambda,n}
+        \left(0_{n}\right)
+        =
+        I_{n+1}
+        \qedhere
+    \]
+\end{proof}
+\begin{definition}\label{M:Orientation}
+    \textit{Orientation matrix} is defined as
+    \begin{align*}
+        Q^{\pm}_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)
+         & \coloneqq
+        \begin{bmatrix}
+            1             & 0_{1\times n}                                                   \\
+            0_{n\times 1} & X^{\pm}_{+1,n-1}\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) \\
+        \end{bmatrix}\text{,} \\
+        Q^{\pm}_0
+         & \coloneqq\pm I_1\text{,}
+    \end{align*}
+    where \(\phi_m\in\mathbb{R}^m\) for \(m = 1, 2, \dots, n-1\).
+\end{definition}
+\begin{corollary}[Orientation matrix at zero]\label{M:Orientation:Identity}
+    \[
+        Q^{+}_{n}
+        \left(0_{n-1}, 0_{n-2},\dots\right)
+        =
+        I_{n+1}
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Orientation:Identity}]
+    Prove by mathematical induction on \(n\),
+    Let
+    \begin{equation}\label{M:Orientation:Set:Identity:Proof:Induction}
+        Q^{+}_{n-1}\left(0_{n-2}, 0_{n-3},\dots\right)=I_n
+    \end{equation}
+    \begin{align*}
+        Q^{+}_n\left(0_{n-1}, 0_{n-2},\dots\right)
+         & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                                      \\
+            0_{n\times 1} & X^{\pm}_{+1,n-1}\left(0_{n-1},0_{n-2},\dots\right) \\
+        \end{bmatrix}                           \\
+         & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                                                                \\
+            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right)Q^{+}_{n-1}\left(0_{n-2}, 0_{n-3},\dots\right) \\
+        \end{bmatrix} \\
+         & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                      \\
+            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) I_n \\
+        \end{bmatrix}                                           \\
+         & =
+        \begin{bmatrix}
+            1             & 0_{1\times n}                  \\
+            0_{n\times 1} & P_{+1,n-1}\left(0_{n-1}\right) \\
+        \end{bmatrix}                                               \\
+         & =
+        \begin{bmatrix}
+            1             & 0_{1\times n} \\
+            0_{n\times 1} & I_{n}         \\
+        \end{bmatrix}                                                                \\
+         & =
+        I_{n+1}
+    \end{align*}
+    \[
+        Q^{+}_n
+        \left(0_{n-1}, 0_{n-2},\dots\right)
+        =
+        I_{n+1}
+        \qedhere
+    \]
+\end{proof}
+\begin{definition}\label{M:Point}
+    \textit{Point matrix} is defined as
+    \begin{align*}
+        X^{\pm}_{\lambda,n}\left(\theta,\phi_{n-1},\phi_{n-2},\dots,\phi_1\right) & \coloneqq
+        P_{\lambda,n}\left(\theta\right)
+        Q^{\pm}_n\left(\phi_{n-1},\phi_{n-2},\dots,\phi_1\right)\text{,}
+    \end{align*}
+    where \(\theta\in\mathbb{R}^n\) and \(\phi_m\in\mathbb{R}^m\) for \(m = 1, 2, \dots, n-1\).
+\end{definition}
+\begin{corollary}[Position matrix as subset of point matrix]\label{M:Point:Position}
+    \[
+        P\left(\lambda,n\right)\subset X\left(\lambda,n\right)
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Point:Position}]
+    \begin{align*}
+        \forall{P\in P\left(\lambda,n\right)}
+        \forall{Q\in Q\left(n\right)},
+         & P Q\in X\left(\lambda,n\right) \\
+        \implies
+         & P I\in X\left(\lambda,n\right) \\
+        \implies
+         & P\in X\left(\lambda,n\right)
+    \end{align*}
+    \[
+        P\left(\lambda,n\right)\subset X\left(\lambda,n\right)\qedhere
+    \]
+\end{proof}
+\begin{corollary}[Point matrix at zero]\label{M:Point:Identity}
+    \[
+        X^{+}_{\lambda,n}
+        \left(0_{n}, 0_{n-1},\dots\right)
+        =
+        I_{n+1}
+    \]
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Point:Identity}]
+    It can be implied from \cref{M:Position:Identity,M:Orientation:Identity}.
+\end{proof}
+\begin{corollary}[Closure of point matrix]\label{M:Point:Closure}
+    A product of point matrices is a point matrix.
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Point:Closure}]
+    To be proven.
+\end{proof}
+\begin{corollary}[Inverse of point matrix]\label{M:Point:Inverse}
+    A multiplicative inverse of point matrix is a point matrix.
+\end{corollary}
+\begin{proof}[Proof of \cref{M:Point:Inverse}]
+    To be proven.
+\end{proof}
+\begin{remark}\label{M:Group}
+    Since the set of point matrix together with matrix multiplication
+    have closure (\cref{M:Point:Closure}),
+    associativity (matrix multiplication),
+    identity (\cref{M:Point:Identity}),
+    and inverse (\cref{M:Point:Inverse}) property
+    i.e. is a group in the algebraic sense according to \cref{Group},
+    it is a valid candidate for the group \(\left(M,\otimes\right)\).
+\end{remark}
+\end{document}

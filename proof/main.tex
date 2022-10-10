@@ -1,0 +1,144 @@
+% !TeX root = main.tex
+% !TeX spellcheck = en_US
+% !TeX encoding = utf8
+% !TeX program = pdflatex
+% !TEX options = -file-line-error -interaction=nonstopmode --shell-escape %DOC%
+% !BIB program = biblatex
+% !BIB options = %DOCFILE%
+
+\documentclass[stu, babel, american, biblatex, a4paper, leqno]{apa7}
+\addbibresource{sections/bibliography.bib}
+\usepackage{csquotes}
+\DeclareLanguageMapping{american}{american-apa}
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{thmtools}
+\usepackage{tensor}
+\usepackage{braket}
+\usepackage{hyperref}
+\usepackage[capitalise, sort&compress, noabbrev, nameinlink]{cleveref}
+\usepackage[mode=buildnew]{standalone}
+\usepackage{pgfplots}
+\usepackage{subfiles}
+\usepackage[outputdir=dist]{minted}
+
+\allowdisplaybreaks
+\crefname{paragraph}{paragraph}{paragraphs}
+\Crefname{paragraph}{Paragraph}{Paragraphs}
+\crefname{subparagraph}{subparagraph}{subparagraphs}
+\Crefname{subparagraph}{Subparagraph}{Subparagraphs}
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{external}
+\tikzexternalize
+
+\title{The Development of Algebraic Model for Geometries on Manifold with Constant Intrinsic Curvature}
+\shorttitle{30MA19-02}
+\leftheader{Hanchai, Sakepisit}
+\authorsnames{Hanchai Nonprasart, Sakepisit Maysamat}
+\authorsaffiliations{Mahidol Wittayanusorn School}
+\course{SCI 30196, SCI 30197, SCI 30198: Science Project}
+\professor{Amornsri Amornvatcharapong, Teerapong Suksumran}
+\duedate{September 15, 2022}
+\abstract{%
+High school geometry consists of Euclidean geometry with no intrinsic curvature
+which can be represented using vectors and matrices as can be seen in linear algebra.
+In other geometries such as spherical geometry which can be applied to cartography, however,
+require a different model to achieve the same task.
+We are therefore interested in developing a united model
+which describes geometric transformations on constantly-curved manifold:
+spherical geometry, Euclidean geometry, and hyperbolic geometry.
+The model is defined as a class of group acting on Riemannian manifold with constant sectional curvature
+where the group action is an isometry, translation, rotation, and reflection, on the manifold.
+Additionally, the projection from points in the developed model to points in the existing model and,
+subsequently, software to visualize the transformation on the manifold have been developed.%
+}
+\keywords{Lie group, isometric embedding, sectional curvature, non-Euclidean geometry, spherical geomerty, hyperbolic geometry}
+\authornote{
+Hanchai Nonprasart, Mahidol Wittayanusorn School;
+Sakepisit Maysamat, Mahidol Wittayanusorn School;
+Amornvatcharapong, Mathematics and Computing Science Department, Mahidol Wittayanusorn School;
+Teerapong Suksumran, Department of Mathematics Chiang Mai University.
+
+We would like to acknowledge and express special thanks to Mahidol Wittayanusorn School for supporting this study.
+We would also like to thank Kevin from CodeParade for inspiring this study;
+Wikimedia, Wolfram Mathworld, Jeff Delaney from Fireship, Web Dev Simplified, and other bloggers and YouTubers for providing the summary and tutorials;
+and the GitHub community for sharing software such as math.js, LaTeX, and Three.js, used in the process.
+Finally, thank our colleagues for their support and commentaries throughout the study.
+}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclareMathOperator{\arctantwo}{arctan2}
+\DeclareMathOperator{\contr}{contr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\sign}{sgn}
+
+\newenvironment{subproof}[1]{%
+    \renewcommand{\qedsymbol}{}
+    \begin{proof}[To show that #1]\( \)\par\nobreak\ignorespaces
+        }{%
+    \end{proof}
+}
+\declaretheorem[
+    name=Definition,
+    style=definition,
+    refname={definition,definitions},
+    Refname={Definition,Definitions},
+]{definition}
+\declaretheorem[
+    name=Example,
+    parent=definition,
+    style=definition,
+    refname={example,examples},
+    Refname={Example,Examples},
+]{example}
+\declaretheorem[
+    name=Preposition,
+    style=plain,
+    refname={proposition,propositions},
+    Refname={Proposition,Propositions},
+]{proposition}
+\declaretheorem[
+    name=Theorem,
+    style=plain,
+    refname={theorem,theorems},
+    Refname={Theorem,Theorems},
+]{theorem}
+\declaretheorem[
+    name=Lemma,
+    style=plain,
+    refname={lemma,lemmas},
+    Refname={Lemma,Lemmas},
+]{lemma}
+\declaretheorem[
+    name=Corollary,
+    style=plain,
+    refname={corollary,corollaries},
+    Refname={Corollary,Corollaries},
+]{corollary}
+\declaretheorem[
+    name=Conjecture,
+    style=plain,
+    refname={conjecture,conjectures},
+    Refname={Conjecture,Conjectures},
+]{conjecture}
+\declaretheorem[
+    name=Remark,
+    style=remark,
+    refname={remark,remarks},
+    Refname={Remark,Remarks},
+]{remark}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\subfile{sections/introduction.tex}
+\subfile{sections/literature.tex}
+\subfile{sections/methodology.tex}
+\subfile{sections/results.tex}
+\section*{}
+\printbibliography
+\subfile{figures/index.tex}
+\appendix
+\subfile{appendices/sourcecode.tex}
+\end{document}

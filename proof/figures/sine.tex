@@ -1,0 +1,44 @@
+% !TeX root = ../main.tex
+\documentclass[tikz]{standalone}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\begin{document}
+\begin{tikzpicture}[
+        declare function={
+                sine(\x,\y)= (\x>=0) * sin(\x*deg(\y)) + (\x<0) * sinh(\x*\y);
+            },
+    ]
+    \begin{axis}[
+            colormap/hot,
+            xlabel = \(k\),
+            ylabel = \(x\),
+            zlabel = \(\sin_k\left(x\right)\),
+            domain=-2:2,
+            domain y = -pi:+pi,
+            ytick = {-pi,-pi/2,0,+pi/2,+pi},
+            zmin = -3,
+            zmax = +3,
+            point meta min = -3,
+            point meta max = +3,
+            view = {150}{60},
+            samples = 50,
+        ]
+        \addplot3 [
+            surf,
+            shader = faceted interp,
+        ] {sine(\x,\y)};
+        \addplot3 [
+            black,
+            smooth,
+        ](0, \y, 0);
+        \addplot3 [
+            black,
+            smooth,
+        ](1, \y, {sin(deg(\y))});
+        \addplot3 [
+            black,
+            smooth,
+        ](-1, \y, {sinh(-\y)});
+    \end{axis}
+\end{tikzpicture}
+\end{document}

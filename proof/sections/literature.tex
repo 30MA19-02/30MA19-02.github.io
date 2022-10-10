@@ -1,0 +1,173 @@
+% !TeX root = ../main.tex
+\documentclass[../main.tex]{subfiles}
+\begin{document}
+\section{Literature Review}
+\begin{definition}[Group {\autocite{mathworld}}]\label{Group}
+    A group \(G\) is a finite or infinite set of elements
+    together with a binary operation (called the group operation)
+    that together satisfy the four fundamental properties of
+    closure, associativity, the identity property, and the inverse property.
+    The operation with respect to which a group is defined is often called the "group operation,"
+    and a set is said to be a group "under" this operation.
+    Elements \(A,B,C,\dots\)
+    with binary operation between \(A\) and \(B\) denoted \(AB\) form a group if
+    \begin{APAenumerate}
+        \item Closure: If \(A\) and \(B\) are two elements in \(G\), then the product \(AB\) is also in \(G\).
+        \item Associativity: The defined multiplication is associative, i.e., for all \(A,B,C \in G\), \(\left(AB\right)C=A\left(BC\right)\).
+        \item Identity: There is an identity element \(I\) (a.k.a. \(1\), \(E\), or \(e\)) such that \(IA=AI=A\) for every element \(A \in G\).
+        \item Inverse: There must be an inverse (a.k.a. reciprocal) of each element.
+        Therefore, for each element \(A\) of \(G\), the set contains an element \(B=A^{-1}\) such that \(AA^{-1}=A^{-1}A=I\).
+    \end{APAenumerate}
+\end{definition}
+\begin{definition}[Lie group {\autocite[][Chapter~7]{lee_2013}}]\label{LieGroup}
+    A \textit{Lie group} is a smooth manifold \(G\) (without boundary)
+    that is also a group in the algebric sense,
+    with the property that
+    the multiplication map \(m\colon G\times G\to G\)
+    and inversion map \(i\colon G\to G\),
+    given by
+    \begin{equation*}
+        m\left(g,h\right) = gh\text{,}
+        i\left(g\right) = g^{-1}\text{.}
+    \end{equation*}
+    are both smooth.
+\end{definition}
+\begin{definition}[Group action {\autocite[][Chapter~7]{lee_2013}}]\label{GroupAction}
+    If \(G\) is a group and \(M\) is a set,
+    a \textit{left action of \(G\) on \(M\)}
+    is a map \(G \times M \to M\),
+    often written as \(\left(g,p\right)\mapsto g \cdot p\),
+    that satisfies
+    \begin{APAitemize}
+        \item \(g_1 \cdot \left(g_2 \cdot p\right)=\left(g_1 g_2\right) \cdot p\) for all \(g_1,g_2 \in G\) and \(p \in M\);
+        \item \(e \cdot p = p\) for all \(p \in M\).
+    \end{APAitemize}
+    A \textit{right action} is defined analogously
+    as a map \(M \times G \to M\)
+    with the appropriate composition law:
+    \begin{APAitemize}
+        \item \(\left(p \cdot g_1\right) \cdot g_2 = p \cdot \left(g_1 g_2\right)\) for all \(g_1,g_2 \in G\) and \(p \in M\);
+        \item \(p \cdot e = p\) for all \(p \in M\).
+    \end{APAitemize}
+\end{definition}
+\begin{definition}[Abstract differentiable manifold {\autocite[][Chapter~5A]{kuhnelwolfgang_2006}}]\label{Manifold}
+    A \textit{\(k\)-dimensional differentiable manifold} (briefly: a \(k\)-manifold)
+    is a set \(M\) together with a family \(\left(M_i\right)_{i\in I}\) of subsets such that
+    \begin{APAenumerate}
+        \item \(M=\bigcup_{i\in I} M_i\) (union),
+        \item for every \(i\in I\) there is an injective map \(\varphi_i\colon M_i\to\mathbb{R}^k\) so that \(\phi_i\left(M_i\right)\) is open in \(\mathbb{R}^k\), and
+        \item for \(M_i\cap M_j\ne\emptyset\), \(\varphi_i\left(M_i\cap M_j\right)\) is open in \(\mathbb{R}^k\).
+    \end{APAenumerate}
+\end{definition}
+\begin{definition}[Structures on a manifold {\autocite[][Chapter~5A]{kuhnelwolfgang_2006}}]\label{SmoothManifold}
+    Given a \(k\)-dimensional differentiable manifold,
+    one gets additional structure
+    by replacing aditional requirements on the transformation functions \(\varphi_j\circ\varphi_i^{-1}\),
+    which belong to the atlas of the manifold;
+    if all \(\varphi_j\circ\varphi_i^{-1}\) are (left-hand side),
+    then one speaks of (right-hand side) as follows:
+    \begin{center}
+        \begin{tabular}{ r c l }
+            continuous                  & \(\iff\) & topological manifold                                   \\
+            differentiable              & \(\iff\) & differentiable manifold                                \\
+            \(C^1\)-differentiable      & \(\iff\) & \(C^1\)-manifold                                       \\
+            \(C^r\)-differentiable      & \(\iff\) & \(C^r\)-manifold                                       \\
+            \(C^\infty\)-differentiable & \(\iff\) & \(C^\infty\)-manifold                                  \\
+            real analytic               & \(\iff\) & real analytic manifold                                 \\
+            complex analytic            & \(\iff\) & complex analytic manifold of dimension \(\frac{k}{2}\) \\
+            affine                      & \(\iff\) & affine manifold                                        \\
+            projective                  & \(\iff\) & projective manifold                                    \\
+            conformal                   & \(\iff\) & manifold with a conformal structure                    \\
+            orienatation-preserving     & \(\iff\) & orientable manifold                                    \\
+        \end{tabular}
+    \end{center}
+\end{definition}
+\begin{definition}[Riemannian metric {\autocite[][Chapter~5C]{kuhnelwolfgang_2006}}]\label{RiemannianMetric}
+    A \textit{Riemannian metric} \(g\) on \(M\)
+    is an association \(p\mapsto g_p\in L^2\left(T_pM;\mathbb{R}\right)\)
+    such that the following conditins are satisfied:
+    \begin{APAenumerate}
+        \item \(g_p\left(X,Y\right)=g_p\left(Y,X\right)\) for all \(X\), \(Y\), \hfill (\textit{symmetry})
+        \item \(g_p\left(X,X\right)>0\) for all \(X\ne0\), \hfill (\textit{positive definiteness})
+        \item The coefficient \(\tensor{g}{_i_j}\) in every local representation (i.e., in every chart) \[g_p=\sum_{i,j}\tensor{g}{_i_j}\left(p\right)\cdot \left.d\tensor{x}{^i}\right|_p \otimes\left.d\tensor{x}{^j}\right|_p\] are differentiable functions. \hfill (\textit{differentiability})
+    \end{APAenumerate}
+\end{definition}
+\begin{remark}\label{RiemannianMannifold}
+    The pair \(\left(M,g\right)\) is then called \textit{Riemannian manifold}.
+    One also refers to the Riemannian metric as the \textit{metric tensor}.
+    In local coordinates the metric tensor is given by the matrix (\(\tensor{g}{_i_j}\)) of functions.
+    In Ricci calculus this is simply written as \(\tensor{g}{_i_j}\)
+\end{remark}
+\begin{remark}\label{Norm_and_Angle_as_RiemannianMetric}
+    A Riemannian metric \(g\) defines at every point \(p\)
+    an \textit{inner product} \(g_p\) on the tangent space \(T_pM\),
+    and therefore the notation \(\left\langle X,Y\right\rangle\) instead of \(g_p\left(X,Y\right)\) is also used.
+    The notions of angles and lengths are determined by this inner product,
+    just as these notions are determined by the first fundamental form on surface elements.
+    The length or norm of vector \(X\) is given by \(\norm{ X}\coloneqq\sqrt{g\left(X,X\right)}\),
+    and the angle \(\beta\) between two tangent vectors \(X\) and \(Y\)
+    can be defined by the validity of the equation \(\cos\beta\cdot\norm{X}\cdot\norm{Y}=g\left(X,Y\right)\).
+\end{remark}
+\begin{definition}[Christoffel symbols of the Second Kind {\autocite{mathworld}}]\label{ChristoffelSymbol}
+    \begin{align*}
+        \tensor{\Gamma}{^m_i_j}
+         & \coloneqq \tensor{\epsilon}{^m}
+        \cdot\frac{\partial \tensor{\epsilon}{_i}}{\partial \tensor{q}{^j}} \\
+         & = \tensor{g}{^k^m}\tensor{\Gamma}{_k_i_j}                        \\
+         & = \frac{1}{2}\tensor{g}{^k^m}\left(
+        \frac{\partial \tensor{g}{_i_k}}{\partial \tensor{q}{^j}}
+        + \frac{\partial \tensor{g}{_j_k}}{\partial \tensor{q}{^i}}
+        - \frac{\partial \tensor{g}{_i_j}}{\partial \tensor{q}{^k}}
+        \right)
+    \end{align*}
+    where \(\frac{\partial}{\partial x}\) is a partial derivative,
+    \(\tensor{g}{^k^m}\) is the metric tensor,
+    \begin{equation*}
+        \tensor{\epsilon}{_i} = \frac{\partial \mathbf{r}}{\partial \tensor{q}{^i}}
+    \end{equation*}
+    where \(\mathbf{r}\) is the radius vector, and
+    \begin{equation*}
+        \tensor{\epsilon}{^i} = \tensor{g}{^i^j}\tensor{\epsilon}{_j} \text{.}
+    \end{equation*}
+\end{definition}
+\begin{definition}[Curvature tensor {\autocite[][Chapter~4C]{kuhnelwolfgang_2006}}]\label{CurvatureTensor}
+    \[
+        R\left(X,Y\right)Z
+        \coloneqq
+        \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{\left[X,Y\right]}Z
+    \]
+    is a tensor field, which is called the \textit{curvature tensor} of the surface.
+\end{definition}
+\begin{remark}\label{CurvatureTensor_as_ChristoffelSymbol}
+    The left-hand side of the Gauss equation is called the \textit{curvature tensor}
+    and is in general expressed in the form
+    \[
+        \tensor{R}{^s_i_k_j}
+        \coloneqq
+        \frac{\partial}{\partial\tensor{u}{^k}}\tensor{\Gamma}{^s_i_j}
+        - \frac{\partial}{\partial\tensor{u}{^j}}\tensor{\Gamma}{^s_i_k}
+        + \sum_{r}\left(\tensor{\Gamma}{^r_i_j}\tensor{\Gamma}{^s_r_k}-\tensor{\Gamma}{^r_i_k}\tensor{\Gamma}{^s_r_j}\right) \text{.}
+    \]
+\end{remark}
+\begin{definition}[Sectional Curvature {\autocite[][Chapter~6B]{kuhnelwolfgang_2006}}]\label{SectionalCurvature}
+    With respect to a given Riemannian metric \(\left\langle\cdot,\cdot\right\rangle\),
+    the \textit{standard curvature tensor} \(\tensor{{R_1}}{}\) is defined by the relation
+    \(R_1\left(X,Y\right)Z\coloneqq\left\langle Y,Z\right\rangle X-\left\langle X,Z\right\rangle Y\).
+    We then set
+    \begin{align*}
+        \kappa_1\left(X,Y\right)
+        \coloneqq\left\langle R_1\left(X,Y\right)Y,X\right\rangle
+        =\left\langle X,X\right\rangle\cdot\left\langle Y,Y\right\rangle-\left\langle X,Y\right\rangle^2\text{,} \\
+        \kappa\left(X,Y\right)
+        \coloneqq\left\langle R\left(X,Y\right)Y,X\right\rangle\text{.}
+    \end{align*}
+    Let \(\sigma\subset T_pM\) be a two-dimensional subspace, spanned by \(X\), \(Y\).
+    Then the quantity
+    \[
+        K_\sigma
+        \coloneqq
+        \frac{\kappa\left(X,Y\right)}{\kappa_1\left(X,Y\right)}
+    \]
+    is called the \textit{sectional curvature} of the Riemannian manifold with respect to the plane \(\sigma\).
+\end{definition}
+\end{document}
