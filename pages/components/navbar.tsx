@@ -12,7 +12,7 @@ const navLinks = [
   },
   {
     name: 'Proof',
-    path: '/AMGM-CIC',
+    path: '/proof',
   },
   {
     name: 'Documentation',
@@ -25,12 +25,23 @@ const Scene: FC = (prop) => {
     <>
       <nav
         style={{
-          display: 'flex'
+          display: 'flex',
+          overflow: 'hidden',
         }}
       >
         {navLinks.map((link, index) => {
           return (
-            <Link href={link.path} key={index} passHref>
+            <Link
+              href={link.path}
+              key={index}
+              style={{
+                float: 'left',
+                textAlign: 'center',
+                padding: '14px 16px',
+                textDecoration: 'none',
+              }}
+              passHref
+            >
               <a>{link.name}</a>
             </Link>
           );

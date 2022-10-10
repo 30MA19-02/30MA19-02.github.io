@@ -80,6 +80,13 @@ jobs:
         run: |
           npm run doc:ci --workspace=noneuclid
           mv ./noneuclid/build/docs ./out/noneuclid
+      - name: Compile LaTeX document
+        uses: xu-cheng/texlive-action/full@v1
+        with:
+          run: |
+            cd proof
+            latexmk -synctex=1 -interaction=nonstopmode -file-line-error -pdf -outdir=dist --shell-escape main.tex
+            mv ./dist ./out/proof
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
