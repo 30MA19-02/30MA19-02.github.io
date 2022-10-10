@@ -1,0 +1,203 @@
+% !TeX root = ..\..\main.tex
+\documentclass[../methodology.tex]{subfiles}
+\begin{document}
+\subsection{Model Parametrization}
+\begin{definition}\label{M:Parameter}
+    For any point matrix \(\tensor{X^\pm_{\lambda,n}\left(\theta,\phi_1,\phi_2,\dots,\phi_n\right)}{}\),
+    \(n\)-dimensional vector \(\tensor{\theta}{}\)
+    is defined as \textit{position parameter}.
+\end{definition}
+\begin{definition}\label{M:Vector}
+    For point matrix \(\tensor{X}{}\),
+    \(\left(n+1\right)\)-dimensional column vector \(\tensor{p}{}\coloneqq\frac{1}{\lambda}\tensor{X}{}\cdot\tensor{e}{^1}=\frac{1}{\lambda}\tensor{X}{_1}\)
+    is defined as \textit{position vector}.
+\end{definition}
+\begin{lemma}\label{M:Vector:Position}
+    For point matrix \(X=PO\)
+    where \(P\) and \(O\) are position and orientation matrix respectively,
+    \(\tensor{p}{}=\frac{1}{\lambda}\tensor{X}{_1}=\frac{1}{\lambda}\tensor{P}{_1}\).
+\end{lemma}
+\begin{proof}[Proof of \cref{M:Vector:Position}]
+    \begin{align*}
+        \tensor{p}{^i}
+         & =\frac{1}{\lambda}\tensor{X}{^i_1}                                       \\
+         & =\frac{1}{\lambda}\sum_j{\tensor{P}{^i_j}\tensor{O}{^j_1}}               \\
+         & =\frac{1}{\lambda}\tensor{P}{^i_1}                                       \\
+        \tensor{p}{}
+         & =\frac{1}{\lambda}\tensor{P}{_1}                           &  & \qedhere
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{M:Vector:Value}
+    Given position parameter \(\tensor{\theta}{}\), position vector can be evaluated as the following.
+    \[
+        \psi_0^{-1}\colon\tensor{\theta}{}\mapsto\tensor{p}{}
+        =\frac{1}{\lambda}
+        \begin{pmatrix}
+            \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{\theta}{^j}}}                                      \\
+            \sin_\lambda{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{\theta}{^j}}} \\
+            \sin_\lambda{{\tensor{\theta}{^n}}}                                                            \\
+        \end{pmatrix}\text{.}
+    \]
+\end{lemma}
+\begin{proof}[Proof of \cref{M:Vector:Value}]
+    Simplify \cref{M:Vector:Position,M:Position}.
+\end{proof}
+\begin{lemma}\label{M:Parameter:Value}
+    Given position vector \(\tensor{p}{}\), position parameter can be calculated as followed.
+    \begin{align*}
+        \psi_0
+         & \colon\tensor{p}{}\mapsto\tensor{\theta}{}
+        =
+        \begin{pmatrix}
+            \arctantwo_\lambda{\left(\tensor{p}{^2},\tensor{p}{^1}\right)}                                                           \\
+            \arcsin_\lambda{\frac{\frac{1}{\lambda}\tensor{p}{^{i+1}}}{\prod_{j\in\Set{i+1..n}}{\cos_\lambda{\tensor{\theta}{^j}}}}} \\
+            \arcsin_\lambda{\frac{1}{\lambda}\tensor{p}{^{n+1}}}                                                                     \\
+        \end{pmatrix} \\
+         & \in
+        \begin{cases}
+            P\to\left(-\frac{\pi}{\lambda},\frac{\pi}{\lambda}\right]\times\left[-\frac{1}{2}\frac{\pi}{\lambda},\frac{1}{2}\frac{\pi}{\lambda}\right]^{n-1} & \text{if \(\lambda>0\),} \\
+            P\to\mathbb{R}^{n}                                                                                                                               & \text{otherwise.}        \\
+        \end{cases}
+    \end{align*}
+\end{lemma}
+\begin{proof}[Proof of \cref{M:Parameter:Value}]
+    From \cref{M:Vector:Value},
+    \begin{align*}
+        \tensor{p}{}
+                                              & =
+        \frac{1}{\lambda}
+        \begin{pmatrix}
+            \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{\theta}{^j}}}                                      \\
+            \sin_\lambda{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{\theta}{^j}}} \\
+            \sin_\lambda{{\tensor{\theta}{^n}}}                                                            \\
+        \end{pmatrix}                                           \\
+        \tensor{p}{^{n+1}}                    & = \frac{1}{\lambda}\sin_\lambda{\tensor{\theta}{^n}}                                                              \\
+        \sin{\tensor{\theta}{^{n}}}           & = \lambda\tensor{p}{^{n+1}}                                                                                       \\
+        \tensor{p}{^{i}}                      & = \frac{1}{\lambda}\sin_\lambda{\tensor{\theta}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{\theta}{^j}}} \\
+        \sin_\lambda{\tensor{\theta}{^{i-1}}} & = \frac{\lambda\tensor{p}{^{i}}}{\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{\theta}{^j}}}}                       \\
+        \sin_\lambda{\tensor{\theta}{^{1}}}   & = \frac{\lambda\tensor{p}{^2}}{\prod_{j\in\Set{2..n}}{\cos_\lambda{\tensor{\theta}{^j}}}}                         \\
+        \tensor{p}{^1}                        & = \frac{1}{\lambda}\prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{\theta}{^j}}}                                      \\
+        \cos_\lambda{\tensor{\theta}{^{1}}}   & = \frac{\lambda\tensor{p}{^1}}{\prod_{j\in\Set{2..n}}{\cos_\lambda{\tensor{\theta}{^j}}}}                         \\
+        \theta                                & =
+        \begin{pmatrix}
+            \arctantwo_\lambda{\left(\tensor{p}{^2},\tensor{p}{^1}\right)}                                                 \\
+            \arcsin_\lambda{\frac{\lambda\tensor{p}{^{i+1}}}{\prod_{j\in\Set{i+1..n}}{\cos_\lambda{\tensor{\theta}{^j}}}}} \\
+            \arcsin_\lambda{\lambda\tensor{p}{^{n+1}}}                                                                     \\
+        \end{pmatrix}
+    \end{align*}
+\end{proof}
+\begin{lemma}\label{M:CoordinateChart}
+    \[
+        \Psi=\Set{\psi|
+            \psi^{-1}
+            \colon
+            \tensor{\theta}{}\in \Theta^n
+            \mapsto P_{\lambda,n}\left(\tensor{\theta}{}+\tensor{x}{}\right)
+            \text{ for }
+            \tensor{x}{}\in\mathbb{R}^n
+        }
+    \]
+    is a coordinate chart of a \(C^\infty\) differential structure on the set of position matrix for
+    \[
+        \Theta =
+        \begin{cases}
+            \left(-\frac{1}{2}\frac{\pi}{\lambda},+\frac{1}{2}\frac{\pi}{\lambda}\right) & \text{if \(\lambda>0\),} \\
+            \mathbb{R}                                                                   & \text{otherwise.}
+        \end{cases}
+    \]
+\end{lemma}
+\begin{proof}[Proof of \cref{M:CoordinateChart}]
+    \begin{subproof}{\(\bigcup_{\psi\in\Psi} D_\psi\) covers the set of position matrix}
+        Since there's a function from \(\tensor{\theta}{}\) to \(\tensor{P}{}\)
+        and from \(\tensor{P}{}\) (to \(\tensor{p}{}\)) to \(\tensor{\theta}{}\),
+        the mapping between \(\tensor{P}{}\) and \(\tensor{\theta}{}\) is bijective.
+        \begin{align*}
+            M\in \Set{P}
+                    & \implies\exists\theta_0, M=P_{\lambda,n}\left(\theta_0\right)                   \\
+                    & \implies\exists\theta_0, M=P_{\lambda,n}\left(0 +\theta_0\right)                \\
+                    & \implies M\in R_{\psi^{-1}}                                                     \\
+                    & \implies M\in D_{\psi}                                                          \\
+                    & \implies M\in\bigcup_{\psi\in\Psi} D_\psi                                       \\
+            \Set{P} & \subset\bigcup_{\psi\in\Psi}D_\psi                                              \\
+            M\in\bigcup_{\psi\in\Psi} D_\psi
+                    & \implies\exists\psi\in\Psi, M\in D_\psi                                         \\
+                    & \implies\exists\psi\in\Psi, M\in R_{\psi^{-1}}                                  \\
+                    & \implies\exists x_0\exists\theta\in S^n, M=P_{\lambda,n}\left(\theta+x_0\right) \\
+                    & \implies\exists x_0, M=P_{\lambda,n}\left(0+x_0\right)                          \\
+                    & \implies\exists x_0, M=P_{\lambda,n}\left(x_0\right)                            \\
+                    & \implies M\in P                                                                 \\
+            \Set{P} & \supset \bigcup_{\psi\in\Psi}D_\psi                                             \\
+            \left[
+                \Set{P} \subset \bigcup_{\psi\in\Psi}D_\psi
+                \right]
+            \wedge
+            \left[
+                \bigcup_{\psi\in\Psi}\Set{P} \supset \bigcup_{\psi\in\Psi}D_\psi
+                \right]
+                    & \implies \bigcup_{\psi\in\Psi}D_\psi = P
+        \end{align*}
+    \end{subproof}
+    \begin{subproof}{every transition map is in differentability class \(C^\infty\)}
+        Consider \(\psi_1,\psi_2\in\Psi\) and \(x_1, x_2\in\mathbb{R}^n\) where
+        \begin{equation*}
+            \psi_i^{-1}
+            \in S^n\to R
+            \colon\tensor{\theta}{}\mapsto P\left(\tensor{\theta}{}+x_i\right)
+            \text{.}
+        \end{equation*}
+
+        Let \(\phi_i =\theta_i+x_i\).
+
+        If \(\psi_1^{-1}\left(\theta_1\right)=\psi_2^{-1}\left(\theta_2\right)\),
+        \begin{align*}
+            \psi_1^{-1}\left(\theta_1\right)
+             & =\psi_2^{-1}\left(\theta_2\right)                                                                               \\
+            \psi_0^{-1}\left(\theta_1+x_1\right)
+             & =\psi_0^{-1}\left(\theta_2+x_2\right)                                                                           \\
+            \psi_0^{-1}\left(\phi_1\right)
+             & =\psi_0^{-1}\left(\phi_2\right)                                                                                 \\
+            \frac{1}{\lambda}
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{{\phi_1}}{^j}}}                                        \\
+                \sin_\lambda{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{{\phi_1}}{^j}}} \\
+                \sin_\lambda{{\tensor{{\phi_1}}{^n}}}                                                              \\
+            \end{pmatrix}
+             & =
+            \frac{1}{\lambda}
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{{\phi_2}}{^j}}}                                        \\
+                \sin_\lambda{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{{\phi_2}}{^j}}} \\
+                \sin_\lambda{{\tensor{{\phi_2}}{^n}}}                                                              \\
+            \end{pmatrix} \\
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{{\phi_1}}{^j}}}                                        \\
+                \sin_\lambda{\tensor{{\phi_1}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{{\phi_1}}{^j}}} \\
+                \sin_\lambda{{\tensor{{\phi_1}}{^n}}}                                                              \\
+            \end{pmatrix}
+             & =
+            \begin{pmatrix}
+                \prod_{j\in\Set{1..n}}{\cos_\lambda{\tensor{{\phi_2}}{^j}}}                                        \\
+                \sin_\lambda{\tensor{{\phi_2}}{^{i-1}}}\prod_{j\in\Set{i..n}}{\cos_\lambda{\tensor{{\phi_2}}{^j}}} \\
+                \sin_\lambda{{\tensor{{\phi_2}}{^n}}}                                                              \\
+            \end{pmatrix}
+        \end{align*}
+        If \(\lambda\ge 0\), by mathematical induction, \(\phi_1=m\frac{\pi}{\lambda}\pm\phi_2\).
+        If \(\lambda\le 0\), by mathematical induction, \(\phi_1 =\phi_2\).
+        Hence, the transition map \(\tau_{1,2} =\psi_2\circ\psi_1^{-1}\)
+        is in the form of linear function \(\theta\mapsto c\pm\theta\)
+        and is in differentability class \(C^\infty\).
+    \end{subproof}
+    Since the collection of mapping \(\Psi\) have the following properties
+    \begin{APAenumerate}
+        \item \(R_\psi\) is an open subset of real vector space (defined),
+        \item \(\bigcup_{\psi\in\Psi} D_\psi\) covers the set of position matrix,
+        \item transition map is in differentability class \(C^\infty\),
+    \end{APAenumerate}
+    the statement is proved by \cref{Manifold}.
+\end{proof}
+\begin{remark}\label{M:Manifold}
+    Since the set of position matrices is a \(C^\infty\)-differentiable differential structure
+    which can be acted on via the group action of the set of point matrices (matrix multiplication),
+    it is a valid candidate for the manifold \(P\).
+\end{remark}
+\end{document}
