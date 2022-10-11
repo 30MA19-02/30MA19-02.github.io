@@ -42,7 +42,7 @@
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/jest": "^29.1.2",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
-    "@typescript-eslint/parser": "^5.39.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "codecov": "^3.5.0",
     "cspell": "^6.12.0",
     "cz-conventional-changelog": "^3.3.0",
