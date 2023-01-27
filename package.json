@@ -6,12 +6,12 @@
   "author": "30MA19-02",
   "license": "MITNFA",
   "bugs": {
-    "url": "https://github.com/HanchaiN/30MA19-02/issues"
+    "url": "https://github.com/30MA19-02/30MA19-02.github.io/issues"
   },
-  "homepage": "https://hanchain.github.io/30MA19-02",
+  "homepage": "https://30MA19-02.github.io/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HanchaiN/30MA19-02.git"
+    "url": "git+https://github.com/30MA19-02/30MA19-02.github.io.git"
   },
   "workspaces": [
     "noneuclid",
